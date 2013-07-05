@@ -1,0 +1,6 @@
+# XCode user settings
+proj.ios/math.xcodeproj/project.xcworkspace/
+proj.ios/math.xcodeproj/xcuserdata/
+
+# OSX garbage
+.DS_Store
