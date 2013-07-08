@@ -1,19 +1,36 @@
-#include "GameScene.h"
+#include "PageManager.h"
 
 using namespace cocos2d;
 
-CCScene* GameScene::scene()
+PageManager::~PageManager()
 {
-    CCScene* scene = CCScene::create();
-    scene->addChild(GameScene::create());
-    return scene;
+    // FIX#1
+    for (auto& pair : pages) {
+        pair.second->release();
+    }
 }
 
-bool GameScene::init()
+bool PageManager::init()
 {
-    if (!CCLayer::init()) {
+    if (!Layer::init()) {
         return false;
     }
 
     return true;
+}
+
+void PageManager::add(const std::string& name, std::unique_ptr<Page> page)
+{
+    if (pages.empty()) {
+        addChild(page.get());
+    }
+
+    // FIX#1
+    page->retain();
+
+    pages.push_back(std::make_pair(name, std::move(page)));
+}
+
+void PageManager::scrollto(const std::string& name)
+{
 }

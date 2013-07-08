@@ -16,15 +16,10 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    pDirector->setDisplayStats(true);
-    pDirector->setAnimationInterval(1.0 / 60);
-
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
-    pDirector->setOpenGLView(pEGLView);
-
-    CCScene *pScene = GameScene::scene();
-    pDirector->runWithScene(pScene);
+    Director* pDirector =Director::sharedDirector();
+    pDirector->setDisplayStats(false);
+    pDirector->setOpenGLView(EGLView::sharedOpenGLView());
+    pDirector->runWithScene(GameScene::scene());
 
     return true;
 }
@@ -34,14 +29,14 @@ void AppDelegate::applicationDidEnterBackground()
     SimpleAudioEngine::sharedEngine()->pauseAllEffects();
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     
-    CCDirector::sharedDirector()->stopAnimation();
-    CCDirector::sharedDirector()->pause();
+    Director::sharedDirector()->stopAnimation();
+    Director::sharedDirector()->pause();
 }
 
 void AppDelegate::applicationWillEnterForeground()
 {
-    CCDirector::sharedDirector()->resume();
-    CCDirector::sharedDirector()->startAnimation();
+    Director::sharedDirector()->resume();
+    Director::sharedDirector()->startAnimation();
     
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
