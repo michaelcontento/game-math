@@ -4,51 +4,117 @@
 
 using namespace cocos2d;
 
-void PageManager::add(const std::string& name, std::unique_ptr<Page> page)
+#pragma -
+#pragma mark Page / scroll handling
+
+void PageManager::add(const std::string& name, Page* const page)
 {
     page->manager = this;
-    page->setPositionX(pages.size() * config::getFrameSize().width);
-    addChild(page.get());
+    page->setPositionX(pages.size() * page->getContentSize().width);
+    addChild(page);
 
+    pages.push_back(std::make_pair(name, page));
     // FIX#1
     page->retain();
-
-    pages.push_back(std::make_pair(name, std::move(page)));
 }
 
-void PageManager::scrollto(const std::string& name) const
+void PageManager::scrollto(const std::string& name)
 {
     scrollto(name, config::getSnapAnimationDuration());
 }
 
-void PageManager::scrollto(const std::string& name, const float duration) const
+void PageManager::scrollto(const std::string& name, const float duration)
 {
-    auto scrollAmount = getPage(name)->getPositionX() * -1;
+    auto newZeroAlignedIndex = getPageIndex(name);
+    auto index = 0;
 
     for (const auto& pair : pages) {
-        auto page = pair.second.get();
-        page->stopActionByTag(TAG_ACTION_MOVE_BY);
+        auto page = pair.second;
+        auto posX = (index - newZeroAlignedIndex) * page->getContentSize().width;
 
-        if (duration > 0) {
-            auto moveAction = EaseInOut::create(MoveBy::create(duration, {scrollAmount, 0}), 2);
-            moveAction->setTag(TAG_ACTION_MOVE_BY);
-            page->runAction(moveAction);
-        } else {
-            page->setPositionX(page->getPositionX() + scrollAmount);
-        }
+        scrollNodeTo(*page, {posX, 0}, duration);
+        ++index;
     }
 }
 
-void PageManager::show(const std::string& name) const
+void PageManager::scrolldown(Page* const page)
 {
-    scrollto(name, 0);
+    if (pageScrollDown) {
+        removeChild(pageScrollDown);
+        pageScrollDown = nullptr;
+    }
+
+    pageScrollDown = page;
+    pageScrollDown->manager = this;
+    addChild(pageScrollDown);
+
+    // scroll all "menu pages"
+    for (const auto& pair : pages) {
+        auto page = pair.second;
+        scrollNodeTo(
+            *page,
+            {page->getPositionX(), config::getFrameSize().height},
+            config::getSnapAnimationDuration()
+        );
+    }
+
+    // scroll the page down below
+    pageScrollDown->setPositionY(config::getFrameSize().height * -1);
+    scrollNodeTo(*pageScrollDown, {0, 0}, config::getSnapAnimationDuration());
 }
 
-Page* PageManager::getPage(const std::string& name) const
+void PageManager::scrollup()
+{
+    if (!pageScrollDown) {
+        return;
+    }
+
+    // scroll all "menu pages"
+    for (const auto& pair : pages) {
+        auto page = pair.second;
+
+        scrollNodeTo(
+            *page,
+            {page->getPositionX(), 0},
+            config::getSnapAnimationDuration()
+        );
+    }
+
+    // scroll the page down below
+    scrollNodeTo(
+        *pageScrollDown,
+        {0, config::getFrameSize().height * -1},
+        config::getSnapAnimationDuration(),
+        [this]() { removeChild(pageScrollDown); pageScrollDown = nullptr; }
+    );
+}
+
+void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback)
+{
+    node.stopActionByTag(TAG_ACTION_MOVE_BY);
+
+    if (duration > 0) {
+        auto moveAction = Sequence::createWithTwoActions(
+            EaseOut::create(MoveTo::create(duration, newPosition), 2),
+            CallFunc::create(callback)
+        );
+        moveAction->setTag(TAG_ACTION_MOVE_BY);
+
+        node.runAction(moveAction);
+    } else {
+        node.setPosition(newPosition);
+        callback();
+    }
+}
+
+#pragma -
+#pragma mark Page helper
+
+Page& PageManager::getPage(const std::string& name) const
 {
     for (const auto& pair : pages) {
         if (pair.first == name) {
-            return pair.second.get();
+            return *pair.second;
         }
     }
 
@@ -75,7 +141,6 @@ PageManager::~PageManager()
 {
     // FIX#1
     for (auto& pair : pages) {
-        removeChild(pair.second.get());
         pair.second->release();
     }
 }
@@ -154,7 +219,7 @@ bool PageManager::hasTouchHandled(cocos2d::Touch* pTouch, cocos2d::Event* pEvent
 void PageManager::handlePageScroll(const cocos2d::Point& delta)
 {
     for (auto& pair : pages) {
-        auto page = pair.second.get();
+        auto page = pair.second;
         page->setPositionX(page->getPositionX() + delta.x);
     }
 }
@@ -169,7 +234,7 @@ void PageManager::snapPages()
     int maxVisibleWidth = 0;
 
     for (const auto& pair : pages) {
-        auto page = pair.second.get();
+        auto page = pair.second;
 
         // fallback #1: use the first page that's right from pos 0
         if (activePage.empty()) {

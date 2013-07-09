@@ -23,6 +23,8 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
+		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
 		C8CB340717870AA4001294B7 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB33FD17870AA4001294B7 /* GameScene.cpp */; };
 		C8CB340817870AA4001294B7 /* PageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB33FF17870AA4001294B7 /* PageManager.cpp */; };
 		C8CB340917870AA4001294B7 /* MainPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB340217870AA4001294B7 /* MainPage.cpp */; };
@@ -191,6 +193,10 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
+		C8B48A75178C37FB00EC57FD /* CategoryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPage.h; sourceTree = "<group>"; };
+		C8B48A83178C3D7300EC57FD /* GamePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePage.cpp; sourceTree = "<group>"; };
+		C8B48A84178C3D7300EC57FD /* GamePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePage.h; sourceTree = "<group>"; };
 		C8CB33FD17870AA4001294B7 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = ../Classes/GameScene.cpp; sourceTree = "<group>"; };
 		C8CB33FE17870AA4001294B7 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = ../Classes/GameScene.h; sourceTree = "<group>"; };
 		C8CB33FF17870AA4001294B7 /* PageManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PageManager.cpp; path = ../Classes/PageManager.cpp; sourceTree = "<group>"; };
@@ -353,6 +359,10 @@
 		C8CB340117870AA4001294B7 /* pages */ = {
 			isa = PBXGroup;
 			children = (
+				C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */,
+				C8B48A75178C37FB00EC57FD /* CategoryPage.h */,
+				C8B48A83178C3D7300EC57FD /* GamePage.cpp */,
+				C8B48A84178C3D7300EC57FD /* GamePage.h */,
 				C8CB340217870AA4001294B7 /* MainPage.cpp */,
 				C8CB340317870AA4001294B7 /* MainPage.h */,
 				C8CB341B178AC86D001294B7 /* Page.cpp */,
@@ -578,6 +588,8 @@
 				C8CB341C178AC86D001294B7 /* Page.cpp in Sources */,
 				C8CB342D178B0581001294B7 /* fonts.cpp in Sources */,
 				C8CB3430178B05CB001294B7 /* config.cpp in Sources */,
+				C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */,
+				C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

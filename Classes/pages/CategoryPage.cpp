@@ -1,30 +1,31 @@
-#include "MainPage.h"
+#include "CategoryPage.h"
 
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../PageManager.h"
+#include "GamePage.h"
 
 using namespace cocos2d;
 
-bool MainPage::init()
+bool CategoryPage::init()
 {
     if (!Page::init()) {
         return false;
     }
 
-    setBackground(ccWHITE);
-    addTapToPlayLabel();
+    setBackground({32, 202, 248});
+    addHeadlineLabel();
 
     return true;
 }
 
-void MainPage::addTapToPlayLabel()
+void CategoryPage::addHeadlineLabel()
 {
-    auto tapToPlay = fonts::createLight("tap to play", 36);
+    auto tapToPlay = fonts::createLight("ADDITION", 72);
     addChild(tapToPlay);
 
     // color
-    tapToPlay->setColor(ccBLACK);
+    tapToPlay->setColor(ccWHITE);
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});
@@ -33,10 +34,10 @@ void MainPage::addTapToPlayLabel()
 
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
-    tapToPlay->setPositionY(50 * config::getScaleFactor());
+    tapToPlay->setPositionY(config::getFrameSize().height - (50 * config::getScaleFactor()));
 }
 
-void MainPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void CategoryPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    manager->scrollto("category-01");
+    manager->scrolldown(GamePage::create());
 }

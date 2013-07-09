@@ -2,6 +2,7 @@
 
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
+#include "pages/CategoryPage.h"
 
 using namespace cocos2d;
 
@@ -21,10 +22,10 @@ bool GameScene::init()
     pageManager = PageManager::create();
     addChild(pageManager);
 
-    pageManager->add("settings", std::unique_ptr<Page>(SettingsPage::create()));
-    pageManager->add("main", std::unique_ptr<Page>(MainPage::create()));
-    pageManager->add("game-01", std::unique_ptr<Page>(MainPage::create()));
-    pageManager->show("main");
+    pageManager->add("settings", SettingsPage::create());
+    pageManager->add("main", MainPage::create());
+    pageManager->add("category-01", CategoryPage::create());
+    pageManager->scrollto("main", 0);
 
     return true;
 }

@@ -42,12 +42,19 @@ float Page::getVisibleWidth() const
 bool Page::isVisible() const
 {
     auto posX = getPositionX();
+    auto posY = getPositionY();
 
     if (posX <= 0 - getContentSize().width) {
         return false;
     }
-
     if (posX >= getContentSize().width) {
+        return false;
+    }
+
+    if (posY <= 0 - getContentSize().height) {
+        return false;
+    }
+    if (posY >= getContentSize().height) {
         return false;
     }
 
