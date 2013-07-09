@@ -19,9 +19,19 @@ constexpr float getDesignWidth()
     return 768;
 }
 
+const float getDelayAfterScrollAnimation()
+{
+    return 0.1;
+}
+
+const float getTouchIgnoreLength()
+{
+    return 25 * getScaleFactor();
+}
+
 const float getSnapAnimationDuration()
 {
-    return 0.3;
+    return 0.7;
 }
 
 const float getSwipeMovementMinX()

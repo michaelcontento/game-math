@@ -9,6 +9,8 @@ namespace config
 float getScaleFactor();
 const cocos2d::Size& getFrameSize();
 constexpr float getDesignWidth();
+const float getDelayAfterScrollAnimation();
+const float getTouchIgnoreLength();
 const float getSnapAnimationDuration();
 const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();

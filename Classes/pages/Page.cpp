@@ -1,6 +1,7 @@
 #include "Page.h"
 
 #include "../PageManager.h"
+#include "../utils/config.h"
 
 using namespace cocos2d;
 
@@ -86,10 +87,17 @@ bool Page::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 
 void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
+    auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
+
     if (manager && manager->hasTouchHandled(pTouch, pEvent)) {
         // touch already handled for scrolling
+    } else if (manager && manager->isAnimationActive()) {
+        // scroll animation is currently running
     } else if (!isVisible()) {
         // we're now longer visible!
+    } else if (ccpLength(startDelta) >= config::getTouchIgnoreLength()) {
+        // not a valid scrolling touch (maybe a old animation was running?) but
+        // it moved to far to be a valid touch
     } else {
         onTouch(pTouch, pEvent);
     }

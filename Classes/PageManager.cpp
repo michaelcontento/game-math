@@ -39,6 +39,10 @@ void PageManager::scrollTo(const std::string& name, const float duration)
 
 void PageManager::scrollDown(Page* const page)
 {
+    if (animationActive) {
+        return;
+    }
+
     if (pageScrollDown) {
         removeChild(pageScrollDown);
         pageScrollDown = nullptr;
@@ -60,12 +64,16 @@ void PageManager::scrollDown(Page* const page)
 
     // scroll the page down below
     pageScrollDown->setPositionY(config::getFrameSize().height * -1);
-    scrollNodeTo(*pageScrollDown, {0, 0}, config::getSnapAnimationDuration());
+    scrollNodeTo(
+        *pageScrollDown,
+        {0, 0},
+        config::getSnapAnimationDuration()
+    );
 }
 
 void PageManager::scrollUp()
 {
-    if (!pageScrollDown) {
+    if (!pageScrollDown || animationActive) {
         return;
     }
 
@@ -97,11 +105,15 @@ void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPos
 void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback)
 {
     node.stopActionByTag(TAG_ACTION_MOVE_BY);
+    animationActive = true;
 
     if (duration > 0) {
-        auto moveAction = Sequence::createWithTwoActions(
-            EaseOut::create(MoveTo::create(duration, newPosition), 2),
-            CallFunc::create(callback)
+        auto moveAction = Sequence::create(
+            EaseInOut::create(MoveTo::create(duration, newPosition), 2),
+            CallFunc::create(callback),
+            DelayTime::create(config::getDelayAfterScrollAnimation()),
+            CallFunc::create([this]() { animationActive = false; }),
+            NULL
         );
         moveAction->setTag(TAG_ACTION_MOVE_BY);
 
@@ -109,7 +121,13 @@ void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPos
     } else {
         node.setPosition(newPosition);
         callback();
+        animationActive = false;
     }
+}
+
+bool PageManager::isAnimationActive() const
+{
+    return animationActive;
 }
 
 #pragma -
@@ -173,7 +191,7 @@ void PageManager::registerWithTouchDispatcher()
 
 bool PageManager::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
-    return true;
+    return !animationActive;
 }
 
 void PageManager::ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
@@ -231,7 +249,7 @@ void PageManager::handlePageScroll(const cocos2d::Point& delta)
 
 void PageManager::snapPages()
 {
-    if (pages.empty()) {
+    if (pages.empty() || animationActive) {
         return;
     }
 

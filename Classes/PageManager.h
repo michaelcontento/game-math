@@ -29,10 +29,13 @@ public:
     void scrollDown(Page* const page);
     void scrollUp();
 
+    bool isAnimationActive() const;
+
 private:
     std::list<std::pair<std::string, Page*>> pages;
     std::map<int, bool> trackedTouches;
     Page* pageScrollDown = nullptr;
+    bool animationActive = false;
     constexpr static int TAG_ACTION_MOVE_BY = 101;
 
     void handlePageScroll(const cocos2d::Point& delta);
