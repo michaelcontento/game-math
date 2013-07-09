@@ -30,6 +30,7 @@ public:
 private:
     std::list<std::pair<std::string, std::unique_ptr<Page>>> pages {};
     std::map<int, bool> trackedTouches {};
+    constexpr static int TAG_ACTION_MOVE_BY = 101;
 
     void handlePageScroll(const cocos2d::Point& delta);
     Page* getPage(const std::string& name) const;

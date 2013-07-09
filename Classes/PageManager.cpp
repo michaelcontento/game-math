@@ -26,8 +26,16 @@ void PageManager::scrollto(const std::string& name, const float duration) const
     auto scrollAmount = getPage(name)->getPositionX() * -1;
 
     for (const auto& pair : pages) {
-        auto moveAction = MoveBy::create(duration, {scrollAmount, 0});
-        pair.second.get()->runAction(EaseInOut::create(moveAction, 2));
+        auto page = pair.second.get();
+        page->stopActionByTag(TAG_ACTION_MOVE_BY);
+
+        if (duration > 0) {
+            auto moveAction = EaseInOut::create(MoveBy::create(duration, {scrollAmount, 0}), 2);
+            moveAction->setTag(TAG_ACTION_MOVE_BY);
+            page->runAction(moveAction);
+        } else {
+            page->setPositionX(page->getPositionX() + scrollAmount);
+        }
     }
 }
 
