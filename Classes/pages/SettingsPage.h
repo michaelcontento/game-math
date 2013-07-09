@@ -7,6 +7,7 @@ class SettingsPage : public Page
 {
 public:
     CREATE_FUNC(SettingsPage);
+    bool init() override;
 
 };
 

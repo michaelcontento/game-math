@@ -11,9 +11,7 @@ bool MainPage::init()
         return false;
     }
 
-    auto background = LayerColor::create({255, 255, 255, 255});
-    addChild(background);
-
+    setBackground(ccWHITE);
     addTapToPlayLabel();
 
     return true;
@@ -35,4 +33,8 @@ void MainPage::addTapToPlayLabel()
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
     tapToPlay->setPositionY(50 * config::getScaleFactor());
+}
+
+void MainPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+{
 }

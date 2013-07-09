@@ -8,6 +8,7 @@ class MainPage : public Page
 public:
     CREATE_FUNC(MainPage);
     bool init() override;
+    void onTouch(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
     void addTapToPlayLabel();
