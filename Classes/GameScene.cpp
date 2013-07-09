@@ -25,7 +25,7 @@ bool GameScene::init()
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     pageManager->add("category-01", CategoryPage::create());
-    pageManager->scrollto("main", 0);
+    pageManager->scrollTo("main", 0);
 
     return true;
 }

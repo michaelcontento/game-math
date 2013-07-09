@@ -39,5 +39,5 @@ void CategoryPage::addHeadlineLabel()
 
 void CategoryPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    manager->scrolldown(GamePage::create());
+    manager->scrollDown(GamePage::create());
 }

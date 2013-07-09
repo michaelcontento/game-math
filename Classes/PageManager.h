@@ -23,11 +23,11 @@ public:
     bool hasTouchHandled(cocos2d::Touch* pTouch, cocos2d::Event* pEvent);
 
     void add(const std::string& name, Page* const page);
-    void scrollto(const std::string& name);
-    void scrollto(const std::string& name, const float duration);
+    void scrollTo(const std::string& name);
+    void scrollTo(const std::string& name, const float duration);
 
-    void scrolldown(Page* const page);
-    void scrollup();
+    void scrollDown(Page* const page);
+    void scrollUp();
 
 private:
     std::list<std::pair<std::string, Page*>> pages;
@@ -39,8 +39,8 @@ private:
     Page& getPage(const std::string& name) const;
     int getPageIndex(const std::string& name) const;
     void snapPages();
-    void scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback = []() {});
-
+    void scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration);
+    void scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback);
 };
 
 #endif // MATH_PAGEMANAGER_H

@@ -18,12 +18,12 @@ void PageManager::add(const std::string& name, Page* const page)
     page->retain();
 }
 
-void PageManager::scrollto(const std::string& name)
+void PageManager::scrollTo(const std::string& name)
 {
-    scrollto(name, config::getSnapAnimationDuration());
+    scrollTo(name, config::getSnapAnimationDuration());
 }
 
-void PageManager::scrollto(const std::string& name, const float duration)
+void PageManager::scrollTo(const std::string& name, const float duration)
 {
     auto newZeroAlignedIndex = getPageIndex(name);
     auto index = 0;
@@ -37,7 +37,7 @@ void PageManager::scrollto(const std::string& name, const float duration)
     }
 }
 
-void PageManager::scrolldown(Page* const page)
+void PageManager::scrollDown(Page* const page)
 {
     if (pageScrollDown) {
         removeChild(pageScrollDown);
@@ -63,7 +63,7 @@ void PageManager::scrolldown(Page* const page)
     scrollNodeTo(*pageScrollDown, {0, 0}, config::getSnapAnimationDuration());
 }
 
-void PageManager::scrollup()
+void PageManager::scrollUp()
 {
     if (!pageScrollDown) {
         return;
@@ -87,6 +87,11 @@ void PageManager::scrollup()
         config::getSnapAnimationDuration(),
         [this]() { removeChild(pageScrollDown); pageScrollDown = nullptr; }
     );
+}
+
+void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration)
+{
+    scrollNodeTo(node, newPosition, duration, []() {});
 }
 
 void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback)
@@ -262,5 +267,5 @@ void PageManager::snapPages()
     }
 
     // kickoff the final scrolling animation
-    scrollto(activePage);
+    scrollTo(activePage);
 }
