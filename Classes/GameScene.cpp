@@ -23,6 +23,7 @@ bool GameScene::init()
 
     pageManager->add("settings", std::unique_ptr<Page>(SettingsPage::create()));
     pageManager->add("main", std::unique_ptr<Page>(MainPage::create()));
+    pageManager->add("game-01", std::unique_ptr<Page>(MainPage::create()));
     pageManager->show("main");
 
     return true;

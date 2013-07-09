@@ -67,13 +67,15 @@ void Page::registerWithTouchDispatcher()
 
 bool Page::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
-    return true;
+    return isVisible();
 }
 
 void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     if (manager && manager->hasTouchHandled(pTouch, pEvent)) {
-        //
+        // touch already handled for scrolling
+    } else if (!isVisible()) {
+        // we're now longer visible!
     } else {
         onTouch(pTouch, pEvent);
     }

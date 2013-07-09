@@ -2,6 +2,7 @@
 
 #include "../utils/config.h"
 #include "../utils/fonts.h"
+#include "../PageManager.h"
 
 using namespace cocos2d;
 
@@ -37,4 +38,5 @@ void MainPage::addTapToPlayLabel()
 
 void MainPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    manager->scrollto("game-01");
 }
