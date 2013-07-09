@@ -54,6 +54,13 @@ bool Page::isVisible() const
     return true;
 }
 
+void Page::visit()
+{
+    if (isVisible()) {
+        Layer::visit();
+    }
+}
+
 
 #pragma -
 #pragma mark Touch handling

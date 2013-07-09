@@ -21,7 +21,9 @@ public:
 
     void setBackground(const cocos2d::ccColor3B& color);
     float getVisibleWidth() const;
+
     bool isVisible() const override;
+    void visit() override;
 
 private:
     constexpr static int TAG_BACKGROUND = 100;
