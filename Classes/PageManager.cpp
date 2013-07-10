@@ -204,7 +204,7 @@ void PageManager::registerWithTouchDispatcher()
 
 bool PageManager::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
-    return !animationActive;
+    return !(animationActive || pageScrollDown);
 }
 
 void PageManager::ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
