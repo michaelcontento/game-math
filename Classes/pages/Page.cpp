@@ -5,7 +5,7 @@
 
 using namespace cocos2d;
 
-void Page::setBackground(const cocos2d::ccColor3B& color)
+void Page::setBackground(const cocos2d::Color3B& color)
 {
     this->color = color;
 
@@ -17,7 +17,7 @@ void Page::setBackground(const cocos2d::ccColor3B& color)
     }
 }
 
-const cocos2d::ccColor3B& Page::getBackground() const
+const cocos2d::Color3B& Page::getBackground() const
 {
     return color;
 }

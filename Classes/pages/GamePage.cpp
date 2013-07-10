@@ -12,7 +12,7 @@ bool GamePage::init()
         return false;
     }
 
-    setBackground(ccWHITE);
+    setBackground(Color3B::WHITE);
 
     return true;
 }

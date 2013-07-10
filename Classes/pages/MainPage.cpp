@@ -12,7 +12,7 @@ bool MainPage::init()
         return false;
     }
 
-    setBackground(ccWHITE);
+    setBackground(Color3B::WHITE);
     addTapToPlayLabel();
 
     return true;
@@ -24,7 +24,7 @@ void MainPage::addTapToPlayLabel()
     addChild(tapToPlay);
 
     // color
-    tapToPlay->setColor(ccBLACK);
+    tapToPlay->setColor(Color3B::BLACK);
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});

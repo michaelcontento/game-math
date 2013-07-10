@@ -20,7 +20,7 @@ private:
 
     void configureSize();
     void addBackground();
-    const cocos2d::ccColor4F getBackgroundColorFromParentPage() const;
+    const cocos2d::Color4F getBackgroundColorFromParentPage() const;
     void addNumber();
     bool hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event);
 };

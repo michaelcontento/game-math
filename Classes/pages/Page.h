@@ -17,14 +17,14 @@ public:
     void ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
     virtual void onTouch(cocos2d::Touch* touch, cocos2d::Event* event) {};
 
-    void setBackground(const cocos2d::ccColor3B& color);
-    const cocos2d::ccColor3B& getBackground() const;
+    void setBackground(const cocos2d::Color3B& color);
+    const cocos2d::Color3B& getBackground() const;
 
     float getVisibleWidth() const;
     bool isVisible() const override;
 
 private:
-    cocos2d::ccColor3B color = cocos2d::ccWHITE;
+    cocos2d::Color3B color = cocos2d::Color3B::WHITE;
     cocos2d::LayerColor* background = nullptr;
 };
 

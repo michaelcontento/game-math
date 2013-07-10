@@ -8,7 +8,7 @@ bool SettingsPage::init()
         return false;
     }
 
-    setBackground(ccRED);
+    setBackground(Color3B::RED);
 
     return true;
 }

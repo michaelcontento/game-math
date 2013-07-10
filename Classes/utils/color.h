@@ -6,9 +6,9 @@
 
 namespace color {
 
-cocos2d::extension::HSV toHSV(const cocos2d::ccColor3B& color);
-cocos2d::ccColor3B toRGB(const cocos2d::extension::HSV& color);
-cocos2d::ccColor4F toRGBA(const cocos2d::extension::HSV& color);
+cocos2d::extension::HSV toHSV(const cocos2d::Color3B& color);
+cocos2d::Color3B toRGB(const cocos2d::extension::HSV& color);
+cocos2d::Color4F toRGBA(const cocos2d::extension::HSV& color);
 
 }; // namespace color
 

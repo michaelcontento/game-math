@@ -26,7 +26,7 @@ void CategoryPage::addHeadlineLabel()
     addChild(tapToPlay);
 
     // color
-    tapToPlay->setColor(ccWHITE);
+    tapToPlay->setColor(Color3B::WHITE);
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});

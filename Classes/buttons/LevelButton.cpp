@@ -56,7 +56,7 @@ void LevelButton::addBackground()
     draw->drawPolygon(verts, 4, color, 1, color);
 }
 
-const cocos2d::ccColor4F LevelButton::getBackgroundColorFromParentPage() const
+const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 {
     auto hsvColor = color::toHSV(parentPage->getBackground());
 
@@ -74,7 +74,7 @@ void LevelButton::addNumber()
     addChild(label);
 
     // color
-    label->setColor(ccWHITE);
+    label->setColor(Color3B::WHITE);
 
     // alignment
     label->setAnchorPoint({0.5, 0.5});
