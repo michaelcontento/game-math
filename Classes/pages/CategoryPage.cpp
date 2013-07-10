@@ -43,7 +43,7 @@ void CategoryPage::addLevelButtons()
     auto container = Node::create();
     addChild(container);
 
-    auto spacing = 10 * config::getScaleFactor();
+    auto spacing = 15 * config::getScaleFactor();
     auto containerSize = container->getContentSize();
     auto gridSize = Point(4, 4);
 
