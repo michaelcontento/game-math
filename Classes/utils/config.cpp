@@ -44,6 +44,16 @@ const float getSwipeMovementMaxY()
     return 10 * getScaleFactor();
 }
 
+const float getQuestionFadeTime()
+{
+    return 0.8;
+}
+
+const float getQuestionStartDelay()
+{
+    return getQuestionFadeTime() * 2;
+}
+
 const cocos2d::extension::HSV getHsvColorStep()
 {
     return {10, 0, 0};

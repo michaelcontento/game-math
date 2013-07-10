@@ -14,6 +14,8 @@ const float getTouchIgnoreLength();
 const float getSnapAnimationDuration();
 const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();
+const float getQuestionFadeTime();
+const float getQuestionStartDelay();
 const cocos2d::extension::HSV getHsvColorStep();
 
 }; // namespace config

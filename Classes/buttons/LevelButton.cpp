@@ -91,7 +91,7 @@ void LevelButton::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
 
-    PageManager::shared().scrollDown(GamePage::create());
+    PageManager::shared().scrollDown(GamePage::create(parentPage));
 }
 
 bool LevelButton::hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event)
