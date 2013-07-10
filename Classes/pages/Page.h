@@ -1,7 +1,6 @@
 #ifndef MATH_PAGE_H
 #define MATH_PAGE_H
 
-#include <memory>
 #include "cocos2d.h"
 
 class PageManager;
@@ -26,7 +25,7 @@ public:
 
 private:
     cocos2d::ccColor3B color = cocos2d::ccWHITE;
-    constexpr static int TAG_BACKGROUND = 100;
+    cocos2d::LayerColor* background = nullptr;
 };
 
 #endif // MATH_PAGE_H

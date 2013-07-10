@@ -1,6 +1,7 @@
 #ifndef MATH_MAINPAGE_H
 #define MATH_MAINPAGE_H
 
+#include "cocos2d.h"
 #include "Page.h"
 
 class MainPage : public Page

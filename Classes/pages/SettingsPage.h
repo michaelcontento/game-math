@@ -8,7 +8,6 @@ class SettingsPage : public Page
 public:
     CREATE_FUNC(SettingsPage);
     bool init() override;
-
 };
 
 #endif // MATH_SETTINGSPAGE_H

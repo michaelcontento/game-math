@@ -2,6 +2,7 @@
 #define MATH_CATEGORYPAGE_H
 
 #include <unordered_set>
+#include "cocos2d.h"
 #include "Page.h"
 
 class LevelButton;
@@ -14,7 +15,7 @@ public:
     void onTouch(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
-    std::unordered_set<LevelButton*> levelButtons;
+    std::unordered_set<LevelButton*> levelButtons {};
     void addHeadlineLabel();
     void addLevelButtons();
 };

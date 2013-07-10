@@ -3,6 +3,7 @@
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
+#include "PageManager.h"
 
 using namespace cocos2d;
 

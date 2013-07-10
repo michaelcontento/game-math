@@ -8,15 +8,12 @@ using namespace cocos2d;
 void Page::setBackground(const cocos2d::ccColor3B& color)
 {
     this->color = color;
-    
-    auto oldBg = getChildByTag(TAG_BACKGROUND);
-    if (oldBg) {
-        auto bg = dynamic_cast<LayerColor*>(oldBg);
-        bg->setColor(color);
+
+    if (!background) {
+        background = LayerColor::create({color.r, color.g, color.b, 255});
+        addChild(background);
     } else {
-        auto bg = LayerColor::create({color.r, color.g, color.b, 255});
-        bg->setTag(TAG_BACKGROUND);
-        addChild(bg);
+        background->setColor(color);
     }
 }
 
@@ -74,7 +71,6 @@ void Page::visit()
         Layer::visit();
     }
 }
-
 
 #pragma -
 #pragma mark Touch handling

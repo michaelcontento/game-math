@@ -4,7 +4,7 @@ using namespace cocos2d;
 
 namespace config {
 
-float getScaleFactor()
+const float getScaleFactor()
 {
     return getFrameSize().width / getDesignWidth();
 }
@@ -42,6 +42,11 @@ const float getSwipeMovementMinX()
 const float getSwipeMovementMaxY()
 {
     return 10 * getScaleFactor();
+}
+
+const cocos2d::extension::HSV getHsvColorStep()
+{
+    return {10, 0, 0};
 }
 
 } // namespace config

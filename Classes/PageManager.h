@@ -2,12 +2,12 @@
 #define MATH_PAGEMANAGER_H
 
 #include <string>
-#include <memory>
 #include <list>
 #include <utility>
-#include <map>
+#include <unordered_map>
 #include "cocos2d.h"
-#include "pages/Page.h"
+
+class Page;
 
 class PageManager : public cocos2d::Layer
 {
@@ -34,12 +34,12 @@ public:
     bool isAnimationActive() const;
 
 private:
-    std::list<std::pair<std::string, Page*>> pages;
-    std::map<int, bool> trackedTouches;
+    constexpr static int TAG_ACTION_MOVE_BY = 101;
+    static PageManager* instance;
+    std::list<std::pair<const std::string, Page* const>> pages {};
+    std::unordered_map<int, bool> trackedTouches {};
     Page* pageScrollDown = nullptr;
     bool animationActive = false;
-    static PageManager* instance;
-    constexpr static int TAG_ACTION_MOVE_BY = 101;
 
     void handlePageScroll(const cocos2d::Point& delta);
     Page& getPage(const std::string& name) const;

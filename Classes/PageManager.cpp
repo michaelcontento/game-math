@@ -1,6 +1,7 @@
 #include "PageManager.h"
 
 #include "utils/config.h"
+#include "pages/Page.h"
 
 using namespace cocos2d;
 

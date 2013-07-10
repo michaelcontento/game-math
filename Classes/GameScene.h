@@ -2,17 +2,18 @@
 #define MATH_GAMESCENE_H
 
 #include "cocos2d.h"
-#include "PageManager.h"
+
+class PageManager;
 
 class GameScene : public cocos2d::Layer
 {
 public:
+    CREATE_FUNC(GameScene);
     virtual bool init() override;
     static cocos2d::Scene* scene();
-    CREATE_FUNC(GameScene);
 
 private:
-    PageManager* pageManager;
+    PageManager* pageManager = nullptr;
 };
 
 #endif // MATH_GAMESCENE_H

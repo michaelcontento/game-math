@@ -9,7 +9,7 @@
 
 using namespace cocos2d;
 
-LevelButton* LevelButton::create(const int number, const Page* const parentPage)
+LevelButton* LevelButton::create(const short number, const Page* const parentPage)
 {
     LevelButton* pRet = new LevelButton();
     if (pRet && pRet->init(number, parentPage)) {
@@ -22,7 +22,7 @@ LevelButton* LevelButton::create(const int number, const Page* const parentPage)
     }
 }
 
-bool LevelButton::init(const int number, const Page* const parentPage)
+bool LevelButton::init(const short number, const Page* const parentPage)
 {
     if (!Node::init()) {
         return false;
@@ -49,13 +49,23 @@ void LevelButton::addBackground()
     auto draw = DrawNode::create();
     addChild(draw);
 
-    auto hsvColor = color::toHSV(parentPage->getBackground());
-    hsvColor.h += 10;
-    auto rgbColor = color::toRGBA(hsvColor);
-
     auto size = getContentSize().width;
     Point verts[] = {{0, 0}, {0, size}, {size, size}, {size, 0}};
-    draw->drawPolygon(verts, 4, rgbColor, 1, rgbColor);
+
+    auto color = getBackgroundColorFromParentPage();
+    draw->drawPolygon(verts, 4, color, 1, color);
+}
+
+const cocos2d::ccColor4F LevelButton::getBackgroundColorFromParentPage() const
+{
+    auto hsvColor = color::toHSV(parentPage->getBackground());
+
+    auto step = config::getHsvColorStep();
+    hsvColor.h += step.h;
+    hsvColor.s += step.s;
+    hsvColor.v += step.v;
+
+    return color::toRGBA(hsvColor);
 }
 
 void LevelButton::addNumber()

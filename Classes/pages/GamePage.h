@@ -1,6 +1,7 @@
 #ifndef MATH_GAMEPAGE_H
 #define MATH_GAMEPAGE_H
 
+#include "cocos2d.h"
 #include "Page.h"
 
 class GamePage : public Page
