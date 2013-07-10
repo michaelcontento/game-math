@@ -37,6 +37,7 @@
 		C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CB3429178B0068001294B7 /* HelveticaNeueUltraLight.ttf */; };
 		C8CB342D178B0581001294B7 /* fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342C178B0581001294B7 /* fonts.cpp */; };
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
+		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
 		D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A0AD0160F154A004552AE /* Default-568h@2x.png */; };
 		D446FD6E16102124000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FD6D16102124000ADA7B /* Default@2x.png */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -222,6 +223,11 @@
 		C8CB342C178B0581001294B7 /* fonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fonts.cpp; sourceTree = "<group>"; };
 		C8CB342E178B05CB001294B7 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		C8CB342F178B05CB001294B7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		C8EA2756178DC761007118BD /* Generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generator.cpp; sourceTree = "<group>"; };
+		C8EA2757178DC761007118BD /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
+		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
+		C8EA2759178DC761007118BD /* Operator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operator.h; sourceTree = "<group>"; };
+		C8EA275A178DC761007118BD /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
 		D41A0AD0160F154A004552AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../proj.ios/Default-568h@2x.png"; sourceTree = "<group>"; };
 		D446FD6D16102124000ADA7B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../proj.ios/Default@2x.png"; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -285,6 +291,7 @@
 				C8CB33FF17870AA4001294B7 /* PageManager.cpp */,
 				C8CB340017870AA4001294B7 /* PageManager.h */,
 				C8CB340117870AA4001294B7 /* pages */,
+				C8EA2755178DC761007118BD /* puzzle */,
 				C8CB341117871B29001294B7 /* utils */,
 			);
 			name = Classes;
@@ -417,6 +424,19 @@
 				C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */,
 			);
 			name = fonts;
+			sourceTree = "<group>";
+		};
+		C8EA2755178DC761007118BD /* puzzle */ = {
+			isa = PBXGroup;
+			children = (
+				C8EA2756178DC761007118BD /* Generator.cpp */,
+				C8EA2757178DC761007118BD /* Generator.h */,
+				C8EA2758178DC761007118BD /* NumberRange.h */,
+				C8EA2759178DC761007118BD /* Operator.h */,
+				C8EA275A178DC761007118BD /* Question.h */,
+			);
+			name = puzzle;
+			path = ../Classes/puzzle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -617,6 +637,7 @@
 				C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */,
 				C8B48A8C178C8A9400EC57FD /* color.cpp in Sources */,
 				C8B48A8F178D789300EC57FD /* AnswerButton.cpp in Sources */,
+				C8EA275B178DC761007118BD /* Generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
