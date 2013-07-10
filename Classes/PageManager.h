@@ -16,6 +16,8 @@ public:
     bool init() override;
     ~PageManager();
 
+    static PageManager& shared();
+
     void registerWithTouchDispatcher() override;
     bool ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
     void ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
@@ -36,6 +38,7 @@ private:
     std::map<int, bool> trackedTouches;
     Page* pageScrollDown = nullptr;
     bool animationActive = false;
+    static PageManager* instance;
     constexpr static int TAG_ACTION_MOVE_BY = 101;
 
     void handlePageScroll(const cocos2d::Point& delta);

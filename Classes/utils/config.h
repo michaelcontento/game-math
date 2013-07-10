@@ -3,8 +3,7 @@
 
 #include "cocos2d.h"
 
-namespace config
-{
+namespace config {
 
 float getScaleFactor();
 const cocos2d::Size& getFrameSize();

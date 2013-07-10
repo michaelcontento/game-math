@@ -7,8 +7,9 @@ using namespace cocos2d;
 
 void Page::setBackground(const cocos2d::ccColor3B& color)
 {
+    this->color = color;
+    
     auto oldBg = getChildByTag(TAG_BACKGROUND);
-
     if (oldBg) {
         auto bg = dynamic_cast<LayerColor*>(oldBg);
         bg->setColor(color);
@@ -17,6 +18,11 @@ void Page::setBackground(const cocos2d::ccColor3B& color)
         bg->setTag(TAG_BACKGROUND);
         addChild(bg);
     }
+}
+
+const cocos2d::ccColor3B& Page::getBackground() const
+{
+    return color;
 }
 
 bool Page::init()
@@ -89,9 +95,9 @@ void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
 
-    if (manager && manager->hasTouchHandled(pTouch, pEvent)) {
+    if (PageManager::shared().hasTouchHandled(pTouch, pEvent)) {
         // touch already handled for scrolling
-    } else if (manager && manager->isAnimationActive()) {
+    } else if (PageManager::shared().isAnimationActive()) {
         // scroll animation is currently running
     } else if (!isVisible()) {
         // we're now longer visible!

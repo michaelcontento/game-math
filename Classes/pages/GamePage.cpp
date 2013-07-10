@@ -19,5 +19,5 @@ bool GamePage::init()
 
 void GamePage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    manager->scrollUp();
+    PageManager::shared().scrollUp();
 }

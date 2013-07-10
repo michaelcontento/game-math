@@ -4,12 +4,13 @@
 
 using namespace cocos2d;
 
+PageManager* PageManager::instance = nullptr;
+
 #pragma -
 #pragma mark Page / scroll handling
 
 void PageManager::add(const std::string& name, Page* const page)
 {
-    page->manager = this;
     page->setPositionX(pages.size() * page->getContentSize().width);
     addChild(page);
 
@@ -49,7 +50,6 @@ void PageManager::scrollDown(Page* const page)
     }
 
     pageScrollDown = page;
-    pageScrollDown->manager = this;
     addChild(pageScrollDown);
 
     // scroll all "menu pages"
@@ -162,6 +162,8 @@ int PageManager::getPageIndex(const std::string& name) const
 
 PageManager::~PageManager()
 {
+    instance = nullptr;
+
     // FIX#1
     for (auto& pair : pages) {
         pair.second->release();
@@ -175,8 +177,18 @@ bool PageManager::init()
     }
 
     setTouchEnabled(true);
+    instance = this;
 
     return true;
+}
+
+PageManager& PageManager::shared()
+{
+    if (!instance) {
+        throw new std::runtime_error("no PageManager instance ready yet");
+    }
+    
+    return *instance;
 }
 
 #pragma -
