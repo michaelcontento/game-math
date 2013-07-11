@@ -46,7 +46,7 @@ const float getSwipeMovementMaxY()
 
 const float getQuestionFadeTime()
 {
-    return 0.8;
+    return 0.7;
 }
 
 const float getQuestionStartDelay()

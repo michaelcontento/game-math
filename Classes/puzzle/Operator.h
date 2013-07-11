@@ -10,6 +10,20 @@ enum class Operator : unsigned short
     PLUS, MINUS, MULTIPLICATION, DIVISION
 };
 
+int calculate(const Operator& op, const int a, const int b)
+{
+    switch (op) {
+    case Operator::PLUS:
+        return a + b;
+    case Operator::MINUS:
+        return a - b;
+    case Operator::MULTIPLICATION:
+        return a * b;
+    case Operator::DIVISION:
+        return a / b;
+    }
+}
+
 } // namespace puzzle
 
 
@@ -19,11 +33,25 @@ namespace std {
 template <>
 struct hash<puzzle::Operator>
 {
-    std::size_t operator ()(puzzle::Operator value) const
+    std::size_t operator ()(const puzzle::Operator& value) const
     {
         return static_cast<std::size_t>(value);
     }
 };
+
+string to_string(const puzzle::Operator& op)
+{
+    switch (op) {
+    case puzzle::Operator::PLUS:
+        return "+";
+    case puzzle::Operator::MINUS:
+        return "-";
+    case puzzle::Operator::MULTIPLICATION:
+        return "x";
+    case puzzle::Operator::DIVISION:
+        return "/";
+    }
+}
     
 } // namespace std
 

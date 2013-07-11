@@ -1,0 +1,3 @@
+[submodule "Vendors/avalon"]
+	path = Vendors/avalon
+	url = git@github.com:michaelcontento/avalon.git

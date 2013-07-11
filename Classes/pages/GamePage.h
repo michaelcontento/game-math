@@ -1,9 +1,10 @@
 #ifndef MATH_GAMEPAGE_H
 #define MATH_GAMEPAGE_H
 
-#include <unordered_set>
+#include <list>
 #include "cocos2d.h"
 #include "Page.h"
+#include "../puzzle/Question.h"
 
 class AnswerButton;
 
@@ -15,10 +16,15 @@ public:
     bool init(const Page* const parentPage);
     void onTouch(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
+    void markQuestionAnswered();
+    bool allQuestionsAnswered() const;
+
 private:
+    static constexpr unsigned short questionAmount = 10;
     const Page* parentPage = nullptr;
-    std::unordered_set<AnswerButton*> answerButtons {};
-    cocos2d::Node* question = nullptr;
+    cocos2d::LabelTTF* question = nullptr;
+    std::deque<AnswerButton*> answerButtons {};
+    std::list<puzzle::Question> questions {};
 
     void addQuestion();
     void setNextQuestion();

@@ -1,9 +1,11 @@
 #include "GamePage.h"
 
+#include <deque>
 #include "../utils/color.h"
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../buttons/AnswerButton.h"
+#include "../puzzle/Generator.h"
 #include "PageManager.h"
 
 using namespace cocos2d;
@@ -30,6 +32,16 @@ bool GamePage::init(const Page* const parentPage)
     this->parentPage = parentPage;
     setBackground(Color3B::WHITE);
 
+    puzzle::Generator generator {
+        "{number} {operator} {number}",
+        "{number}",
+        {puzzle::Operator::PLUS},
+        {puzzle::NumberRange::SMALL}
+    };
+    for (int i = 0; i < questionAmount; ++i) {
+        questions.push_back(generator.generate());
+    }
+
     addQuestion();
     addAnswerButtons();
 
@@ -38,7 +50,11 @@ bool GamePage::init(const Page* const parentPage)
 
 void GamePage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    PageManager::shared().scrollUp();
+    if (allQuestionsAnswered()) {
+        PageManager::shared().scrollUp();
+    } else {
+        markQuestionAnswered();
+    }
 }
 
 void GamePage::addQuestion()
@@ -47,36 +63,73 @@ void GamePage::addQuestion()
         throw new std::runtime_error("question already present");
     }
 
-    auto label = fonts::createNormal("3", 96);
-    label->setOpacity(0);
-    configureAndAlignQuestionLabel(*label);
-
-    question = label;
+    question = fonts::createNormal("ready?", 96);
     addChild(question);
+    configureAndAlignQuestionLabel(*question);
 
     question->runAction(Sequence::create(
-       DelayTime::create(config::getQuestionStartDelay()),
+       EaseIn::create(FadeOut::create(config::getQuestionStartDelay()), 3),
+       CallFunc::create([this]() { question->setString("3"); }),
        FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([label]() { label->setString("2"); }),
+       CallFunc::create([this]() { question->setString("2"); }),
        FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([label]() { label->setString("1"); }),
-       CallFunc::create([this]() { setNextQuestion(); }),
+       CallFunc::create([this]() { question->setString("1"); }),
+       CallFunc::create([this]() { markQuestionAnswered(); }),
        NULL
     ));
 }
 
-void GamePage::setNextQuestion()
+bool GamePage::allQuestionsAnswered() const
+{
+    return (questions.size() <= 1);
+}
+
+void GamePage::markQuestionAnswered()
 {
     if (!question) {
         throw new std::runtime_error("no question present -- call addQuestion() first");
     }
 
-    auto label = dynamic_cast<LabelTTF*>(question);
+    if (allQuestionsAnswered()) {
+        CCLog("DONE!");
+        return;
+    }
+
+    questions.pop_front();
     question->runAction(Sequence::create(
         FadeOut::create(config::getQuestionFadeTime()),
-        CallFunc::create([label]() { label->setString("QUESTION"); label->setOpacity(255); }),
+        CallFunc::create([this]() { setNextQuestion(); }),
         NULL
     ));
+
+    for (const auto& btn : answerButtons) {
+        btn->fadeOutAnswer(config::getQuestionFadeTime());
+    }
+}
+
+void GamePage::setNextQuestion()
+{
+    auto currentQuestion = *questions.begin();
+    std::deque<std::string> answers = {
+        currentQuestion.rightAnswer,
+        currentQuestion.wrongAnswer1,
+        currentQuestion.wrongAnswer2
+    };
+
+    std::random_shuffle(answers.begin(), answers.end());
+    std::random_shuffle(answerButtons.begin(), answerButtons.end());
+
+    for (const auto& btn : answerButtons) {
+        auto answer = *answers.begin();
+        answers.pop_front();
+
+        btn->setIsRight(answer == currentQuestion.rightAnswer);
+        btn->setAnswerString(answer);
+        btn->showAnswer();
+    }
+
+    question->setString(currentQuestion.question.c_str());
+    question->setOpacity(255);
 }
 
 void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
@@ -108,16 +161,18 @@ void GamePage::addAnswerButtons()
 
     for (int i = 1; i <= answers; ++i) {
         auto btn = AnswerButton::create(color);
-        color = getNextAnswerButtonColor(color);
+        btn->hideAnswer();
 
         container->addChild(btn);
-        answerButtons.insert(btn);
+        answerButtons.push_back(btn);
 
         auto posY = (btn->getContentSize().height + spacing) * (answers - i);
         btn->setPosition({0, posY});
         
         containerSize.width  = std::max(containerSize.width,  btn->getPositionX() + btn->getContentSize().width);
         containerSize.height = std::max(containerSize.height, btn->getPositionY() + btn->getContentSize().height);
+
+        color = getNextAnswerButtonColor(color);
     }
 
     container->setContentSize(containerSize);

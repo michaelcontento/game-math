@@ -35,6 +35,34 @@ bool AnswerButton::init(const cocos2d::Color3B& color)
     return true;
 }
 
+void AnswerButton::setAnswerString(const std::string& text)
+{
+    label->setString(text.c_str());
+}
+
+void AnswerButton::setIsRight(const bool flag)
+{
+    isRight = flag;
+}
+
+void AnswerButton::fadeOutAnswer(const float duration)
+{
+    label->stopAllActions();
+    label->runAction(FadeOut::create(duration));
+}
+
+void AnswerButton::hideAnswer()
+{
+    label->stopAllActions();
+    label->setOpacity(0);
+}
+
+void AnswerButton::showAnswer()
+{
+    label->stopAllActions();
+    label->setOpacity(255);
+}
+
 void AnswerButton::configureSize()
 {
     auto size = 80 * config::getScaleFactor();
@@ -77,7 +105,7 @@ bool AnswerButton::hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void AnswerButton::addLabel()
 {
-    auto label = fonts::createLight("⅝", 72);
+    label = fonts::createLight("", 72);
     addChild(label);
 
     // color

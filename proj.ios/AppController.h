@@ -4,7 +4,7 @@
 
 @interface AppController : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    RootViewController    *viewController;
+    @public RootViewController    *viewController;
 }
 
 @end
