@@ -128,11 +128,10 @@ void GamePage::markQuestionAnswered()
         throw new std::runtime_error("no question present -- call addQuestion() first");
     }
 
-    updateProgressbar();
     questions.erase(questions.begin());
+    updateProgressbar();
 
     if (allQuestionsAnswered()) {
-        updateProgressbar();
         CCLog("DONE!");
         return;
     }
