@@ -19,9 +19,9 @@ namespace std {
 template <>
 struct hash<puzzle::NumberRange>
 {
-    std::size_t operator ()(puzzle::NumberRange value) const
+    size_t operator ()(const puzzle::NumberRange& value) const
     {
-        return static_cast<std::size_t>(value);
+        return static_cast<size_t>(value);
     }
 };
 

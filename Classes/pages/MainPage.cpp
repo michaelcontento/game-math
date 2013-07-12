@@ -36,7 +36,7 @@ void MainPage::addTapToPlayLabel()
     tapToPlay->setPositionY(50 * config::getScaleFactor());
 }
 
-void MainPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void MainPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     PageManager::shared().scrollTo("category-01");
 }

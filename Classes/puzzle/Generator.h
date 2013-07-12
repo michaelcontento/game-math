@@ -14,25 +14,23 @@ namespace puzzle {
 class Generator
 {
 public:
-    const std::string question;
-    const std::string answer;
-    const std::unordered_set<Operator> operators;
-    const std::unordered_set<NumberRange> ranges;
+    std::string question;
+    std::string answer;
+    std::unordered_set<Operator> operators;
+    std::unordered_set<NumberRange> ranges;
 
-    Generator(const std::string& question, const std::string& answer, const std::unordered_set<Operator>& operators, const std::unordered_set<NumberRange>& ranges)
+    Generator(std::string question, std::string answer, std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
     : question(question), answer(answer), operators(operators), ranges(ranges)
     {}
 
-    const Question generate();
+    Question generate();
 
 private:
-    const std::string tokenDelimiterLeft  = "{";
-    const std::string tokenDelimiterRight = "}";
-    const std::string tokenNumber   = tokenDelimiterLeft + "number"   + tokenDelimiterRight;
-    const std::string tokenOperator = tokenDelimiterLeft + "operator" + tokenDelimiterRight;
-    
-    std::random_device randDevice;
-    std::mt19937 randEngine{randDevice()};
+    static const std::string tokenDelimiterLeft;
+    static const std::string tokenDelimiterRight;
+    static const std::string tokenNumber;
+    static const std::string tokenOperator;
+    static std::random_device randDevice;
 
     std::pair<std::string, int> generateQuestionAndAnswer();
     int getNumber(const Operator& op);

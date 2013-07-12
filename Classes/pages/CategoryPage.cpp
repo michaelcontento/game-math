@@ -48,9 +48,9 @@ void CategoryPage::addLevelButtons()
     auto gridSize = Point(4, 4);
 
     for (int i = 0; i < (gridSize.x * gridSize.y); ++i) {
-        auto btn = LevelButton::create(i + 1, this);
+        auto btn = LevelButton::create(i + 1, *this);
         container->addChild(btn);
-        levelButtons.insert(btn);
+        levelButtons.push_back(btn);
 
         auto gridPos = Point(i % int(gridSize.x), (gridSize.y - 1) - int(i / gridSize.y));
         auto size = btn->getContentSize();
@@ -66,7 +66,7 @@ void CategoryPage::addLevelButtons()
     container->setPosition(config::getFrameSize() / 2);
 }
 
-void CategoryPage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void CategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     for (auto& btn : levelButtons) {
         btn->onTouch(touch, event);

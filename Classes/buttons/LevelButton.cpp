@@ -9,7 +9,7 @@
 
 using namespace cocos2d;
 
-LevelButton* LevelButton::create(const short number, const Page* const parentPage)
+LevelButton* LevelButton::create(const short number, const Page& parentPage)
 {
     LevelButton* pRet = new LevelButton();
     if (pRet && pRet->init(number, parentPage)) {
@@ -22,14 +22,14 @@ LevelButton* LevelButton::create(const short number, const Page* const parentPag
     }
 }
 
-bool LevelButton::init(const short number, const Page* const parentPage)
+bool LevelButton::init(const short number, const Page& parentPage)
 {
     if (!Node::init()) {
         return false;
     }
 
     this->number = number;
-    this->parentPage = parentPage;
+    this->parentPage = &parentPage;
 
     configureSize();
     addBackground();
@@ -85,18 +85,18 @@ void LevelButton::addNumber()
     label->setPosition(getContentSize() / 2);
 }
 
-void LevelButton::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void LevelButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     if (!hasBeenTouched(touch, event)) {
         return;
     }
 
-    PageManager::shared().scrollDown(GamePage::create(parentPage));
+    PageManager::shared().scrollDown(GamePage::create(*parentPage));
 }
 
-bool LevelButton::hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event)
+bool LevelButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    auto localTouch = convertTouchToNodeSpace(touch);
+    auto localTouch = convertTouchToNodeSpace(&touch);
 
     if (localTouch.x < 0 || localTouch.x > getContentSize().width) {
         return false;

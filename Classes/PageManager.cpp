@@ -166,7 +166,7 @@ PageManager::~PageManager()
     instance = nullptr;
 
     // FIX#1
-    for (auto& pair : pages) {
+    for (const auto& pair : pages) {
         pair.second->release();
     }
 }
@@ -210,7 +210,7 @@ bool PageManager::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 void PageManager::ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     // touch captured, handle page scrolling
-    if (hasTouchHandled(pTouch, pEvent)) {
+    if (hasTouchHandled(*pTouch, *pEvent)) {
         handlePageScroll(pTouch->getDelta());
         return;
     }
@@ -236,25 +236,25 @@ void PageManager::ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 
 void PageManager::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
-    if (hasTouchHandled(pTouch, pEvent)) {
+    if (hasTouchHandled(*pTouch, *pEvent)) {
         snapPages();
     }
     
     trackedTouches.erase(pTouch->getID());
 }
 
-bool PageManager::hasTouchHandled(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
+bool PageManager::hasTouchHandled(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    if (trackedTouches.count(pTouch->getID()) == 0) {
+    if (trackedTouches.count(touch.getID()) == 0) {
         return false;
     } else {
-        return trackedTouches.at(pTouch->getID());
+        return trackedTouches.at(touch.getID());
     }
 }
 
 void PageManager::handlePageScroll(const cocos2d::Point& delta)
 {
-    for (auto& pair : pages) {
+    for (const auto& pair : pages) {
         auto page = pair.second;
         page->setPositionX(page->getPositionX() + delta.x);
     }

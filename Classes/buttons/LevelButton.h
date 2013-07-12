@@ -9,10 +9,10 @@ class LevelButton : public cocos2d::Node
 {
 public:
     static LevelButton* create(void) = delete;
-    static LevelButton* create(const short number, const Page* const parentPage);
-    bool init(const short number, const Page* const parentPage);
+    static LevelButton* create(const short number, const Page& parentPage);
+    bool init(const short number, const Page& parentPage);
 
-    void onTouch(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouch(cocos2d::Touch& touch, cocos2d::Event& event);
 
 private:
     short number = -1;
@@ -22,7 +22,7 @@ private:
     void addBackground();
     const cocos2d::Color4F getBackgroundColorFromParentPage() const;
     void addNumber();
-    bool hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event);
+    bool hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event);
 };
 
 #endif // MATH_LEVELBUTTON_H

@@ -77,20 +77,20 @@ void AnswerButton::addBackground(const cocos2d::Color3B& color)
     auto size = getContentSize();
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
 
-    Color4F color4f = {color.r / 255.0, color.g / 255.0, color.b / 255.0, 1};
+    Color4F color4f = color::toRGBA(color);
     draw->drawPolygon(verts, 4, color4f, 1, color4f);
 }
 
-void AnswerButton::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void AnswerButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     if (!hasBeenTouched(touch, event)) {
         return;
     }
 }
 
-bool AnswerButton::hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event)
+bool AnswerButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    auto localTouch = convertTouchToNodeSpace(touch);
+    auto localTouch = convertTouchToNodeSpace(&touch);
 
     if (localTouch.x < 0 || localTouch.x > getContentSize().width) {
         return false;

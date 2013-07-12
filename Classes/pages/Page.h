@@ -15,7 +15,7 @@ public:
     void registerWithTouchDispatcher() override;
     bool ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
     void ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
-    virtual void onTouch(cocos2d::Touch* touch, cocos2d::Event* event) {};
+    virtual void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) {};
 
     void setBackground(const cocos2d::Color3B& color);
     const cocos2d::Color3B& getBackground() const;

@@ -10,7 +10,7 @@ public:
     static AnswerButton* create(const cocos2d::Color3B& color);
     bool init(const cocos2d::Color3B& color);
 
-    void onTouch(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouch(cocos2d::Touch& touch, cocos2d::Event& event);
     void setIsRight(const bool flag);
     void setAnswerString(const std::string& text);
 
@@ -24,7 +24,7 @@ private:
     
     void configureSize();
     void addBackground(const cocos2d::Color3B& color);
-    bool hasBeenTouched(cocos2d::Touch* touch, cocos2d::Event* event);
+    bool hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event);
     void addLabel();
 };
 

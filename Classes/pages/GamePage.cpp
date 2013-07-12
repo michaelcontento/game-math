@@ -1,6 +1,5 @@
 #include "GamePage.h"
 
-#include <deque>
 #include "../utils/color.h"
 #include "../utils/config.h"
 #include "../utils/fonts.h"
@@ -10,7 +9,7 @@
 
 using namespace cocos2d;
 
-GamePage* GamePage::create(const Page* const parentPage)
+GamePage* GamePage::create(const Page& parentPage)
 {
     GamePage* pRet = new GamePage();
     if (pRet && pRet->init(parentPage)) {
@@ -23,13 +22,13 @@ GamePage* GamePage::create(const Page* const parentPage)
     }
 }
 
-bool GamePage::init(const Page* const parentPage)
+bool GamePage::init(const Page& parentPage)
 {
     if (!Page::init()) {
         return false;
     }
 
-    this->parentPage = parentPage;
+    this->parentPage = &parentPage;
     setBackground(Color3B::WHITE);
 
     puzzle::Generator generator {
@@ -38,20 +37,21 @@ bool GamePage::init(const Page* const parentPage)
         {puzzle::Operator::PLUS},
         {puzzle::NumberRange::SMALL}
     };
-    for (int i = 0; i < questionAmount; ++i) {
-        questions.push_back(generator.generate());
+    while (questions.size() < questionAmount) {
+        questions.insert(generator.generate());
     }
 
     addQuestion();
     addAnswerButtons();
+    addProgressbar();
 
     return true;
 }
 
-void GamePage::onTouch(cocos2d::Touch* touch, cocos2d::Event* event)
+void GamePage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     if (allQuestionsAnswered()) {
-        PageManager::shared().scrollUp();
+//        PageManager::shared().scrollUp();
     } else {
         markQuestionAnswered();
     }
@@ -74,14 +74,52 @@ void GamePage::addQuestion()
        CallFunc::create([this]() { question->setString("2"); }),
        FadeOut::create(config::getQuestionFadeTime()),
        CallFunc::create([this]() { question->setString("1"); }),
-       CallFunc::create([this]() { markQuestionAnswered(); }),
+       CallFunc::create([this]() { setNextQuestion(); }),
        NULL
     ));
 }
 
+void GamePage::addProgressbar()
+{
+    // == DrawNode
+    auto height = 15 * config::getScaleFactor();
+    Point verts[] = {
+        {0, 0}, {0, height},
+        {getContentSize().width, height}, {getContentSize().width, 0}
+    };
+
+    auto color = color::toRGBA(parentPage->getBackground());
+    auto drawNode = DrawNode::create();
+    drawNode->drawPolygon(verts, 4, color, 1, color);
+
+    // == Node
+    progressBar = Node::create();
+    addChild(progressBar);
+
+    progressBar->addChild(drawNode);
+    progressBar->setContentSize({getContentSize().width, height});
+    progressBar->setAnchorPoint({1, 1});
+    progressBar->setPosition({0, getContentSize().height});
+
+}
+
+void GamePage::updateProgressbar()
+{
+    auto solved = questionAmount - questions.size();
+    auto progress = solved / float(questionAmount);
+
+    auto newPos = progressBar->getPosition();
+    newPos.x = getContentSize().width * progress;
+
+    progressBar->stopAllActions();
+    progressBar->runAction(
+        EaseInOut::create(MoveTo::create(0.25, newPos), 2)
+    );
+}
+
 bool GamePage::allQuestionsAnswered() const
 {
-    return (questions.size() <= 1);
+    return questions.empty();
 }
 
 void GamePage::markQuestionAnswered()
@@ -90,12 +128,15 @@ void GamePage::markQuestionAnswered()
         throw new std::runtime_error("no question present -- call addQuestion() first");
     }
 
+    updateProgressbar();
+    questions.erase(questions.begin());
+
     if (allQuestionsAnswered()) {
+        updateProgressbar();
         CCLog("DONE!");
         return;
     }
 
-    questions.pop_front();
     question->runAction(Sequence::create(
         FadeOut::create(config::getQuestionFadeTime()),
         CallFunc::create([this]() { setNextQuestion(); }),
@@ -109,8 +150,8 @@ void GamePage::markQuestionAnswered()
 
 void GamePage::setNextQuestion()
 {
-    auto currentQuestion = *questions.begin();
-    std::deque<std::string> answers = {
+    auto& currentQuestion = *questions.begin();
+    std::vector<std::string> answers = {
         currentQuestion.rightAnswer,
         currentQuestion.wrongAnswer1,
         currentQuestion.wrongAnswer2
@@ -120,8 +161,8 @@ void GamePage::setNextQuestion()
     std::random_shuffle(answerButtons.begin(), answerButtons.end());
 
     for (const auto& btn : answerButtons) {
-        auto answer = *answers.begin();
-        answers.pop_front();
+        auto answer = answers.back();
+        answers.pop_back();
 
         btn->setIsRight(answer == currentQuestion.rightAnswer);
         btn->setAnswerString(answer);

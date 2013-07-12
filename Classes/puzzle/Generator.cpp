@@ -5,7 +5,13 @@
 
 namespace puzzle {
 
-const Question Generator::generate()
+const std::string Generator::tokenDelimiterLeft  = "{";
+const std::string Generator::tokenDelimiterRight = "}";
+const std::string Generator::tokenNumber         = tokenDelimiterLeft + "number"   + tokenDelimiterRight;
+const std::string Generator::tokenOperator       = tokenDelimiterLeft + "operator" + tokenDelimiterRight;
+std::random_device Generator::randDevice;
+
+Question Generator::generate()
 {
     auto qa = generateQuestionAndAnswer();
     auto wrongAnswer = getWrongAnswers(qa.second);
@@ -46,8 +52,8 @@ std::pair<std::string, int> Generator::generateQuestionAndAnswer()
 
 int Generator::getNumber(const puzzle::Operator& op)
 {
-    std::uniform_int_distribution<> dis(0, 12);
-    return dis(randEngine);
+    std::uniform_int_distribution<> dice(0, 12);
+    return dice(randDevice);
 }
 
 void Generator::throwIfContainsUnhandledTokens(const std::string& checkStr) const

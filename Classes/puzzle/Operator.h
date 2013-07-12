@@ -1,6 +1,7 @@
 #ifndef MATH_PUZZLE_OPERATOR_H
 #define MATH_PUZZLE_OPERATOR_H
 
+#include <string>
 #include <cstddef>
 
 namespace puzzle {
@@ -33,9 +34,9 @@ namespace std {
 template <>
 struct hash<puzzle::Operator>
 {
-    std::size_t operator ()(const puzzle::Operator& value) const
+    size_t operator ()(const puzzle::Operator& value) const
     {
-        return static_cast<std::size_t>(value);
+        return static_cast<size_t>(value);
     }
 };
 

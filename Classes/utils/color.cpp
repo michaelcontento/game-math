@@ -22,4 +22,14 @@ cocos2d::Color4F toRGBA(const cocos2d::extension::HSV& color)
     return {GLfloat(rgba.r), GLfloat(rgba.g), GLfloat(rgba.b), 1.0};
 }
 
+cocos2d::Color3B toRGB(const cocos2d::Color4F& color)
+{
+    return {GLubyte(color.r * 255), GLubyte(color.g * 255), GLubyte(color.b * 255)};
+}
+    
+cocos2d::Color4F toRGBA(const cocos2d::Color3B& color)
+{
+    return {color.r / 255.0, color.g / 255.0, color.b / 255.0, 1.0};
+}
+
 } // namespace color

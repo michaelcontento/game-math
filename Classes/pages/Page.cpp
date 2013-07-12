@@ -91,7 +91,7 @@ void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
 
-    if (PageManager::shared().hasTouchHandled(pTouch, pEvent)) {
+    if (PageManager::shared().hasTouchHandled(*pTouch, *pEvent)) {
         // touch already handled for scrolling
     } else if (PageManager::shared().isAnimationActive()) {
         // scroll animation is currently running
@@ -101,6 +101,6 @@ void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
         // not a valid scrolling touch (maybe a old animation was running?) but
         // it moved to far to be a valid touch
     } else {
-        onTouch(pTouch, pEvent);
+        onTouch(*pTouch, *pEvent);
     }
 }
