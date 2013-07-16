@@ -39,6 +39,10 @@ bool AnswerButton::isAnswerVisible() const
 
 void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    if (!isAnswerVisible()) {
+        return;
+    }
+    
     if (isRight) {
         page->answeredRight();
     } else {
