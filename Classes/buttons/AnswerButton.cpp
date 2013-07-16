@@ -9,10 +9,47 @@
 
 using namespace cocos2d;
 
-AnswerButton* AnswerButton::create(const cocos2d::Color3B& color)
+void AnswerButton::onEnter()
+{
+    Node::onEnter();
+
+    Director::sharedDirector()
+        ->getTouchDispatcher()
+        ->addTargetedDelegate(this, 0, true);
+}
+
+void AnswerButton::onExit()
+{
+    Director::sharedDirector()
+        ->getTouchDispatcher()
+        ->removeDelegate(this);
+
+    Node::onExit();
+}
+
+bool AnswerButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    return isAnswerVisible() && boundingBox().containsPoint(touch->getLocation());
+}
+
+bool AnswerButton::isAnswerVisible() const
+{
+    return label->getOpacity() == 255;
+}
+
+void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    if (isRight) {
+        page->answeredRight();
+    } else {
+        page->answeredWrong();
+    }
+}
+
+AnswerButton* AnswerButton::create(GamePage& page, const cocos2d::Color3B& color)
 {
     AnswerButton* pRet = new AnswerButton();
-    if (pRet && pRet->init(color)) {
+    if (pRet && pRet->init(page, color)) {
         pRet->autorelease();
         return pRet;
     } else {
@@ -22,11 +59,13 @@ AnswerButton* AnswerButton::create(const cocos2d::Color3B& color)
     }
 }
 
-bool AnswerButton::init(const cocos2d::Color3B& color)
+bool AnswerButton::init(GamePage& page, const cocos2d::Color3B& color)
 {
     if (!Node::init()) {
         return false;
     }
+
+    this->page = &page;
 
     configureSize();
     addBackground(color);
@@ -79,28 +118,6 @@ void AnswerButton::addBackground(const cocos2d::Color3B& color)
 
     Color4F color4f = color::toRGBA(color);
     draw->drawPolygon(verts, 4, color4f, 1, color4f);
-}
-
-void AnswerButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
-{
-    if (!hasBeenTouched(touch, event)) {
-        return;
-    }
-}
-
-bool AnswerButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)
-{
-    auto localTouch = convertTouchToNodeSpace(&touch);
-
-    if (localTouch.x < 0 || localTouch.x > getContentSize().width) {
-        return false;
-    }
-
-    if (localTouch.y < 0 || localTouch.y > getContentSize().height) {
-        return false;
-    }
-    
-    return true;
 }
 
 void AnswerButton::addLabel()

@@ -239,7 +239,7 @@
 		C84DC142178EEC9000F07AE3 /* Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popup.h; sourceTree = "<group>"; };
 		C84DC144178EEC9000F07AE3 /* Chartboost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chartboost.cpp; sourceTree = "<group>"; };
 		C84DC145178EEC9000F07AE3 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
-		C84DC146178EEC9000F07AE3 /* ChartboostX.h */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChartboostX.h; sourceTree = "<group>"; };
+		C84DC146178EEC9000F07AE3 /* ChartboostX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartboostX.h; sourceTree = "<group>"; };
 		C84DC147178EEC9000F07AE3 /* IAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAd.h; sourceTree = "<group>"; };
 		C84DC148178EEC9000F07AE3 /* Revmob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Revmob.h; sourceTree = "<group>"; };
 		C84DC149178EEC9000F07AE3 /* SamsungAdHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamsungAdHub.h; sourceTree = "<group>"; };
@@ -265,11 +265,11 @@
 		C84DC160178EEC9000F07AE3 /* ProductConsumable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProductConsumable.cpp; sourceTree = "<group>"; };
 		C84DC161178EEC9000F07AE3 /* ProductConsumable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductConsumable.h; sourceTree = "<group>"; };
 		C84DC162178EEC9000F07AE3 /* payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payment.h; sourceTree = "<group>"; };
-		C84DC1DD178EEC9000F07AE3 /* CBAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = file; path = CBAnalytics.h; sourceTree = "<group>"; };
-		C84DC1DE178EEC9000F07AE3 /* Chartboost.h */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chartboost.h; sourceTree = "<group>"; };
-		C84DC1DF178EEC9000F07AE3 /* ChartboostX_ios.mm */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChartboostX_ios.mm; sourceTree = "<group>"; };
+		C84DC1DD178EEC9000F07AE3 /* CBAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
+		C84DC1DE178EEC9000F07AE3 /* Chartboost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
+		C84DC1DF178EEC9000F07AE3 /* ChartboostX_ios.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ChartboostX_ios.mm; sourceTree = "<group>"; };
 		C84DC1E0178EEC9000F07AE3 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
-		C84DC1E1178EEC9000F07AE3 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = file; path = libChartboost.a; sourceTree = "<group>"; };
+		C84DC1E1178EEC9000F07AE3 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libChartboost.a; sourceTree = "<group>"; };
 		C84DC1E2178EEC9000F07AE3 /* Revmob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Revmob.cpp; sourceTree = "<group>"; };
 		C84DC1E3178EEC9000F07AE3 /* RevMobAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevMobAds.framework; sourceTree = "<group>"; };
 		C84DC1E4178EEC9000F07AE3 /* RevmobBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevmobBridge.h; sourceTree = "<group>"; };

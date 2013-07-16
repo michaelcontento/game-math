@@ -31,7 +31,7 @@ const float getTouchIgnoreLength()
 
 const float getSnapAnimationDuration()
 {
-    return 0.7;
+    return 0.5;
 }
 
 const float getSwipeMovementMinX()

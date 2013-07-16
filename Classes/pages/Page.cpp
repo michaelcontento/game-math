@@ -45,24 +45,7 @@ float Page::getVisibleWidth() const
 
 bool Page::isVisible() const
 {
-    auto posX = getPositionX();
-    auto posY = getPositionY();
-
-    if (posX <= 0 - getContentSize().width) {
-        return false;
-    }
-    if (posX >= getContentSize().width) {
-        return false;
-    }
-
-    if (posY <= 0 - getContentSize().height) {
-        return false;
-    }
-    if (posY >= getContentSize().height) {
-        return false;
-    }
-
-    return true;
+    return PageManager::shared().isPageVisible(*this);
 }
 
 void Page::visit()
@@ -79,7 +62,7 @@ void Page::registerWithTouchDispatcher()
 {
     Director::sharedDirector()
         ->getTouchDispatcher()
-        ->addTargetedDelegate(this, -1, false);
+        ->addTargetedDelegate(this, 0, false);
 }
 
 bool Page::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
@@ -91,10 +74,8 @@ void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
 
-    if (PageManager::shared().hasTouchHandled(*pTouch, *pEvent)) {
-        // touch already handled for scrolling
-    } else if (PageManager::shared().isAnimationActive()) {
-        // scroll animation is currently running
+    if (PageManager::shared().hasControl()) {
+        // user is scrolling through the pages
     } else if (!isVisible()) {
         // we're now longer visible!
     } else if (ccpLength(startDelta) >= config::getTouchIgnoreLength()) {

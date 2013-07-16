@@ -6,23 +6,17 @@
 #include <utility>
 #include <unordered_map>
 #include "cocos2d.h"
+#include "cocos-ext.h"
 
 class Page;
 
-class PageManager : public cocos2d::Layer
+class PageManager : public cocos2d::Layer, public cocos2d::extension::ScrollViewDelegate
 {
 public:
     CREATE_FUNC(PageManager);
     bool init() override;
     ~PageManager();
-
     static PageManager& shared();
-
-    void registerWithTouchDispatcher() override;
-    bool ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
-    void ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
-    void ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
-    bool hasTouchHandled(cocos2d::Touch& touch, cocos2d::Event& event);
 
     void add(const std::string& name, Page* const page);
     void scrollTo(const std::string& name);
@@ -31,22 +25,25 @@ public:
     void scrollDown(Page* const page);
     void scrollUp();
 
-    bool isAnimationActive() const;
+    void scrollViewDidScroll(cocos2d::extension::ScrollView* view, bool stopped) override;
+    void scrollViewDidZoom(cocos2d::extension::ScrollView* view) override;
+
+    bool hasControl();
+    bool isPageVisible(const Page& page) const;
 
 private:
     constexpr static int TAG_ACTION_MOVE_BY = 101;
     static PageManager* instance;
+    cocos2d::extension::ScrollView* scrollView = nullptr;
     std::vector<std::pair<const std::string, Page* const>> pages {};
     std::unordered_map<int, bool> trackedTouches {};
     Page* pageScrollDown = nullptr;
-    bool animationActive = false;
+    bool snapActive = false;
 
     void handlePageScroll(const cocos2d::Point& delta);
     Page& getPage(const std::string& name) const;
     int getPageIndex(const std::string& name) const;
-    void snapPages();
-    void scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration);
-    void scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback);
+    std::string getMostVisiblePageName() const;
 };
 
 #endif // MATH_PAGEMANAGER_H

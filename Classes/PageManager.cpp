@@ -4,16 +4,55 @@
 #include "pages/Page.h"
 
 using namespace cocos2d;
+using namespace cocos2d::extension;
 
 PageManager* PageManager::instance = nullptr;
 
-#pragma -
-#pragma mark Page / scroll handling
+void PageManager::scrollViewDidScroll(cocos2d::extension::ScrollView* view, bool stopped)
+{
+    if (pages.empty() || !stopped) {
+        return;
+    }
+
+    if (snapActive) {
+        snapActive = false;
+        return;
+    }
+
+    scrollTo(getMostVisiblePageName());
+}
+
+void PageManager::scrollViewDidZoom(cocos2d::extension::ScrollView* view)
+{
+}
+
+bool PageManager::hasControl()
+{
+    return scrollView->isTouchMoved() || snapActive;
+}
+
+bool PageManager::isPageVisible(const Page& page) const
+{
+    // FIX#2
+    if (pageScrollDown && scrollView->getPositionY() >= config::getFrameSize().height) {
+        auto nonConstPagePtr = const_cast<Page*>(&page);
+        return (nonConstPagePtr == pageScrollDown);
+    } else {
+        // FIX#3
+        Page& nonConstPage = const_cast<Page&>(page);
+        return scrollView->isNodeVisible(&nonConstPage);
+    }
+}
 
 void PageManager::add(const std::string& name, Page* const page)
 {
     page->setPositionX(pages.size() * page->getContentSize().width);
-    addChild(page);
+    scrollView->addChild(page);
+
+    scrollView->setContentSize({
+        page->getPositionX() + page->getContentSize().width,
+        scrollView->getContentSize().height
+    });
 
     pages.push_back(std::make_pair(name, page));
     // FIX#1
@@ -27,112 +66,88 @@ void PageManager::scrollTo(const std::string& name)
 
 void PageManager::scrollTo(const std::string& name, const float duration)
 {
-    auto newZeroAlignedIndex = getPageIndex(name);
-    auto index = 0;
+    float nonConstDuration = duration;
+    auto index = getPageIndex(name);
+    auto width = getPage(name).getContentSize().width;
+    auto newPos = Point(index * width * -1, 0);
 
-    for (const auto& pair : pages) {
-        auto page = pair.second;
-        auto posX = (index - newZeroAlignedIndex) * page->getContentSize().width;
-
-        scrollNodeTo(*page, {posX, 0}, duration);
-        ++index;
+    snapActive = true;
+    scrollView->unscheduleAllSelectors();
+    if (duration > 0) {
+        scrollView->setContentOffsetInDuration(newPos, nonConstDuration);
+    } else {
+        scrollView->setContentOffset(newPos, nonConstDuration);
     }
 }
 
 void PageManager::scrollDown(Page* const page)
 {
-    if (animationActive) {
+    if (hasControl() || pageScrollDown) {
         return;
-    }
-
-    if (pageScrollDown) {
-        removeChild(pageScrollDown);
-        pageScrollDown = nullptr;
     }
 
     pageScrollDown = page;
     addChild(pageScrollDown);
 
-    // scroll all "menu pages"
-    for (const auto& pair : pages) {
-        auto page = pair.second;
-        scrollNodeTo(
-            *page,
-            {page->getPositionX(), config::getFrameSize().height},
-            config::getSnapAnimationDuration()
-        );
-    }
+    scrollView->stopAllActions();
+    scrollView->runAction(MoveTo::create(
+        config::getSnapAnimationDuration(),
+        {0, config::getFrameSize().height}
+    ));
 
-    // scroll the page down below
+    pageScrollDown->stopAllActions();
     pageScrollDown->setPositionY(config::getFrameSize().height * -1);
-    scrollNodeTo(
-        *pageScrollDown,
-        {0, 0},
-        config::getSnapAnimationDuration()
-    );
+    pageScrollDown->runAction(MoveTo::create(
+        config::getSnapAnimationDuration(),
+        {0, 0}
+    ));
 }
 
 void PageManager::scrollUp()
 {
-    if (!pageScrollDown || animationActive) {
+    if (!pageScrollDown) {
         return;
     }
 
-    // scroll all "menu pages"
+    scrollView->stopAllActions();
+    scrollView->runAction(MoveTo::create(
+        config::getSnapAnimationDuration(),
+        {0, 0}
+    ));
+
+    pageScrollDown->stopAllActions();
+    pageScrollDown->runAction(Sequence::create(
+        MoveTo::create(config::getSnapAnimationDuration(), {0, config::getFrameSize().height * -1}),
+        RemoveSelf::create(),
+        NULL
+    ));
+
+    pageScrollDown = nullptr;
+}
+
+std::string PageManager::getMostVisiblePageName() const
+{
+    if (pages.empty()) {
+        throw new std::runtime_error("there are no pages added yet");
+    }
+    
+    std::string activePage {pages.begin()->first};
+    float bestDistanceToZero {std::numeric_limits<float>::max()};
+    float scrollViewOffset {scrollView->getContentOffset().x};
+
     for (const auto& pair : pages) {
         auto page = pair.second;
 
-        scrollNodeTo(
-            *page,
-            {page->getPositionX(), 0},
-            config::getSnapAnimationDuration()
-        );
+        float distance {fabsf(page->getPositionX() + scrollViewOffset)};
+
+        if (distance < bestDistanceToZero) {
+            bestDistanceToZero = distance;
+            activePage = pair.first;
+        }
     }
 
-    // scroll the page down below
-    scrollNodeTo(
-        *pageScrollDown,
-        {0, config::getFrameSize().height * -1},
-        config::getSnapAnimationDuration(),
-        [this]() { removeChild(pageScrollDown); pageScrollDown = nullptr; }
-    );
+    return activePage;
 }
-
-void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration)
-{
-    scrollNodeTo(node, newPosition, duration, []() {});
-}
-
-void PageManager::scrollNodeTo(cocos2d::Node& node, const cocos2d::Point& newPosition, const float duration, std::function<void()> callback)
-{
-    node.stopActionByTag(TAG_ACTION_MOVE_BY);
-    animationActive = true;
-
-    if (duration > 0) {
-        auto moveAction = Sequence::create(
-            EaseInOut::create(MoveTo::create(duration, newPosition), 2),
-            CallFunc::create(callback),
-            DelayTime::create(config::getDelayAfterScrollAnimation()),
-            CallFunc::create([this]() { animationActive = false; }),
-            NULL
-        );
-        moveAction->setTag(TAG_ACTION_MOVE_BY);
-
-        node.runAction(moveAction);
-    } else {
-        node.setPosition(newPosition);
-        callback();
-        animationActive = false;
-    }
-}
-
-bool PageManager::isAnimationActive() const
-{
-    return animationActive;
-}
-
-#pragma -
-#pragma mark Page helper
 
 Page& PageManager::getPage(const std::string& name) const
 {
@@ -158,9 +173,6 @@ int PageManager::getPageIndex(const std::string& name) const
     throw new std::out_of_range("invalid page name given" + name);
 }
 
-#pragma -
-#pragma mark Lifetime
-
 PageManager::~PageManager()
 {
     instance = nullptr;
@@ -180,6 +192,11 @@ bool PageManager::init()
     setTouchEnabled(true);
     instance = this;
 
+    scrollView = ScrollView::create(config::getFrameSize(), Node::create());
+    scrollView->setDirection(kScrollViewDirectionHorizontal);
+    scrollView->setDelegate(this);
+    addChild(scrollView);
+
     return true;
 }
 
@@ -190,113 +207,4 @@ PageManager& PageManager::shared()
     }
     
     return *instance;
-}
-
-#pragma -
-#pragma mark Touch handling
-
-void PageManager::registerWithTouchDispatcher()
-{
-    Director::sharedDirector()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, 0, false);
-}
-
-bool PageManager::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
-{
-    return !(animationActive || pageScrollDown);
-}
-
-void PageManager::ccTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
-{
-    // touch captured, handle page scrolling
-    if (hasTouchHandled(*pTouch, *pEvent)) {
-        handlePageScroll(pTouch->getDelta());
-        return;
-    }
-
-    // we've previously decided to ignore this touch
-    if (trackedTouches.count(pTouch->getID()) > 0) {
-        return;
-    }
-
-    auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
-
-    // detect if we should ignore this touch for page scrolling
-    if (fabs(startDelta.y) >= config::getSwipeMovementMaxY()) {
-        trackedTouches.insert(std::make_pair(pTouch->getID(), false));
-        return;
-    }
-
-    // detect if we should enable page scrolling
-    if (fabs(startDelta.x) >= config::getSwipeMovementMinX()) {
-        trackedTouches.insert(std::make_pair(pTouch->getID(), true));
-    }
-}
-
-void PageManager::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
-{
-    if (hasTouchHandled(*pTouch, *pEvent)) {
-        snapPages();
-    }
-    
-    trackedTouches.erase(pTouch->getID());
-}
-
-bool PageManager::hasTouchHandled(cocos2d::Touch& touch, cocos2d::Event& event)
-{
-    if (trackedTouches.count(touch.getID()) == 0) {
-        return false;
-    } else {
-        return trackedTouches.at(touch.getID());
-    }
-}
-
-void PageManager::handlePageScroll(const cocos2d::Point& delta)
-{
-    for (const auto& pair : pages) {
-        auto page = pair.second;
-        page->setPositionX(page->getPositionX() + delta.x);
-    }
-}
-
-void PageManager::snapPages()
-{
-    if (pages.empty() || animationActive) {
-        return;
-    }
-
-    std::string activePage = "";
-    int maxVisibleWidth = 0;
-
-    for (const auto& pair : pages) {
-        auto page = pair.second;
-
-        // fallback #1: use the first page that's right from pos 0
-        if (activePage.empty()) {
-            auto pageRightPos = page->getPositionX() + page->getContentSize().width;
-            if (pageRightPos >= 0) {
-                activePage = pair.first;
-            }
-        }
-
-        if (!page->isVisible()) {
-            continue;
-        }
-
-        // use the page with the most visible width / pixels
-        auto currentVisibleWidth = page->getVisibleWidth();
-        if (currentVisibleWidth > maxVisibleWidth) {
-            maxVisibleWidth = currentVisibleWidth;
-            activePage = pair.first;
-        }
-    }
-
-    // fallback #2: simply use to the last page available
-    if (activePage.empty()) {
-        activePage = (--pages.end())->first;
-    }
-
-    // kickoff the final scrolling animation
-    scrollTo(activePage);
 }

@@ -48,15 +48,6 @@ bool GamePage::init(const Page& parentPage)
     return true;
 }
 
-void GamePage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
-{
-    if (allQuestionsAnswered()) {
-//        PageManager::shared().scrollUp();
-    } else {
-        markQuestionAnswered();
-    }
-}
-
 void GamePage::addQuestion()
 {
     if (question) {
@@ -122,6 +113,22 @@ bool GamePage::allQuestionsAnswered() const
     return questions.empty();
 }
 
+void GamePage::handleAllQuestionsAnswered()
+{
+    if (allAnsweredAlreadyHandled) {
+        return;
+    }
+    allAnsweredAlreadyHandled = true;
+
+    PageManager::shared().scrollUp();
+    CCLog("DONE");
+}
+
+void GamePage::handleTimeover()
+{
+    CCLog("TIMEOVER");
+}
+
 void GamePage::markQuestionAnswered()
 {
     if (!question) {
@@ -132,7 +139,7 @@ void GamePage::markQuestionAnswered()
     updateProgressbar();
 
     if (allQuestionsAnswered()) {
-        CCLog("DONE!");
+        handleAllQuestionsAnswered();
         return;
     }
 
@@ -189,6 +196,15 @@ void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
     });
 }
 
+void GamePage::answeredWrong()
+{
+}
+
+void GamePage::answeredRight()
+{
+    markQuestionAnswered();
+}
+
 void GamePage::addAnswerButtons()
 {
     auto container = Node::create();
@@ -200,7 +216,7 @@ void GamePage::addAnswerButtons()
     constexpr int answers = 3;
 
     for (int i = 1; i <= answers; ++i) {
-        auto btn = AnswerButton::create(color);
+        auto btn = AnswerButton::create(*this, color);
         btn->hideAnswer();
 
         container->addChild(btn);
@@ -230,4 +246,9 @@ cocos2d::Color3B GamePage::getNextAnswerButtonColor(const cocos2d::Color3B& colo
     hsvColor.v += step.v;
 
     return color::toRGB(hsvColor);
+}
+
+bool GamePage::isVisible() const
+{
+    return true;
 }
