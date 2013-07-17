@@ -8,6 +8,7 @@
 #include "../puzzle/Question.h"
 
 class AnswerButton;
+class GameTimer;
 
 class GamePage : public Page
 {
@@ -19,18 +20,24 @@ public:
     bool allQuestionsAnswered() const;
     void answeredWrong();
     void answeredRight();
+    
+    void timeover();
+    bool isTimeover() const;
 
     bool isVisible() const override;
 
 private:
     static constexpr unsigned short questionAmount = 10;
     const Page* parentPage = nullptr;
+    GameTimer* timer = nullptr;
     cocos2d::Node* progressBar = nullptr;
     cocos2d::LabelTTF* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
     std::unordered_set<puzzle::Question> questions {};
     bool allAnsweredAlreadyHandled = false;
+    bool timeoverAlreadyHandled = false;
 
+    void addTimer();
     void addQuestion();
     void addAnswerButtons();
     void addProgressbar();

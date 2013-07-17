@@ -1,3 +1,4 @@
 FIX#1: Drop old retain()/release() from cocos2d
 FIX#2: Remove const_cast<> hack for broken const support in cocos2d
 FIX#3: Currently PageManager::isPageVisible() returns true for min. 2 pages
+FIX#4: Use LabelBMFont instead of LabelTTF in GameTimer

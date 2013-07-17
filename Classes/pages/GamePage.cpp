@@ -5,6 +5,7 @@
 #include "../utils/fonts.h"
 #include "../buttons/AnswerButton.h"
 #include "../puzzle/Generator.h"
+#include "../GameTimer.h"
 #include "PageManager.h"
 
 using namespace cocos2d;
@@ -41,11 +42,23 @@ bool GamePage::init(const Page& parentPage)
         questions.insert(generator.generate());
     }
 
+    addTimer();
     addQuestion();
     addAnswerButtons();
     addProgressbar();
 
     return true;
+}
+
+void GamePage::addTimer()
+{
+    timer = GameTimer::create(*this);
+    addChild(timer);
+
+    timer->setAnchorPoint({0.5, 1});
+
+    timer->setPositionX(config::getFrameSize().width  - (25 * config::getScaleFactor()));
+    timer->setPositionY(config::getFrameSize().height - (50 * config::getScaleFactor()));
 }
 
 void GamePage::addQuestion()
@@ -65,7 +78,7 @@ void GamePage::addQuestion()
        CallFunc::create([this]() { question->setString("2"); }),
        FadeOut::create(config::getQuestionFadeTime()),
        CallFunc::create([this]() { question->setString("1"); }),
-       CallFunc::create([this]() { setNextQuestion(); }),
+       CallFunc::create([this]() { setNextQuestion(); timer->start(); }),
        NULL
     ));
 }
@@ -122,6 +135,19 @@ void GamePage::handleAllQuestionsAnswered()
 
     PageManager::shared().scrollUp();
     CCLog("DONE");
+}
+
+void GamePage::timeover()
+{
+    if (!timeoverAlreadyHandled) {
+        timeoverAlreadyHandled = true;
+        handleTimeover();
+    }
+}
+
+bool GamePage::isTimeover() const
+{
+    return timeoverAlreadyHandled;
 }
 
 void GamePage::handleTimeover()

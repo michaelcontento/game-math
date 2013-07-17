@@ -8,15 +8,45 @@ namespace config {
 
 const float getScaleFactor();
 const cocos2d::Size& getFrameSize();
-constexpr float getDesignWidth();
-const float getDelayAfterScrollAnimation();
 const float getTouchIgnoreLength();
-const float getSnapAnimationDuration();
 const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();
-const float getQuestionFadeTime();
 const float getQuestionStartDelay();
-const cocos2d::extension::HSV getHsvColorStep();
+
+constexpr float getDesignWidth()
+{
+    return 768;
+}
+
+constexpr float getGameTime()
+{
+    return 100;
+}
+
+constexpr float getGameAlarmTime()
+{
+    return 25;
+}
+
+constexpr float getDelayAfterScrollAnimation()
+{
+    return 0.1;
+}
+
+constexpr float getSnapAnimationDuration()
+{
+    return 0.5;
+}
+
+constexpr float getQuestionFadeTime()
+{
+    return 0.7;
+}
+
+constexpr cocos2d::extension::HSV getHsvColorStep()
+{
+    return {10, 0, 0};
+}
 
 }; // namespace config
 
