@@ -34,4 +34,9 @@ const float getQuestionStartDelay()
     return getQuestionFadeTime() * 2;
 }
 
+const float getProgressbarHeight()
+{
+    return 10 * getScaleFactor();
+}
+
 } // namespace config

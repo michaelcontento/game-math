@@ -28,6 +28,7 @@ bool GameTimer::init(GamePage& page)
     this->page = &page;
 
     addLabel();
+    updateLabelString();
 
     return true;
 }
@@ -36,21 +37,27 @@ void GameTimer::addLabel()
 {
     // FIX#4
     label = fonts::createLight("", 36);
-    updateLabelString();
     addChild(label);
 
     // color
     label->setColor(Color3B::BLACK);
 
     // alignment
-    label->setAnchorPoint({1, 1});
     label->setHorizontalAlignment(kTextAlignmentRight);
     label->setVerticalAlignment(kVerticalTextAlignmentTop);
 }
 
 void GameTimer::start()
 {
-    schedule(schedule_selector(GameTimer::onTick), 0.1);
+    if (!started) {
+        started = true;
+        schedule(schedule_selector(GameTimer::onTick), 0.1);
+    }
+}
+
+bool GameTimer::isStarted() const
+{
+    return started;
 }
 
 void GameTimer::onTick(const float dt)
@@ -76,4 +83,7 @@ void GameTimer::updateLabelString()
     char buf[10] = {0};
     snprintf(buf, sizeof(buf), "%.1f", time);
     label->setString(buf);
+
+    // update content size of the container
+    setContentSize(label->getContentSize());
 }

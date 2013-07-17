@@ -9,6 +9,7 @@
 
 class AnswerButton;
 class GameTimer;
+class HintButton;
 
 class GamePage : public Page
 {
@@ -23,6 +24,7 @@ public:
     
     void timeover();
     bool isTimeover() const;
+    bool isStarted() const;
 
     bool isVisible() const override;
 
@@ -30,6 +32,7 @@ private:
     static constexpr unsigned short questionAmount = 10;
     const Page* parentPage = nullptr;
     GameTimer* timer = nullptr;
+    HintButton* hints = nullptr;
     cocos2d::Node* progressBar = nullptr;
     cocos2d::LabelTTF* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
@@ -38,6 +41,7 @@ private:
     bool timeoverAlreadyHandled = false;
 
     void addTimer();
+    void addHints();
     void addQuestion();
     void addAnswerButtons();
     void addProgressbar();

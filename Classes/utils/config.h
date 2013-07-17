@@ -12,6 +12,7 @@ const float getTouchIgnoreLength();
 const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();
 const float getQuestionStartDelay();
+const float getProgressbarHeight();
 
 constexpr float getDesignWidth()
 {

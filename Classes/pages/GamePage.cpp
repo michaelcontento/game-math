@@ -4,6 +4,7 @@
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../buttons/AnswerButton.h"
+#include "../buttons/HintButton.h"
 #include "../puzzle/Generator.h"
 #include "../GameTimer.h"
 #include "PageManager.h"
@@ -43,6 +44,7 @@ bool GamePage::init(const Page& parentPage)
     }
 
     addTimer();
+    addHints();
     addQuestion();
     addAnswerButtons();
     addProgressbar();
@@ -55,10 +57,21 @@ void GamePage::addTimer()
     timer = GameTimer::create(*this);
     addChild(timer);
 
-    timer->setAnchorPoint({0.5, 1});
+    timer->setAnchorPoint({1, 1});
 
-    timer->setPositionX(config::getFrameSize().width  - (25 * config::getScaleFactor()));
-    timer->setPositionY(config::getFrameSize().height - (50 * config::getScaleFactor()));
+    timer->setPositionX(config::getFrameSize().width);
+    timer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+}
+
+void GamePage::addHints()
+{
+    auto hints = HintButton::create(*this);
+    addChild(hints);
+
+    hints->setAnchorPoint({0.5, 1});
+
+    hints->setPositionX(config::getFrameSize().width / 2);
+    hints->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
 }
 
 void GamePage::addQuestion()
@@ -86,7 +99,7 @@ void GamePage::addQuestion()
 void GamePage::addProgressbar()
 {
     // == DrawNode
-    auto height = 15 * config::getScaleFactor();
+    auto height = config::getProgressbarHeight();
     Point verts[] = {
         {0, 0}, {0, height},
         {getContentSize().width, height}, {getContentSize().width, 0}
@@ -148,6 +161,11 @@ void GamePage::timeover()
 bool GamePage::isTimeover() const
 {
     return timeoverAlreadyHandled;
+}
+
+bool GamePage::isStarted() const
+{
+    return timer->isStarted();
 }
 
 void GamePage::handleTimeover()

@@ -14,11 +14,14 @@ public:
     bool init(GamePage& page);
 
     void start();
+    bool isStarted() const;
+
     void onTick(const float dt);
 
 private:
     GamePage* page = nullptr;
     cocos2d::LabelTTF* label = nullptr;
+    bool started = false;
     float time = config::getGameTime();
 
     void addLabel();

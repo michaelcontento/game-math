@@ -73,6 +73,7 @@
 		C8CB342D178B0581001294B7 /* fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342C178B0581001294B7 /* fonts.cpp */; };
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
 		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
+		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A0AD0160F154A004552AE /* Default-568h@2x.png */; };
 		D446FD6E16102124000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FD6D16102124000ADA7B /* Default@2x.png */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -335,6 +336,8 @@
 		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
 		C8EA2759178DC761007118BD /* Operator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operator.h; sourceTree = "<group>"; };
 		C8EA275A178DC761007118BD /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		C8F66ED51796874200D9FF84 /* HintButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HintButton.cpp; sourceTree = "<group>"; };
+		C8F66ED61796874200D9FF84 /* HintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HintButton.h; sourceTree = "<group>"; };
 		D41A0AD0160F154A004552AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../proj.ios/Default-568h@2x.png"; sourceTree = "<group>"; };
 		D446FD6D16102124000ADA7B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../proj.ios/Default@2x.png"; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -717,6 +720,8 @@
 			children = (
 				C8B48A8D178D789300EC57FD /* AnswerButton.cpp */,
 				C8B48A8E178D789300EC57FD /* AnswerButton.h */,
+				C8F66ED51796874200D9FF84 /* HintButton.cpp */,
+				C8F66ED61796874200D9FF84 /* HintButton.h */,
 				C8B48A87178C6C7600EC57FD /* LevelButton.cpp */,
 				C8B48A88178C6C7600EC57FD /* LevelButton.h */,
 			);
@@ -1005,6 +1010,7 @@
 				C84DC2BE178EEC9000F07AE3 /* Alert.cpp in Sources */,
 				C84DC2BF178EEC9000F07AE3 /* platform.cpp in Sources */,
 				C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */,
+				C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
