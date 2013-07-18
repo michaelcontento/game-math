@@ -76,5 +76,5 @@ void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
 
-    CCLog("HINT!");
+    game->revealHint();
 }

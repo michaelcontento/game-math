@@ -136,7 +136,7 @@ void GamePage::addQuestion()
        FadeOut::create(config::getQuestionFadeTime()),
        CallFunc::create([this]() { question->setString("1"); }),
        FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([this]() { setNextQuestion(); timer->start(); }),
+       CallFunc::create([this]() { setNextQuestion(); timer->start(); acceptAnswers = true; }),
        NULL
     ));
 }
@@ -212,6 +212,16 @@ void GamePage::timeover()
         timeoverAlreadyHandled = true;
         handleTimeover();
     }
+}
+
+bool GamePage::revealHint()
+{
+    if (!acceptAnswers) {
+        return false;
+    }
+
+    CCLog("HINT!");
+    return true;
 }
 
 bool GamePage::isTimeover() const

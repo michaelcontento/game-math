@@ -21,6 +21,7 @@ public:
     bool allQuestionsAnswered() const;
     void answeredWrong();
     void answeredRight();
+    bool revealHint();
     
     void timeover();
     bool isTimeover() const;
@@ -41,7 +42,7 @@ private:
     cocos2d::Node* starContainer = nullptr;
     std::deque<cocos2d::Sprite*> stars {};
     static constexpr int maxStars = 3;
-    bool acceptAnswers = true;
+    bool acceptAnswers = false;
 
     void addTimer();
     void addStars();
