@@ -44,6 +44,7 @@ bool GamePage::init(const Page& parentPage)
     }
 
     addTimer();
+    addStars();
     addHints();
     addQuestion();
     addAnswerButtons();
@@ -58,9 +59,41 @@ void GamePage::addTimer()
     addChild(timer);
 
     timer->setAnchorPoint({1, 1});
-
     timer->setPositionX(config::getFrameSize().width);
     timer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+}
+
+void GamePage::addStars()
+{
+    starContainer = Node::create();
+    addChild(starContainer);
+
+    auto padding = 3 * config::getScaleFactor();
+    for (int i = 1; i <= maxStars; ++i) {
+        auto star = createStar();
+        starContainer->addChild(star);
+        stars.push_back(star);
+
+        auto size = star->getContentSize() * star->getScale();
+        star->setPositionX(size.width * i + padding * fmax(0, i - 2));
+
+        starContainer->setContentSize({star->getPositionX() + size.width, size.height});
+    }
+
+    starContainer->setAnchorPoint({1, 0});
+    starContainer->setPositionX(config::getFrameSize().width);
+    starContainer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+}
+
+cocos2d::Sprite* GamePage::createStar() const
+{
+    auto star = Sprite::create("star.png");
+    star->setColor({102, 102, 102});
+
+    // FIX#5
+    star->setScale(config::getScaleFactor());
+
+    return star;
 }
 
 void GamePage::addHints()
@@ -141,13 +174,24 @@ bool GamePage::allQuestionsAnswered() const
 
 void GamePage::handleAllQuestionsAnswered()
 {
-    if (allAnsweredAlreadyHandled) {
-        return;
-    }
-    allAnsweredAlreadyHandled = true;
-
+    timer->stop();
+    acceptAnswers = false;
+    
     PageManager::shared().scrollUp();
     CCLog("DONE");
+}
+
+void GamePage::handleNoMoreStars()
+{
+    acceptAnswers = false;
+    timer->stop();
+    CCLog("NO MORE STARS");
+}
+
+void GamePage::handleTimeover()
+{
+    acceptAnswers = false;
+    CCLog("TIMEOVER");
 }
 
 void GamePage::timeover()
@@ -166,11 +210,6 @@ bool GamePage::isTimeover() const
 bool GamePage::isStarted() const
 {
     return timer->isStarted();
-}
-
-void GamePage::handleTimeover()
-{
-    CCLog("TIMEOVER");
 }
 
 void GamePage::markQuestionAnswered()
@@ -242,10 +281,25 @@ void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
 
 void GamePage::answeredWrong()
 {
+    if (!acceptAnswers) {
+        return;
+    }
+
+    auto star = stars.front();
+    starContainer->removeChild(star);
+    stars.pop_front();
+
+    if (stars.empty()) {
+        handleNoMoreStars();
+    }
 }
 
 void GamePage::answeredRight()
 {
+    if (!acceptAnswers) {
+        return;
+    }
+
     markQuestionAnswered();
 }
 

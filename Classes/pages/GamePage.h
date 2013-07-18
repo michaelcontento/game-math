@@ -37,17 +37,23 @@ private:
     cocos2d::LabelTTF* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
     std::unordered_set<puzzle::Question> questions {};
-    bool allAnsweredAlreadyHandled = false;
     bool timeoverAlreadyHandled = false;
+    cocos2d::Node* starContainer = nullptr;
+    std::deque<cocos2d::Sprite*> stars {};
+    static constexpr int maxStars = 3;
+    bool acceptAnswers = true;
 
     void addTimer();
+    void addStars();
     void addHints();
     void addQuestion();
     void addAnswerButtons();
     void addProgressbar();
 
+    cocos2d::Sprite* createStar() const;
     void handleAllQuestionsAnswered();
     void handleTimeover();
+    void handleNoMoreStars();
 
     void markQuestionAnswered();
     void updateProgressbar();

@@ -41,7 +41,7 @@ void HintButton::addLabel()
 
     // alignment
     label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setVerticalAlignment(kVerticalTextAlignmentTop);
 
     // update content size of the container
     setContentSize(label->getContentSize());

@@ -1,6 +1,7 @@
 #ifndef MATH_GAMETIMER_H
 #define MATH_GAMETIMER_H
 
+#include <vector>
 #include "cocos2d.h"
 #include "utils/config.h"
 
@@ -14,6 +15,7 @@ public:
     bool init(GamePage& page);
 
     void start();
+    void stop();
     bool isStarted() const;
 
     void onTick(const float dt);
@@ -26,6 +28,7 @@ private:
 
     void addLabel();
     void updateLabelString();
+    cocos2d::Sprite* createStar() const;
 };
 
 #endif // MATH_GAMETIMER_H

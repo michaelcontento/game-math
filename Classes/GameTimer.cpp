@@ -29,6 +29,7 @@ bool GameTimer::init(GamePage& page)
 
     addLabel();
     updateLabelString();
+    setContentSize(label->getContentSize());
 
     return true;
 }
@@ -55,6 +56,11 @@ void GameTimer::start()
     }
 }
 
+void GameTimer::stop()
+{
+    unschedule(schedule_selector(GameTimer::onTick));
+}
+
 bool GameTimer::isStarted() const
 {
     return started;
@@ -63,19 +69,20 @@ bool GameTimer::isStarted() const
 void GameTimer::onTick(const float dt)
 {
     time = fmax(0.0, time - dt);
+    updateLabelString();
 
+    // detect timeover
     if (time == 0.0) {
-        unschedule(schedule_selector(GameTimer::onTick));
+        stop();
         page->timeover();
     }
 
+    // update the timer color if required
     if (time <= config::getGameAlarmTime()) {
         auto color = label->getColor();
         color.r = 255 - int(255.0 / config::getGameAlarmTime() * time);
         label->setColor(color);
     }
-
-    updateLabelString();
 }
 
 void GameTimer::updateLabelString()
@@ -83,7 +90,4 @@ void GameTimer::updateLabelString()
     char buf[10] = {0};
     snprintf(buf, sizeof(buf), "%.1f", time);
     label->setString(buf);
-
-    // update content size of the container
-    setContentSize(label->getContentSize());
 }
