@@ -46,6 +46,7 @@ private:
     void addTimer();
     void addStars();
     void addHints();
+    void addBackButton();
     void addQuestion();
     void addAnswerButtons();
     void addProgressbar();

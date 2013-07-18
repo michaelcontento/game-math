@@ -24,6 +24,8 @@
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C82D6F9D179672AD002CBB42 /* GameTimer.cpp */; };
+		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
+		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
 		C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC140178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC144178EEC9000F07AE3 /* Chartboost.cpp */; };
 		C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC146178EEC9000F07AE3 /* ChartboostX.h */; };
@@ -236,6 +238,9 @@
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C82D6F9D179672AD002CBB42 /* GameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameTimer.cpp; path = ../Classes/GameTimer.cpp; sourceTree = "<group>"; };
 		C82D6F9E179672AD002CBB42 /* GameTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameTimer.h; path = ../Classes/GameTimer.h; sourceTree = "<group>"; };
+		C8359F761797E81400FA1F87 /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
+		C8359F771797E81400FA1F87 /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
+		C8359F851797E94300FA1F87 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		C84DC13D178EEC9000F07AE3 /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
 		C84DC13E178EEC9000F07AE3 /* Fullscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fullscreen.h; sourceTree = "<group>"; };
 		C84DC13F178EEC9000F07AE3 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
@@ -487,6 +492,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8359F851797E94300FA1F87 /* arrow.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
 				D446FD6D16102124000ADA7B /* Default@2x.png */,
@@ -723,6 +729,8 @@
 			children = (
 				C8B48A8D178D789300EC57FD /* AnswerButton.cpp */,
 				C8B48A8E178D789300EC57FD /* AnswerButton.h */,
+				C8359F761797E81400FA1F87 /* BackButton.cpp */,
+				C8359F771797E81400FA1F87 /* BackButton.h */,
 				C8F66ED51796874200D9FF84 /* HintButton.cpp */,
 				C8F66ED61796874200D9FF84 /* HintButton.h */,
 				C8B48A87178C6C7600EC57FD /* LevelButton.cpp */,
@@ -964,6 +972,7 @@
 				C84DC2AD178EEC9000F07AE3 /* ChartboostX_ios.mm in Resources */,
 				C84DC2AF178EEC9000F07AE3 /* libChartboost.a in Resources */,
 				C8F66EE91796AD0A00D9FF84 /* star.png in Resources */,
+				C8359F861797E94300FA1F87 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1015,6 +1024,7 @@
 				C84DC2BF178EEC9000F07AE3 /* platform.cpp in Sources */,
 				C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */,
 				C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */,
+				C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

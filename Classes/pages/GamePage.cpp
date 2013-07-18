@@ -5,6 +5,7 @@
 #include "../utils/fonts.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"
+#include "../buttons/BackButton.h"
 #include "../puzzle/Generator.h"
 #include "../GameTimer.h"
 #include "PageManager.h"
@@ -46,6 +47,7 @@ bool GamePage::init(const Page& parentPage)
     addTimer();
     addStars();
     addHints();
+    addBackButton();
     addQuestion();
     addAnswerButtons();
     addProgressbar();
@@ -61,6 +63,15 @@ void GamePage::addTimer()
     timer->setAnchorPoint({1, 1});
     timer->setPositionX(config::getFrameSize().width);
     timer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+}
+
+void GamePage::addBackButton()
+{
+    auto btn = BackButton::create();
+    addChild(btn);
+
+    btn->setAnchorPoint({0, 1});
+    btn->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
 }
 
 void GamePage::addStars()
@@ -80,7 +91,7 @@ void GamePage::addStars()
         starContainer->setContentSize({star->getPositionX() + size.width, size.height});
     }
 
-    starContainer->setAnchorPoint({1, 0});
+    starContainer->setAnchorPoint({1, 1});
     starContainer->setPositionX(config::getFrameSize().width);
     starContainer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
 }
