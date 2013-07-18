@@ -135,6 +135,7 @@ void GamePage::addQuestion()
        CallFunc::create([this]() { question->setString("2"); }),
        FadeOut::create(config::getQuestionFadeTime()),
        CallFunc::create([this]() { question->setString("1"); }),
+       FadeOut::create(config::getQuestionFadeTime()),
        CallFunc::create([this]() { setNextQuestion(); timer->start(); }),
        NULL
     ));
