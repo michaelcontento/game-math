@@ -8,7 +8,8 @@
 #include "../buttons/BackButton.h"
 #include "../puzzle/Generator.h"
 #include "../GameTimer.h"
-#include "PageManager.h"
+#include "../Alert.h"
+#include "../PageManager.h"
 
 using namespace cocos2d;
 
@@ -34,16 +35,7 @@ bool GamePage::init(const Page& parentPage)
     this->parentPage = &parentPage;
     setBackground(Color3B::WHITE);
 
-    puzzle::Generator generator {
-        "{number} {operator} {number}",
-        "{number}",
-        {puzzle::Operator::PLUS},
-        {puzzle::NumberRange::SMALL}
-    };
-    while (questions.size() < questionAmount) {
-        questions.insert(generator.generate());
-    }
-
+    generateQuestions();
     addTimer();
     addStars();
     addHints();
@@ -53,6 +45,24 @@ bool GamePage::init(const Page& parentPage)
     addProgressbar();
 
     return true;
+}
+
+void GamePage::restart()
+{
+}
+
+void GamePage::generateQuestions()
+{
+    puzzle::Generator generator {
+        "{number} {operator} {number}",
+        "{number}",
+        {puzzle::Operator::PLUS},
+        {puzzle::NumberRange::SMALL}
+    };
+    
+    while (questions.size() < questionAmount) {
+        questions.insert(generator.generate());
+    }
 }
 
 void GamePage::addTimer()
@@ -197,13 +207,21 @@ void GamePage::handleNoMoreStars()
 {
     acceptAnswers = false;
     timer->stop();
-    CCLog("NO MORE STARS");
+
+    auto alert = Alert::create();
+    addChild(alert);
+    alert->setDescription("NO MORE STARS");
+    alert->show([]() { PageManager::shared().scrollUp(); });
 }
 
 void GamePage::handleTimeover()
 {
     acceptAnswers = false;
-    CCLog("TIMEOVER");
+
+    auto alert = Alert::create();
+    addChild(alert);
+    alert->setDescription("TIMEOUT");
+    alert->show([]() { PageManager::shared().scrollUp(); });
 }
 
 void GamePage::timeover()

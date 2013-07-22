@@ -3,6 +3,7 @@
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../PageManager.h"
+#include "../Alert.h"
 
 using namespace cocos2d;
 

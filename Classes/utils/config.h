@@ -44,6 +44,11 @@ constexpr float getQuestionFadeTime()
     return 0.7;
 }
 
+constexpr float getAlertFadeTime()
+{
+    return 0.7;
+}
+
 constexpr cocos2d::extension::HSV getHsvColorStep()
 {
     return {10, 0, 0};

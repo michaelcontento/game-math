@@ -26,6 +26,7 @@
 		C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C82D6F9D179672AD002CBB42 /* GameTimer.cpp */; };
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
+		C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F871797F5F100FA1F87 /* Alert.cpp */; };
 		C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC140178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC144178EEC9000F07AE3 /* Chartboost.cpp */; };
 		C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC146178EEC9000F07AE3 /* ChartboostX.h */; };
@@ -241,6 +242,8 @@
 		C8359F761797E81400FA1F87 /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
 		C8359F771797E81400FA1F87 /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		C8359F851797E94300FA1F87 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		C8359F871797F5F100FA1F87 /* Alert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Alert.cpp; path = ../Classes/Alert.cpp; sourceTree = "<group>"; };
+		C8359F881797F5F100FA1F87 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alert.h; path = ../Classes/Alert.h; sourceTree = "<group>"; };
 		C84DC13D178EEC9000F07AE3 /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
 		C84DC13E178EEC9000F07AE3 /* Fullscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fullscreen.h; sourceTree = "<group>"; };
 		C84DC13F178EEC9000F07AE3 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
@@ -407,6 +410,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C8359F871797F5F100FA1F87 /* Alert.cpp */,
+				C8359F881797F5F100FA1F87 /* Alert.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				C8B48A86178C6C7600EC57FD /* buttons */,
@@ -1025,6 +1030,7 @@
 				C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */,
 				C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */,
 				C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */,
+				C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

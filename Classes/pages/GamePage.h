@@ -44,6 +44,8 @@ private:
     static constexpr int maxStars = 3;
     bool acceptAnswers = false;
 
+    void restart();
+    void generateQuestions();
     void addTimer();
     void addStars();
     void addHints();
