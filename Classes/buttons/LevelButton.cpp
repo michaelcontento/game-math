@@ -1,18 +1,20 @@
 #include "LevelButton.h"
 
+#include <functional>
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../utils/color.h"
+#include "../utils/user.h"
 #include "../pages/Page.h"
 #include "../pages/GamePage.h"
 #include "../PageManager.h"
 
 using namespace cocos2d;
 
-LevelButton* LevelButton::create(const short number, const Page& parentPage)
+LevelButton* LevelButton::create(const int group, const int level, const Page& parentPage)
 {
     LevelButton* pRet = new LevelButton();
-    if (pRet && pRet->init(number, parentPage)) {
+    if (pRet && pRet->init(group, level, parentPage)) {
         pRet->autorelease();
         return pRet;
     } else {
@@ -22,20 +24,107 @@ LevelButton* LevelButton::create(const short number, const Page& parentPage)
     }
 }
 
-bool LevelButton::init(const short number, const Page& parentPage)
+bool LevelButton::init(const int group, const int level, const Page& parentPage)
 {
     if (!Node::init()) {
         return false;
     }
 
-    this->number = number;
+    this->group = group;
+    this->level = level;
     this->parentPage = &parentPage;
 
     configureSize();
     addBackground();
     addNumber();
+    changeOpacity(group, level);
 
+    user::addStarChangeCallback(std::bind(&LevelButton::changeOpacity, this, std::placeholders::_1, std::placeholders::_2));
+    
     return true;
+}
+
+void LevelButton::changeOpacity(const int group, const int level)
+{
+    if (ignoreNotification(group, level)) {
+        return;
+    }
+
+    auto starCount = user::getLevelStars(this->group, this->level);
+    if (starCount > 0) {
+        unlocked = true;
+    } else {
+        unlocked = (user::getLevelStars(this->group, this->level - 1) > 0);
+    }
+
+    refillStarContainerIfRequired(starCount);
+    updateOpacity();
+}
+
+bool LevelButton::ignoreNotification(const int group, const int level)
+{
+    if (this->group != group) {
+        return true;
+    }
+
+    if (this->level != level && this->level != level + 1) {
+        return true;
+    }
+
+    return false;
+}
+
+void LevelButton::refillStarContainerIfRequired(const int amount)
+{
+    if (amount <= 0) {
+        return;
+    }
+
+    initializeStarContainerIfRequired();
+
+    if (amount == stars.size()) {
+        return;
+    }
+
+    stars.clear();
+    starContainer->removeAllChildren();
+    
+    fonts::fillStarContainer(
+        *starContainer,
+        stars,
+        amount,
+        parentPage->getBackground()
+    );
+}
+
+void LevelButton::updateOpacity()
+{
+    addBackground();
+
+    if (!unlocked) {
+        label->setOpacity(127);
+    } else {
+        label->setOpacity(255);
+    }
+}
+
+void LevelButton::initializeStarContainerIfRequired()
+{
+    if (starContainer) {
+        return;
+    }
+    
+    starContainer = Node::create();
+    addChild(starContainer);
+
+    starContainer->setAnchorPoint({0.5, 0.5});
+    starContainer->setPosition(label->getPosition());
+
+    auto starOffset = 30 * config::getScaleFactor();
+    starContainer->setPositionY(starContainer->getPositionY() - starOffset);
+    
+    auto labelOffset = 10 * config::getScaleFactor();
+    label->setPositionY(label->getPositionY() + labelOffset);
 }
 
 void LevelButton::configureSize()
@@ -46,13 +135,20 @@ void LevelButton::configureSize()
 
 void LevelButton::addBackground()
 {
-    auto draw = DrawNode::create();
-    addChild(draw);
+    if (!draw) {
+        draw = DrawNode::create();
+        addChild(draw);
+    } else {
+        draw->clear();
+    }
 
     auto size = getContentSize().width;
     Point verts[] = {{0, 0}, {0, size}, {size, size}, {size, 0}};
 
     auto color = getBackgroundColorFromParentPage();
+    if (!unlocked) {
+        color.a = 0.5;
+    }
     draw->drawPolygon(verts, 4, color, 1, color);
 }
 
@@ -70,7 +166,7 @@ const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 
 void LevelButton::addNumber()
 {
-    auto label = fonts::createNormal(std::to_string(number).c_str(), 67);
+    label = fonts::createNormal(std::to_string(level).c_str(), 67);
     addChild(label);
 
     // color
@@ -87,11 +183,11 @@ void LevelButton::addNumber()
 
 void LevelButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    if (!hasBeenTouched(touch, event)) {
-        return;
+    if (unlocked && hasBeenTouched(touch, event)) {
+        PageManager::shared().scrollDown(
+            GamePage::create(group, level, *parentPage)
+        );
     }
-
-    PageManager::shared().scrollDown(GamePage::create(*parentPage));
 }
 
 bool LevelButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)

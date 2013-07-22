@@ -15,8 +15,8 @@ class GamePage : public Page
 {
 public:
     static GamePage* create(void) = delete;
-    static GamePage* create(const Page& parentPage);
-    bool init(const Page& parentPage);
+    static GamePage* create(const int group, const int level, const Page& parentPage);
+    bool init(const int group, const int level, const Page& parentPage);
 
     bool allQuestionsAnswered() const;
     void answeredWrong();
@@ -43,6 +43,8 @@ private:
     std::deque<cocos2d::Sprite*> stars {};
     static constexpr int maxStars = 3;
     bool acceptAnswers = false;
+    int group = -1;
+    int level = -1;
 
     void restart();
     void generateQuestions();

@@ -3,6 +3,7 @@
 #include "../utils/color.h"
 #include "../utils/config.h"
 #include "../utils/fonts.h"
+#include "../utils/user.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"
 #include "../buttons/BackButton.h"
@@ -13,10 +14,10 @@
 
 using namespace cocos2d;
 
-GamePage* GamePage::create(const Page& parentPage)
+GamePage* GamePage::create(const int group, const int level, const Page& parentPage)
 {
     GamePage* pRet = new GamePage();
-    if (pRet && pRet->init(parentPage)) {
+    if (pRet && pRet->init(group, level, parentPage)) {
         pRet->autorelease();
         return pRet;
     } else {
@@ -26,12 +27,14 @@ GamePage* GamePage::create(const Page& parentPage)
     }
 }
 
-bool GamePage::init(const Page& parentPage)
+bool GamePage::init(const int group, const int level, const Page& parentPage)
 {
     if (!Page::init()) {
         return false;
     }
 
+    this->group = group;
+    this->level = level;
     this->parentPage = &parentPage;
     setBackground(Color3B::WHITE);
 
@@ -89,32 +92,11 @@ void GamePage::addStars()
     starContainer = Node::create();
     addChild(starContainer);
 
-    auto padding = 3 * config::getScaleFactor();
-    for (int i = 1; i <= maxStars; ++i) {
-        auto star = createStar();
-        starContainer->addChild(star);
-        stars.push_back(star);
-
-        auto size = star->getContentSize() * star->getScale();
-        star->setPositionX(size.width * i + padding * fmax(0, i - 2));
-
-        starContainer->setContentSize({star->getPositionX() + size.width, size.height});
-    }
+    fonts::fillStarContainer(*starContainer, stars, maxStars, {102, 102, 102});
 
     starContainer->setAnchorPoint({1, 1});
     starContainer->setPositionX(config::getFrameSize().width);
     starContainer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
-}
-
-cocos2d::Sprite* GamePage::createStar() const
-{
-    auto star = Sprite::create("star.png");
-    star->setColor({102, 102, 102});
-
-    // FIX#5
-    star->setScale(config::getScaleFactor());
-
-    return star;
 }
 
 void GamePage::addHints()
@@ -198,9 +180,13 @@ void GamePage::handleAllQuestionsAnswered()
 {
     timer->stop();
     acceptAnswers = false;
-    
-    PageManager::shared().scrollUp();
-    CCLog("DONE");
+
+    user::setLevelStars(group, level, stars.size());
+
+    auto alert = Alert::create();
+    addChild(alert);
+    alert->setDescription("DONE");
+    alert->show([]() { PageManager::shared().scrollUp(); });
 }
 
 void GamePage::handleNoMoreStars()

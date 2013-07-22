@@ -23,6 +23,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C81FBE84179D4BC600E794A3 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C81FBE82179D4BC600E794A3 /* user.cpp */; };
 		C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C82D6F9D179672AD002CBB42 /* GameTimer.cpp */; };
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
@@ -237,6 +238,8 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C81FBE82179D4BC600E794A3 /* user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
+		C81FBE83179D4BC600E794A3 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
 		C82D6F9D179672AD002CBB42 /* GameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameTimer.cpp; path = ../Classes/GameTimer.cpp; sourceTree = "<group>"; };
 		C82D6F9E179672AD002CBB42 /* GameTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameTimer.h; path = ../Classes/GameTimer.h; sourceTree = "<group>"; };
 		C8359F761797E81400FA1F87 /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
@@ -772,6 +775,8 @@
 				C8CB342F178B05CB001294B7 /* config.h */,
 				C8CB342C178B0581001294B7 /* fonts.cpp */,
 				C8CB342B178B0469001294B7 /* fonts.h */,
+				C81FBE82179D4BC600E794A3 /* user.cpp */,
+				C81FBE83179D4BC600E794A3 /* user.h */,
 			);
 			name = utils;
 			path = ../Classes/utils;
@@ -1031,6 +1036,7 @@
 				C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */,
 				C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */,
 				C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */,
+				C81FBE84179D4BC600E794A3 /* user.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -48,7 +48,7 @@ void CategoryPage::addLevelButtons()
     auto gridSize = Point(4, 4);
 
     for (int i = 0; i < (gridSize.x * gridSize.y); ++i) {
-        auto btn = LevelButton::create(i + 1, *this);
+        auto btn = LevelButton::create(1, i + 1, *this);
         container->addChild(btn);
         levelButtons.push_back(btn);
 
