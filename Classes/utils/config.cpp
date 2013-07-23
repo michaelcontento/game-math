@@ -11,7 +11,7 @@ const float getScaleFactor()
 
 const cocos2d::Size& getFrameSize()
 {
-    return Director::sharedDirector()->getOpenGLView()->getFrameSize();
+    return Director::getInstance()->getOpenGLView()->getFrameSize();
 }
 
 const float getTouchIgnoreLength()

@@ -13,14 +13,14 @@ void AnswerButton::onEnter()
 {
     Node::onEnter();
 
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->addTargetedDelegate(this, 0, true);
 }
 
 void AnswerButton::onExit()
 {
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->removeDelegate(this);
 

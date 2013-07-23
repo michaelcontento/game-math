@@ -60,7 +60,7 @@ void Page::visit()
 
 void Page::registerWithTouchDispatcher()
 {
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->addTargetedDelegate(this, 0, false);
 }
@@ -78,7 +78,7 @@ void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
         // user is scrolling through the pages
     } else if (!isVisible()) {
         // we're now longer visible!
-    } else if (ccpLength(startDelta) >= config::getTouchIgnoreLength()) {
+    } else if (startDelta.getLength() >= config::getTouchIgnoreLength()) {
         // not a valid scrolling touch (maybe a old animation was running?) but
         // it moved to far to be a valid touch
     } else {

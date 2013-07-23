@@ -26,13 +26,13 @@ static std::vector<std::function<void (const int group, const int level)>> starC
 
 bool isLevelGroupLocked(const int group)
 {
-    auto settings = UserDefault::sharedUserDefault();
+    auto settings = UserDefault::getInstance();
     return settings->getBoolForKey(impl::getLockedKey(group).c_str(), true);
 }
 
 void markLevelGroupUnlocked(const int group)
 {
-    auto settings = UserDefault::sharedUserDefault();
+    auto settings = UserDefault::getInstance();
     settings->setBoolForKey(impl::getLockedKey(group).c_str(), false);
     settings->flush();
 }
@@ -43,7 +43,7 @@ int getLevelStars(const int group, const int level)
         return true;
     }
 
-    auto settings = UserDefault::sharedUserDefault();
+    auto settings = UserDefault::getInstance();
     return settings->getIntegerForKey(impl::getStarsKey(group, level).c_str(), 0);
 }
 
@@ -53,7 +53,7 @@ void setLevelStars(const int group, const int level, const int stars)
         return;
     }
 
-    auto settings = UserDefault::sharedUserDefault();
+    auto settings = UserDefault::getInstance();
     settings->setIntegerForKey(impl::getStarsKey(group, level).c_str(), stars);
     settings->flush();
 

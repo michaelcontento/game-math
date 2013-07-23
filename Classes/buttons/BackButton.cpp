@@ -9,14 +9,14 @@ void BackButton::onEnter()
 {
     Node::onEnter();
 
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->addTargetedDelegate(this, 0, true);
 }
 
 void BackButton::onExit()
 {
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->removeDelegate(this);
 

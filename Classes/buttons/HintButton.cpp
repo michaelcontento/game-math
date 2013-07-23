@@ -51,14 +51,14 @@ void HintButton::onEnter()
 {
     Node::onEnter();
 
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->addTargetedDelegate(this, 0, true);
 }
 
 void HintButton::onExit()
 {
-    Director::sharedDirector()
+    Director::getInstance()
         ->getTouchDispatcher()
         ->removeDelegate(this);
 
