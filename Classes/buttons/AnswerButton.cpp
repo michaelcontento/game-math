@@ -120,8 +120,7 @@ void AnswerButton::addBackground(const cocos2d::Color3B& color)
     auto size = getContentSize();
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
 
-    Color4F color4f = color::toRGBA(color);
-    draw->drawPolygon(verts, 4, color4f, 1, color4f);
+    draw->drawPolygon(verts, 4, color::toRGBA(color), 0, {});
 }
 
 void AnswerButton::addLabel()

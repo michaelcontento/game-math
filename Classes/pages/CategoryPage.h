@@ -10,12 +10,15 @@ class LevelButton;
 class CategoryPage : public Page
 {
 public:
-    CREATE_FUNC(CategoryPage);
-    bool init() override;
+    static CategoryPage* create(void) = delete;
+    static CategoryPage* create(const int group);
+    bool init(const int group);
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
 
 private:
     std::vector<LevelButton*> levelButtons {};
+    int group = -1;
+    
     void addHeadlineLabel();
     void addLevelButtons();
 };

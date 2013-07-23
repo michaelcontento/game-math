@@ -1,8 +1,10 @@
 #ifndef MATH_CONFIG_H
 #define MATH_CONFIG_H
 
+#include <string>
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "../puzzle/Generator.h"
 
 namespace config {
 
@@ -13,6 +15,9 @@ const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();
 const float getQuestionStartDelay();
 const float getProgressbarHeight();
+std::string getGroupHeadline(const int group);
+cocos2d::Color3B getGroupColor(const int group);
+puzzle::Generator getGenerator(const int group, const int level);
 
 constexpr float getDesignWidth()
 {
@@ -51,7 +56,7 @@ constexpr float getAlertFadeTime()
 
 constexpr cocos2d::extension::HSV getHsvColorStep()
 {
-    return {10, 0, 0};
+    return {0, 0.05, -0.20};
 }
 
 }; // namespace config

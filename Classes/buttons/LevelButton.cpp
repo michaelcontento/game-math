@@ -149,7 +149,7 @@ void LevelButton::addBackground()
     if (!unlocked) {
         color.a = 0.5;
     }
-    draw->drawPolygon(verts, 4, color, 1, color);
+    draw->drawPolygon(verts, 4, color, 0, {});
 }
 
 const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const

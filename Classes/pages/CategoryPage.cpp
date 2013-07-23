@@ -7,13 +7,29 @@
 
 using namespace cocos2d;
 
-bool CategoryPage::init()
+
+CategoryPage* CategoryPage::create(const int group)
+{
+    CategoryPage* pRet = new CategoryPage();
+    if (pRet && pRet->init(group)) {
+        pRet->autorelease();
+        return pRet;
+    } else {
+        delete pRet;
+        pRet = NULL;
+        return NULL;
+    }
+}
+
+bool CategoryPage::init(const int group)
 {
     if (!Page::init()) {
         return false;
     }
 
-    setBackground({49, 203, 246});
+    this->group = group;
+
+    setBackground(config::getGroupColor(group));
     addHeadlineLabel();
     addLevelButtons();
 
@@ -22,7 +38,7 @@ bool CategoryPage::init()
 
 void CategoryPage::addHeadlineLabel()
 {
-    auto tapToPlay = fonts::createLight("ADDITION", 72);
+    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72);
     addChild(tapToPlay);
 
     // color
@@ -48,7 +64,7 @@ void CategoryPage::addLevelButtons()
     auto gridSize = Point(4, 4);
 
     for (int i = 0; i < (gridSize.x * gridSize.y); ++i) {
-        auto btn = LevelButton::create(1, i + 1, *this);
+        auto btn = LevelButton::create(group, i + 1, *this);
         container->addChild(btn);
         levelButtons.push_back(btn);
 

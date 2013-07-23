@@ -56,13 +56,7 @@ void GamePage::restart()
 
 void GamePage::generateQuestions()
 {
-    puzzle::Generator generator {
-        "{number} {operator} {number}",
-        "{number}",
-        {puzzle::Operator::PLUS},
-        {puzzle::NumberRange::SMALL}
-    };
-    
+    auto generator = config::getGenerator(group, level);
     while (questions.size() < questionAmount) {
         questions.insert(generator.generate());
     }
@@ -365,9 +359,9 @@ cocos2d::Color3B GamePage::getNextAnswerButtonColor(const cocos2d::Color3B& colo
     auto hsvColor = color::toHSV(color);
 
     auto step = config::getHsvColorStep();
-    hsvColor.h += step.h;
-    hsvColor.s += step.s;
-    hsvColor.v += step.v;
+    hsvColor.h = fmod(hsvColor.h + step.h, 360.0);
+    hsvColor.s = fmin(1.0, fmax(0.0, hsvColor.s + step.s));
+    hsvColor.v = fmin(1.0, fmax(0.0, hsvColor.v + step.v));
 
     return color::toRGB(hsvColor);
 }
