@@ -39,5 +39,5 @@ void MainPage::addTapToPlayLabel()
 
 void MainPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    PageManager::shared().scrollTo("category-1");
+    PageManager::shared().scrollTo("category-1", config::getSnapAnimationDuration() * 2);
 }

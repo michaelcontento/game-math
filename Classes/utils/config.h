@@ -43,7 +43,7 @@ constexpr float getDelayAfterScrollAnimation()
 
 constexpr float getSnapAnimationDuration()
 {
-    return 0.5;
+    return 0.2;
 }
 
 constexpr float getQuestionFadeTime()

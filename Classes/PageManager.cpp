@@ -19,7 +19,14 @@ void PageManager::scrollViewDidScroll(cocos2d::extension::ScrollView* view, bool
         return;
     }
 
-    scrollTo(getMostVisiblePageName());
+    auto offsetX = fabsf(scrollView->getContentOffset().x - config::getFrameSize().width);
+    if (offsetX > scrollView->getContentSize().width) {
+        // right side bouncing
+    } else if (offsetX < config::getFrameSize().width) {
+        // left side bouncing
+    } else {
+        scrollTo(getMostVisiblePageName());
+    }
 }
 
 void PageManager::scrollViewDidZoom(cocos2d::extension::ScrollView* view)
@@ -248,6 +255,7 @@ bool PageManager::init()
     scrollView = ScrollView::create(config::getFrameSize(), Node::create());
     scrollView->setDirection(kScrollViewDirectionHorizontal);
     scrollView->setDelegate(this);
+    scrollView->minMoveDistance = 20 * config::getScaleFactor();
     addChild(scrollView);
 
     return true;
