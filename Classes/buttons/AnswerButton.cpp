@@ -71,7 +71,7 @@ bool AnswerButton::init(GamePage& page, const cocos2d::Color3B& color)
 
     this->page = &page;
 
-    configureSize();
+    setContentSize(config::getAnswerButtonSize());
     addBackground(color);
     addLabel();
 
@@ -104,12 +104,6 @@ void AnswerButton::showAnswer()
 {
     label->stopAllActions();
     label->setOpacity(255);
-}
-
-void AnswerButton::configureSize()
-{
-    auto size = 80 * config::getScaleFactor();
-    setContentSize({config::getFrameSize().width, size});
 }
 
 void AnswerButton::addBackground(const cocos2d::Color3B& color)

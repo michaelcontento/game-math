@@ -13,6 +13,8 @@ void setLevelStars(const int group, const int level, const int stars);
 
 void addStarChangeCallback(std::function<void (const int group, const int level)> callback);
 
+bool hasPurchased(const int group);
+
 } // namespace user
 
 #endif // MATH_USER_H

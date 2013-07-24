@@ -67,4 +67,13 @@ void addStarChangeCallback(std::function<void (const int group, const int level)
     impl::starCallbacks.push_back(callback);
 }
 
+bool hasPurchased(const int group)
+{
+    if (group <= 2) {
+        return true;
+    }
+    
+    return false;
+}
+
 } // namespace user

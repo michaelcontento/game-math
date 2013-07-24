@@ -166,7 +166,7 @@ const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 
 void LevelButton::addNumber()
 {
-    label = fonts::createNormal(std::to_string(level).c_str(), 67);
+    label = fonts::createLight(std::to_string(level).c_str(), 67);
     addChild(label);
 
     // color

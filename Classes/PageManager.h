@@ -2,7 +2,7 @@
 #define MATH_PAGEMANAGER_H
 
 #include <string>
-#include <vector>
+#include <list>
 #include <utility>
 #include <unordered_map>
 #include "cocos2d.h"
@@ -31,11 +31,14 @@ public:
     bool hasControl();
     bool isPageVisible(const Page& page) const;
 
+    void replacePage(Page& oldPage, const std::string& nameA, Page* const pageA, const std::string& nameB, Page* const pageB);
+
 private:
+    typedef std::pair<const std::string, Page* const> NamedPage;
     constexpr static int TAG_ACTION_MOVE_BY = 101;
     static PageManager* instance;
     cocos2d::extension::ScrollView* scrollView = nullptr;
-    std::vector<std::pair<const std::string, Page* const>> pages {};
+    std::list<NamedPage> pages {};
     std::unordered_map<int, bool> trackedTouches {};
     Page* pageScrollDown = nullptr;
     bool snapActive = false;
@@ -44,6 +47,7 @@ private:
     Page& getPage(const std::string& name) const;
     int getPageIndex(const std::string& name) const;
     std::string getMostVisiblePageName() const;
+    void updateScrollViewPositions();
 };
 
 #endif // MATH_PAGEMANAGER_H

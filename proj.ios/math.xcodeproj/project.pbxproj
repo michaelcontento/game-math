@@ -24,6 +24,7 @@
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		C81FBE84179D4BC600E794A3 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C81FBE82179D4BC600E794A3 /* user.cpp */; };
+		C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C827D94F179EDC320089C7C3 /* LockedCategoryPage.cpp */; };
 		C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C82D6F9D179672AD002CBB42 /* GameTimer.cpp */; };
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
@@ -240,6 +241,8 @@
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C81FBE82179D4BC600E794A3 /* user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
 		C81FBE83179D4BC600E794A3 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
+		C827D94F179EDC320089C7C3 /* LockedCategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LockedCategoryPage.cpp; sourceTree = "<group>"; };
+		C827D950179EDC320089C7C3 /* LockedCategoryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockedCategoryPage.h; sourceTree = "<group>"; };
 		C82D6F9D179672AD002CBB42 /* GameTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameTimer.cpp; path = ../Classes/GameTimer.cpp; sourceTree = "<group>"; };
 		C82D6F9E179672AD002CBB42 /* GameTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameTimer.h; path = ../Classes/GameTimer.h; sourceTree = "<group>"; };
 		C8359F761797E81400FA1F87 /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
@@ -755,6 +758,8 @@
 				C8B48A75178C37FB00EC57FD /* CategoryPage.h */,
 				C8B48A83178C3D7300EC57FD /* GamePage.cpp */,
 				C8B48A84178C3D7300EC57FD /* GamePage.h */,
+				C827D94F179EDC320089C7C3 /* LockedCategoryPage.cpp */,
+				C827D950179EDC320089C7C3 /* LockedCategoryPage.h */,
 				C8CB340217870AA4001294B7 /* MainPage.cpp */,
 				C8CB340317870AA4001294B7 /* MainPage.h */,
 				C8CB341B178AC86D001294B7 /* Page.cpp */,
@@ -1037,6 +1042,7 @@
 				C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */,
 				C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */,
 				C81FBE84179D4BC600E794A3 /* user.cpp in Sources */,
+				C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,9 +38,18 @@ bool PageManager::isPageVisible(const Page& page) const
         auto nonConstPagePtr = const_cast<Page*>(&page);
         return (nonConstPagePtr == pageScrollDown);
     } else {
-        // FIX#3
-        Page& nonConstPage = const_cast<Page&>(page);
-        return scrollView->isNodeVisible(&nonConstPage);
+        auto offset = scrollView->getContentOffset();
+        auto pos = page.getPosition();
+        auto size = page.getContentSize();
+        auto realPos = pos + offset;
+
+        if (realPos.x + size.width <= 0) {
+            return false;
+        }
+        if (realPos.x >= config::getFrameSize().width) {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -57,6 +66,50 @@ void PageManager::add(const std::string& name, Page* const page)
     pages.push_back(std::make_pair(name, page));
     // FIX#1
     page->retain();
+}
+
+void PageManager::replacePage(Page& oldPage, const std::string& nameA, Page* const pageA, const std::string& nameB, Page* const pageB)
+{
+    auto pos = std::find_if(
+        pages.begin(),
+        pages.end(),
+        [&oldPage](const NamedPage& row) { return row.second == &oldPage; }
+    );
+    if (pos == pages.end()) {
+        return;
+    }
+
+    pos = pages.erase(pos);
+    oldPage.removeFromParent();
+    oldPage.release();
+
+    pos = pages.insert(pos, std::make_pair(nameB, pageB));
+    scrollView->addChild(pageA);
+    pageA->retain();
+
+    pos = pages.insert(pos, std::make_pair(nameA, pageA));
+    scrollView->addChild(pageB);
+    pageB->retain();
+
+    updateScrollViewPositions();
+    scrollTo(nameA, 0);
+}
+
+void PageManager::updateScrollViewPositions()
+{
+    auto scrollViewHeight = scrollView->getContentSize().height;
+    scrollView->setContentSize({0, scrollViewHeight});
+
+    int index = 0;
+    for (const auto& pair : pages) {
+        auto page = pair.second;
+        auto pageWidth = page->getContentSize().width;
+        
+        page->setPositionX(index * pageWidth);
+        scrollView->setContentSize({page->getPositionX() + pageWidth, scrollViewHeight});
+
+        ++index;
+    }
 }
 
 void PageManager::scrollTo(const std::string& name)

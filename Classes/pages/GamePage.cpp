@@ -330,7 +330,7 @@ void GamePage::addAnswerButtons()
 
     auto containerSize = container->getContentSize();
     auto color = parentPage->getBackground();
-    auto spacing = 30 * config::getScaleFactor();
+    auto spacing = config::getAnswerButtonPadding();
     constexpr int answers = 3;
 
     for (int i = 1; i <= answers; ++i) {

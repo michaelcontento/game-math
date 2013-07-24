@@ -41,7 +41,17 @@ const float getProgressbarHeight()
     return 8 * getScaleFactor();
 }
 
-std::string getGroupHeadline(const int group)
+const float getAnswerButtonPadding()
+{
+    return 30 * config::getScaleFactor();
+}
+
+const cocos2d::Size getAnswerButtonSize()
+{
+    return {getFrameSize().width, 80 * getScaleFactor()};
+}
+
+const std::string getGroupHeadline(const int group)
 {
     // == 1
     if        (group == 1) {
@@ -79,7 +89,7 @@ std::string getGroupHeadline(const int group)
     }
 }
 
-cocos2d::Color3B getGroupColor(const int group)
+const cocos2d::Color3B getGroupColor(const int group)
 {
     cocos2d::extension::HSV hsv = {0, 0.95, 1.00};
     hsv.h += (0.618033988749895 * 360.0) * group;

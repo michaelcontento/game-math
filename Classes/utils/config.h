@@ -15,8 +15,10 @@ const float getSwipeMovementMinX();
 const float getSwipeMovementMaxY();
 const float getQuestionStartDelay();
 const float getProgressbarHeight();
-std::string getGroupHeadline(const int group);
-cocos2d::Color3B getGroupColor(const int group);
+const float getAnswerButtonPadding();
+const cocos2d::Size getAnswerButtonSize();
+const std::string getGroupHeadline(const int group);
+const cocos2d::Color3B getGroupColor(const int group);
 puzzle::Generator getGenerator(const int group, const int level);
 
 constexpr float getDesignWidth()

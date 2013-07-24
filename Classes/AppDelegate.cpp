@@ -16,9 +16,12 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    Director* pDirector =Director::getInstance();
+    Director* pDirector = Director::getInstance();
     pDirector->setDisplayStats(false);
+
     pDirector->setOpenGLView(EGLView::getInstance());
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+
     pDirector->runWithScene(GameScene::scene());
 
     return true;

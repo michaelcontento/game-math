@@ -30,7 +30,6 @@ private:
     cocos2d::LabelTTF* label = nullptr;
     bool isRight = false;
     
-    void configureSize();
     void addBackground(const cocos2d::Color3B& color);
     void addLabel();
 };
