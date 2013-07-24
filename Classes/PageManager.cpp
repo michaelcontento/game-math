@@ -151,14 +151,14 @@ void PageManager::scrollDown(Page* const page)
 
     scrollView->stopAllActions();
     scrollView->runAction(MoveTo::create(
-        config::getSnapAnimationDuration(),
+        config::getScrollDownDuration(),
         {0, config::getFrameSize().height}
     ));
 
     pageScrollDown->stopAllActions();
     pageScrollDown->setPositionY(config::getFrameSize().height * -1);
     pageScrollDown->runAction(MoveTo::create(
-        config::getSnapAnimationDuration(),
+        config::getScrollDownDuration(),
         {0, 0}
     ));
 }
@@ -171,13 +171,13 @@ void PageManager::scrollUp()
 
     scrollView->stopAllActions();
     scrollView->runAction(MoveTo::create(
-        config::getSnapAnimationDuration(),
+        config::getScrollDownDuration(),
         {0, 0}
     ));
 
     pageScrollDown->stopAllActions();
     pageScrollDown->runAction(Sequence::create(
-        MoveTo::create(config::getSnapAnimationDuration(), {0, config::getFrameSize().height * -1}),
+        MoveTo::create(config::getScrollDownDuration(), {0, config::getFrameSize().height * -1}),
         RemoveSelf::create(),
         NULL
     ));

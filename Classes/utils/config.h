@@ -46,6 +46,11 @@ constexpr float getSnapAnimationDuration()
     return 0.2;
 }
 
+constexpr float getScrollDownDuration()
+{
+    return 0.5;
+}
+
 constexpr float getQuestionFadeTime()
 {
     return 0.7;
