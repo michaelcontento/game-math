@@ -157,9 +157,9 @@ const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
     auto hsvColor = color::toHSV(parentPage->getBackground());
 
     auto step = config::getHsvColorStep();
-    hsvColor.h += step.h;
-    hsvColor.s += step.s;
-    hsvColor.v += step.v;
+    hsvColor.h = fmod(hsvColor.h + step.h, 360.0);
+    hsvColor.s = fmin(1.0, fmax(0.0, hsvColor.s + step.s));
+    hsvColor.v = fmin(1.0, fmax(0.0, hsvColor.v + step.v));
 
     return color::toRGBA(hsvColor);
 }

@@ -91,10 +91,40 @@ const std::string getGroupHeadline(const int group)
 
 const cocos2d::Color3B getGroupColor(const int group)
 {
-    cocos2d::extension::HSV hsv = {0, 0.95, 1.00};
-    hsv.h += (0.618033988749895 * 360.0) * group;
-    hsv.h = fmod(hsv.h, 360.0);
-    return color::toRGB(hsv);
+    // == 1
+    if        (group == 1) {
+        return {53, 202, 252};
+    } else if (group == 2) {
+        return {27, 153, 252};
+
+    // == 2
+    } else if (group == 3) {
+        return {134, 227, 0};
+    } else if (group == 4) {
+        return {0, 214, 83};
+
+    // == 3
+    } else if (group == 5) {
+        return {238, 218, 2};
+    } else if (group == 6) {
+        return {255, 162, 0};
+
+    // == 4
+    } else if (group == 7) {
+        return {255, 2, 4};
+    } else if (group == 8) {
+        return {196, 0, 1};
+
+    // == 5
+    } else if (group == 9) {
+        return {232, 40, 252};
+    } else if (group == 10) {
+        return {161, 0, 212};
+
+    // == ?
+    } else {
+        throw new std::runtime_error("invalid group given");
+    }
 }
 
 puzzle::Generator getGenerator(const int group, const int level)
