@@ -58,7 +58,7 @@ constexpr float getAlertFadeTime()
 
 constexpr cocos2d::extension::HSV getHsvColorStep()
 {
-    return {0, 0.05, -0.20};
+    return {0, 0, -0.20};
 }
 
 }; // namespace config

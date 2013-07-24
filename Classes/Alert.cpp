@@ -62,7 +62,7 @@ void Alert::show(const std::function<void ()> callback)
         ),
         CallFunc::create([this]() {
             touchable = true;
-            Director::sharedDirector()
+            Director::getInstance()
                 ->getTouchDispatcher()
                 ->addTargetedDelegate(this, -100, true);
         }),
@@ -90,7 +90,7 @@ void Alert::hide()
         EaseInOut::create(ScaleTo::create(config::getAlertFadeTime(), 1, 0), 3),
         CallFunc::create([this]() {
             visible = false;
-            Director::sharedDirector()
+            Director::getInstance()
                 ->getTouchDispatcher()
                 ->removeDelegate(this);
             this->callback();
@@ -142,7 +142,6 @@ void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
     
-    CCLog("TOUCH");
     hide();
 }
 
