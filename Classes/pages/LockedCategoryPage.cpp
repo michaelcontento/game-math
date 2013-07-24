@@ -1,6 +1,5 @@
 #include "LockedCategoryPage.h"
 
-#include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../PageManager.h"
@@ -54,22 +53,7 @@ void LockedCategoryPage::addHeadlineLabel()
 
     // positioning
     label->setPositionX(config::getFrameSize().width / 2);
-    label->setPositionY(config::getFrameSize().height - (50 * config::getScaleFactor()));
-}
-
-const std::string LockedCategoryPage::getHeadline() const
-{
-    if (group == 3) {
-        return "PACK ONE";
-    } else if (group == 5) {
-        return "PACK TWO";
-    } else if (group == 7) {
-        return "PACK THREE";
-    } else if (group == 9) {
-        return "PACK FOUR";
-    } else {
-        throw new std::runtime_error("invalig group given");
-    }
+    label->setPositionY(config::getFrameSize().height - (75 * config::getScaleFactor()));
 }
 
 void LockedCategoryPage::addSublineLabel()
@@ -87,7 +71,37 @@ void LockedCategoryPage::addSublineLabel()
 
     // positioning
     label->setPositionX(config::getFrameSize().width / 2);
-    label->setPositionY(config::getFrameSize().height / 4 * 3);
+    label->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
+}
+
+const std::string LockedCategoryPage::getHeadline() const
+{
+    if        (group == 3) {
+        return "PACK ONE";
+    } else if (group == 5) {
+        return "PACK TWO";
+    } else if (group == 7) {
+        return "PACK THREE";
+    } else if (group == 9) {
+        return "PACK FOUR";
+    } else {
+        throw new std::runtime_error("invalig group given");
+    }
+}
+
+const std::string LockedCategoryPage::getDescription() const
+{
+    if        (group == 3) {
+        return "these should be possible too, right?";
+    } else if (group == 5) {
+        return "some fancy words. bla bla yadda yadda";
+    } else if (group == 7) {
+        return "also ich würde das ja direkt kaufen\nso günstig ist bildung selten!";
+    } else if (group == 9) {
+        return "hallo sena! wie findest du die text\nhier denn so? ich bin unkreativ. punkt.";
+    } else {
+        throw new std::runtime_error("invalig group given");
+    }
 }
 
 void LockedCategoryPage::addCategoryBoxes()
@@ -110,7 +124,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->drawPolygon(vertsB, 4, color::toRGBA(colorB), 0, {});
 
     // upper label
-    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 58);
+    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 68);
     labelA->setColor(Color3B::WHITE);
     labelA->setAnchorPoint({0.5, 0.5});
     labelA->setHorizontalAlignment(kTextAlignmentCenter);
@@ -120,7 +134,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->addChild(labelA);
 
     // lower label
-    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 58);
+    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 68);
     labelB->setColor(Color3B::WHITE);
     labelB->setAnchorPoint({0.5, 0.5});
     labelB->setHorizontalAlignment(kTextAlignmentCenter);
@@ -133,17 +147,18 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->setContentSize({size.width, size.height * 2 + spacing});
     boxes->setAnchorPoint({0.5, 0.5});
     boxes->setPosition(config::getFrameSize() / 2);
+    boxes->setPositionY(boxes->getPositionY() + middleOffsetY);
 }
 
 void LockedCategoryPage::addDescriptionLabel()
 {
-    auto label = fonts::createLight("these should be possible too, right?", 36);
+    auto label = fonts::createLight(getDescription().c_str(), 36);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({0.5, 0.5});
     label->setHorizontalAlignment(kTextAlignmentCenter);
     label->setVerticalAlignment(kVerticalTextAlignmentCenter);
     label->setPositionX(config::getFrameSize().width / 2);
-    label->setPositionY(config::getFrameSize().height / 4 * 1);
+    label->setPositionY((config::getFrameSize().height / 4 * 1) + middleOffsetY);
     addChild(label);
 }
 

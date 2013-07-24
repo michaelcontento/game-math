@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Page.h"
+#include "../utils/config.h"
 
 class LevelButton;
 
@@ -16,14 +17,16 @@ public:
 
 private:
     int group = -1;
+    const float middleOffsetY = 50 * config::getScaleFactor();
     cocos2d::DrawNode* draw = nullptr;
 
     void addHeadlineLabel();
-    const std::string getHeadline() const;
     void addSublineLabel();
     void addCategoryBoxes();
     void addDescriptionLabel();
     void addPlayButton();
+    const std::string getHeadline() const;
+    const std::string getDescription() const;
 };
 
 #endif // MATH_LOCKEDCATEGORYPAGE_H

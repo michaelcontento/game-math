@@ -51,7 +51,7 @@ void CategoryPage::addHeadlineLabel()
 
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
-    tapToPlay->setPositionY(config::getFrameSize().height - (50 * config::getScaleFactor()));
+    tapToPlay->setPositionY(config::getFrameSize().height - (75 * config::getScaleFactor()));
 }
 
 void CategoryPage::addLevelButtons()
