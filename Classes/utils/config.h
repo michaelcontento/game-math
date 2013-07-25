@@ -28,7 +28,7 @@ constexpr float getDesignWidth()
 
 constexpr float getGameTime()
 {
-    return 99;
+    return 100;
 }
 
 constexpr float getGameAlarmTime()

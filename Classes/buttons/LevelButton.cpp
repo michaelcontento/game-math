@@ -117,7 +117,7 @@ void LevelButton::initializeStarContainerIfRequired()
     starContainer = Node::create();
     addChild(starContainer);
 
-    starContainer->setAnchorPoint({0.5, 0.5});
+    starContainer->setAnchorPoint({0.5, 1});
     starContainer->setPosition(label->getPosition());
 
     auto starOffset = 30 * config::getScaleFactor();

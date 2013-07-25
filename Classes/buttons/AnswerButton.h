@@ -2,6 +2,7 @@
 #define MATH_ANSWERBUTTON_H
 
 #include "cocos2d.h"
+#include "../utils/config.h"
 
 class GamePage;
 
@@ -28,10 +29,17 @@ public:
 private:
     GamePage* page = nullptr;
     cocos2d::LabelTTF* label = nullptr;
+    cocos2d::LabelTTF* indicatorLabelLeft = nullptr;
+    cocos2d::LabelTTF* indicatorLabelRight = nullptr;
+    const float startPosLeft  = (50 * config::getScaleFactor()) * -1;
+    const float startPosRight = (50 * config::getScaleFactor()) + config::getFrameSize().width;
+    const float endPosLeft    = (60 * config::getScaleFactor());
+    const float endPosRight   = (60 * config::getScaleFactor()) * -1 + config::getFrameSize().width;
     bool isRight = false;
+    bool hasBeenUsed = true;
     
     void addBackground(const cocos2d::Color3B& color);
-    void addLabel();
+    void addLabels();
 };
 
 #endif // MATH_ANSWERBUTTON_H

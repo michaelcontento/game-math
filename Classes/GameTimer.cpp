@@ -29,7 +29,9 @@ bool GameTimer::init(GamePage& page)
 
     addLabel();
     updateLabelString();
+
     setContentSize(label->getContentSize());
+    label->setPositionX(label->getContentSize().width);
 
     return true;
 }
@@ -41,7 +43,9 @@ void GameTimer::addLabel()
     addChild(label);
 
     label->setColor(Color3B::BLACK);
-    label->setAnchorPoint(Point::ZERO);
+
+    label->setAnchorPoint({1, 0});
+    label->setHorizontalAlignment(kTextAlignmentRight);
 }
 
 void GameTimer::start()
