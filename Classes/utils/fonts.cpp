@@ -42,7 +42,8 @@ void fillStarContainer(cocos2d::Node& cocosContainer, std::deque<cocos2d::Sprite
         cppContainer.push_back(star);
 
         auto size = star->getContentSize() * star->getScale();
-        star->setPositionX(size.width * i + padding * fmax(0, i - 2));
+        star->setPositionX(size.width * (i - 1) + padding * fmax(0, i - 1));
+        star->setAnchorPoint(cocos2d::Point::ZERO);
 
         cocosContainer.setContentSize({star->getPositionX() + size.width, size.height});
     }

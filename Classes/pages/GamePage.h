@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include "cocos2d.h"
 #include "Page.h"
+#include "../utils/config.h"
 #include "../puzzle/Question.h"
 
 class AnswerButton;
@@ -40,6 +41,7 @@ private:
     std::unordered_set<puzzle::Question> questions {};
     bool timeoverAlreadyHandled = false;
     cocos2d::Node* starContainer = nullptr;
+    const float spacing = 25 * config::getScaleFactor();
     std::deque<cocos2d::Sprite*> stars {};
     static constexpr int maxStars = 3;
     bool acceptAnswers = false;

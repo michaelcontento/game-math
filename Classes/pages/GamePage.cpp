@@ -1,7 +1,6 @@
 #include "GamePage.h"
 
 #include "../utils/color.h"
-#include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
 #include "../buttons/AnswerButton.h"
@@ -67,9 +66,11 @@ void GamePage::addTimer()
     timer = GameTimer::create(*this);
     addChild(timer);
 
+    auto fix = 10 * config::getScaleFactor();
+
     timer->setAnchorPoint({1, 1});
-    timer->setPositionX(config::getFrameSize().width);
-    timer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+    timer->setPositionX(config::getFrameSize().width - spacing);
+    timer->setPositionY(config::getFrameSize().height - spacing + fix);
 }
 
 void GamePage::addBackButton()
@@ -78,7 +79,8 @@ void GamePage::addBackButton()
     addChild(btn);
 
     btn->setAnchorPoint({0, 1});
-    btn->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+    btn->setPositionX(spacing);
+    btn->setPositionY(config::getFrameSize().height - spacing);
 }
 
 void GamePage::addStars()
@@ -88,9 +90,11 @@ void GamePage::addStars()
 
     fonts::fillStarContainer(*starContainer, stars, maxStars, {102, 102, 102});
 
+    auto fix = 5 * config::getScaleFactor();
+
     starContainer->setAnchorPoint({1, 1});
-    starContainer->setPositionX(config::getFrameSize().width);
-    starContainer->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+    starContainer->setPositionX(config::getFrameSize().width - spacing);
+    starContainer->setPositionY(timer->getPositionY() - timer->getContentSize().height + fix);
 }
 
 void GamePage::addHints()
@@ -98,10 +102,11 @@ void GamePage::addHints()
     auto hints = HintButton::create(*this);
     addChild(hints);
 
-    hints->setAnchorPoint({0.5, 1});
+    auto fix = 10 * config::getScaleFactor();
 
+    hints->setAnchorPoint({0.5, 1});
     hints->setPositionX(config::getFrameSize().width / 2);
-    hints->setPositionY(config::getFrameSize().height - config::getProgressbarHeight());
+    hints->setPositionY(config::getFrameSize().height - spacing + fix);
 }
 
 void GamePage::addQuestion()

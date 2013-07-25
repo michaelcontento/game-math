@@ -39,9 +39,7 @@ void HintButton::addLabel()
     // color
     label->setColor(Color3B::BLACK);
 
-    // alignment
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentTop);
+    label->setAnchorPoint(Point::ZERO);
 
     // update content size of the container
     setContentSize(label->getContentSize());

@@ -40,12 +40,8 @@ void GameTimer::addLabel()
     label = fonts::createLight("", 36);
     addChild(label);
 
-    // color
     label->setColor(Color3B::BLACK);
-
-    // alignment
-    label->setHorizontalAlignment(kTextAlignmentRight);
-    label->setVerticalAlignment(kVerticalTextAlignmentTop);
+    label->setAnchorPoint(Point::ZERO);
 }
 
 void GameTimer::start()
