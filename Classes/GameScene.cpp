@@ -4,6 +4,7 @@
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
 #include "pages/LockedCategoryPage.h"
+#include "pages/MoreGamesPage.h"
 #include "PageManager.h"
 #include "utils/user.h"
 
@@ -28,7 +29,8 @@ bool GameScene::init()
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
-    pageManager->scrollTo("category-1", 0);
+    pageManager->add("moregames", MoreGamesPage::create());
+    pageManager->scrollTo("main", 0);
 
     return true;
 }

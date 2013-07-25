@@ -12,6 +12,7 @@ public:
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
 
 private:
+    void addIcon();
     void addTapToPlayLabel();
 };
 

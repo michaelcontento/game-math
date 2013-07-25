@@ -63,6 +63,10 @@
 		C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */; };
 		C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E5178EF1F700F07AE3 /* GameKit.framework */; };
 		C84DC2E8178EF22000F07AE3 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E7178EF22000F07AE3 /* iAd.framework */; };
+		C8A6B01517A1333200815182 /* icon-coragames.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01217A1333200815182 /* icon-coragames.png */; };
+		C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01317A1333200815182 /* icon-dtdng.png */; };
+		C8A6B01717A1333200815182 /* icon-math.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01417A1333200815182 /* icon-math.png */; };
+		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
 		C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A87178C6C7600EC57FD /* LevelButton.cpp */; };
@@ -320,6 +324,11 @@
 		C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C84DC2E5178EF1F700F07AE3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C84DC2E7178EF22000F07AE3 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		C8A6B01217A1333200815182 /* icon-coragames.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-coragames.png"; sourceTree = "<group>"; };
+		C8A6B01317A1333200815182 /* icon-dtdng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dtdng.png"; sourceTree = "<group>"; };
+		C8A6B01417A1333200815182 /* icon-math.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-math.png"; sourceTree = "<group>"; };
+		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
+		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
 		C8B48A75178C37FB00EC57FD /* CategoryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPage.h; sourceTree = "<group>"; };
 		C8B48A83178C3D7300EC57FD /* GamePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePage.cpp; sourceTree = "<group>"; };
@@ -503,6 +512,9 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8A6B01217A1333200815182 /* icon-coragames.png */,
+				C8A6B01317A1333200815182 /* icon-dtdng.png */,
+				C8A6B01417A1333200815182 /* icon-math.png */,
 				C8359F851797E94300FA1F87 /* arrow.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
@@ -762,6 +774,8 @@
 				C827D950179EDC320089C7C3 /* LockedCategoryPage.h */,
 				C8CB340217870AA4001294B7 /* MainPage.cpp */,
 				C8CB340317870AA4001294B7 /* MainPage.h */,
+				C8A6B02417A133B400815182 /* MoreGamesPage.cpp */,
+				C8A6B02517A133B400815182 /* MoreGamesPage.h */,
 				C8CB341B178AC86D001294B7 /* Page.cpp */,
 				C8CB341A178AAEF7001294B7 /* Page.h */,
 				C8CB340417870AA4001294B7 /* SettingsPage.cpp */,
@@ -988,6 +1002,9 @@
 				C84DC2AF178EEC9000F07AE3 /* libChartboost.a in Resources */,
 				C8F66EE91796AD0A00D9FF84 /* star.png in Resources */,
 				C8359F861797E94300FA1F87 /* arrow.png in Resources */,
+				C8A6B01517A1333200815182 /* icon-coragames.png in Resources */,
+				C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */,
+				C8A6B01717A1333200815182 /* icon-math.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1060,7 @@
 				C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */,
 				C81FBE84179D4BC600E794A3 /* user.cpp in Sources */,
 				C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */,
+				C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
