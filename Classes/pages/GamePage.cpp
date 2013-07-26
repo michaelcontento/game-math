@@ -183,10 +183,10 @@ void GamePage::updateProgressbar()
     // Action
 
     progressBarLeft->stopAllActions();
-    progressBarLeft->runAction(EaseInOut::create(MoveTo::create(0.25, newPosLeft), 2));
+    progressBarLeft->runAction(EaseInOut::create(MoveTo::create(0.5, newPosLeft), 2));
 
     progressBarRight->stopAllActions();
-    progressBarRight->runAction(EaseInOut::create(MoveTo::create(0.25, newPosRight), 2));
+    progressBarRight->runAction(EaseInOut::create(MoveTo::create(0.5, newPosRight), 2));
 }
 
 bool GamePage::allQuestionsAnswered() const
