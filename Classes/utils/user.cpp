@@ -76,4 +76,9 @@ bool hasPurchased(const int group)
     return false;
 }
 
+bool hasAdsEnabled()
+{
+    return true;
+}
+
 } // namespace user

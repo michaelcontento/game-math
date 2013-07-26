@@ -16,6 +16,7 @@ private:
     PageManager* pageManager = nullptr;
 
     void addCategoryPages(PageManager& pageManager) const;
+    void initAds() const;
 };
 
 #endif // MATH_GAMESCENE_H

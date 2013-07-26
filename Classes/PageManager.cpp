@@ -1,5 +1,6 @@
 #include "PageManager.h"
 
+#include <avalon/ads/Manager.h>
 #include "utils/config.h"
 #include "pages/Page.h"
 
@@ -183,6 +184,7 @@ void PageManager::scrollUp()
     ));
 
     pageScrollDown = nullptr;
+    avalon::ads::Manager::showFullscreenAd();
 }
 
 std::string PageManager::getMostVisiblePageName() const

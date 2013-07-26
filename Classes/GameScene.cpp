@@ -1,5 +1,6 @@
 #include "GameScene.h"
 
+#include <avalon/ads/Manager.h>
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
@@ -23,6 +24,8 @@ bool GameScene::init()
         return false;
     }
 
+    initAds();
+
     pageManager = PageManager::create();
     addChild(pageManager);
 
@@ -45,5 +48,14 @@ void GameScene::addCategoryPages(PageManager& pageManager) const
         } else {
             pageManager.add(name + std::to_string(i), LockedCategoryPage::create(i));
         }
+    }
+}
+
+void GameScene::initAds() const
+{
+    avalon::ads::Manager::enabled = user::hasAdsEnabled();
+    if (avalon::ads::Manager::enabled) {
+        avalon::ads::Manager::initWithIniFile("ads.ini");
+        avalon::ads::Manager::startService();
     }
 }

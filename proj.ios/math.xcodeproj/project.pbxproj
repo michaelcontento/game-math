@@ -40,16 +40,6 @@
 		C84DC27B178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC15B178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC27C178EEC9000F07AE3 /* Product.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC15E178EEC9000F07AE3 /* Product.cpp */; };
 		C84DC27D178EEC9000F07AE3 /* ProductConsumable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC160178EEC9000F07AE3 /* ProductConsumable.cpp */; };
-		C84DC2AB178EEC9000F07AE3 /* CBAnalytics.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC1DD178EEC9000F07AE3 /* CBAnalytics.h */; };
-		C84DC2AC178EEC9000F07AE3 /* Chartboost.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC1DE178EEC9000F07AE3 /* Chartboost.h */; };
-		C84DC2AD178EEC9000F07AE3 /* ChartboostX_ios.mm in Resources */ = {isa = PBXBuildFile; fileRef = C84DC1DF178EEC9000F07AE3 /* ChartboostX_ios.mm */; };
-		C84DC2AE178EEC9000F07AE3 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C84DC1E0178EEC9000F07AE3 /* IAd.mm */; };
-		C84DC2AF178EEC9000F07AE3 /* libChartboost.a in Resources */ = {isa = PBXBuildFile; fileRef = C84DC1E1178EEC9000F07AE3 /* libChartboost.a */; };
-		C84DC2B0178EEC9000F07AE3 /* Revmob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC1E2178EEC9000F07AE3 /* Revmob.cpp */; };
-		C84DC2B1178EEC9000F07AE3 /* RevMobAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC1E3178EEC9000F07AE3 /* RevMobAds.framework */; };
-		C84DC2B2178EEC9000F07AE3 /* RevmobBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = C84DC1E5178EEC9000F07AE3 /* RevmobBridge.mm */; };
-		C84DC2B6178EEC9000F07AE3 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC1FC178EEC9000F07AE3 /* libTapForTapAds.a */; };
-		C84DC2B7178EEC9000F07AE3 /* TapForTap.mm in Sources */ = {isa = PBXBuildFile; fileRef = C84DC201178EEC9000F07AE3 /* TapForTap.mm */; };
 		C84DC2B8178EEC9000F07AE3 /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = C84DC203178EEC9000F07AE3 /* GameCenter.mm */; };
 		C84DC2B9178EEC9000F07AE3 /* GameCenterIos.m in Sources */ = {isa = PBXBuildFile; fileRef = C84DC205178EEC9000F07AE3 /* GameCenterIos.m */; };
 		C84DC2BA178EEC9000F07AE3 /* Backend.mm in Sources */ = {isa = PBXBuildFile; fileRef = C84DC207178EEC9000F07AE3 /* Backend.mm */; };
@@ -81,6 +71,15 @@
 		C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CB3429178B0068001294B7 /* HelveticaNeueUltraLight.ttf */; };
 		C8CB342D178B0581001294B7 /* fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342C178B0581001294B7 /* fonts.cpp */; };
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
+		C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8DD06AB17A28DA6005F1762 /* ads.ini */; };
+		C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */; };
+		C8DD06E117A28DFD005F1762 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BE17A28DFD005F1762 /* IAd.mm */; };
+		C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06BF17A28DFD005F1762 /* libChartboost.a */; };
+		C8DD06E317A28DFD005F1762 /* Revmob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06C017A28DFD005F1762 /* Revmob.cpp */; };
+		C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06C117A28DFD005F1762 /* RevMobAds.framework */; };
+		C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */; };
+		C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */; };
+		C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06DF17A28DFD005F1762 /* TapForTap.mm */; };
 		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F66EE91796AD0A00D9FF84 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F66EE81796AD0A00D9FF84 /* star.png */; };
@@ -288,21 +287,6 @@
 		C84DC160178EEC9000F07AE3 /* ProductConsumable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProductConsumable.cpp; sourceTree = "<group>"; };
 		C84DC161178EEC9000F07AE3 /* ProductConsumable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductConsumable.h; sourceTree = "<group>"; };
 		C84DC162178EEC9000F07AE3 /* payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payment.h; sourceTree = "<group>"; };
-		C84DC1DD178EEC9000F07AE3 /* CBAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
-		C84DC1DE178EEC9000F07AE3 /* Chartboost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
-		C84DC1DF178EEC9000F07AE3 /* ChartboostX_ios.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ChartboostX_ios.mm; sourceTree = "<group>"; };
-		C84DC1E0178EEC9000F07AE3 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
-		C84DC1E1178EEC9000F07AE3 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libChartboost.a; sourceTree = "<group>"; };
-		C84DC1E2178EEC9000F07AE3 /* Revmob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Revmob.cpp; sourceTree = "<group>"; };
-		C84DC1E3178EEC9000F07AE3 /* RevMobAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevMobAds.framework; sourceTree = "<group>"; };
-		C84DC1E4178EEC9000F07AE3 /* RevmobBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevmobBridge.h; sourceTree = "<group>"; };
-		C84DC1E5178EEC9000F07AE3 /* RevmobBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RevmobBridge.mm; sourceTree = "<group>"; };
-		C84DC1FC178EEC9000F07AE3 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
-		C84DC1FD178EEC9000F07AE3 /* TapForTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTap.h; sourceTree = "<group>"; };
-		C84DC1FE178EEC9000F07AE3 /* TapForTapAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAdView.h; sourceTree = "<group>"; };
-		C84DC1FF178EEC9000F07AE3 /* TapForTapAppWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAppWall.h; sourceTree = "<group>"; };
-		C84DC200178EEC9000F07AE3 /* TapForTapInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapInterstitial.h; sourceTree = "<group>"; };
-		C84DC201178EEC9000F07AE3 /* TapForTap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapForTap.mm; sourceTree = "<group>"; };
 		C84DC203178EEC9000F07AE3 /* GameCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenter.mm; sourceTree = "<group>"; };
 		C84DC204178EEC9000F07AE3 /* GameCenterIos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterIos.h; sourceTree = "<group>"; };
 		C84DC205178EEC9000F07AE3 /* GameCenterIos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterIos.m; sourceTree = "<group>"; };
@@ -355,6 +339,22 @@
 		C8CB342C178B0581001294B7 /* fonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fonts.cpp; sourceTree = "<group>"; };
 		C8CB342E178B05CB001294B7 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		C8CB342F178B05CB001294B7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		C8DD06AB17A28DA6005F1762 /* ads.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ads.ini; sourceTree = "<group>"; };
+		C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
+		C8DD06BC17A28DFD005F1762 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
+		C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChartboostX_ios.mm; sourceTree = "<group>"; };
+		C8DD06BE17A28DFD005F1762 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
+		C8DD06BF17A28DFD005F1762 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libChartboost.a; sourceTree = "<group>"; };
+		C8DD06C017A28DFD005F1762 /* Revmob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Revmob.cpp; sourceTree = "<group>"; };
+		C8DD06C117A28DFD005F1762 /* RevMobAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevMobAds.framework; sourceTree = "<group>"; };
+		C8DD06C217A28DFD005F1762 /* RevmobBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevmobBridge.h; sourceTree = "<group>"; };
+		C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RevmobBridge.mm; sourceTree = "<group>"; };
+		C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
+		C8DD06DB17A28DFD005F1762 /* TapForTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTap.h; sourceTree = "<group>"; };
+		C8DD06DC17A28DFD005F1762 /* TapForTapAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAdView.h; sourceTree = "<group>"; };
+		C8DD06DD17A28DFD005F1762 /* TapForTapAppWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAppWall.h; sourceTree = "<group>"; };
+		C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapInterstitial.h; sourceTree = "<group>"; };
+		C8DD06DF17A28DFD005F1762 /* TapForTap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapForTap.mm; sourceTree = "<group>"; };
 		C8EA2756178DC761007118BD /* Generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generator.cpp; sourceTree = "<group>"; };
 		C8EA2757178DC761007118BD /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
 		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
@@ -399,8 +399,9 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
-				C84DC2B1178EEC9000F07AE3 /* RevMobAds.framework in Frameworks */,
-				C84DC2B6178EEC9000F07AE3 /* libTapForTapAds.a in Frameworks */,
+				C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */,
+				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
+				C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +513,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8DD06AB17A28DA6005F1762 /* ads.ini */,
 				C8A6B01217A1333200815182 /* icon-coragames.png */,
 				C8A6B01317A1333200815182 /* icon-dtdng.png */,
 				C8A6B01417A1333200815182 /* icon-math.png */,
@@ -642,51 +644,13 @@
 		C84DC1DA178EEC9000F07AE3 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				C84DC1DB178EEC9000F07AE3 /* ads */,
+				C8DD06B917A28DFD005F1762 /* ads */,
 				C84DC202178EEC9000F07AE3 /* gamecenter */,
 				C84DC206178EEC9000F07AE3 /* payment */,
 				C84DC20A178EEC9000F07AE3 /* ui */,
 				C84DC20C178EEC9000F07AE3 /* utils */,
 			);
 			path = ios;
-			sourceTree = "<group>";
-		};
-		C84DC1DB178EEC9000F07AE3 /* ads */ = {
-			isa = PBXGroup;
-			children = (
-				C84DC1DC178EEC9000F07AE3 /* provider */,
-			);
-			path = ads;
-			sourceTree = "<group>";
-		};
-		C84DC1DC178EEC9000F07AE3 /* provider */ = {
-			isa = PBXGroup;
-			children = (
-				C84DC1DD178EEC9000F07AE3 /* CBAnalytics.h */,
-				C84DC1DE178EEC9000F07AE3 /* Chartboost.h */,
-				C84DC1DF178EEC9000F07AE3 /* ChartboostX_ios.mm */,
-				C84DC1E0178EEC9000F07AE3 /* IAd.mm */,
-				C84DC1E1178EEC9000F07AE3 /* libChartboost.a */,
-				C84DC1E2178EEC9000F07AE3 /* Revmob.cpp */,
-				C84DC1E3178EEC9000F07AE3 /* RevMobAds.framework */,
-				C84DC1E4178EEC9000F07AE3 /* RevmobBridge.h */,
-				C84DC1E5178EEC9000F07AE3 /* RevmobBridge.mm */,
-				C84DC1FB178EEC9000F07AE3 /* TapForTap */,
-				C84DC201178EEC9000F07AE3 /* TapForTap.mm */,
-			);
-			path = provider;
-			sourceTree = "<group>";
-		};
-		C84DC1FB178EEC9000F07AE3 /* TapForTap */ = {
-			isa = PBXGroup;
-			children = (
-				C84DC1FC178EEC9000F07AE3 /* libTapForTapAds.a */,
-				C84DC1FD178EEC9000F07AE3 /* TapForTap.h */,
-				C84DC1FE178EEC9000F07AE3 /* TapForTapAdView.h */,
-				C84DC1FF178EEC9000F07AE3 /* TapForTapAppWall.h */,
-				C84DC200178EEC9000F07AE3 /* TapForTapInterstitial.h */,
-			);
-			path = TapForTap;
 			sourceTree = "<group>";
 		};
 		C84DC202178EEC9000F07AE3 /* gamecenter */ = {
@@ -808,6 +772,44 @@
 				C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */,
 			);
 			name = fonts;
+			sourceTree = "<group>";
+		};
+		C8DD06B917A28DFD005F1762 /* ads */ = {
+			isa = PBXGroup;
+			children = (
+				C8DD06BA17A28DFD005F1762 /* provider */,
+			);
+			path = ads;
+			sourceTree = "<group>";
+		};
+		C8DD06BA17A28DFD005F1762 /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */,
+				C8DD06BC17A28DFD005F1762 /* Chartboost.h */,
+				C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */,
+				C8DD06BE17A28DFD005F1762 /* IAd.mm */,
+				C8DD06BF17A28DFD005F1762 /* libChartboost.a */,
+				C8DD06C017A28DFD005F1762 /* Revmob.cpp */,
+				C8DD06C117A28DFD005F1762 /* RevMobAds.framework */,
+				C8DD06C217A28DFD005F1762 /* RevmobBridge.h */,
+				C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */,
+				C8DD06D917A28DFD005F1762 /* TapForTap */,
+				C8DD06DF17A28DFD005F1762 /* TapForTap.mm */,
+			);
+			path = provider;
+			sourceTree = "<group>";
+		};
+		C8DD06D917A28DFD005F1762 /* TapForTap */ = {
+			isa = PBXGroup;
+			children = (
+				C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */,
+				C8DD06DB17A28DFD005F1762 /* TapForTap.h */,
+				C8DD06DC17A28DFD005F1762 /* TapForTapAdView.h */,
+				C8DD06DD17A28DFD005F1762 /* TapForTapAppWall.h */,
+				C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */,
+			);
+			path = TapForTap;
 			sourceTree = "<group>";
 		};
 		C8EA2755178DC761007118BD /* puzzle */ = {
@@ -996,15 +998,12 @@
 				C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */,
 				C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */,
 				C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */,
-				C84DC2AB178EEC9000F07AE3 /* CBAnalytics.h in Resources */,
-				C84DC2AC178EEC9000F07AE3 /* Chartboost.h in Resources */,
-				C84DC2AD178EEC9000F07AE3 /* ChartboostX_ios.mm in Resources */,
-				C84DC2AF178EEC9000F07AE3 /* libChartboost.a in Resources */,
 				C8F66EE91796AD0A00D9FF84 /* star.png in Resources */,
 				C8359F861797E94300FA1F87 /* arrow.png in Resources */,
 				C8A6B01517A1333200815182 /* icon-coragames.png in Resources */,
 				C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */,
 				C8A6B01717A1333200815182 /* icon-math.png in Resources */,
+				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,10 +1041,6 @@
 				C84DC27B178EEC9000F07AE3 /* Manager.cpp in Sources */,
 				C84DC27C178EEC9000F07AE3 /* Product.cpp in Sources */,
 				C84DC27D178EEC9000F07AE3 /* ProductConsumable.cpp in Sources */,
-				C84DC2AE178EEC9000F07AE3 /* IAd.mm in Sources */,
-				C84DC2B0178EEC9000F07AE3 /* Revmob.cpp in Sources */,
-				C84DC2B2178EEC9000F07AE3 /* RevmobBridge.mm in Sources */,
-				C84DC2B7178EEC9000F07AE3 /* TapForTap.mm in Sources */,
 				C84DC2B8178EEC9000F07AE3 /* GameCenter.mm in Sources */,
 				C84DC2B9178EEC9000F07AE3 /* GameCenterIos.m in Sources */,
 				C84DC2BA178EEC9000F07AE3 /* Backend.mm in Sources */,
@@ -1061,6 +1056,11 @@
 				C81FBE84179D4BC600E794A3 /* user.cpp in Sources */,
 				C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */,
 				C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */,
+				C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */,
+				C8DD06E117A28DFD005F1762 /* IAd.mm in Sources */,
+				C8DD06E317A28DFD005F1762 /* Revmob.cpp in Sources */,
+				C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */,
+				C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1137,6 +1137,8 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../external/libwebsockets/ios/lib\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/TapForTap\"",
+					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
+					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
 				);
 				OTHER_CFLAGS = "-O2";
 				PRODUCT_NAME = math;
@@ -1194,6 +1196,8 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../external/libwebsockets/ios/lib\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/TapForTap\"",
+					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
+					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
 				);
 				PRODUCT_NAME = math;
 				PROVISIONING_PROFILE = "";
