@@ -14,7 +14,7 @@ void AnswerButton::onEnter()
 
     Director::getInstance()
         ->getTouchDispatcher()
-        ->addTargetedDelegate(this, 0, true);
+        ->addTargetedDelegate(this, -90, true);
 }
 
 void AnswerButton::onExit()
