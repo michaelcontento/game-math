@@ -138,22 +138,33 @@ void GamePage::addProgressbar()
     auto height = config::getProgressbarHeight();
     Point verts[] = {
         {0, 0}, {0, height},
-        {getContentSize().width, height}, {getContentSize().width, 0}
+        {getContentSize().width / 2, height}, {getContentSize().width / 2, 0}
     };
-
     auto color = color::toRGBA(parentPage->getBackground());
-    auto drawNode = DrawNode::create();
-    drawNode->drawPolygon(verts, 4, color, 1, color);
 
-    // == Node
-    progressBar = Node::create();
-    addChild(progressBar);
+    auto drawNodeLeft = DrawNode::create();
+    drawNodeLeft->drawPolygon(verts, 4, color, 1, color);
+    
+    auto drawNodeRight = DrawNode::create();
+    drawNodeRight->drawPolygon(verts, 4, color, 1, color);
 
-    progressBar->addChild(drawNode);
-    progressBar->setContentSize({getContentSize().width, height});
-    progressBar->setAnchorPoint({1, 1});
-    progressBar->setPosition({0, getContentSize().height});
+    // == Left
+    progressBarLeft = Node::create();
+    addChild(progressBarLeft);
 
+    progressBarLeft->addChild(drawNodeLeft);
+    progressBarLeft->setContentSize({getContentSize().width / 2, height});
+    progressBarLeft->setAnchorPoint({1, 1});
+    progressBarLeft->setPosition({0, getContentSize().height});
+
+    // == Right
+    progressBarRight = Node::create();
+    addChild(progressBarRight);
+
+    progressBarRight->addChild(drawNodeRight);
+    progressBarRight->setContentSize({getContentSize().width, height});
+    progressBarRight->setAnchorPoint({0, 1});
+    progressBarRight->setPosition({getContentSize().width, getContentSize().height});
 }
 
 void GamePage::updateProgressbar()
@@ -161,13 +172,21 @@ void GamePage::updateProgressbar()
     auto solved = questionAmount - questions.size();
     auto progress = solved / float(questionAmount);
 
-    auto newPos = progressBar->getPosition();
-    newPos.x = getContentSize().width * progress;
+    // Position
 
-    progressBar->stopAllActions();
-    progressBar->runAction(
-        EaseInOut::create(MoveTo::create(0.25, newPos), 2)
-    );
+    auto newPosLeft = progressBarLeft->getPosition();
+    newPosLeft.x = getContentSize().width * 0.5 * progress;
+
+    auto newPosRight = progressBarLeft->getPosition();
+    newPosRight.x = getContentSize().width - newPosLeft.x;
+
+    // Action
+
+    progressBarLeft->stopAllActions();
+    progressBarLeft->runAction(EaseInOut::create(MoveTo::create(0.25, newPosLeft), 2));
+
+    progressBarRight->stopAllActions();
+    progressBarRight->runAction(EaseInOut::create(MoveTo::create(0.25, newPosRight), 2));
 }
 
 bool GamePage::allQuestionsAnswered() const

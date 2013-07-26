@@ -35,7 +35,8 @@ private:
     const Page* parentPage = nullptr;
     GameTimer* timer = nullptr;
     HintButton* hints = nullptr;
-    cocos2d::Node* progressBar = nullptr;
+    cocos2d::Node* progressBarLeft = nullptr;
+    cocos2d::Node* progressBarRight = nullptr;
     cocos2d::LabelTTF* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
     std::unordered_set<puzzle::Question> questions {};
