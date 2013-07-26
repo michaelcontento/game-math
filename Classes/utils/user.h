@@ -14,7 +14,12 @@ void setLevelStars(const int group, const int level, const int stars);
 void addStarChangeCallback(std::function<void (const int group, const int level)> callback);
 
 bool hasPurchased(const int group);
+
 bool hasAdsEnabled();
+void setAdsEnabled(const bool flag = true);
+
+bool hasSoundEnabled();
+void setSoundEnabled(const bool flag = true);
 
 } // namespace user
 

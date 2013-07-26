@@ -80,6 +80,8 @@
 		C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */; };
 		C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */; };
 		C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06DF17A28DFD005F1762 /* TapForTap.mm */; };
+		C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */; };
+		C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06F117A2CE63005F1762 /* helper.cpp */; };
 		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F66EE91796AD0A00D9FF84 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F66EE81796AD0A00D9FF84 /* star.png */; };
@@ -355,6 +357,10 @@
 		C8DD06DD17A28DFD005F1762 /* TapForTapAppWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAppWall.h; sourceTree = "<group>"; };
 		C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapInterstitial.h; sourceTree = "<group>"; };
 		C8DD06DF17A28DFD005F1762 /* TapForTap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapForTap.mm; sourceTree = "<group>"; };
+		C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToggleButton.cpp; sourceTree = "<group>"; };
+		C8DD06EF17A2BE0C005F1762 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
+		C8DD06F117A2CE63005F1762 /* helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helper.cpp; sourceTree = "<group>"; };
+		C8DD06F217A2CE63005F1762 /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		C8EA2756178DC761007118BD /* Generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generator.cpp; sourceTree = "<group>"; };
 		C8EA2757178DC761007118BD /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
 		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
@@ -722,6 +728,8 @@
 				C8F66ED61796874200D9FF84 /* HintButton.h */,
 				C8B48A87178C6C7600EC57FD /* LevelButton.cpp */,
 				C8B48A88178C6C7600EC57FD /* LevelButton.h */,
+				C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */,
+				C8DD06EF17A2BE0C005F1762 /* ToggleButton.h */,
 			);
 			name = buttons;
 			path = ../Classes/buttons;
@@ -752,6 +760,8 @@
 		C8CB341117871B29001294B7 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				C8DD06F117A2CE63005F1762 /* helper.cpp */,
+				C8DD06F217A2CE63005F1762 /* helper.h */,
 				C8B48A8A178C8A9400EC57FD /* color.cpp */,
 				C8B48A8B178C8A9400EC57FD /* color.h */,
 				C8CB342E178B05CB001294B7 /* config.cpp */,
@@ -1061,6 +1071,8 @@
 				C8DD06E317A28DFD005F1762 /* Revmob.cpp in Sources */,
 				C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */,
 				C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */,
+				C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */,
+				C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

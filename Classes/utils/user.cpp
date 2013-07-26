@@ -78,7 +78,27 @@ bool hasPurchased(const int group)
 
 bool hasAdsEnabled()
 {
-    return true;
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("ads", true);}
+
+void setAdsEnabled(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("ads", flag);
+    settings->flush();
+}
+
+bool hasSoundEnabled()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("sounds", true);
+}
+
+void setSoundEnabled(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("sounds", flag);
+    settings->flush();
 }
 
 } // namespace user
