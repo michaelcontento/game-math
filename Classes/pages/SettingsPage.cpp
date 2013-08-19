@@ -50,14 +50,13 @@ void SettingsPage::updateContainerLayout() const
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
 
-    Object* it = nullptr;
-    CCARRAY_FOREACH(container->getChildren(), it) {
-        const auto btn = dynamic_cast<Node*>(it);
+    for (const auto& child : *container->getChildren()) {
+        const auto btn = dynamic_cast<Node*>(child);
         if (!btn) {
             continue;
         }
 
-        const auto isToggleButton = (dynamic_cast<ToggleButton*>(it) != nullptr);
+        const auto isToggleButton = (dynamic_cast<ToggleButton*>(child) != nullptr);
         if (!lastNodeWasToggleButton && !isToggleButton) {
             container->removeChild(btn);
             continue;
