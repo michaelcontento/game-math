@@ -49,7 +49,7 @@ void MoreGamesPage::addLowerIcon()
 
 void MoreGamesPage::addDescription()
 {
-    auto label = fonts::createLight("do you want to play\nmore free games?", 48);
+    const auto label = fonts::createLight("do you want to play\nmore free games?", 48);
     addChild(label);
 
     // color
@@ -66,7 +66,7 @@ void MoreGamesPage::addDescription()
 
 void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    auto touchLocation = touch.getLocation();
+    const auto touchLocation = touch.getLocation();
     bool hit = false;
     
     if (upperIcon && upperIcon->getBoundingBox().containsPoint(touchLocation)) {

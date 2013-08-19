@@ -28,7 +28,7 @@ void AnswerButton::onExit()
 
 bool AnswerButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    return isAnswerVisible() && boundingBox().containsPoint(touch->getLocation());
+    return !hasBeenUsed && isAnswerVisible() && boundingBox().containsPoint(touch->getLocation());
 }
 
 bool AnswerButton::isAnswerVisible() const
@@ -38,7 +38,7 @@ bool AnswerButton::isAnswerVisible() const
 
 void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!isAnswerVisible() || hasBeenUsed) {
+    if (!ccTouchBegan(touch, event)) {
         return;
     }
     hasBeenUsed = true;

@@ -21,7 +21,7 @@ bool SettingsPage::init()
 
 void SettingsPage::addButtons()
 {
-    std::list<Node*> btns = {
+    const std::list<Node*> btns = {
         getUnlockAllButton(),
         getRemoveAdsButton(),
         getBlankButton(),
@@ -34,7 +34,7 @@ void SettingsPage::addButtons()
     container = Node::create();
     addChild(container);
 
-    for (auto& btn : btns) {
+    for (const auto& btn : btns) {
         if (btn != nullptr) {
             container->addChild(btn);
         }
@@ -48,13 +48,21 @@ void SettingsPage::updateContainerLayout() const
     const auto spacing = 15 * config::getScaleFactor();
     float nextPosY = 0;
     float maxWidth = 0;
+    bool lastNodeWasToggleButton = false;
 
     Object* it = nullptr;
     CCARRAY_FOREACH(container->getChildren(), it) {
-        auto btn = dynamic_cast<Node*>(it);
+        const auto btn = dynamic_cast<Node*>(it);
         if (!btn) {
             continue;
         }
+
+        const auto isToggleButton = (dynamic_cast<ToggleButton*>(it) != nullptr);
+        if (!lastNodeWasToggleButton && !isToggleButton) {
+            container->removeChild(btn);
+            continue;
+        }
+        lastNodeWasToggleButton = isToggleButton;
 
         btn->setAnchorPoint(Point::ZERO);
         btn->setPositionY(nextPosY);
@@ -70,7 +78,7 @@ void SettingsPage::updateContainerLayout() const
 
 ToggleButton* SettingsPage::getSoundButton() const
 {
-    auto btn = ToggleButton::create();
+    const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return flag ? "sound on" : "sound off"; };
     btn->detectState = []() { return user::hasSoundEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setSoundEnabled(flag); return true; };
@@ -80,7 +88,7 @@ ToggleButton* SettingsPage::getSoundButton() const
 
 ToggleButton* SettingsPage::getAchievementsButton() const
 {
-    auto btn = ToggleButton::create();
+    const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "achievements"; };
     btn->toggleAction = [](const bool flag) { CCLog("ACHIEVEMENTS!"); return false; };
 
@@ -89,7 +97,7 @@ ToggleButton* SettingsPage::getAchievementsButton() const
 
 ToggleButton* SettingsPage::getRestoreButton() const
 {
-    auto btn = ToggleButton::create();
+    const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "restore my purchases"; };
     btn->toggleAction = [](const bool flag) { CCLog("RESTORE!"); return false; };
 
@@ -102,7 +110,7 @@ ToggleButton* SettingsPage::getRemoveAdsButton() const
         return nullptr;
     }
     
-    auto btn = ToggleButton::create();
+    const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "remove all ads"; };
     btn->toggleAction = [this, btn](const bool flag) {
         user::setAdsEnabled(false);
@@ -116,7 +124,7 @@ ToggleButton* SettingsPage::getRemoveAdsButton() const
 
 ToggleButton* SettingsPage::getUnlockAllButton() const
 {
-    auto btn = ToggleButton::create();
+    const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "unlock all"; };
     btn->toggleAction = [](const bool flag) { CCLog("UNLOCK ALL!"); return false; };
 
@@ -125,7 +133,7 @@ ToggleButton* SettingsPage::getUnlockAllButton() const
 
 Node* SettingsPage::getBlankButton() const
 {
-    auto btn = Node::create();
+    const auto btn = Node::create();
     btn->setVisible(false);
     btn->setContentSize({0, 25 * config::getScaleFactor()});
     return btn;

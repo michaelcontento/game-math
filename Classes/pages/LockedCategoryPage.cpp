@@ -173,7 +173,7 @@ void LockedCategoryPage::addPlayButton()
     Size size = config::getAnswerButtonSize();
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
 
-    Color4F color = {0.4, 0.4, 0.4, 1};
+    const auto color = color::toRGBA(Color3B(171, 168, 171));
     draw->drawPolygon(verts, 4, color, 0, {});
 
     draw->setContentSize(size);

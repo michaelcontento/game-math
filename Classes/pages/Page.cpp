@@ -35,7 +35,7 @@ bool Page::init()
 
 float Page::getVisibleWidth() const
 {
-    auto posX = getPositionX();
+    const auto posX = getPositionX();
     if (posX <= 0) {
         return std::min(getContentSize().width, posX + getContentSize().width);
     } else {

@@ -50,7 +50,7 @@ void LevelButton::changeOpacity(const int group, const int level)
         return;
     }
 
-    auto starCount = user::getLevelStars(this->group, this->level);
+    const auto starCount = user::getLevelStars(this->group, this->level);
     if (starCount > 0) {
         unlocked = true;
     } else {
@@ -120,16 +120,16 @@ void LevelButton::initializeStarContainerIfRequired()
     starContainer->setAnchorPoint({0.5, 1});
     starContainer->setPosition(label->getPosition());
 
-    auto starOffset = 30 * config::getScaleFactor();
+    const auto starOffset = 30 * config::getScaleFactor();
     starContainer->setPositionY(starContainer->getPositionY() - starOffset);
     
-    auto labelOffset = 10 * config::getScaleFactor();
+    const auto labelOffset = 10 * config::getScaleFactor();
     label->setPositionY(label->getPositionY() + labelOffset);
 }
 
 void LevelButton::configureSize()
 {
-    auto size = 150 * config::getScaleFactor();
+    const auto size = 150 * config::getScaleFactor();
     setContentSize({size, size});
 }
 
@@ -142,7 +142,7 @@ void LevelButton::addBackground()
         draw->clear();
     }
 
-    auto size = getContentSize().width;
+    const auto size = getContentSize().width;
     Point verts[] = {{0, 0}, {0, size}, {size, size}, {size, 0}};
 
     auto color = getBackgroundColorFromParentPage();
@@ -156,7 +156,7 @@ const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 {
     auto hsvColor = color::toHSV(parentPage->getBackground());
 
-    auto step = config::getHsvColorStep();
+    const auto step = config::getHsvColorStep();
     hsvColor.h = fmod(hsvColor.h + step.h, 360.0);
     hsvColor.s = fmin(1.0, fmax(0.0, hsvColor.s + step.s));
     hsvColor.v = fmin(1.0, fmax(0.0, hsvColor.v + step.v));

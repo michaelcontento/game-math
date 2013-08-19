@@ -35,8 +35,8 @@ bool ToggleButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
         return false;
     }
 
-    auto size = getContentSize();
-    auto bb = Rect(0, 0, size.width, size.height);
+    const auto size = getContentSize();
+    const auto bb = Rect(0, 0, size.width, size.height);
     return bb.containsPoint(convertTouchToNodeSpace(touch));
 }
 
@@ -46,7 +46,7 @@ void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
 
-    auto state = !detectState();
+    const auto state = !detectState();
     if (toggleAction(state)) {
         label->setString(getLabel(state).c_str());
     }
@@ -58,10 +58,7 @@ bool ToggleButton::init()
         return false;
     }
 
-    setContentSize({
-        config::getFrameSize().width * 0.75,
-        75 * config::getScaleFactor()
-    });
+    setContentSize(config::getAnswerButtonSize());
     
     addBackground();
     addLabel();
@@ -71,19 +68,19 @@ bool ToggleButton::init()
 
 void ToggleButton::addBackground()
 {
-    auto draw = DrawNode::create();
+    const auto draw = DrawNode::create();
     addChild(draw);
 
-    auto size = getContentSize();
+    const auto size = getContentSize();
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
     
-    auto color = color::toRGBA(Color3B(171, 168, 171));
-    draw->drawPolygon(verts, 4, color, 0, color);
+    const auto color = color::toRGBA(Color3B(171, 168, 171));
+    draw->drawPolygon(verts, 4, color, 0, {});
 }
 
 void ToggleButton::addLabel()
 {
-    label = fonts::createLight(getLabel(detectState()).c_str(), 54);
+    label = fonts::createLight(getLabel(detectState()).c_str(), 64);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(getContentSize() / 2);
