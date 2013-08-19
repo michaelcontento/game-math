@@ -83,8 +83,8 @@ void ToggleButton::addLabel()
     label = fonts::createLight(getLabel(detectState()).c_str(), 64);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
-    label->setPosition(getContentSize() / 2);
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setPosition(Point(getContentSize() / 2));
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
     addChild(label);
 }

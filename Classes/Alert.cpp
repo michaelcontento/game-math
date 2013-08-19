@@ -127,7 +127,7 @@ void Alert::setDescription(const std::string& description)
     addChild(desc);
 
     desc->setAnchorPoint({0.5, 1});
-    desc->setPosition(getContentSize() / 2);
+    desc->setPosition(Point(getContentSize() / 2));
     desc->setPositionX(desc->getContentSize().width * -1);
 }
 

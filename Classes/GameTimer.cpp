@@ -45,7 +45,7 @@ void GameTimer::addLabel()
     label->setColor(Color3B::BLACK);
 
     label->setAnchorPoint({1, 0});
-    label->setHorizontalAlignment(kTextAlignmentRight);
+    label->setHorizontalAlignment(TextHAlignment::RIGHT);
 }
 
 void GameTimer::start()

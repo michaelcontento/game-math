@@ -26,7 +26,7 @@ void MainPage::addIcon()
     addChild(img);
 
     img->setAnchorPoint({0.5, 0});
-    img->setPosition(config::getFrameSize() / 2);
+    img->setPosition(Point(config::getFrameSize() / 2));
 
     img->setScale(config::getScaleFactor());
 }
@@ -41,8 +41,8 @@ void MainPage::addTapToPlayLabel()
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});
-    tapToPlay->setHorizontalAlignment(kTextAlignmentCenter);
-    tapToPlay->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    tapToPlay->setHorizontalAlignment(TextHAlignment::CENTER);
+    tapToPlay->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);

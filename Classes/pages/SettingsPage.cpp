@@ -73,7 +73,7 @@ void SettingsPage::updateContainerLayout() const
 
     container->setContentSize({maxWidth, nextPosY - spacing});
     container->setAnchorPoint({0.5, 0.5});
-    container->setPosition(config::getFrameSize() / 2);
+    container->setPosition(Point(config::getFrameSize() / 2));
 }
 
 ToggleButton* SettingsPage::getSoundButton() const
@@ -90,7 +90,7 @@ ToggleButton* SettingsPage::getAchievementsButton() const
 {
     const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "achievements"; };
-    btn->toggleAction = [](const bool flag) { CCLog("ACHIEVEMENTS!"); return false; };
+    btn->toggleAction = [](const bool flag) { log("ACHIEVEMENTS!"); return false; };
 
     return btn;
 }
@@ -99,7 +99,7 @@ ToggleButton* SettingsPage::getRestoreButton() const
 {
     const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "restore my purchases"; };
-    btn->toggleAction = [](const bool flag) { CCLog("RESTORE!"); return false; };
+    btn->toggleAction = [](const bool flag) { log("RESTORE!"); return false; };
 
     return btn;
 }
@@ -126,7 +126,7 @@ ToggleButton* SettingsPage::getUnlockAllButton() const
 {
     const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "unlock all"; };
-    btn->toggleAction = [](const bool flag) { CCLog("UNLOCK ALL!"); return false; };
+    btn->toggleAction = [](const bool flag) { log("UNLOCK ALL!"); return false; };
 
     return btn;
 }

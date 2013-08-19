@@ -48,8 +48,8 @@ void LockedCategoryPage::addHeadlineLabel()
 
     // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     label->setPositionX(config::getFrameSize().width / 2);
@@ -66,8 +66,8 @@ void LockedCategoryPage::addSublineLabel()
 
     // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     label->setPositionX(config::getFrameSize().width / 2);
@@ -127,8 +127,8 @@ void LockedCategoryPage::addCategoryBoxes()
     auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 68);
     labelA->setColor(Color3B::WHITE);
     labelA->setAnchorPoint({0.5, 0.5});
-    labelA->setHorizontalAlignment(kTextAlignmentCenter);
-    labelA->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    labelA->setHorizontalAlignment(TextHAlignment::CENTER);
+    labelA->setVerticalAlignment(TextVAlignment::CENTER);
     labelA->setPositionX(size.width / 2);
     labelA->setPositionY(size.height + spacing + (size.height / 2));
     boxes->addChild(labelA);
@@ -137,8 +137,8 @@ void LockedCategoryPage::addCategoryBoxes()
     auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 68);
     labelB->setColor(Color3B::WHITE);
     labelB->setAnchorPoint({0.5, 0.5});
-    labelB->setHorizontalAlignment(kTextAlignmentCenter);
-    labelB->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    labelB->setHorizontalAlignment(TextHAlignment::CENTER);
+    labelB->setVerticalAlignment(TextVAlignment::CENTER);
     labelB->setPositionX(size.width / 2);
     labelB->setPositionY(size.height / 2);
     boxes->addChild(labelB);
@@ -146,7 +146,7 @@ void LockedCategoryPage::addCategoryBoxes()
     // alignment
     boxes->setContentSize({size.width, size.height * 2 + spacing});
     boxes->setAnchorPoint({0.5, 0.5});
-    boxes->setPosition(config::getFrameSize() / 2);
+    boxes->setPosition(Point(config::getFrameSize() / 2));
     boxes->setPositionY(boxes->getPositionY() + middleOffsetY);
 }
 
@@ -155,8 +155,8 @@ void LockedCategoryPage::addDescriptionLabel()
     auto label = fonts::createLight(getDescription().c_str(), 36);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
     label->setPositionX(config::getFrameSize().width / 2);
     label->setPositionY((config::getFrameSize().height / 4 * 1) + middleOffsetY);
     addChild(label);
@@ -183,9 +183,9 @@ void LockedCategoryPage::addPlayButton()
     auto label = fonts::createLight("PLAY!", 72);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
-    label->setPosition(size / 2);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
+    label->setPosition(Point(size / 2));
     draw->addChild(label);
 }
 

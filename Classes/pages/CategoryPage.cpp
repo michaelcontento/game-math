@@ -46,8 +46,8 @@ void CategoryPage::addHeadlineLabel()
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});
-    tapToPlay->setHorizontalAlignment(kTextAlignmentCenter);
-    tapToPlay->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    tapToPlay->setHorizontalAlignment(TextHAlignment::CENTER);
+    tapToPlay->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
@@ -79,7 +79,7 @@ void CategoryPage::addLevelButtons()
 
     container->setContentSize(containerSize);
     container->setAnchorPoint({0.5, 0.5});
-    container->setPosition(config::getFrameSize() / 2);
+    container->setPosition(Point(config::getFrameSize() / 2));
 }
 
 void CategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)

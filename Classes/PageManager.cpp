@@ -255,7 +255,7 @@ bool PageManager::init()
     instance = this;
 
     scrollView = ScrollView::create(config::getFrameSize(), Node::create());
-    scrollView->setDirection(kScrollViewDirectionHorizontal);
+    scrollView->setDirection(ScrollView::Direction::HORIZONTAL);
     scrollView->setDelegate(this);
     scrollView->minMoveDistance = 20 * config::getScaleFactor();
     addChild(scrollView);

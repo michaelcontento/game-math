@@ -242,7 +242,7 @@ bool GamePage::revealHint()
         return false;
     }
 
-    CCLog("HINT!");
+    log("HINT!");
     return true;
 }
 
@@ -313,8 +313,8 @@ void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
  
     // alignment
     label.setAnchorPoint({0.5, 0.5});
-    label.setHorizontalAlignment(kTextAlignmentCenter);
-    label.setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label.setHorizontalAlignment(TextHAlignment::CENTER);
+    label.setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     label.setPosition({

@@ -174,11 +174,11 @@ void LevelButton::addNumber()
 
     // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
-    label->setPosition(getContentSize() / 2);
+    label->setPosition(Point(getContentSize() / 2));
 }
 
 void LevelButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)

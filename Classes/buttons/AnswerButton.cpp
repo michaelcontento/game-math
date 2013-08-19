@@ -151,9 +151,9 @@ void AnswerButton::addLabels()
     label = fonts::createLight("", 72);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
-    label->setPosition(getContentSize() / 2);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
+    label->setPosition(Point(getContentSize() / 2));
     addChild(label);
 
     indicatorLabelLeft = fonts::createLight("", 72);

@@ -57,11 +57,11 @@ void MoreGamesPage::addDescription()
 
     // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(kTextAlignmentCenter);
-    label->setVerticalAlignment(kVerticalTextAlignmentCenter);
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
-    label->setPosition(config::getFrameSize() / 2);
+    label->setPosition(Point(config::getFrameSize() / 2));
 }
 
 void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
