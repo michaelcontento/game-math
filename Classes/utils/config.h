@@ -8,17 +8,17 @@
 
 namespace config {
 
-const float getScaleFactor();
-const cocos2d::Size& getFrameSize();
-const float getTouchIgnoreLength();
-const float getSwipeMovementMinX();
-const float getSwipeMovementMaxY();
-const float getQuestionStartDelay();
-const float getProgressbarHeight();
-const float getAnswerButtonPadding();
-const cocos2d::Size getAnswerButtonSize();
-const std::string getGroupHeadline(const int group);
-const cocos2d::Color3B getGroupColor(const int group);
+float getScaleFactor();
+cocos2d::Size getFrameSize();
+float getTouchIgnoreLength();
+float getSwipeMovementMinX();
+float getSwipeMovementMaxY();
+float getQuestionStartDelay();
+float getProgressbarHeight();
+float getAnswerButtonPadding();
+cocos2d::Size getAnswerButtonSize();
+std::string getGroupHeadline(const int group);
+cocos2d::Color3B getGroupColor(const int group);
 puzzle::Generator getGenerator(const int group, const int level);
 
 constexpr float getDesignWidth()

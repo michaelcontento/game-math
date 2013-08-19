@@ -18,7 +18,7 @@ public:
     virtual void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) {};
 
     void setBackground(const cocos2d::Color3B& color);
-    const cocos2d::Color3B& getBackground() const;
+    cocos2d::Color3B getBackground() const;
 
     float getVisibleWidth() const;
     bool isVisible() const override;

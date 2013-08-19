@@ -25,8 +25,8 @@ private:
     void addCategoryBoxes();
     void addDescriptionLabel();
     void addPlayButton();
-    const std::string getHeadline() const;
-    const std::string getDescription() const;
+    std::string getHeadline() const;
+    std::string getDescription() const;
 };
 
 #endif // MATH_LOCKEDCATEGORYPAGE_H

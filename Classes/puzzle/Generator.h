@@ -14,8 +14,8 @@ namespace puzzle {
 class Generator
 {
 public:
-    std::string question;
-    std::string answer;
+    const std::string question;
+    const std::string answer;
     std::unordered_set<Operator> operators;
     std::unordered_set<NumberRange> ranges;
 

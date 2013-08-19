@@ -6,52 +6,52 @@ using namespace cocos2d;
 
 namespace config {
 
-const float getScaleFactor()
+float getScaleFactor()
 {
     return getFrameSize().width / getDesignWidth();
 }
 
-const cocos2d::Size& getFrameSize()
+cocos2d::Size getFrameSize()
 {
     return Director::getInstance()->getOpenGLView()->getFrameSize();
 }
 
-const float getTouchIgnoreLength()
+float getTouchIgnoreLength()
 {
     return 25 * getScaleFactor();
 }
 
-const float getSwipeMovementMinX()
+float getSwipeMovementMinX()
 {
     return 10 * getScaleFactor();
 }
 
-const float getSwipeMovementMaxY()
+float getSwipeMovementMaxY()
 {
     return 10 * getScaleFactor();
 }
 
-const float getQuestionStartDelay()
+float getQuestionStartDelay()
 {
     return getQuestionFadeTime() * 2;
 }
 
-const float getProgressbarHeight()
+float getProgressbarHeight()
 {
     return 8 * getScaleFactor();
 }
 
-const float getAnswerButtonPadding()
+float getAnswerButtonPadding()
 {
     return 30 * config::getScaleFactor();
 }
 
-const cocos2d::Size getAnswerButtonSize()
+cocos2d::Size getAnswerButtonSize()
 {
     return {getFrameSize().width, 80 * getScaleFactor()};
 }
 
-const std::string getGroupHeadline(const int group)
+std::string getGroupHeadline(const int group)
 {
     // == 1
     if        (group == 1) {
@@ -89,7 +89,7 @@ const std::string getGroupHeadline(const int group)
     }
 }
 
-const cocos2d::Color3B getGroupColor(const int group)
+cocos2d::Color3B getGroupColor(const int group)
 {
     // == 1
     if        (group == 1) {

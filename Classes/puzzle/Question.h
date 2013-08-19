@@ -9,10 +9,10 @@ namespace puzzle {
 class Question
 {
 public:
-    std::string question;
-    std::string rightAnswer;
-    std::string wrongAnswer1;
-    std::string wrongAnswer2;
+    const std::string question;
+    const std::string rightAnswer;
+    const std::string wrongAnswer1;
+    const std::string wrongAnswer2;
 
     Question(std::string question, std::string rightAnswer, std::string wrongAnswer1, std::string wrongAnswer2)
     : question(question), rightAnswer(rightAnswer), wrongAnswer1(wrongAnswer1), wrongAnswer2(wrongAnswer2)

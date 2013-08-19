@@ -17,7 +17,7 @@ void Page::setBackground(const cocos2d::Color3B& color)
     }
 }
 
-const cocos2d::Color3B& Page::getBackground() const
+cocos2d::Color3B Page::getBackground() const
 {
     return color;
 }

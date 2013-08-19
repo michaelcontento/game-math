@@ -152,7 +152,7 @@ void LevelButton::addBackground()
     draw->drawPolygon(verts, 4, color, 0, {});
 }
 
-const cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
+cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 {
     auto hsvColor = color::toHSV(parentPage->getBackground());
 

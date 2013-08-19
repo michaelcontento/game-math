@@ -74,7 +74,7 @@ void LockedCategoryPage::addSublineLabel()
     label->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
 }
 
-const std::string LockedCategoryPage::getHeadline() const
+std::string LockedCategoryPage::getHeadline() const
 {
     if        (group == 3) {
         return "PACK ONE";
@@ -89,7 +89,7 @@ const std::string LockedCategoryPage::getHeadline() const
     }
 }
 
-const std::string LockedCategoryPage::getDescription() const
+std::string LockedCategoryPage::getDescription() const
 {
     if        (group == 3) {
         return "these should be possible too, right?";
