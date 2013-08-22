@@ -5,6 +5,7 @@
 #include <avalon/GameCenter.h>
 #include "../utils/config.h"
 #include "../utils/user.h"
+#include "../utils/helper.h"
 #include "../buttons/ToggleButton.h"
 #include "PageManager.h"
 #include "LockedCategoryPage.h"
@@ -120,7 +121,9 @@ ToggleButton* SettingsPage::getRestoreButton()
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
-        payment->restorePurchases();
+        if (helper::paymentAvailableCheck(payment.get())) {
+            payment->restorePurchases();
+        }
         return false;
     };
 
@@ -139,7 +142,9 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
-        payment->getProduct("removeads")->purchase();
+        if (helper::paymentAvailableCheck(payment.get())) {
+            payment->getProduct("removeads")->purchase();
+        }
         return false;
     };
     
@@ -171,7 +176,9 @@ ToggleButton* SettingsPage::getUnlockAllButton()
         
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
-        payment->getProduct(key.c_str())->purchase();
+        if (helper::paymentAvailableCheck(payment.get())) {
+            payment->getProduct(key.c_str())->purchase();
+        }
         return false;
     };
 
@@ -233,6 +240,7 @@ void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
 
 void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentPendingSpinner(true);
 }
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
@@ -259,6 +267,8 @@ void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
     if (updateLayout) {
         updateContainerLayout();
     }
+
+    helper::showPaymentPendingSpinner(false);
 }
 
 void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)

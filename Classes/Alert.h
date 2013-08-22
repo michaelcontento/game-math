@@ -13,8 +13,9 @@ public:
     void visit() override;
 
     void setDescription(const std::string& description);
+    void enableCloseOnTap(const bool flag = true);
 
-    void show(std::function<void ()> callback);
+    void show(std::function<void ()> callback, const bool instant = false);
     void hide();
 
     bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
@@ -23,6 +24,7 @@ public:
 private:
     bool visible = false;
     bool touchable = false;
+    bool closeOnTap = true;
     std::function<void ()> callback;
     cocos2d::LabelTTF* desc = nullptr;
     cocos2d::DrawNode* draw = nullptr;

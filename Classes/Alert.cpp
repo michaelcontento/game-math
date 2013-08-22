@@ -39,23 +39,25 @@ bool Alert::init()
     return true;
 }
 
-void Alert::show(const std::function<void ()> callback)
+void Alert::show(const std::function<void ()> callback, const bool instant)
 {
     this->callback = callback;
     visible = true;
     touchable = false;
 
+    float instaMod = instant ? 0 : 1;
+
     draw->setScaleY(0);
     draw->stopAllActions();
-    draw->runAction(EaseInOut::create(ScaleTo::create(config::getAlertFadeTime(), 1, 1), 3));
+    draw->runAction(EaseInOut::create(ScaleTo::create(config::getAlertFadeTime() * instaMod, 1, 1), 3));
 
     tap->stopAllActions();
     tap->runAction(Sequence::create(
-        DelayTime::create(config::getAlertFadeTime() * 0.2),
+        DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
         EaseInOut::create(
             Spawn::create(
-                MoveTo::create(config::getAlertFadeTime(), {getContentSize().width / 2, tap->getPositionY()}),
-                FadeIn::create(config::getAlertFadeTime()),
+                MoveTo::create(config::getAlertFadeTime() * instaMod, {getContentSize().width / 2, tap->getPositionY()}),
+                FadeIn::create(config::getAlertFadeTime() * instaMod),
                 NULL
             ),
             3
@@ -72,8 +74,8 @@ void Alert::show(const std::function<void ()> callback)
     if (desc) {
         desc->stopAllActions();
         desc->runAction(Sequence::create(
-            DelayTime::create(config::getAlertFadeTime() * 0.2),
-            EaseInOut::create(MoveTo::create(config::getAlertFadeTime(), {getContentSize().width / 2, desc->getPositionY()}), 3),
+            DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
+            EaseInOut::create(MoveTo::create(config::getAlertFadeTime() * instaMod, {getContentSize().width / 2, desc->getPositionY()}), 3),
             NULL
         ));
     }
@@ -116,6 +118,12 @@ void Alert::hide()
     }
 }
 
+void Alert::enableCloseOnTap(const bool flag)
+{
+    closeOnTap = flag;
+    tap->setVisible(flag);
+}
+
 void Alert::setDescription(const std::string& description)
 {
     if (desc) {
@@ -138,7 +146,7 @@ bool Alert::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!touchable) {
+    if (!touchable || !closeOnTap) {
         return;
     }
     

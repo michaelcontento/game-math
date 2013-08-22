@@ -3,6 +3,7 @@
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/user.h"
+#include "../utils/helper.h"
 #include "../PageManager.h"
 #include "CategoryPage.h"
 
@@ -205,9 +206,8 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     auto payment = payment::Loader::globalManager;
     payment->delegate = this;
 
-    if (!payment->isPurchaseReady()) {
-        log("PARENTAL CONTROL");
-        return; // disabled by the parents
+    if (!helper::paymentAvailableCheck(payment.get())) {
+        return; // payment not available
     }
 
     const auto key = std::string("pack.") + std::to_string(getPaymentGroupId());
