@@ -28,11 +28,12 @@ bool SettingsPage::init()
 void SettingsPage::addButtons()
 {
     const std::list<Node*> btns = {
-        getRemoveAdsButton(),
         getUnlockAllButton(),
+        getRemoveAdsButton(),
         getRestoreButton(),
         getBlankButton(),
         getAchievementsButton(),
+        getMusicButton(),
         getSoundButton()
     };
 
@@ -50,7 +51,7 @@ void SettingsPage::addButtons()
 
 void SettingsPage::updateContainerLayout() const
 {
-    const auto spacing = 25 * config::getScaleFactor();
+    const auto spacing = 30 * config::getScaleFactor();
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
@@ -92,6 +93,16 @@ ToggleButton* SettingsPage::getSoundButton() const
     btn->getLabel = [](const bool flag) { return flag ? "sound on" : "sound off"; };
     btn->detectState = []() { return user::hasSoundEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setSoundEnabled(flag); return true; };
+
+    return btn;
+}
+
+ToggleButton* SettingsPage::getMusicButton() const
+{
+    const auto btn = ToggleButton::create();
+    btn->getLabel = [](const bool flag) { return flag ? "music on" : "music off"; };
+    btn->detectState = []() { return user::hasMusicEnabled(); };
+    btn->toggleAction = [](const bool flag) { user::setMusicEnabled(flag); return true; };
 
     return btn;
 }

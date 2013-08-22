@@ -2,6 +2,7 @@
 
 #include "SimpleAudioEngine.h"
 #include "GameScene.h"
+#include "utils/user.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -40,7 +41,9 @@ void AppDelegate::applicationWillEnterForeground()
 {
     Director::getInstance()->resume();
     Director::getInstance()->startAnimation();
-    
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+
+    if (user::hasMusicEnabled()) {
+        SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    }
     SimpleAudioEngine::getInstance()->resumeAllEffects();
 }

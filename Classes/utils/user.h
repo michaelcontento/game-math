@@ -20,6 +20,9 @@ void setAdsEnabled(const bool flag = true);
 bool hasSoundEnabled();
 void setSoundEnabled(const bool flag = true);
 
+bool hasMusicEnabled();
+void setMusicEnabled(const bool flag = true);
+
 } // namespace user
 
 #endif // MATH_USER_H

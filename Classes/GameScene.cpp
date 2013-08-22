@@ -3,6 +3,7 @@
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
+#include "SimpleAudioEngine.h"
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
@@ -12,6 +13,7 @@
 #include "utils/user.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 using namespace avalon;
 
 Scene* GameScene::scene()
@@ -29,13 +31,11 @@ bool GameScene::init()
 
     initAds();
     initPayment();
-
-    auto gc = avalon::GameCenter();
-    gc.login();
+    initGameCenter();
+    initSoundAndMusic();
 
     pageManager = PageManager::create();
     addChild(pageManager);
-
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
@@ -73,4 +73,21 @@ void GameScene::initPayment()
     payment::Loader loader("payment.ini");
     payment::Loader::globalManager = loader.getManager();
     payment::Loader::globalManager->startService();
+}
+
+void GameScene::initGameCenter()
+{
+    auto gc = avalon::GameCenter();
+    gc.login();
+}
+
+void GameScene::initSoundAndMusic()
+{
+    if (user::hasMusicEnabled()) {
+        //SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
+    }
+    
+    if (!user::hasSoundEnabled()) {
+        SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+    }
 }

@@ -32,6 +32,7 @@ private:
 
     Node* getBlankButton() const;
     ToggleButton* getSoundButton() const;
+    ToggleButton* getMusicButton() const;
     ToggleButton* getAchievementsButton() const;
     ToggleButton* getRestoreButton();
     ToggleButton* getRemoveAdsButton();

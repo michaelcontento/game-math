@@ -5,8 +5,10 @@
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
+using namespace CocosDenshion;
 using namespace avalon;
 
 namespace user {
@@ -112,6 +114,31 @@ void setSoundEnabled(const bool flag)
     auto settings = UserDefault::getInstance();
     settings->setBoolForKey("sounds", flag);
     settings->flush();
+
+    if (flag) {
+        SimpleAudioEngine::getInstance()->setEffectsVolume(1);
+    } else {
+        SimpleAudioEngine::getInstance()->setEffectsVolume(0);
+    }
+}
+
+bool hasMusicEnabled()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("music", true);
+}
+
+void setMusicEnabled(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("music", flag);
+    settings->flush();
+
+    if (flag) {
+        //SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
+    } else {
+        SimpleAudioEngine::getInstance()->stopBackgroundMusic(false);
+    }
 }
 
 } // namespace user
