@@ -2,6 +2,7 @@
 
 #include <typeinfo>
 #include <list>
+#include <avalon/GameCenter.h>
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../buttons/ToggleButton.h"
@@ -28,7 +29,6 @@ void SettingsPage::addButtons()
     const std::list<Node*> btns = {
         getRemoveAdsButton(),
         getUnlockAllButton(),
-        getBlankButton(),
         getRestoreButton(),
         getBlankButton(),
         getAchievementsButton(),
@@ -49,7 +49,7 @@ void SettingsPage::addButtons()
 
 void SettingsPage::updateContainerLayout() const
 {
-    const auto spacing = 15 * config::getScaleFactor();
+    const auto spacing = 25 * config::getScaleFactor();
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
@@ -99,7 +99,11 @@ ToggleButton* SettingsPage::getAchievementsButton() const
 {
     const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "achievements"; };
-    btn->toggleAction = [](const bool flag) { log("ACHIEVEMENTS!"); return false; };
+    btn->toggleAction = [](const bool flag) {
+        auto gc = avalon::GameCenter();
+        gc.showAchievements();
+        return false;
+    };
 
     return btn;
 }

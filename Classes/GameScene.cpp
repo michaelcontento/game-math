@@ -2,6 +2,7 @@
 
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
+#include <avalon/GameCenter.h>
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
@@ -28,6 +29,9 @@ bool GameScene::init()
 
     initAds();
     initPayment();
+
+    auto gc = avalon::GameCenter();
+    gc.login();
 
     pageManager = PageManager::create();
     addChild(pageManager);

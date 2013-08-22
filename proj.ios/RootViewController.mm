@@ -3,6 +3,18 @@
 
 @implementation RootViewController
 
+// GKLeaderboardViewControllerのDelegate
+-(void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// GKAchievementViewControllerのDelegate
+-(void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
