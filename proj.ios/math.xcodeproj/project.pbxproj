@@ -29,6 +29,7 @@
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
 		C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F871797F5F100FA1F87 /* Alert.cpp */; };
+		C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */; };
 		C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC140178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC144178EEC9000F07AE3 /* Chartboost.cpp */; };
 		C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC146178EEC9000F07AE3 /* ChartboostX.h */; };
@@ -256,6 +257,7 @@
 		C8359F851797E94300FA1F87 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		C8359F871797F5F100FA1F87 /* Alert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Alert.cpp; path = ../Classes/Alert.cpp; sourceTree = "<group>"; };
 		C8359F881797F5F100FA1F87 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alert.h; path = ../Classes/Alert.h; sourceTree = "<group>"; };
+		C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C84DC13D178EEC9000F07AE3 /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
 		C84DC13E178EEC9000F07AE3 /* Fullscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fullscreen.h; sourceTree = "<group>"; };
 		C84DC13F178EEC9000F07AE3 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */,
 				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
 				C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */,
+				C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +502,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */,
 				C84DC2E1178EF1CB00F07AE3 /* AdSupport.framework */,
 				D44C620F132DFF4E0009C878 /* AudioToolbox.framework */,
 				D44C620D132DFF430009C878 /* AVFoundation.framework */,
@@ -848,6 +852,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				C83CB9BF17C6A48000E8CC93 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1023,6 +1028,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C83CB9BF17C6A48000E8CC93 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 0bba8db2fa145bc487dc41da3d3cff39d062166d";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1120,6 +1141,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/vendors/revmob/ios\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1182,6 +1204,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/vendors/revmob/ios\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;

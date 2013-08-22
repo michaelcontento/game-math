@@ -3,6 +3,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppController
 
@@ -50,6 +51,8 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] setStatusBarHidden:true];
     
     cocos2d::Application::getInstance()->run();
+
+    [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
 
     return YES;
 }
