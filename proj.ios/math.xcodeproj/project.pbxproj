@@ -30,6 +30,8 @@
 		C8359F861797E94300FA1F87 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8359F851797E94300FA1F87 /* arrow.png */; };
 		C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F871797F5F100FA1F87 /* Alert.cpp */; };
 		C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */; };
+		C83CB9C317C6A5B500E8CC93 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C83CB9C217C6A5B500E8CC93 /* Default-Portrait~ipad.png */; };
+		C83CB9C517C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C83CB9C417C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png */; };
 		C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC140178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC144178EEC9000F07AE3 /* Chartboost.cpp */; };
 		C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */ = {isa = PBXBuildFile; fileRef = C84DC146178EEC9000F07AE3 /* ChartboostX.h */; };
@@ -258,6 +260,8 @@
 		C8359F871797F5F100FA1F87 /* Alert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Alert.cpp; path = ../Classes/Alert.cpp; sourceTree = "<group>"; };
 		C8359F881797F5F100FA1F87 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alert.h; path = ../Classes/Alert.h; sourceTree = "<group>"; };
 		C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C83CB9C217C6A5B500E8CC93 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		C83CB9C417C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		C84DC13D178EEC9000F07AE3 /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
 		C84DC13E178EEC9000F07AE3 /* Fullscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fullscreen.h; sourceTree = "<group>"; };
 		C84DC13F178EEC9000F07AE3 /* Link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Link.h; sourceTree = "<group>"; };
@@ -488,6 +492,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				C83CB9C417C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png */,
+				C83CB9C217C6A5B500E8CC93 /* Default-Portrait~ipad.png */,
 				1AF4C2BB17865D9500122817 /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -1023,6 +1029,8 @@
 				C8A6B01717A1333200815182 /* icon-math.png in Resources */,
 				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
 				C8E9725217C60D5A000B98C7 /* payment.ini in Resources */,
+				C83CB9C317C6A5B500E8CC93 /* Default-Portrait~ipad.png in Resources */,
+				C83CB9C517C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

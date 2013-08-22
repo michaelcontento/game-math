@@ -21,7 +21,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setDisplayStats(false);
 
     pDirector->setOpenGLView(EGLView::getInstance());
+
+    // set white clear color and clear once to prevent a short flicker
+    // between the ios loading image and the first cocos2dx loop iteration
     glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    EGLView::getInstance()->swapBuffers();
 
     pDirector->runWithScene(GameScene::scene());
 

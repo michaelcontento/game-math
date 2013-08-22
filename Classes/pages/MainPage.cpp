@@ -29,6 +29,10 @@ void MainPage::addIcon()
     img->setPosition(Point(config::getFrameSize() / 2));
 
     img->setScale(config::getScaleFactor());
+
+    // fade
+    img->setOpacity(0);
+    img->runAction(EaseIn::create(FadeIn::create(0.75), 3));
 }
 
 void MainPage::addTapToPlayLabel()
@@ -47,6 +51,10 @@ void MainPage::addTapToPlayLabel()
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
     tapToPlay->setPositionY(75 * config::getScaleFactor());
+
+    // fade
+    tapToPlay->setOpacity(0);
+    tapToPlay->runAction(EaseIn::create(FadeIn::create(0.75), 3));
 }
 
 void MainPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
