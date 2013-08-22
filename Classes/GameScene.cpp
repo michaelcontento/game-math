@@ -1,6 +1,7 @@
 #include "GameScene.h"
 
 #include <avalon/ads/Manager.h>
+#include <avalon/payment.h>
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
@@ -10,6 +11,7 @@
 #include "utils/user.h"
 
 using namespace cocos2d;
+using namespace avalon;
 
 Scene* GameScene::scene()
 {
@@ -25,6 +27,7 @@ bool GameScene::init()
     }
 
     initAds();
+    initPayment();
 
     pageManager = PageManager::create();
     addChild(pageManager);
@@ -42,7 +45,8 @@ void GameScene::addCategoryPages(PageManager& pageManager) const
 {
     std::string name = "category-";
     for (int i = 1; i <= 10; i += 2) {
-        if (user::hasPurchased(i)) {
+        const auto group = std::ceil(i / 2.f) - 1;
+        if (!user::isLevelGroupLocked(group)) {
             pageManager.add(name + std::to_string(i + 0), CategoryPage::create(i + 0));
             pageManager.add(name + std::to_string(i + 1), CategoryPage::create(i + 1));
         } else {
@@ -58,4 +62,11 @@ void GameScene::initAds() const
         avalon::ads::Manager::initWithIniFile("ads.ini");
         avalon::ads::Manager::startService();
     }
+}
+
+void GameScene::initPayment()
+{
+    payment::Loader loader("payment.ini");
+    payment::Loader::globalManager = loader.getManager();
+    payment::Loader::globalManager->startService();
 }

@@ -17,6 +17,7 @@ private:
 
     void addCategoryPages(PageManager& pageManager) const;
     void initAds() const;
+    void initPayment();
 };
 
 #endif // MATH_GAMESCENE_H

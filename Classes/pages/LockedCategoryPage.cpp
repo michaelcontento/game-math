@@ -2,10 +2,12 @@
 
 #include "../utils/fonts.h"
 #include "../utils/color.h"
+#include "../utils/user.h"
 #include "../PageManager.h"
 #include "CategoryPage.h"
 
 using namespace cocos2d;
+using namespace avalon;
 
 LockedCategoryPage* LockedCategoryPage::create(const int group)
 {
@@ -192,9 +194,43 @@ void LockedCategoryPage::addPlayButton()
 void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     if (!draw->getBoundingBox().containsPoint(touch.getLocation())) {
-        return;
+        return; // not the play button touched
     }
 
+    if (!user::isLevelGroupLocked(getPaymentGroupId())) {
+        unlock();
+        return; // skip early if possible
+    }
+
+    auto payment = payment::Loader::globalManager;
+    payment->delegate = this;
+
+    if (!payment->isPurchaseReady()) {
+        log("PARENTAL CONTROL");
+        return; // disabled by the parents
+    }
+
+    const auto key = std::string("pack.") + std::to_string(getPaymentGroupId());
+    if (!payment->hasProduct(key.c_str())) {
+        return; // invalid product id
+    }
+
+    payment->getProduct(key.c_str())->purchase();
+}
+
+int LockedCategoryPage::getPaymentGroupId() const
+{
+    return std::ceil(group / 2.f) - 1;
+}
+
+void LockedCategoryPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
+{
+    user::setLevelGroupLocked(getPaymentGroupId(), false);
+    unlock();
+}
+
+void LockedCategoryPage::unlock()
+{
     std::string name = "category-";
     PageManager::shared().replacePage(
         *this,
@@ -203,4 +239,16 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
         name + std::to_string(group + 1),
         CategoryPage::create(group + 1)
     );
+}
+
+void LockedCategoryPage::onPurchaseFail(avalon::payment::Manager* const manager)
+{
+}
+
+void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const manager)
+{
+}
+
+void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manager)
+{
 }

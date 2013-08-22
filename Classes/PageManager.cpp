@@ -100,7 +100,6 @@ void PageManager::replacePage(Page& oldPage, const std::string& nameA, Page* con
     pageB->retain();
 
     updateScrollViewPositions();
-    scrollTo(nameA, 0);
 }
 
 void PageManager::updateScrollViewPositions()
@@ -129,7 +128,7 @@ void PageManager::scrollTo(const std::string& name, const float duration)
 {
     float nonConstDuration = duration;
     auto index = getPageIndex(name);
-    auto width = getPage(name).getContentSize().width;
+    auto width = getPage(name)->getContentSize().width;
     auto newPos = Point(index * width * -1, 0);
 
     snapActive = true;
@@ -211,11 +210,11 @@ std::string PageManager::getMostVisiblePageName() const
     return activePage;
 }
 
-Page& PageManager::getPage(const std::string& name) const
+Page* PageManager::getPage(const std::string& name) const
 {
     for (const auto& pair : pages) {
         if (pair.first == name) {
-            return *pair.second;
+            return pair.second;
         }
     }
 

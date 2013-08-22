@@ -19,6 +19,8 @@ public:
     static PageManager& shared();
 
     void add(const std::string& name, Page* const page);
+    Page* getPage(const std::string& name) const;
+
     void scrollTo(const std::string& name);
     void scrollTo(const std::string& name, const float duration);
 
@@ -44,7 +46,6 @@ private:
     bool snapActive = false;
 
     void handlePageScroll(const cocos2d::Point& delta);
-    Page& getPage(const std::string& name) const;
     int getPageIndex(const std::string& name) const;
     std::string getMostVisiblePageName() const;
     void updateScrollViewPositions();

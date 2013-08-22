@@ -2,9 +2,12 @@
 
 #include <string>
 #include <vector>
+#include <avalon/ads/Manager.h>
+#include <avalon/payment.h>
 #include "cocos2d.h"
 
 using namespace cocos2d;
+using namespace avalon;
 
 namespace user {
 
@@ -26,15 +29,30 @@ static std::vector<std::function<void (const int group, const int level)>> starC
 
 bool isLevelGroupLocked(const int group)
 {
+    if (group == 0) {
+        return false;
+    }
+
     auto settings = UserDefault::getInstance();
     return settings->getBoolForKey(impl::getLockedKey(group).c_str(), true);
 }
 
-void markLevelGroupUnlocked(const int group)
+void setLevelGroupLocked(const int group, const bool flag)
 {
     auto settings = UserDefault::getInstance();
-    settings->setBoolForKey(impl::getLockedKey(group).c_str(), false);
+    settings->setBoolForKey(impl::getLockedKey(group).c_str(), flag);
     settings->flush();
+}
+
+bool allLevelGroupsUnlocked()
+{
+    for (int i = 1; i <= 4; ++i) {
+        if (isLevelGroupLocked(i)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 int getLevelStars(const int group, const int level)
@@ -67,25 +85,20 @@ void addStarChangeCallback(std::function<void (const int group, const int level)
     impl::starCallbacks.push_back(callback);
 }
 
-bool hasPurchased(const int group)
-{
-    if (group <= 2) {
-        return true;
-    }
-    
-    return false;
-}
-
 bool hasAdsEnabled()
 {
     auto settings = UserDefault::getInstance();
-    return settings->getBoolForKey("ads", true);}
+    return settings->getBoolForKey("ads", true);
+}
 
 void setAdsEnabled(const bool flag)
 {
     auto settings = UserDefault::getInstance();
     settings->setBoolForKey("ads", flag);
     settings->flush();
+
+    avalon::ads::Manager::enabled = flag;
+    avalon::ads::Manager::hide();
 }
 
 bool hasSoundEnabled()

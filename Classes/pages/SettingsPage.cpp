@@ -1,11 +1,15 @@
 #include "SettingsPage.h"
 
+#include <typeinfo>
 #include <list>
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../buttons/ToggleButton.h"
+#include "PageManager.h"
+#include "LockedCategoryPage.h"
 
 using namespace cocos2d;
+using namespace avalon;
 
 bool SettingsPage::init()
 {
@@ -22,12 +26,12 @@ bool SettingsPage::init()
 void SettingsPage::addButtons()
 {
     const std::list<Node*> btns = {
-        getUnlockAllButton(),
         getRemoveAdsButton(),
-        getBlankButton(),
-        getAchievementsButton(),
+        getUnlockAllButton(),
         getBlankButton(),
         getRestoreButton(),
+        getBlankButton(),
+        getAchievementsButton(),
         getSoundButton()
     };
 
@@ -49,25 +53,31 @@ void SettingsPage::updateContainerLayout() const
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
+    std::list<Node*> removeBtns = {};
 
-    for (const auto& child : *container->getChildren()) {
-        const auto btn = dynamic_cast<Node*>(child);
+    Object* it = nullptr;
+    CCARRAY_FOREACH(container->getChildren(), it) {
+        const auto btn = dynamic_cast<Node*>(it);
         if (!btn) {
             continue;
         }
 
-        const auto isToggleButton = (dynamic_cast<ToggleButton*>(child) != nullptr);
+        const auto isToggleButton = (dynamic_cast<ToggleButton*>(it) != nullptr);
         if (!lastNodeWasToggleButton && !isToggleButton) {
-            container->removeChild(btn);
+            removeBtns.push_back(btn);
             continue;
         }
-        lastNodeWasToggleButton = isToggleButton;
+        lastNodeWasToggleButton = true;
 
         btn->setAnchorPoint(Point::ZERO);
         btn->setPositionY(nextPosY);
 
         nextPosY += btn->getContentSize().height + spacing;
         maxWidth = fmaxf(maxWidth, btn->getContentSize().width);
+    }
+
+    for (const auto& btn : removeBtns) {
+        container->removeChild(btn);
     }
 
     container->setContentSize({maxWidth, nextPosY - spacing});
@@ -94,38 +104,72 @@ ToggleButton* SettingsPage::getAchievementsButton() const
     return btn;
 }
 
-ToggleButton* SettingsPage::getRestoreButton() const
+ToggleButton* SettingsPage::getRestoreButton()
 {
+    if (user::allLevelGroupsUnlocked() && !user::hasAdsEnabled()) {
+        return nullptr;
+    }
+
     const auto btn = ToggleButton::create();
-    btn->getLabel = [](const bool flag) { return "restore my purchases"; };
-    btn->toggleAction = [](const bool flag) { log("RESTORE!"); return false; };
+    btn->setTag(tagRestorePurchases);
+    btn->getLabel = [](const bool flag) { return "restore purchases"; };
+    btn->toggleAction = [this](const bool flag) {
+        auto payment = payment::Loader::globalManager;
+        payment->delegate = this;
+        payment->restorePurchases();
+        return false;
+    };
 
     return btn;
 }
 
-ToggleButton* SettingsPage::getRemoveAdsButton() const
+ToggleButton* SettingsPage::getRemoveAdsButton()
 {
     if (!user::hasAdsEnabled()) {
         return nullptr;
     }
     
     const auto btn = ToggleButton::create();
+    btn->setTag(tagRemoveAdsButton);
     btn->getLabel = [](const bool flag) { return "remove all ads"; };
-    btn->toggleAction = [this, btn](const bool flag) {
-        user::setAdsEnabled(false);
-        container->removeChild(btn);
-        updateContainerLayout();
+    btn->toggleAction = [this](const bool flag) {
+        auto payment = payment::Loader::globalManager;
+        payment->delegate = this;
+        payment->getProduct("removeads")->purchase();
         return false;
     };
     
     return btn;
 }
 
-ToggleButton* SettingsPage::getUnlockAllButton() const
+ToggleButton* SettingsPage::getUnlockAllButton()
 {
+    if (user::allLevelGroupsUnlocked()) {
+        return nullptr;
+    }
+    
     const auto btn = ToggleButton::create();
+    btn->setTag(tagUnlockAllButton);
     btn->getLabel = [](const bool flag) { return "unlock all"; };
-    btn->toggleAction = [](const bool flag) { log("UNLOCK ALL!"); return false; };
+    btn->toggleAction = [this](const bool flag) {
+        if (user::allLevelGroupsUnlocked()) {
+            container->removeChildByTag(tagUnlockAllButton);
+            updateContainerLayout();
+        }
+
+        int locked = 0;
+        for (int i = 1; i <= 4; ++i) {
+            if (user::isLevelGroupLocked(i)) {
+                ++locked;
+            }
+        }
+        auto key = std::string("all.") + std::to_string(locked);
+        
+        auto payment = payment::Loader::globalManager;
+        payment->delegate = this;
+        payment->getProduct(key.c_str())->purchase();
+        return false;
+    };
 
     return btn;
 }
@@ -136,4 +180,87 @@ Node* SettingsPage::getBlankButton() const
     btn->setVisible(false);
     btn->setContentSize({0, 25 * config::getScaleFactor()});
     return btn;
+}
+
+void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
+{
+    auto id = product->getProductId();
+    
+    if (id.find(".pack.") != std::string::npos) {
+        auto nbr = std::stoi(id.substr(id.size() - 1));
+        unlockPage(nbr, manager, product);
+        return;
+    }
+
+    if (id.find(".all.") != std::string::npos) {
+        unlockPage(1, manager, product);
+        unlockPage(2, manager, product);
+        unlockPage(3, manager, product);
+        unlockPage(4, manager, product);
+        return;
+    }
+
+    if (id.find(".removeads") != std::string::npos) {
+        user::setAdsEnabled(false);
+        return;
+    }
+
+    log("unknown product id restored: %s", id.c_str());
+}
+
+void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const manager, avalon::payment::Product* const product)
+{
+    if (!user::isLevelGroupLocked(nbr)) {
+        return;
+    }
+    
+    auto key = std::string("category-") + std::to_string(nbr * 2 + 1);
+    auto page = PageManager::shared().getPage(key.c_str());
+
+    auto categoryPage = dynamic_cast<LockedCategoryPage*>(page);
+    if (categoryPage) {
+        categoryPage->onPurchaseSucceed(manager, product);
+    }
+}
+
+void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
+{
+}
+
+void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
+{
+}
+
+void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
+{
+    bool updateLayout = false;
+    bool noAds = !user::hasAdsEnabled();
+    bool allLevels = user::allLevelGroupsUnlocked();
+
+    if (allLevels && noAds) {
+        container->removeChildByTag(tagRestorePurchases);
+        updateLayout = true;
+    }
+
+    if (noAds) {
+        container->removeChildByTag(tagRemoveAdsButton);
+        updateLayout = true;
+    }
+
+    if (allLevels) {
+        container->removeChildByTag(tagUnlockAllButton);
+        updateLayout = true;
+    }
+
+    if (updateLayout) {
+        updateContainerLayout();
+    }
+}
+
+void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)
+{
+}
+
+void SettingsPage::onRestoreFail(avalon::payment::Manager* const manager)
+{
 }

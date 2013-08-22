@@ -82,6 +82,7 @@
 		C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06DF17A28DFD005F1762 /* TapForTap.mm */; };
 		C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */; };
 		C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06F117A2CE63005F1762 /* helper.cpp */; };
+		C8E9725217C60D5A000B98C7 /* payment.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8E9725117C60D5A000B98C7 /* payment.ini */; };
 		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F66EE91796AD0A00D9FF84 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F66EE81796AD0A00D9FF84 /* star.png */; };
@@ -361,6 +362,7 @@
 		C8DD06EF17A2BE0C005F1762 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
 		C8DD06F117A2CE63005F1762 /* helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helper.cpp; sourceTree = "<group>"; };
 		C8DD06F217A2CE63005F1762 /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
+		C8E9725117C60D5A000B98C7 /* payment.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.ini; sourceTree = "<group>"; };
 		C8EA2756178DC761007118BD /* Generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generator.cpp; sourceTree = "<group>"; };
 		C8EA2757178DC761007118BD /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
 		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
@@ -520,9 +522,6 @@
 			isa = PBXGroup;
 			children = (
 				C8DD06AB17A28DA6005F1762 /* ads.ini */,
-				C8A6B01217A1333200815182 /* icon-coragames.png */,
-				C8A6B01317A1333200815182 /* icon-dtdng.png */,
-				C8A6B01417A1333200815182 /* icon-math.png */,
 				C8359F851797E94300FA1F87 /* arrow.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
@@ -532,6 +531,10 @@
 				D4EF949F15BD2D9800D803EB /* Icon-144.png */,
 				D4EF949915BD2D8B00D803EB /* Icon-57.png */,
 				D4EF949D15BD2D9600D803EB /* Icon-72.png */,
+				C8A6B01217A1333200815182 /* icon-coragames.png */,
+				C8A6B01317A1333200815182 /* icon-dtdng.png */,
+				C8A6B01417A1333200815182 /* icon-math.png */,
+				C8E9725117C60D5A000B98C7 /* payment.ini */,
 				C8F66EE81796AD0A00D9FF84 /* star.png */,
 			);
 			name = Resources;
@@ -1014,6 +1017,7 @@
 				C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */,
 				C8A6B01717A1333200815182 /* icon-math.png in Resources */,
 				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
+				C8E9725217C60D5A000B98C7 /* payment.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

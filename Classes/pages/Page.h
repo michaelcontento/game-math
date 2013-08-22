@@ -9,6 +9,7 @@ class Page : public cocos2d::Layer
 {
 public:
     static Page* create(void) = delete;
+    virtual ~Page() {};
     bool init() override;
     void visit() override;
 
