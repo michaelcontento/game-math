@@ -12,6 +12,12 @@ bool allLevelGroupsUnlocked();
 int getLevelStars(const int group, const int level);
 void setLevelStars(const int group, const int level, const int stars);
 
+int getStarsInGroup(const int group);
+int getStarsInAllGroups();
+
+int getSolvedLevelsInGroup(const int group);
+int getSolvedLevelsInAllGroups();
+
 void addStarChangeCallback(std::function<void (const int group, const int level)> callback);
 
 bool hasAdsEnabled();

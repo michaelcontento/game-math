@@ -32,7 +32,9 @@ void SettingsPage::addButtons()
         getRemoveAdsButton(),
         getRestoreButton(),
         getBlankButton(),
+        getLeaderboardButton(),
         getAchievementsButton(),
+        getBlankButton(),
         getMusicButton(),
         getSoundButton()
     };
@@ -51,7 +53,7 @@ void SettingsPage::addButtons()
 
 void SettingsPage::updateContainerLayout() const
 {
-    const auto spacing = 30 * config::getScaleFactor();
+    const auto spacing = 15 * config::getScaleFactor();
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
@@ -114,6 +116,19 @@ ToggleButton* SettingsPage::getAchievementsButton() const
     btn->toggleAction = [](const bool flag) {
         auto gc = avalon::GameCenter();
         gc.showAchievements();
+        return false;
+    };
+
+    return btn;
+}
+
+ToggleButton* SettingsPage::getLeaderboardButton() const
+{
+    const auto btn = ToggleButton::create();
+    btn->getLabel = [](const bool flag) { return "leaderboard"; };
+    btn->toggleAction = [](const bool flag) {
+        auto gc = avalon::GameCenter();
+        gc.showScores();
         return false;
     };
 

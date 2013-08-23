@@ -34,6 +34,7 @@ private:
     ToggleButton* getSoundButton() const;
     ToggleButton* getMusicButton() const;
     ToggleButton* getAchievementsButton() const;
+    ToggleButton* getLeaderboardButton() const;
     ToggleButton* getRestoreButton();
     ToggleButton* getRemoveAdsButton();
     ToggleButton* getUnlockAllButton();

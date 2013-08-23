@@ -51,7 +51,7 @@ void LevelButton::changeOpacity(const int group, const int level)
     }
 
     const auto starCount = user::getLevelStars(this->group, this->level);
-    if (starCount > 0) {
+    if (level == 1 || starCount > 0) {
         unlocked = true;
     } else {
         unlocked = (user::getLevelStars(this->group, this->level - 1) > 0);

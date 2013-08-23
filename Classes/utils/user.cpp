@@ -4,6 +4,7 @@
 #include <vector>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
+#include <avalon/GameCenter.h>
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
@@ -60,7 +61,7 @@ bool allLevelGroupsUnlocked()
 int getLevelStars(const int group, const int level)
 {
     if (group <= 0 || level <= 0) {
-        return true;
+        return 0;
     }
 
     auto settings = UserDefault::getInstance();
@@ -69,17 +70,80 @@ int getLevelStars(const int group, const int level)
 
 void setLevelStars(const int group, const int level, const int stars)
 {
-    if (getLevelStars(group, level) >= stars) {
+    auto oldStars = getLevelStars(group, level);
+    if (oldStars >= stars) {
         return;
     }
 
+    // store local
     auto settings = UserDefault::getInstance();
     settings->setIntegerForKey(impl::getStarsKey(group, level).c_str(), stars);
     settings->flush();
 
+    // update gamecenter
+    auto gc = GameCenter();
+
+    auto keyComplete = std::string("com.coragames.math.ac.") + std::to_string(group);
+    auto valueComplete = 100.0 / 16.0 * getSolvedLevelsInGroup(group);
+    gc.postAchievement(keyComplete.c_str(),  valueComplete);
+
+    auto keyStars = keyComplete + ".stars";
+    auto valueStars = 100.0 / (16.0 * 3) * getStarsInGroup(group);
+    gc.postAchievement(keyStars.c_str(),  valueStars);
+
+    auto totalStars = getStarsInAllGroups();
+    gc.postScore("com.coragames.math.lb.allstars", totalStars);
+
+    auto valueAllStars = 100.0 / (16.0 * 3 * 10) * totalStars;
+    gc.postAchievement("com.coragames.math.ac.allstars",  valueAllStars);
+
+    if (oldStars == 0) {
+        auto totalLevels = getSolvedLevelsInAllGroups();
+        gc.postScore("com.coragames.math.lb.alllevels", totalLevels);
+    }
+
+    // trigger callbacks
     for (auto& callback : impl::starCallbacks) {
         callback(group, level);
     }
+}
+
+int getSolvedLevelsInAllGroups()
+{
+    int result = 0;
+    for (int i = 1; i <= 10; ++i) {
+        result += getSolvedLevelsInGroup(i);
+    }
+    return result;
+}
+
+int getSolvedLevelsInGroup(const int group)
+{
+    int result = 0;
+    for (int i = 1; i <= 16; ++i) {
+        if (getLevelStars(group, i) > 0) {
+            ++result;
+        }
+    }
+    return result;
+}
+
+int getStarsInAllGroups()
+{
+    int result = 0;
+    for (int i = 1; i <= 10; ++i) {
+        result += getStarsInGroup(i);
+    }
+    return result;
+}
+
+int getStarsInGroup(const int group)
+{
+    int result = 0;
+    for (int i = 1; i <= 16; ++i) {
+        result += getLevelStars(group, i);
+    }
+    return result;
 }
 
 void addStarChangeCallback(std::function<void (const int group, const int level)> callback)
