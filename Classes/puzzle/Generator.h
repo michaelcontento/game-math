@@ -14,28 +14,100 @@ namespace puzzle {
 class Generator
 {
 public:
-    const std::string question;
-    const std::string answer;
     std::unordered_set<Operator> operators;
     std::unordered_set<NumberRange> ranges;
 
-    Generator(std::string question, std::string answer, std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
-    : question(question), answer(answer), operators(operators), ranges(ranges)
+    Generator(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : operators(operators), ranges(ranges)
     {}
+    virtual ~Generator() {};
 
-    Question generate();
+    virtual Question generate() = 0;
 
-private:
-    static const std::string tokenDelimiterLeft;
-    static const std::string tokenDelimiterRight;
-    static const std::string tokenNumber;
-    static const std::string tokenOperator;
+protected:
     static std::random_device randDevice;
 
-    std::pair<std::string, int> generateQuestionAndAnswer();
-    int getNumber(const Operator& op);
-    void throwIfContainsUnhandledTokens(const std::string& checkStr) const;
-    std::pair<int, int> getWrongAnswers(const int rightAnswer);
+    int dice(const std::unordered_set<int> ignore = {});
+};
+
+class Generator01 : public Generator
+{
+public:
+    Generator01(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+    
+    Question generate() override;
+};
+
+class Generator02 : public Generator
+{
+public:
+    Generator02(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator03 : public Generator
+{
+public:
+    Generator03(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator04 : public Generator
+{
+public:
+    Generator04(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator05 : public Generator
+{
+public:
+    Generator05(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator06 : public Generator
+{
+public:
+    Generator06(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator07 : public Generator
+{
+public:
+    Generator07(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
+};
+
+class Generator08 : public Generator
+{
+public:
+    Generator08(std::unordered_set<Operator> operators, std::unordered_set<NumberRange> ranges)
+    : Generator(operators, ranges)
+    {}
+
+    Question generate() override;
 };
 
 } // namespace puzzle

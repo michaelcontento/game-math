@@ -19,7 +19,7 @@ float getAnswerButtonPadding();
 cocos2d::Size getAnswerButtonSize();
 std::string getGroupHeadline(const int group);
 cocos2d::Color3B getGroupColor(const int group);
-puzzle::Generator getGenerator(const int group, const int level);
+std::shared_ptr<puzzle::Generator> getGenerator(const int group, const int level);
 
 constexpr float getDesignWidth()
 {

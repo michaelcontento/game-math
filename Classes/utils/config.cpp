@@ -127,14 +127,14 @@ cocos2d::Color3B getGroupColor(const int group)
     }
 }
 
-puzzle::Generator getGenerator(const int group, const int level)
+std::shared_ptr<puzzle::Generator> getGenerator(const int group, const int level)
 {
-    return {
-        "{number} {operator} {number}",
-        "{number}",
-        {puzzle::Operator::PLUS},
-        {puzzle::NumberRange::SMALL}
-    };
+    // bool small = (level <= 8);
+    // int nbr = ((level - 1) % 8) + 1;
+
+    return std::shared_ptr<puzzle::Generator>(
+        new puzzle::Generator08({puzzle::Operator::PLUS}, {puzzle::NumberRange::SMALL})
+    );
 }
 
 } // namespace config

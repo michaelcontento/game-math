@@ -57,7 +57,7 @@ void GamePage::generateQuestions()
 {
     auto generator = config::getGenerator(group, level);
     while (questions.size() < questionAmount) {
-        questions.insert(generator.generate());
+        questions.insert(generator->generate());
     }
 }
 

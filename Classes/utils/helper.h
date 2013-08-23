@@ -2,7 +2,6 @@
 #define MATH_HELPER_H
 
 #include "cocos2d.h"
-#include "cocos-ext.h"
 #include <avalon/payment/Manager.h>
 
 namespace helper {

@@ -4,6 +4,8 @@
 #include <string>
 #include <cstddef>
 
+#include "cocos2d.h"
+
 namespace puzzle {
 
 class Question
@@ -21,7 +23,7 @@ public:
 
     bool operator==(const Question& other) const
     {
-        return (question == other.question);
+        return (question == other.question && rightAnswer == other.rightAnswer);
     }
 };
 
@@ -35,7 +37,7 @@ struct hash<puzzle::Question>
 {
     std::size_t operator ()(const puzzle::Question& value) const
     {
-        return hash<string>()(value.question);
+        return hash<string>()(value.question + value.rightAnswer);
     }
 };
 
