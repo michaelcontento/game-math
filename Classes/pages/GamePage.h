@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 #include "Page.h"
 #include "../utils/config.h"
-#include "../puzzle/Question.h"
+#include "../utils/Question.h"
 
 class AnswerButton;
 class GameTimer;
@@ -39,7 +39,7 @@ private:
     cocos2d::Node* progressBarRight = nullptr;
     cocos2d::LabelTTF* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
-    std::unordered_set<puzzle::Question> questions {};
+    std::unordered_set<Question> questions {};
     bool timeoverAlreadyHandled = false;
     cocos2d::Node* starContainer = nullptr;
     const float spacing = 25 * config::getScaleFactor();

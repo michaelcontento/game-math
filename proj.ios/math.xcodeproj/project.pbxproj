@@ -86,7 +86,6 @@
 		C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */; };
 		C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06F117A2CE63005F1762 /* helper.cpp */; };
 		C8E9725217C60D5A000B98C7 /* payment.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8E9725117C60D5A000B98C7 /* payment.ini */; };
-		C8EA275B178DC761007118BD /* Generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8EA2756178DC761007118BD /* Generator.cpp */; };
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F66EE91796AD0A00D9FF84 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F66EE81796AD0A00D9FF84 /* star.png */; };
 		D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A0AD0160F154A004552AE /* Default-568h@2x.png */; };
@@ -368,12 +367,8 @@
 		C8DD06EF17A2BE0C005F1762 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
 		C8DD06F117A2CE63005F1762 /* helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helper.cpp; sourceTree = "<group>"; };
 		C8DD06F217A2CE63005F1762 /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
+		C8E06A5617CD12E90062819A /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
 		C8E9725117C60D5A000B98C7 /* payment.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.ini; sourceTree = "<group>"; };
-		C8EA2756178DC761007118BD /* Generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generator.cpp; sourceTree = "<group>"; };
-		C8EA2757178DC761007118BD /* Generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Generator.h; sourceTree = "<group>"; };
-		C8EA2758178DC761007118BD /* NumberRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberRange.h; sourceTree = "<group>"; };
-		C8EA2759178DC761007118BD /* Operator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operator.h; sourceTree = "<group>"; };
-		C8EA275A178DC761007118BD /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
 		C8F66ED51796874200D9FF84 /* HintButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HintButton.cpp; sourceTree = "<group>"; };
 		C8F66ED61796874200D9FF84 /* HintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HintButton.h; sourceTree = "<group>"; };
 		C8F66EE81796AD0A00D9FF84 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -453,7 +448,6 @@
 				C8CB33FF17870AA4001294B7 /* PageManager.cpp */,
 				C8CB340017870AA4001294B7 /* PageManager.h */,
 				C8CB340117870AA4001294B7 /* pages */,
-				C8EA2755178DC761007118BD /* puzzle */,
 				C8CB341117871B29001294B7 /* utils */,
 			);
 			name = Classes;
@@ -773,14 +767,15 @@
 		C8CB341117871B29001294B7 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				C8DD06F117A2CE63005F1762 /* helper.cpp */,
-				C8DD06F217A2CE63005F1762 /* helper.h */,
 				C8B48A8A178C8A9400EC57FD /* color.cpp */,
 				C8B48A8B178C8A9400EC57FD /* color.h */,
 				C8CB342E178B05CB001294B7 /* config.cpp */,
 				C8CB342F178B05CB001294B7 /* config.h */,
 				C8CB342C178B0581001294B7 /* fonts.cpp */,
 				C8CB342B178B0469001294B7 /* fonts.h */,
+				C8DD06F117A2CE63005F1762 /* helper.cpp */,
+				C8DD06F217A2CE63005F1762 /* helper.h */,
+				C8E06A5617CD12E90062819A /* Question.h */,
 				C81FBE82179D4BC600E794A3 /* user.cpp */,
 				C81FBE83179D4BC600E794A3 /* user.h */,
 			);
@@ -833,19 +828,6 @@
 				C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */,
 			);
 			path = TapForTap;
-			sourceTree = "<group>";
-		};
-		C8EA2755178DC761007118BD /* puzzle */ = {
-			isa = PBXGroup;
-			children = (
-				C8EA2756178DC761007118BD /* Generator.cpp */,
-				C8EA2757178DC761007118BD /* Generator.h */,
-				C8EA2758178DC761007118BD /* NumberRange.h */,
-				C8EA2759178DC761007118BD /* Operator.h */,
-				C8EA275A178DC761007118BD /* Question.h */,
-			);
-			name = puzzle;
-			path = ../Classes/puzzle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1073,7 +1055,6 @@
 				C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */,
 				C8B48A8C178C8A9400EC57FD /* color.cpp in Sources */,
 				C8B48A8F178D789300EC57FD /* AnswerButton.cpp in Sources */,
-				C8EA275B178DC761007118BD /* Generator.cpp in Sources */,
 				C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */,
 				C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */,
 				C84DC276178EEC9000F07AE3 /* Language.cpp in Sources */,

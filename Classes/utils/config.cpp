@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include <random>
 #include "color.h"
 
 using namespace cocos2d;
@@ -123,18 +124,351 @@ cocos2d::Color3B getGroupColor(const int group)
 
     // == ?
     } else {
-        throw new std::runtime_error("invalid group given");
+        throw new std::range_error("invalid group given");
     }
 }
 
-std::shared_ptr<puzzle::Generator> getGenerator(const int group, const int level)
+std::function<Question()> getGenerator(const int group, const int level)
 {
-    // bool small = (level <= 8);
-    // int nbr = ((level - 1) % 8) + 1;
+    int number = ((level - 1) % 8) + 1;
+    bool easy = (level <= 8);
 
-    return std::shared_ptr<puzzle::Generator>(
-        new puzzle::Generator08({puzzle::Operator::PLUS}, {puzzle::NumberRange::SMALL})
-    );
+    switch (group) {
+        case 1:  return getGeneratorMath(number, easy);
+        default: throw new std::range_error("invalid group griven");
+    }
+}
+
+diceFunction createDice(const int min, const int max)
+{
+    return [min, max](const std::unordered_set<int> ignore) {
+        auto dice = std::bind(
+            std::uniform_int_distribution<>{min, max},
+            std::mt19937(std::random_device{}())
+        );
+
+        int result = dice();
+        while (ignore.count(result) > 0) {
+            result = dice();
+        }
+        return result;
+    };
+}
+
+std::function<Question()> getGeneratorMath(const int number, const bool easy)
+{
+    switch (number) {
+        // Q: 1 + 2
+        // A: 3
+        case 1:  return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(0, 18);
+            } else {
+                dice = createDice(12, 32);
+            }
+
+            int c = dice({0});
+            int b = dice({0, c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            int w1 = dice({c});
+            int w2 = dice({c, w1});
+
+            return Question(
+                std::to_string(a) + " + " + std::to_string(b),
+                std::to_string(c),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: ? + 2 = 3
+        // A: 1
+        case 2: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(0, 18);
+            } else {
+                dice = createDice(12, 32);
+            }
+
+            int c = dice({0});
+            int b = dice({0, c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            int w1 = dice({a});
+            int w2 = dice({a, w1});
+
+            auto q = "? + " + std::to_string(b) + " = " + std::to_string(c);
+            if (createDice(0, 1)({}) == 0) {
+                std::swap(a, b);
+                q = std::to_string(b) + " + ? = " + std::to_string(c);
+            }
+            
+            return Question(
+                q,
+                std::to_string(a),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 3
+        // A: 1 + 2
+        case 3: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 18);
+            } else {
+                dice = createDice(10, 28);
+            }
+
+            int c = dice({});
+            int b = dice({c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            int w1, w2, c1 = 0;
+            do {
+                c1 = dice({c});
+                w1 = dice({c1});
+                if (c1 < w1) std::swap(c1, w1);
+                w2 = c1 - w1;
+            } while (c1 == c);
+
+            int w3, w4, c2 = 0;
+            do {
+                c2 = dice({c});
+                w3 = dice({c2});
+                if (c2 < w3) std::swap(c2, w3);
+                w4 = c2 - w3;
+            } while (c2 == c || c2 == c1);
+
+            return Question(
+                std::to_string(c),
+                std::to_string(a)  + " + " + std::to_string(b),
+                std::to_string(w1) + " + " + std::to_string(w2),
+                std::to_string(w3) + " + " + std::to_string(w4)
+            );
+        };
+
+        // Q: Smallest?
+        // A: 1 + 2
+        case 4: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 14);
+            } else {
+                dice = createDice(10, 24);
+            }
+
+            int c = dice({});
+            int b = dice({c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            int w1, w2, c1 = 0;
+            do {
+                c1 = dice({c});
+                w1 = dice({c1});
+                if (c1 < w1) std::swap(c1, w1);
+                w2 = c1 - w1;
+            } while (c1 == c);
+
+            int w3, w4, c2 = 0;
+            do {
+                c2 = dice({c});
+                w3 = dice({c2});
+                if (c2 < w3) std::swap(c2, w3);
+                w4 = c2 - w3;
+            } while (c2 == c || c2 == c1);
+
+            std::vector<int> sort {c, c1, c2};
+            std::sort(sort.begin(), sort.end());
+
+            int l1, l2, l3, l4, l5, l6 = 0;
+            if (sort.front() == c) {
+                l1 = a;
+                l2 = b;
+                l3 = w1;
+                l4 = w2;
+                l5 = w3;
+                l6 = w4;
+            } else if (sort.front() == c1)  {
+                l1 = w1;
+                l2 = w2;
+                l3 = a;
+                l4 = b;
+                l5 = w3;
+                l6 = w4;
+            } else {
+                l1 = w3;
+                l2 = w4;
+                l3 = a;
+                l4 = b;
+                l5 = w1;
+                l6 = w2;
+            }
+            
+            return Question(
+                "Smallest?",
+                std::to_string(l1) + " + " + std::to_string(l2),
+                std::to_string(l3) + " + " + std::to_string(l4),
+                std::to_string(l5) + " + " + std::to_string(l6)
+            );
+        };
+
+        // Q: 1 + 2 + 3
+        // A: 4
+        case 5: return [easy]() {
+            diceFunction dice;
+            int max = 0;
+            if (easy) {
+                max = 9;
+                dice = createDice(1, max);
+            } else {
+                max = 12;
+                dice = createDice(1, max);
+            }
+            
+            int a = dice({});
+            int b = dice({a});
+            int c = dice({a, b});
+            int d = a + b + c;
+
+            auto wrongDice = createDice(d / 3, d + max);
+            int w1 = wrongDice({d});
+            int w2 = wrongDice({d, w1});
+
+            return Question(
+                std::to_string(a) + " + " + std::to_string(b) + " + " + std::to_string(c),
+                std::to_string(d),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 1 + 2
+        // A: 2 + 0
+        case 6: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 16);
+            } else {
+                dice = createDice(10, 28);
+            }
+
+            int c = dice({});
+            int b = dice({c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            auto qDice = createDice(0, c);
+            int q1 = qDice({b});
+            int q2 = c - q1;
+
+            int w1, w2, c1 = 0;
+            do {
+                c1 = dice({c});
+                w1 = dice({c1});
+                if (c1 < w1) std::swap(c1, w1);
+                w2 = c1 - w1;
+            } while (c1 == c);
+
+            int w3, w4, c2 = 0;
+            do {
+                c2 = dice({c});
+                w3 = dice({c2});
+                if (c2 < w3) std::swap(c2, w3);
+                w4 = c2 - w3;
+            } while (c2 == c || c2 == c1);
+
+            return Question(
+                std::to_string(q1) + " + " + std::to_string(q2),
+                std::to_string(a)  + " + " + std::to_string(b),
+                std::to_string(w1) + " + " + std::to_string(w2),
+                std::to_string(w3) + " + " + std::to_string(w4)
+            );
+        };
+
+        // Q: Largest?
+        // A: 1 + 1
+        case 7: return [easy] {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 14);
+            } else {
+                dice = createDice(10, 24);
+            }
+
+            int c = dice({});
+            int b = dice({c});
+            if (c < b) std::swap(b, c);
+            int a = c - b;
+
+            int w1, w2, c1 = 0;
+            do {
+                c1 = dice({c});
+                w1 = dice({c1});
+                if (c1 < w1) std::swap(c1, w1);
+                w2 = c1 - w1;
+            } while (c1 == c);
+
+            int w3, w4, c2 = 0;
+            do {
+                c2 = dice({c});
+                w3 = dice({c2});
+                if (c2 < w3) std::swap(c2, w3);
+                w4 = c2 - w3;
+            } while (c2 == c || c2 == c1);
+
+            std::vector<int> sort {c, c1, c2};
+            std::sort(sort.begin(), sort.end());
+
+            int l1, l2, l3, l4, l5, l6 = 0;
+            if (sort.back() == c) {
+                l1 = a;
+                l2 = b;
+                l3 = w1;
+                l4 = w2;
+                l5 = w3;
+                l6 = w4;
+            } else if (sort.back() == c1)  {
+                l1 = w1;
+                l2 = w2;
+                l3 = a;
+                l4 = b;
+                l5 = w3;
+                l6 = w4;
+            } else {
+                l1 = w3;
+                l2 = w4;
+                l3 = a;
+                l4 = b;
+                l5 = w1;
+                l6 = w2;
+            }
+
+            return Question(
+                "Largest?",
+                std::to_string(l1) + " + " + std::to_string(l2),
+                std::to_string(l3) + " + " + std::to_string(l4),
+                std::to_string(l5) + " + " + std::to_string(l6)
+            );
+        };
+
+        // MIXED
+        case 8: return [easy] {
+            auto number = createDice(1, 7)({});
+            auto gen = getGeneratorMath(number, easy);
+            return gen();
+        };
+
+        default: throw new std::range_error("invalid puzzel number id");
+    }
 }
 
 } // namespace config

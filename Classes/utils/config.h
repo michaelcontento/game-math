@@ -2,9 +2,11 @@
 #define MATH_CONFIG_H
 
 #include <string>
+#include <functional>
+#include <unordered_set>
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "../puzzle/Generator.h"
+#include "Question.h"
 
 namespace config {
 
@@ -19,7 +21,11 @@ float getAnswerButtonPadding();
 cocos2d::Size getAnswerButtonSize();
 std::string getGroupHeadline(const int group);
 cocos2d::Color3B getGroupColor(const int group);
-std::shared_ptr<puzzle::Generator> getGenerator(const int group, const int level);
+
+using diceFunction = std::function<int(const std::unordered_set<int>)>;
+diceFunction createDice(const int min, const int max);
+std::function<Question()> getGenerator(const int group, const int level);
+std::function<Question()> getGeneratorMath(const int number, const bool easy);
 
 constexpr float getDesignWidth()
 {

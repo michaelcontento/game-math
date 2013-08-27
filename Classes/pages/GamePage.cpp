@@ -6,7 +6,6 @@
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"
 #include "../buttons/BackButton.h"
-#include "../puzzle/Generator.h"
 #include "../GameTimer.h"
 #include "../Alert.h"
 #include "../PageManager.h"
@@ -57,7 +56,7 @@ void GamePage::generateQuestions()
 {
     auto generator = config::getGenerator(group, level);
     while (questions.size() < questionAmount) {
-        questions.insert(generator->generate());
+        questions.insert(generator());
     }
 }
 

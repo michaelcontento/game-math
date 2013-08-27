@@ -4,10 +4,6 @@
 #include <string>
 #include <cstddef>
 
-#include "cocos2d.h"
-
-namespace puzzle {
-
 class Question
 {
 public:
@@ -27,25 +23,17 @@ public:
     }
 };
 
-} // namespace puzzle
-
 
 namespace std {
 
 template <>
-struct hash<puzzle::Question>
+struct hash<Question>
 {
-    std::size_t operator ()(const puzzle::Question& value) const
+    std::size_t operator ()(const Question& value) const
     {
         return hash<string>()(value.question + value.rightAnswer);
     }
 };
-
-string to_string(const puzzle::Question& q)
-{
-    return "Q: " + q.question
-        + " A: [" + q.rightAnswer + "] " + q.wrongAnswer1 + " " + q.wrongAnswer2;
-}
 
 } // namespace std
 
