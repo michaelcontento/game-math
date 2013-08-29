@@ -40,7 +40,7 @@ bool GameScene::init()
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
-    pageManager->scrollTo("category-3", 0);
+    pageManager->scrollTo("category-4", 0);
 
     return true;
 }
