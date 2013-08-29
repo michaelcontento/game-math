@@ -27,6 +27,7 @@ diceFunction createDice(const int min, const int max);
 std::function<Question()> getGenerator(const int group, const int level);
 std::function<Question()> getGeneratorAddition(const int number, const bool easy);
 std::function<Question()> getGeneratorSubtraction(const int number, const bool easy);
+std::function<Question()> getGeneratorMultiplication(const int number, const bool easy);
 
 constexpr float getDesignWidth()
 {
