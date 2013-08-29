@@ -138,6 +138,7 @@ std::function<Question()> getGenerator(const int group, const int level)
         case 2:  return getGeneratorSubtraction(number, easy);
         case 3:  return getGeneratorMultiplication(number, easy);
         case 4:  return getGeneratorDivision(number, easy);
+        case 7:  return getGeneratorPowers(number, easy);
         default: throw new std::range_error("invalid group griven");
     }
 }
@@ -160,6 +161,12 @@ diceFunction createDice(const int min, const int max)
         }
         return result;
     };
+}
+
+diceFunction createDiceRange(const int pos)
+{
+    int range = std::max(3, std::min(pos / 2, 17));
+    return createDice(std::max(0, pos - range), pos + range);
 }
 
 std::function<Question()> getGeneratorAddition(const int number, const bool easy)
@@ -1459,5 +1466,261 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
+
+std::function<Question()> getGeneratorPowers(const int number, const bool easy)
+{
+    switch (number) {
+        // Q: 2 x 2 x 2
+        // A: 2^3
+        case 1:  return [easy]() {
+            diceFunction diceBase, diceExp;
+            if (easy) {
+                diceBase = createDice(1, 8);
+                diceExp = createDice(1, 3);
+            } else {
+                diceBase = createDice(1, 9);
+                diceExp = createDice(1, 5);
+            }
+
+            int base = diceBase({});
+            int exp = diceExp({});
+
+            auto wDice = createDiceRange(exp);
+            int w1 = wDice({exp});
+            int w2 = wDice({exp, w1});
+
+            std::string q = std::to_string(base);
+            for (int i = 1; i < exp; ++i) {
+                q += " x " + std::to_string(base);
+            }
+
+            std::string prefix = std::to_string(base) + "^";
+            return Question(
+                q,
+                prefix + std::to_string(exp),
+                prefix + std::to_string(w1),
+                prefix + std::to_string(w2)
+            );
+        };
+
+        // Q: 4^2
+        // A: 16
+        case 2: return [easy]() {
+            diceFunction diceBase, diceExp;
+            int max;
+            if (easy) {
+                diceBase = createDice(1, 6);
+                diceExp = createDice(1, 3);
+                max = 100;
+            } else {
+                diceBase = createDice(3, 12);
+                diceExp = createDice(1, 4);
+                max = 300;
+            }
+
+            int base, exp, res;
+            do {
+                base = diceBase({});
+                exp = diceExp({});
+                res = std::pow(base, exp);
+            } while (res > max);
+
+            auto wDice = createDiceRange(res);
+            int w1 = wDice({res});
+            int w2 = wDice({res, w1});
+
+            return Question(
+                std::to_string(base) + "^" + std::to_string(exp),
+                std::to_string(res),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: sqrt(16)
+        // A: 4
+        case 3: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(0, 12);
+            } else {
+                dice = createDice(4, 20);
+            }
+
+            int base = dice({});
+            int res = base * base;
+            
+            auto wDice = createDiceRange(base);
+            int w1 = wDice({base});
+            int w2 = wDice({base, w1});
+
+            return Question(
+                "sqrt(" + std::to_string(res) + ")",
+                std::to_string(base),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: (a + b)^2
+        // A: 4
+        case 4: return [easy]() {
+            diceFunction diceBase, diceExp;
+            if (easy) {
+                diceBase = createDice(1, 9);
+                diceExp = createDice(2, 2);
+            } else {
+                diceBase = createDice(3, 12);
+                diceExp = createDice(2, 3);
+            }
+
+            int base, exp, res;
+            do {
+                base = diceBase({});
+                exp = diceExp({});
+                res = std::pow(base, exp);
+            } while (res > 200);
+
+
+            int a = createDice(1, base)({});
+            int b = base - a;
+            std::string op = "+";
+            if (createDice(0, 1)({}) == 0) {
+                a = createDice(base, base * 3)({base});
+                b = a - base;
+                op = "-";
+            }
+
+            auto wDice = createDiceRange(res);
+            int w1 = wDice({res});
+            int w2 = wDice({res, w1});
+
+            return Question(
+                "(" + std::to_string(a) + " " + op + " " + std::to_string(b) + ")^" + std::to_string(exp),
+                std::to_string(res),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: sqrt(a + b)
+        // A: 3
+        case 5: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(0, 12);
+            } else {
+                dice = createDice(4, 20);
+            }
+
+            int base = dice({});
+            int res = base * base;
+            
+            int a = createDice(1, res)({});
+            int b = res - a;
+            std::string op = "+";
+            if (createDice(0, 1)({}) == 0) {
+                a = createDice(1, 100)({}) + res;
+                b = a - res;
+                op = "-";
+            }
+
+            auto wDice = createDiceRange(base);
+            int w1 = wDice({base});
+            int w2 = wDice({base, w1});
+
+            return Question(
+                "sqrt(" + std::to_string(a) + " " + op + " " + std::to_string(b) + ")",
+                std::to_string(base),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 1^8 * 1^2
+        // A: 1^10
+        case 6: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 9);
+            } else {
+                dice = createDice(4, 16);
+            }
+
+            int base = dice({});
+            int expA = dice({});
+            int expB = dice({});
+            int sum = expA + expB;
+
+            auto qDice = createDiceRange(sum);
+            int w1 = qDice({sum});
+            int w2 = qDice({sum, w1});
+
+            return Question(
+                std::to_string(base) + "^" + std::to_string(expA) + " * " + std::to_string(base) + "^" + std::to_string(expB),
+                std::to_string(base) + "^" + std::to_string(sum),
+                std::to_string(base) + "^" + std::to_string(w1),
+                std::to_string(base) + "^" + std::to_string(w2)
+            );
+        };
+
+        // Q: 16
+        // A: 4^2
+        case 7: return [easy] {
+            diceFunction diceBase, diceExp;
+            int max;
+            if (easy) {
+                diceBase = createDice(1, 6);
+                diceExp = createDice(1, 3);
+                max = 100;
+            } else {
+                diceBase = createDice(3, 12);
+                diceExp = createDice(1, 4);
+                max = 300;
+            }
+
+            int base, exp, res;
+            do {
+                base = diceBase({});
+                exp = diceExp({});
+                res = std::pow(base, exp);
+            } while (res > max);
+
+            auto wDiceBase = createDiceRange(base);
+            auto wDiceExp = createDiceRange(exp);
+
+            int w1, w2, res2;
+            do {
+                w1 = wDiceBase({base});
+                w2 = wDiceExp({exp});
+                res2 = std::pow(w1, w2);
+            } while (res2 == res);
+
+            int w3, w4, res3;
+            do {
+                w3 = wDiceBase({base});
+                w4 = wDiceExp({exp});
+                res3 = std::pow(w3, w4);
+            } while (res3 == res || res3 == res2);
+
+            return Question(
+                std::to_string(res),
+                std::to_string(base) + "^" + std::to_string(exp),
+                std::to_string(w1) + "^" + std::to_string(w2),
+                std::to_string(w3) + "^" + std::to_string(w4)
+            );
+        };
+            
+        // MIXED
+        case 8: return [easy] {
+            auto number = createDice(1, 7)({});
+            auto gen = getGeneratorPowers(number, easy);
+            return gen();
+        };
+            
+        default: throw new std::range_error("invalid puzzel number id");
+    }
+}
+
 
 } // namespace config

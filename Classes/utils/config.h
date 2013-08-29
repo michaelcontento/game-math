@@ -24,11 +24,13 @@ cocos2d::Color3B getGroupColor(const int group);
 
 using diceFunction = std::function<int(const std::unordered_set<int>)>;
 diceFunction createDice(const int min, const int max);
+diceFunction createDiceRange(const int pos);
 std::function<Question()> getGenerator(const int group, const int level);
 std::function<Question()> getGeneratorAddition(const int number, const bool easy);
 std::function<Question()> getGeneratorSubtraction(const int number, const bool easy);
 std::function<Question()> getGeneratorMultiplication(const int number, const bool easy);
 std::function<Question()> getGeneratorDivision(const int number, const bool easy);
+std::function<Question()> getGeneratorPowers(const int number, const bool easy);
 
 constexpr float getDesignWidth()
 {
