@@ -138,8 +138,12 @@ std::function<Question()> getGenerator(const int group, const int level)
         case 2:  return getGeneratorSubtraction(number, easy);
         case 3:  return getGeneratorMultiplication(number, easy);
         case 4:  return getGeneratorDivision(number, easy);
+        // ARITHMETIC
         case 6:  return getGeneratorFractions(number, easy);
         case 7:  return getGeneratorPowers(number, easy);
+        // STATISTICS
+        // EQUATIONS
+        case 10:  return getGeneratorMixed(number, easy);
         default: throw new std::range_error("invalid group griven");
     }
 }
@@ -1920,6 +1924,19 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             
         default: throw new std::range_error("invalid puzzel number id");
     }
+}
+
+std::function<Question()> getGeneratorMixed(const int number, const bool easy)
+{
+    int level = number;
+    if (!easy) {
+        level += 8;
+    }
+
+    return [level]() {
+        int group = createDice(1, 9)({5, 8, 9});
+        return getGenerator(group, level)();
+    };
 }
 
 } // namespace config

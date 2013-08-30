@@ -36,6 +36,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
 std::function<Question()> getGeneratorDivision(const int number, const bool easy);
 std::function<Question()> getGeneratorFractions(const int number, const bool easy);
 std::function<Question()> getGeneratorPowers(const int number, const bool easy);
+std::function<Question()> getGeneratorMixed(const int number, const bool easy);
 
 constexpr float getDesignWidth()
 {
