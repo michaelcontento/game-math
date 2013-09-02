@@ -11,6 +11,9 @@
 #include "pages/MoreGamesPage.h"
 #include "PageManager.h"
 #include "utils/user.h"
+#include "utils/config.h"
+
+//#define PROFILE
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -40,7 +43,26 @@ bool GameScene::init()
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
-    pageManager->scrollTo("category-6", 0);
+    pageManager->scrollTo("category-5", 0);
+
+#ifdef PROFILE
+    for (int group = 1; group <= 10; ++group) {
+        if (group == 5 || group == 8 || group == 9 || group == 10) continue;
+        
+        for (int level = 1; level <= 16; ++level) {
+            auto generator = config::getGenerator(group, level);
+            log(">>> PROFILING: %d/%d", group, level);
+            ProfilingBeginTimingBlock("> TOTAL");
+            for (int i = 0; i <= 30000; ++i) {
+                ProfilingBeginTimingBlock("> QUESTIONS");
+                generator();
+                ProfilingEndTimingBlock("> QUESTIONS");
+            }
+            ProfilingEndTimingBlock("> TOTAL");
+            Profiler::getInstance()->displayTimers();
+        }
+    }
+#endif
 
     return true;
 }
@@ -91,3 +113,74 @@ void GameScene::initSoundAndMusic()
         SimpleAudioEngine::getInstance()->setEffectsVolume(0);
     }
 }
+
+// ====== ARITHMETIC
+// AUCH NEGATIVE ZAHLEN!
+
+// Q: 10 *ADD/SUB* (-7)
+// A: 2
+
+// Q: 90 *MUL/DIV* (-9)
+// A: -10
+
+// Q: 2 *MUL/ADD* 81 *ADD/SUB* 9
+// A: 11
+
+// Q: 4 *ANY* 3 = 1
+// A: -
+
+// Q: 8
+// A: 12 *ANY* 4
+
+// Q: Largest?
+// A: 12 *ANY* 2
+
+// Q: 35 *ANY* 3
+// A: 16 *ANY* 2
+
+// ====== STATISTICS
+
+// Q: 40% of 50
+// A: 20
+
+// Q: 1/4
+// A: 25%
+
+// Q: 3/? = 75%
+// A: 4
+
+// Q: 80 decreased/increased by 20%
+// A: 64
+
+// Q: 6 is 20% of?
+// A: 30
+
+// Q: 99, 12, 49, 77, 57 Median?
+// A: 57
+
+// Q: 12, 9, 6 Average?
+// A: 9
+
+// ====== EQUATIONS
+// AUCH NEGATIVE ZAHLEN!
+
+// Q: x + 3 = 5; x = ?
+// A: 2
+
+// Q: x - 3 = 5; x = ?
+// A: 2
+
+// Q: 3x *ADD/SUB* 8 = 19; x = ?
+// A: 9
+
+// Q: 4x *ADD/SUB* 6 = 6x *ADD/SUB* 16; x = ?
+// A: 5
+
+// Q: 7(x *ADD/SUB* 5) = 28; x = ?
+// A: 9
+
+// Q: -24 / (x *ADD/SUB* 8) = 4; x = ?
+// A: 2
+
+// Q: x *ADD/SUB* y = -2; y = 1; x = ?
+// A:

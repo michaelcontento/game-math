@@ -119,15 +119,15 @@ void GamePage::addQuestion()
     configureAndAlignQuestionLabel(*question);
 
     question->runAction(Sequence::create(
-       EaseIn::create(FadeOut::create(config::getQuestionStartDelay()), 3),
-       CallFunc::create([this]() { question->setString("3"); }),
-       FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([this]() { question->setString("2"); }),
-       FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([this]() { question->setString("1"); }),
-       FadeOut::create(config::getQuestionFadeTime()),
-       CallFunc::create([this]() { setNextQuestion(); timer->start(); acceptAnswers = true; }),
-       NULL
+        EaseIn::create(FadeOut::create(config::getQuestionStartDelay()), 3),
+        CallFunc::create([this]() { question->setString("3"); }),
+        FadeOut::create(config::getQuestionFadeTime()),
+        CallFunc::create([this]() { question->setString("2"); }),
+        FadeOut::create(config::getQuestionFadeTime()),
+        CallFunc::create([this]() { question->setString("1"); }),
+        FadeOut::create(config::getQuestionFadeTime()),
+        CallFunc::create([this]() { setNextQuestion(); timer->start(); acceptAnswers = true; }),
+        NULL
     ));
 }
 

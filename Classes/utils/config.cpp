@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include <random>
+#include <boost/assert.hpp>
 #include "color.h"
 
 using namespace cocos2d;
@@ -138,7 +139,7 @@ std::function<Question()> getGenerator(const int group, const int level)
         case 2:  return getGeneratorSubtraction(number, easy);
         case 3:  return getGeneratorMultiplication(number, easy);
         case 4:  return getGeneratorDivision(number, easy);
-        // ARITHMETIC
+        case 5:  return getGeneratorArithmetic(number, easy);
         case 6:  return getGeneratorFractions(number, easy);
         case 7:  return getGeneratorPowers(number, easy);
         // STATISTICS
@@ -158,11 +159,9 @@ diceFunction createDice(const int min, const int max)
 
         int rolls = 0;
         int result = dice();
-        log("[%d %d] %d", min, max, result);
         while (rolls < 5 && ignore.count(result) > 0) {
             result = dice();
             ++rolls;
-            log("[%d %d] %d !", min, max, result);
         }
         return result;
     };
@@ -170,8 +169,11 @@ diceFunction createDice(const int min, const int max)
 
 diceFunction createDiceRange(const int pos)
 {
-    int range = std::max(3, std::min(pos / 2, 17));
-    return createDice(std::max(0, pos - range), pos + range);
+    int range = std::max(4, std::min(std::abs(pos) / 2, 17));
+    int min = pos - range;
+    int max = pos + range;
+    if (pos > 0 && min < 0) min = 0;
+    return createDice(min, max);
 }
 
 std::string formatFraction(const int a, const int b)
@@ -530,6 +532,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
 
             int w1 = dice({c});
             int w2 = dice({c, w1});
+            if (w2 == c) ++w2;
 
             return Question(
                 std::to_string(a) + " - " + std::to_string(b),
@@ -562,6 +565,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
 
             int w1 = dice({a});
             int w2 = dice({a, w1});
+            if (w2 == a) ++w2;
 
             return Question(
                 q,
@@ -843,13 +847,13 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             int b = dice({a});
             int c = a * b;
 
-            int range = std::max(3, std::min(c / 2, 17));
-            auto qDice = createDice(std::max(0, c - range), c + range);
+            auto qDice = createDiceRange(c);
             int w1 = qDice({c});
             int w2 = qDice({c, w1});
+            if (w2 == c) ++w2;
 
             return Question(
-                std::to_string(a) + " x " + std::to_string(b),
+                std::to_string(a) + " * " + std::to_string(b),
                 std::to_string(c),
                 std::to_string(w1),
                 std::to_string(w2)
@@ -878,6 +882,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
 
             int w1 = dice({a});
             int w2 = dice({a, w1});
+            if (w2 == a) ++w2;
 
             return Question(
                 q,
@@ -917,9 +922,9 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
 
             return Question(
                 std::to_string(c),
-                std::to_string(a)  + " x " + std::to_string(b),
-                std::to_string(w1) + " x " + std::to_string(w2),
-                std::to_string(w3) + " x " + std::to_string(w4)
+                std::to_string(a)  + " * " + std::to_string(b),
+                std::to_string(w1) + " * " + std::to_string(w2),
+                std::to_string(w3) + " * " + std::to_string(w4)
             );
         };
 
@@ -980,9 +985,9 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
 
             return Question(
                 "Smallest?",
-                std::to_string(l1) + " x " + std::to_string(l2),
-                std::to_string(l3) + " x " + std::to_string(l4),
-                std::to_string(l5) + " x " + std::to_string(l6)
+                std::to_string(l1) + " * " + std::to_string(l2),
+                std::to_string(l3) + " * " + std::to_string(l4),
+                std::to_string(l5) + " * " + std::to_string(l6)
             );
         };
 
@@ -1001,13 +1006,13 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             int c = dice({a, b});
             int d = a * b * c;
 
-            int range = std::max(3, std::min(d / 2, 27));
-            auto qDice = createDice(d - range, d + range);
+            auto qDice = createDiceRange(d);
             int w1 = qDice({d});
             int w2 = qDice({d, w1});
+            if (w2 == d) ++w2;
 
             return Question(
-                std::to_string(a) + " x " + std::to_string(b) + " x " + std::to_string(c),
+                std::to_string(a) + " * " + std::to_string(b) + " * " + std::to_string(c),
                 std::to_string(d),
                 std::to_string(w1),
                 std::to_string(w2)
@@ -1086,10 +1091,10 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             } while (c2 == c || c2 == c1);
 
             return Question(
-                std::to_string(q1) + " x " + std::to_string(q2),
-                std::to_string(a)  + " x " + std::to_string(b),
-                std::to_string(w1) + " x " + std::to_string(w2),
-                std::to_string(w3) + " x " + std::to_string(w4)
+                std::to_string(q1) + " * " + std::to_string(q2),
+                std::to_string(a)  + " * " + std::to_string(b),
+                std::to_string(w1) + " * " + std::to_string(w2),
+                std::to_string(w3) + " * " + std::to_string(w4)
             );
         };
 
@@ -1150,9 +1155,9 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             
             return Question(
                 "Largest?",
-                std::to_string(l1) + " x " + std::to_string(l2),
-                std::to_string(l3) + " x " + std::to_string(l4),
-                std::to_string(l5) + " x " + std::to_string(l6)
+                std::to_string(l1) + " * " + std::to_string(l2),
+                std::to_string(l3) + " * " + std::to_string(l4),
+                std::to_string(l5) + " * " + std::to_string(l6)
             );
         };
             
@@ -1185,10 +1190,10 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
             int c = a * b;
             std::swap(c, a);
 
-            int range = std::max(3, std::min(c / 2, 17));
-            auto qDice = createDice(std::max(0, c - range), c + range);
+            auto qDice = createDiceRange(c);
             int w1 = qDice({c});
             int w2 = qDice({c, w1});
+            if (w2 == c) ++w2;
 
             return Question(
                 std::to_string(a) + " / " + std::to_string(b),
@@ -1219,10 +1224,10 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
                 q = std::to_string(b) + " / ? = " + std::to_string(c);
             }
 
-            int range = std::max(3, std::min(a / 2, 17));
-            auto qDice = createDice(std::max(0, a - range), a + range);
+            auto qDice = createDiceRange(a);
             int w1 = qDice({a});
             int w2 = qDice({a, w1});
+            if (w2 == a) ++w2;
 
             return Question(
                 q,
@@ -1353,10 +1358,10 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
             int d = a * b * c;
             std::swap(d, a);
 
-            int range = std::max(3, std::min(d / 2, 27));
-            auto qDice = createDice(std::max(0, d - range), d + range);
+            auto qDice = createDiceRange(d);
             int w1 = qDice({d});
             int w2 = qDice({d, w1});
+            if (w2 == d) ++w2;
 
             return Question(
                 std::to_string(a) + " / " + std::to_string(b) + " / " + std::to_string(c),
@@ -1513,10 +1518,11 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
             auto wDice = createDiceRange(exp);
             int w1 = wDice({exp});
             int w2 = wDice({exp, w1});
+            if (w2 == exp) ++w2;
 
             std::string q = std::to_string(base);
             for (int i = 1; i < exp; ++i) {
-                q += " x " + std::to_string(base);
+                q += " * " + std::to_string(base);
             }
 
             std::string prefix = std::to_string(base);
@@ -1578,6 +1584,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
             auto wDice = createDiceRange(base);
             int w1 = wDice({base});
             int w2 = wDice({base, w1});
+            if (w2 == base) ++w2;
 
             return Question(
                 formatSqrt(res),
@@ -1682,7 +1689,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
             int w2 = qDice({sum, w1});
 
             return Question(
-                std::to_string(base) + formatPower(expA) + " x " + std::to_string(base) + formatPower(expB),
+                std::to_string(base) + formatPower(expA) + " * " + std::to_string(base) + formatPower(expB),
                 std::to_string(base) + formatPower(sum),
                 std::to_string(base) + formatPower(w1),
                 std::to_string(base) + formatPower(w2)
@@ -1764,11 +1771,16 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int b = dice({a});
             int c = dice({a, b});
 
+            int a1 = a * c;
+            int a2 = a * b;
+            if (a2 == a1) ++a2;
+            int a3 = b * c;
+
             return Question(
-                formatFraction(a, b) + " x " + std::to_string(c),
-                formatFraction(a * c,  b),
-                formatFraction(a * b,  b),
-                formatFraction(b * c,  a)
+                formatFraction(a, b) + " * " + std::to_string(c),
+                formatFraction(a1,  b),
+                formatFraction(a2,  b),
+                formatFraction(a3,  a)
             );
         };
 
@@ -1786,11 +1798,17 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int b = dice({a});
             int c = dice({a, b});
 
+            int b1 = b * c;
+            int b2 = c * a;
+            if (b2 == b1) ++b2;
+            int b3 = a * b;
+            if (c == a && b3 == b1) ++b3;
+
             return Question(
                 formatFraction(a, b) + " / " + std::to_string(c),
-                formatFraction(a, b * c),
-                formatFraction(a, c * a),
-                formatFraction(c, a * b)
+                formatFraction(a, b1),
+                formatFraction(a, b2),
+                formatFraction(c, b3)
             );
         };
 
@@ -1808,11 +1826,16 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int b = dice({a});
             int c = dice({a, b});
 
+            int a1 = a + (b * c);
+            int a2 = a + (a * c);
+            if (a2 == a1) ++a2;
+            int a3 = a - (b * c);
+
             return Question(
                 formatFraction(a, b) + " + " + std::to_string(c),
-                formatFraction(a + (b * c), b),
-                formatFraction(a + (a * c), b),
-                formatFraction(a - (b * c), a)
+                formatFraction(a1, b),
+                formatFraction(a2, b),
+                formatFraction(a3, a)
             );
         };
 
@@ -1830,11 +1853,16 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int b = dice({a});
             int c = dice({a, b});
 
+            int a1 = a;
+            int a2 = c;
+            if (a2 == a1) ++a2;
+            int a3 = (a + c) / 2;
+
             return Question(
                 formatFraction(a + (b * c), b) + " - " + std::to_string(c),
-                formatFraction(a, b),
-                formatFraction(c, b),
-                formatFraction((a + c) / 2, a)
+                formatFraction(a1, b),
+                formatFraction(a2, b),
+                formatFraction(a3, a)
             );
         };
 
@@ -1853,11 +1881,22 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int c = dice({a});
             int d = dice({b, c});
 
+            int a1 = a * c;
+            int b1 = b * d;
+
+            int a2 = a * d;
+            int b2 = b * c;
+            if (a2 == a1 && b2 == b1) ++b2;
+
+            int a3 = b * c;
+            int b3 = a * b;
+            if (a3 == a1 && b3 == b1) ++b3;
+
             return Question(
-                formatFraction(a, b) + " x " + formatFraction(c, d),
-                formatFraction(a * c, b * d),
-                formatFraction(a * d, b * c),
-                formatFraction(b * c, a * b)
+                formatFraction(a, b) + " * " + formatFraction(c, d),
+                formatFraction(a1, b1),
+                formatFraction(a2, b2),
+                formatFraction(a3, b3)
             );
         };
 
@@ -1876,11 +1915,22 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
             int c = dice({a});
             int d = dice({b, c});
 
+            int a1 = a * d;
+            int b1 = b * c;
+
+            int a2 = a * c;
+            int b2 = b * d;
+            if (a2 == a1 && b2 == b1) ++b2;
+
+            int a3 = b * d;
+            int b3 = a * b;
+            if (a3 == a1 && b3 == b1) ++b3;
+
             return Question(
                 formatFraction(a, b) + " / " + formatFraction(c, d),
-                formatFraction(a * d, b * c),
-                formatFraction(a * c, b * d),
-                formatFraction(b * d, a * b)
+                formatFraction(a1, b1),
+                formatFraction(a2, b2),
+                formatFraction(a3, b3)
             );
         };
 
@@ -1937,6 +1987,375 @@ std::function<Question()> getGeneratorMixed(const int number, const bool easy)
         int group = createDice(1, 9)({5, 8, 9});
         return getGenerator(group, level)();
     };
+}
+
+std::function<Question()> getGeneratorArithmetic(const int number, const bool easy)
+{
+    switch (number) {
+        // Q: 10 *ADD/SUB* (-7)
+        // A: 2
+        case 1:  return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0});
+            int b = dice({0, a});
+
+            if (a > 0 && b > 0) {
+                a = a * -1;
+                if (createDice(0, 1)({}) == 0) {
+                    std::swap(a, b);
+                }
+            }
+
+            std::string op = "+";
+            int c = a + b;
+            if (createDice(0, 1)({}) == 0) {
+                op = "-";
+                c = a - b;
+            }
+
+            auto qDice = createDiceRange(c);
+            int w1 = qDice({c});
+            int w2 = qDice({c, w1});
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            if (a < 0) {
+                aStr = "(" + aStr + ")";
+            }
+            if (b < 0) {
+                bStr = "(" + bStr + ")";
+            }
+
+            return Question(
+                aStr + " " + op + " " + bStr,
+                std::to_string(c),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 10 *MUL/DIV* (-7)
+        // A: 2
+        case 2: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0});
+            int b = dice({0, a});
+
+            if (a > 0 && b > 0) {
+                a = a * -1;
+                if (createDice(0, 1)({}) == 0) {
+                    std::swap(a, b);
+                }
+            }
+
+            std::string op = "*";
+            int c = a * b;
+            if (createDice(0, 1)({}) == 0) {
+                op = "/";
+                std::swap(c, a);
+            }
+
+            auto qDice = createDiceRange(c);
+            int w1 = qDice({c});
+            int w2 = qDice({c, w1});
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            if (a < 0) {
+                aStr = "(" + aStr + ")";
+            }
+            if (b < 0) {
+                bStr = "(" + bStr + ")";
+            }
+
+            return Question(
+                aStr + " " + op + " " + bStr,
+                std::to_string(c),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 2 *MUL/ADD* 81 *ADD/SUB* 9
+        // A: 11
+        case 3: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0, });
+            int b = dice({0, a});
+            int c = dice({0, a, b});
+
+            if (a > 0 && b > 0 && c > 0) {
+                a = a * -1;
+                if (createDice(0, 1)({}) == 0) {
+                    std::swap(a, b);
+                } else if (createDice(0, 1)({}) == 0) {
+                    std::swap(a, c);
+                }
+            }
+
+            std::string op1, op2;
+            int d = 0;
+            int tmpMul = b * c;
+            switch (createDice(1, 4)({})) {
+                case 1: op1 = "+"; op2 = "*";                       d = a + tmpMul; break;
+                case 3: op1 = "-"; op2 = "*";                       d = a - tmpMul; break;
+                case 2: op1 = "+"; op2 = "/"; std::swap(tmpMul, b); d = a + tmpMul; break;
+                case 4: op1 = "-"; op2 = "/"; std::swap(tmpMul, b); d = a - tmpMul; break;
+            }
+
+            auto qDice = createDiceRange(d);
+            int w1 = qDice({d});
+            int w2 = qDice({d, w1});
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            std::string cStr = std::to_string(c);
+            if (a < 0) aStr = "(" + aStr + ")";
+            if (b < 0) bStr = "(" + bStr + ")";
+            if (c < 0) bStr = "(" + cStr + ")";
+
+            return Question(
+                aStr + " " + op1 + " " + bStr + " " + op2 + " " + cStr,
+                std::to_string(d),
+                std::to_string(w1),
+                std::to_string(w2)
+            );
+        };
+
+        // Q: 4 *ANY* 3 = 1
+        // A: -
+        case 4: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0});
+            int b = dice({0, a});
+
+            std::string op;
+            int c = 0;
+            switch (createDice(1, 4)({})) {
+                case 1: op = "+"; c = a + b; break;
+                case 3: op = "-"; c = a - b; break;
+                case 2: op = "*"; c = a * b; break;
+                case 4: op = "/"; c = a * b; std::swap(c, a); break;
+            }
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            if (a < 0) aStr = "(" + aStr + ")";
+            if (b < 0) bStr = "(" + bStr + ")";
+
+            std::vector<std::string> ops {};
+            if (op != "+") ops.push_back("+");
+            if (op != "-") ops.push_back("-");
+            if (op != "*") ops.push_back("*");
+            if (op != "/") ops.push_back("/");
+            std::shuffle(ops.begin(), ops.end(), std::mt19937(std::random_device{}()));
+
+            return Question(
+                aStr + " ? " + bStr + " = " + std::to_string(c),
+                op,
+                ops.front(),
+                ops.back()
+            );
+        };
+
+        // Q: 8
+        // A: 12 *ANY* 4
+        case 5: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0});
+            int b = dice({0, a});
+
+            std::string op;
+            int c = 0;
+            switch (createDice(1, 4)({})) {
+                case 1: op = "+"; c = a + b; break;
+                case 3: op = "-"; c = a - b; break;
+                case 2: op = "*"; c = a * b; break;
+                case 4: op = "/"; c = a * b; std::swap(c, a); break;
+            }
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            if (a < 0) aStr = "(" + aStr + ")";
+            if (b < 0) bStr = "(" + bStr + ")";
+
+            std::vector<std::string> ops {};
+            if (op != "+") ops.push_back("+");
+            if (op != "-") ops.push_back("-");
+            if (op != "*") ops.push_back("*");
+            if (op != "/") ops.push_back("/");
+            std::shuffle(ops.begin(), ops.end(), std::mt19937(std::random_device{}()));
+
+            return Question(
+                std::to_string(c),
+                std::to_string(a) + " " + op          + " " + std::to_string(b),
+                std::to_string(a) + " " + ops.front() + " " + std::to_string(b),
+                std::to_string(a) + " " + ops.back()  + " " + std::to_string(b)
+            );
+        };
+
+        // Q: Largest?
+        // A: 12 *ANY* 2
+        case 6: return [easy]() {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(-10, 10);
+            } else {
+                dice = createDice(-20, 20);
+            }
+
+            int a = dice({0});
+            int b = dice({0, a});
+
+            int cAdd = a + b;
+            int cSub = a - b;
+            int cMul = a * b;
+            int cDiv = a / b;
+
+            std::string aStr = std::to_string(a);
+            std::string bStr = std::to_string(b);
+            if (a < 0) aStr = "(" + aStr + ")";
+            if (b < 0) bStr = "(" + bStr + ")";
+
+            std::deque<int> ops {cAdd, cSub, cMul, cDiv};
+            std::sort(ops.begin(), ops.end());
+
+            std::string mode = "Largest?";
+            bool largest = true;
+            if (createDice(0, 1)({}) == 0) {
+                mode = "Smallest?";
+                largest = false;
+            }
+
+            auto getOp = [largest, &ops, cAdd, cSub, cMul, cDiv]() {
+                int c = 0;
+                if (largest) {
+                    c = ops.back();
+                    ops.pop_back();
+                } else {
+                    c = ops.front();
+                    ops.pop_front();
+                }
+                if (c == cAdd) return std::string("+");
+                if (c == cSub) return std::string("-");
+                if (c == cMul) return std::string("*");
+                if (c == cDiv) return std::string("/");
+                throw new std::range_error("unable to detect op!");
+            };
+
+            return Question(
+                mode,
+                std::to_string(a) + " " + getOp() + " " + std::to_string(b),
+                std::to_string(a) + " " + getOp() + " " + std::to_string(b),
+                std::to_string(a) + " " + getOp() + " " + std::to_string(b)
+            );
+        };
+
+        // Q: 35 *ANY* 3
+        // A: 16 *ANY* 2
+        case 7: return [easy] {
+            diceFunction dice;
+            if (easy) {
+                dice = createDice(1, 17);
+            } else {
+                dice = createDice(5, 27);
+            }
+            std::unordered_set<int> primes {13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+
+            std::vector<std::string> ops {"+", "-", "/", "*"};
+            std::shuffle(ops.begin(), ops.end(), std::mt19937(std::random_device{}()));
+            auto op1 = ops.back(); ops.pop_back();
+            auto op2 = ops.back(); ops.pop_back();
+            auto op3 = ops.back(); ops.pop_back();
+            auto op4 = ops.back(); ops.pop_back();
+
+            int c1 = dice(primes);
+            int c2 = c1;
+            int c3, c4;
+            do {
+                c3 = dice(primes);
+            } while (c3 == c1);
+            do {
+                c4 = dice(primes);
+            } while (c4 == c1);
+
+            auto getEq = [](int c, std::string op) {
+                int a, b;
+                if (op == "+") {
+                    a = createDice(-20, c - 1)({});
+                    b = c - a;
+                } else if (op == "-") {
+                    a = createDice(-20, c - 1)({});
+                    b = a - c;
+                } else if (op == "/") {
+                    b = createDice(1, 9)({});
+                    a = c * b;
+                } else if (op == "*") {
+                    do {
+                        b = createDice(1, 9)({});
+                        float res = c / static_cast<float>(b);
+                        if (static_cast<float>(static_cast<int>(res)) == res) {
+                            a = res;
+                            break;
+                        }
+                    } while (true);
+                }
+
+                std::string aStr = std::to_string(a);
+                std::string bStr = std::to_string(b);
+                if (a < 0) aStr = "(" + aStr + ")";
+                if (b < 0) bStr = "(" + bStr + ")";
+
+                return aStr + " " + op + " " + bStr;
+            };
+
+            return Question(
+                getEq(c1, op1),
+                getEq(c2, op2),
+                getEq(c3, op3),
+                getEq(c4, op4)
+            );
+        };
+            
+        // MIXED
+        case 8: return [easy] {
+            auto number = createDice(1, 7)({});
+            auto gen = getGeneratorArithmetic(number, easy);
+            return gen();
+        };
+            
+        default: throw new std::range_error("invalid puzzel number id");
+    }
 }
 
 } // namespace config

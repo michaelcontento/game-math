@@ -34,6 +34,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
 std::function<Question()> getGeneratorSubtraction(const int number, const bool easy);
 std::function<Question()> getGeneratorMultiplication(const int number, const bool easy);
 std::function<Question()> getGeneratorDivision(const int number, const bool easy);
+std::function<Question()> getGeneratorArithmetic(const int number, const bool easy);
 std::function<Question()> getGeneratorFractions(const int number, const bool easy);
 std::function<Question()> getGeneratorPowers(const int number, const bool easy);
 std::function<Question()> getGeneratorMixed(const int number, const bool easy);
