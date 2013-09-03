@@ -32,7 +32,6 @@ static std::vector<std::function<void (const int group, const int level)>> starC
 
 bool isLevelGroupLocked(const int group)
 {
-    return false;
     if (group == 0) {
         return false;
     }
@@ -61,7 +60,6 @@ bool allLevelGroupsUnlocked()
 
 int getLevelStars(const int group, const int level)
 {
-    return 3;
     if (group <= 0 || level <= 0) {
         return 0;
     }
