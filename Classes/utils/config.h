@@ -26,9 +26,11 @@ using diceFunction = std::function<int(const std::unordered_set<int>)>;
 diceFunction createDice(const int min, const int max);
 diceFunction createDiceRange(const int pos);
 std::string formatFraction(const int a, const int b);
+std::string formatFraction(const std::string a, const std::string b);
 std::string formatPower(const int a);
 std::string formatSqrt(const int a);
 std::string formatSqrt(const std::string a);
+void uniqueValues(const int& a, int& b, int& c);
 std::function<Question()> getGenerator(const int group, const int level);
 std::function<Question()> getGeneratorAddition(const int number, const bool easy);
 std::function<Question()> getGeneratorSubtraction(const int number, const bool easy);
@@ -37,6 +39,7 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
 std::function<Question()> getGeneratorArithmetic(const int number, const bool easy);
 std::function<Question()> getGeneratorFractions(const int number, const bool easy);
 std::function<Question()> getGeneratorPowers(const int number, const bool easy);
+std::function<Question()> getGeneratorStatistics(const int number, const bool easy);
 std::function<Question()> getGeneratorMixed(const int number, const bool easy);
 
 constexpr float getDesignWidth()

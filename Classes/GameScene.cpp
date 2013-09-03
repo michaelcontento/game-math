@@ -13,7 +13,7 @@
 #include "utils/user.h"
 #include "utils/config.h"
 
-//#define PROFILE
+#define PROFILE
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -43,11 +43,11 @@ bool GameScene::init()
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
-    pageManager->scrollTo("category-5", 0);
+    pageManager->scrollTo("category-8", 0);
 
 #ifdef PROFILE
-    for (int group = 1; group <= 10; ++group) {
-        if (group == 5 || group == 8 || group == 9 || group == 10) continue;
+    for (int group = 7; group <= 10; ++group) {
+        if (group == 9 || group == 10) continue;
         
         for (int level = 1; level <= 16; ++level) {
             auto generator = config::getGenerator(group, level);
@@ -113,53 +113,6 @@ void GameScene::initSoundAndMusic()
         SimpleAudioEngine::getInstance()->setEffectsVolume(0);
     }
 }
-
-// ====== ARITHMETIC
-// AUCH NEGATIVE ZAHLEN!
-
-// Q: 10 *ADD/SUB* (-7)
-// A: 2
-
-// Q: 90 *MUL/DIV* (-9)
-// A: -10
-
-// Q: 2 *MUL/ADD* 81 *ADD/SUB* 9
-// A: 11
-
-// Q: 4 *ANY* 3 = 1
-// A: -
-
-// Q: 8
-// A: 12 *ANY* 4
-
-// Q: Largest?
-// A: 12 *ANY* 2
-
-// Q: 35 *ANY* 3
-// A: 16 *ANY* 2
-
-// ====== STATISTICS
-
-// Q: 40% of 50
-// A: 20
-
-// Q: 1/4
-// A: 25%
-
-// Q: 3/? = 75%
-// A: 4
-
-// Q: 80 decreased/increased by 20%
-// A: 64
-
-// Q: 6 is 20% of?
-// A: 30
-
-// Q: 99, 12, 49, 77, 57 Median?
-// A: 57
-
-// Q: 12, 9, 6 Average?
-// A: 9
 
 // ====== EQUATIONS
 // AUCH NEGATIVE ZAHLEN!
