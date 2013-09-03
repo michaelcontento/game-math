@@ -13,7 +13,7 @@
 #include "utils/user.h"
 #include "utils/config.h"
 
-#define PROFILE
+//#define PROFILE
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -43,17 +43,15 @@ bool GameScene::init()
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
-    pageManager->scrollTo("category-8", 0);
+    pageManager->scrollTo("main", 0);
 
 #ifdef PROFILE
-    for (int group = 7; group <= 10; ++group) {
-        if (group == 9 || group == 10) continue;
-        
+    for (int group = 1; group <= 10; ++group) {
         for (int level = 1; level <= 16; ++level) {
             auto generator = config::getGenerator(group, level);
             log(">>> PROFILING: %d/%d", group, level);
             ProfilingBeginTimingBlock("> TOTAL");
-            for (int i = 0; i <= 30000; ++i) {
+            for (int i = 0; i <= 50000; ++i) {
                 ProfilingBeginTimingBlock("> QUESTIONS");
                 generator();
                 ProfilingEndTimingBlock("> QUESTIONS");
@@ -113,27 +111,3 @@ void GameScene::initSoundAndMusic()
         SimpleAudioEngine::getInstance()->setEffectsVolume(0);
     }
 }
-
-// ====== EQUATIONS
-// AUCH NEGATIVE ZAHLEN!
-
-// Q: x + 3 = 5; x = ?
-// A: 2
-
-// Q: x - 3 = 5; x = ?
-// A: 2
-
-// Q: 3x *ADD/SUB* 8 = 19; x = ?
-// A: 9
-
-// Q: 4x *ADD/SUB* 6 = 6x *ADD/SUB* 16; x = ?
-// A: 5
-
-// Q: 7(x *ADD/SUB* 5) = 28; x = ?
-// A: 9
-
-// Q: -24 / (x *ADD/SUB* 8) = 4; x = ?
-// A: 2
-
-// Q: x *ADD/SUB* y = -2; y = 1; x = ?
-// A:
