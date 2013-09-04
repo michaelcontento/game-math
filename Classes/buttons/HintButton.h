@@ -2,10 +2,11 @@
 #define MATH_HINTBUTTON_H
 
 #include "cocos2d.h"
+#include <avalon/payment.h>
 
 class GamePage;
 
-class HintButton : public cocos2d::Node, public cocos2d::TouchDelegate
+class HintButton : public cocos2d::Node, public cocos2d::TouchDelegate,  public avalon::payment::ManagerDelegate
 {
 public:
     static HintButton* create(void) = delete;
@@ -17,11 +18,18 @@ public:
     bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
+    void onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product) override;
+    void onPurchaseFail(avalon::payment::Manager* const manager) override;
+
+    void onTransactionStart(avalon::payment::Manager* const manager) override;
+    void onTransactionEnd(avalon::payment::Manager* const manager) override;
+
 private:
     GamePage* game = nullptr;
     cocos2d::LabelTTF* label = nullptr;
 
     void addLabel();
+    void addIcon();
 };
 
 #endif // MATH_HINTBUTTON_H

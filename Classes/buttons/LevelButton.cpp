@@ -93,7 +93,8 @@ void LevelButton::refillStarContainerIfRequired(const int amount)
         *starContainer,
         stars,
         amount,
-        parentPage->getBackground()
+        parentPage->getBackground(),
+        true
     );
 }
 

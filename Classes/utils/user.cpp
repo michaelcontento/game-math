@@ -205,4 +205,17 @@ void setMusicEnabled(const bool flag)
     }
 }
 
+int getHintKeys()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getIntegerForKey("hints", 3);
+}
+
+void addHintKeys(const int amount)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setIntegerForKey("hints", getHintKeys() + amount);
+    settings->flush();
+}
+
 } // namespace user

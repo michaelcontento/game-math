@@ -1,6 +1,9 @@
 #include "HintButton.h"
 
 #include "../utils/fonts.h"
+#include "../utils/user.h"
+#include "../utils/config.h"
+#include "../utils/helper.h"
 #include "../pages/GamePage.h"
 
 using namespace cocos2d;
@@ -27,22 +30,42 @@ bool HintButton::init(GamePage& game)
     this->game = &game;
 
     addLabel();
+    addIcon();
 
     return true;
 }
 
 void HintButton::addLabel()
 {
-    label = fonts::createLight("!5", 48);
+    label = fonts::createLight(std::to_string(user::getHintKeys()), 48);
     addChild(label);
 
-    // color
     label->setColor(Color3B::BLACK);
-
     label->setAnchorPoint(Point::ZERO);
 
-    // update content size of the container
     setContentSize(label->getContentSize());
+}
+
+void HintButton::addIcon()
+{
+    auto key = cocos2d::Sprite::create("key.png");
+    addChild(key);
+
+    key->setColor(Color3B::BLACK);
+    key->setScale(0.5 * config::getScaleFactor());
+
+    auto size = key->getContentSize() * key->getScale();
+    float padding = 5  * config::getScaleFactor();
+    label->setPositionX(size.width + padding);
+
+    auto cs = getContentSize();
+    cs.width += size.width;
+    cs.width += padding;
+    setContentSize(cs);
+
+    key->setAnchorPoint({0, 0.5});
+    auto heightDiff = (cs.height - key->getContentSize().height);
+    key->setPositionY(heightDiff / 2.f * config::getScaleFactor());
 }
 
 void HintButton::onEnter()
@@ -74,5 +97,46 @@ void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
 
-    game->revealHint();
+    if (user::getHintKeys() > 0) {
+        user::addHintKeys(-1);
+        label->setString(std::to_string(user::getHintKeys()).c_str());
+        game->revealHint();
+    } else {
+        auto payment = avalon::payment::Loader::globalManager;
+        payment->delegate = this;
+        if (helper::paymentAvailableCheck(payment.get())) {
+            payment->purchase("hints");
+        }
+    }
+}
+
+void HintButton::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
+{
+    auto consumable = dynamic_cast<avalon::payment::ProductConsumable*>(product);
+
+    if (!consumable) {
+        log("unknown product id purchased: %s", product->getProductId().c_str());
+        return;
+    }
+
+    user::addHintKeys(consumable->getQuantity());
+    consumable->consume();
+
+    label->setString(std::to_string(user::getHintKeys()).c_str());
+}
+
+void HintButton::onPurchaseFail(avalon::payment::Manager* const manager)
+{
+}
+
+void HintButton::onTransactionStart(avalon::payment::Manager* const manager)
+{
+    game->pause();
+    helper::showPaymentPendingSpinner(true);
+}
+
+void HintButton::onTransactionEnd(avalon::payment::Manager* const manager)
+{
+    helper::showPaymentPendingSpinner(false);
+    game->resume(1.0);
 }

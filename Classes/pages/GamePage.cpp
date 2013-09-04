@@ -37,8 +37,8 @@ bool GamePage::init(const int group, const int level, const Page& parentPage)
     setBackground(Color3B::WHITE);
 
     generateQuestions();
-    addTimer();
     addStars();
+    addTimer();
     addHints();
     addBackButton();
     addQuestion();
@@ -65,11 +65,11 @@ void GamePage::addTimer()
     timer = GameTimer::create(*this);
     addChild(timer);
 
-    auto fix = 10 * config::getScaleFactor();
+    auto fix = 5 * config::getScaleFactor();
 
     timer->setAnchorPoint({1, 1});
     timer->setPositionX(config::getFrameSize().width - spacing);
-    timer->setPositionY(config::getFrameSize().height - spacing + fix);
+    timer->setPositionY(starContainer->getPositionY() - starContainer->getContentSize().height + fix);
 }
 
 void GamePage::addBackButton()
@@ -87,13 +87,13 @@ void GamePage::addStars()
     starContainer = Node::create();
     addChild(starContainer);
 
-    fonts::fillStarContainer(*starContainer, stars, maxStars, {102, 102, 102});
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
 
     auto fix = 5 * config::getScaleFactor();
 
     starContainer->setAnchorPoint({1, 1});
     starContainer->setPositionX(config::getFrameSize().width - spacing);
-    starContainer->setPositionY(timer->getPositionY() - timer->getContentSize().height + fix);
+    starContainer->setPositionY(config::getFrameSize().height - spacing + fix);
 }
 
 void GamePage::addHints()
@@ -114,14 +114,12 @@ void GamePage::addQuestion()
         throw new std::runtime_error("question already present");
     }
 
-    question = fonts::createNormal("ready?", 96);
+    question = fonts::createNormal("3", 96);
     addChild(question);
     configureAndAlignQuestionLabel(*question);
 
     question->runAction(Sequence::create(
         EaseIn::create(FadeOut::create(config::getQuestionStartDelay()), 3),
-        CallFunc::create([this]() { question->setString("3"); }),
-        FadeOut::create(config::getQuestionFadeTime()),
         CallFunc::create([this]() { question->setString("2"); }),
         FadeOut::create(config::getQuestionFadeTime()),
         CallFunc::create([this]() { question->setString("1"); }),
@@ -233,6 +231,16 @@ void GamePage::timeover()
         timeoverAlreadyHandled = true;
         handleTimeover();
     }
+}
+
+void GamePage::pause()
+{
+    timer->pause();
+}
+
+void GamePage::resume(const float delay)
+{
+    timer->resume(delay);
 }
 
 bool GamePage::revealHint()

@@ -18,12 +18,17 @@ public:
     void stop();
     bool isStarted() const;
 
+    void pause();
+    void resume(const float delay = 0);
+
     void onTick(const float dt);
 
 private:
     GamePage* page = nullptr;
     cocos2d::LabelTTF* label = nullptr;
     bool started = false;
+    bool paused = false;
+    float pauseDelay = 0;
     float time = config::getGameTime();
 
     void addLabel();

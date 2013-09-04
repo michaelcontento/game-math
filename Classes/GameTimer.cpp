@@ -48,6 +48,17 @@ void GameTimer::addLabel()
     label->setHorizontalAlignment(TextHAlignment::RIGHT);
 }
 
+void GameTimer::pause()
+{
+    paused = true;
+}
+
+void GameTimer::resume(const float delay)
+{
+    pauseDelay = delay;
+    paused = false;
+}
+
 void GameTimer::start()
 {
     if (!started) {
@@ -68,6 +79,15 @@ bool GameTimer::isStarted() const
 
 void GameTimer::onTick(const float dt)
 {
+    if (paused) {
+        return;
+    }
+
+    if (pauseDelay > 0) {
+        pauseDelay -= dt;
+        return;
+    }
+    
     time = fmax(0.0, time - dt);
     updateLabelString();
 

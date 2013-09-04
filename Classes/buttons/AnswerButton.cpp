@@ -47,8 +47,8 @@ void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
     indicatorLabelRight->stopAllActions();
 
     const auto posY = indicatorLabelRight->getPositionY();
-    indicatorLabelLeft->runAction(EaseOut::create(MoveTo::create(0.2, {endPosLeft, posY}), 3));
-    indicatorLabelRight->runAction(EaseOut::create(MoveTo::create(0.2, {endPosRight, posY}), 3));
+    indicatorLabelLeft->runAction(EaseOut::create(MoveTo::create(0.15, {endPosLeft, posY}), 3));
+    indicatorLabelRight->runAction(EaseOut::create(MoveTo::create(0.15, {endPosRight, posY}), 3));
 
     if (isRight) {
         indicatorLabelLeft->setString("✓");

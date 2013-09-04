@@ -29,6 +29,9 @@ void setSoundEnabled(const bool flag = true);
 bool hasMusicEnabled();
 void setMusicEnabled(const bool flag = true);
 
+int getHintKeys();
+void addHintKeys(const int amount);
+
 } // namespace user
 
 #endif // MATH_USER_H

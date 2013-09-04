@@ -30,6 +30,9 @@ public:
 
     bool isVisible() const override;
 
+    void pause();
+    void resume(const float delay = 0);
+
 private:
     static constexpr unsigned short questionAmount = 10;
     const Page* parentPage = nullptr;
