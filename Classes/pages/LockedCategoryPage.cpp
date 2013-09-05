@@ -1,5 +1,9 @@
 #include "LockedCategoryPage.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/user.h"
@@ -61,7 +65,8 @@ void LockedCategoryPage::addHeadlineLabel()
 
 void LockedCategoryPage::addSublineLabel()
 {
-    auto label = fonts::createLight("2 categories, 32 levels", 36);
+    auto txt =  _(("locked." + std::to_string(group)).c_str(), "subline").get();
+    auto label = fonts::createLight(txt, 36);
     addChild(label);
 
     // color
@@ -79,32 +84,12 @@ void LockedCategoryPage::addSublineLabel()
 
 std::string LockedCategoryPage::getHeadline() const
 {
-    if        (group == 3) {
-        return "PACK ONE";
-    } else if (group == 5) {
-        return "PACK TWO";
-    } else if (group == 7) {
-        return "PACK THREE";
-    } else if (group == 9) {
-        return "PACK FOUR";
-    } else {
-        throw new std::runtime_error("invalig group given");
-    }
+    return _(("locked." + std::to_string(group)).c_str(), "headline").get();
 }
 
 std::string LockedCategoryPage::getDescription() const
 {
-    if        (group == 3) {
-        return "these should be possible too, right?";
-    } else if (group == 5) {
-        return "some fancy words. bla bla yadda yadda";
-    } else if (group == 7) {
-        return "also ich würde das ja direkt kaufen\nso günstig ist bildung selten!";
-    } else if (group == 9) {
-        return "hallo sena! wie findest du die text\nhier denn so? ich bin unkreativ. punkt.";
-    } else {
-        throw new std::runtime_error("invalig group given");
-    }
+    return _(("locked." + std::to_string(group)).c_str(), "desc").get();
 }
 
 void LockedCategoryPage::addCategoryBoxes()
@@ -183,7 +168,7 @@ void LockedCategoryPage::addPlayButton()
 
     // == LABEL
 
-    auto label = fonts::createLight("PLAY!", 72);
+    auto label = fonts::createLight(_("general", "play").get(), 72);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setHorizontalAlignment(TextHAlignment::CENTER);

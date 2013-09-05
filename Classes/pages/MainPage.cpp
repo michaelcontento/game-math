@@ -1,5 +1,9 @@
 #include "MainPage.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../PageManager.h"
@@ -37,7 +41,7 @@ void MainPage::addIcon()
 
 void MainPage::addTapToPlayLabel()
 {
-    auto tapToPlay = fonts::createLight("tap to play", 42);
+    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42);
     addChild(tapToPlay);
 
     // color

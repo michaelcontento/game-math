@@ -1,5 +1,9 @@
 #include "config.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include <random>
 #include <boost/assert.hpp>
 #include <vector>
@@ -56,40 +60,11 @@ cocos2d::Size getAnswerButtonSize()
 
 std::string getGroupHeadline(const int group)
 {
-    // == 1
-    if        (group == 1) {
-        return "ADDITION";
-    } else if (group == 2) {
-        return "SUBTRACTION";
-
-    // == 2
-    } else if (group == 3) {
-        return "MULTIPLICATION";
-    } else if (group == 4) {
-        return "DIVISION";
-
-    // == 3
-    } else if (group == 5) {
-        return "ARITHMETIC";
-    } else if (group == 6) {
-        return "FRACTIONS";
-
-    // == 4
-    } else if (group == 7) {
-        return "POWERS";
-    } else if (group == 8) {
-        return "STATISTICS";
-
-    // == 5
-    } else if (group == 9) {
-        return "EQUATIONS";
-    } else if (group == 10) {
-        return "MIXED";
-
-    // == ?
-    } else {
+    if (group > 10 || group < 1) {
         throw new std::runtime_error("invalid group given");
     }
+
+    return _("headlines", std::to_string(group).c_str()).get();
 }
 
 cocos2d::Color3B getGroupColor(const int group)
@@ -375,7 +350,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
             }
             
             return Question(
-                "Smallest?",
+                _("questions", "smallest").get(),
                 std::to_string(l1) + " + " + std::to_string(l2),
                 std::to_string(l3) + " + " + std::to_string(l4),
                 std::to_string(l5) + " + " + std::to_string(l6)
@@ -517,7 +492,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
             }
 
             return Question(
-                "Largest?",
+                _("questions", "largest").get(),
                 std::to_string(l1) + " + " + std::to_string(l2),
                 std::to_string(l3) + " + " + std::to_string(l4),
                 std::to_string(l5) + " + " + std::to_string(l6)
@@ -698,7 +673,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
             }
 
             return Question(
-                "Smallest?",
+                _("questions", "smallest").get(),
                 std::to_string(l1) + " - " + std::to_string(l2),
                 std::to_string(l3) + " - " + std::to_string(l4),
                 std::to_string(l5) + " - " + std::to_string(l6)
@@ -840,7 +815,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
             }
             
             return Question(
-                "Largest?",
+                _("questions", "largest").get(),
                 std::to_string(l1) + " - " + std::to_string(l2),
                 std::to_string(l3) + " - " + std::to_string(l4),
                 std::to_string(l5) + " - " + std::to_string(l6)
@@ -1012,7 +987,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             }
 
             return Question(
-                "Smallest?",
+                _("questions", "smallest").get(),
                 std::to_string(l1) + " * " + std::to_string(l2),
                 std::to_string(l3) + " * " + std::to_string(l4),
                 std::to_string(l5) + " * " + std::to_string(l6)
@@ -1182,7 +1157,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             }
             
             return Question(
-                "Largest?",
+                _("questions", "largest").get(),
                 std::to_string(l1) + " * " + std::to_string(l2),
                 std::to_string(l3) + " * " + std::to_string(l4),
                 std::to_string(l5) + " * " + std::to_string(l6)
@@ -1363,7 +1338,7 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
             }
 
             return Question(
-                "Smallest?",
+                _("questions", "smallest").get(),
                 std::to_string(l1) + " / " + std::to_string(l2),
                 std::to_string(l3) + " / " + std::to_string(l4),
                 std::to_string(l5) + " / " + std::to_string(l6)
@@ -1507,7 +1482,7 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
             }
             
             return Question(
-                "Largest?",
+                _("questions", "largest").get(),
                 std::to_string(l1) + " / " + std::to_string(l2),
                 std::to_string(l3) + " / " + std::to_string(l4),
                 std::to_string(l5) + " / " + std::to_string(l6)
@@ -2287,10 +2262,10 @@ std::function<Question()> getGeneratorArithmetic(const int number, const bool ea
             std::deque<float> ops {cAdd, cSub, cMul, cDiv};
             std::sort(ops.begin(), ops.end());
 
-            std::string mode = "Largest?";
+            std::string mode = _("questions", "largest").get();
             bool largest = true;
             if (createDice(0, 1)({}) == 0) {
-                mode = "Smallest?";
+                mode = _("questions", "smallest").get();
                 largest = false;
             }
 
@@ -2547,10 +2522,10 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
 
             std::string mode;
             if (createDice(0, 1)({}) == 0) {
-                mode = "decreased";
+                mode = _("questions", "decreased").get();
                 c = val - c;
             } else {
-                mode = "increased";
+                mode = _("questions", "increased").get();
                 c = val + c;
             }
 
@@ -2560,7 +2535,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             uniqueValues(c, w1, w2);
 
             return Question(
-                std::to_string(val) + "\n" + mode + " by\n" + std::to_string(perc) + "%",
+                std::to_string(val) + "\n" + mode + "\n" + std::to_string(perc) + "%",
                 std::to_string(c),
                 std::to_string(w1),
                 std::to_string(w2)
@@ -2598,7 +2573,10 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             uniqueValues(val, w1, w2);
 
             return Question(
-                std::to_string(c) + " is " + std::to_string(perc) + "% of?",
+                _("questions", "percentof")
+                    .assign("{value}", std::to_string(c).c_str())
+                    .assign("{perc}", std::to_string(perc).c_str())
+                    .get(),
                 std::to_string(val),
                 std::to_string(w1),
                 std::to_string(w2)
@@ -2644,7 +2622,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             for (const auto& nbr : shuffelNbr) {
                 q += std::to_string(nbr) + ", ";
             }
-            q = q.substr(0, q.length() - 2) + "\nMedian?";
+            q = q.substr(0, q.length() - 2) + "\n" + _("questions", "median").get() + "?";
 
             int w1, w2;
             do {
@@ -2700,7 +2678,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             for (const auto& nbr : shuffelNbr) {
                 q += std::to_string(nbr) + ", ";
             }
-            q = q.substr(0, q.length() - 2) + "\nAverage?";
+            q = q.substr(0, q.length() - 2) + "\n" + _("questions", "average").get() + "?";
 
             auto wDice = createDiceRange(avg);
             int w1 = wDice({avg});

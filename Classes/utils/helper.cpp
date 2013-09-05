@@ -1,5 +1,9 @@
 #include "helper.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "config.h"
 #include "../Alert.h"
 #include "../PageManager.h"
@@ -21,7 +25,7 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
     if (!payment->getBackend().isInitialized()) {
         auto alert = Alert::create();
         Director::getInstance()->getRunningScene()->addChild(alert);
-        alert->setDescription("payment not ready yet");
+        alert->setDescription(_("payment", "notready").get());
         alert->show([]() {});
         return false;
     }
@@ -29,7 +33,7 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
     if (!payment->getBackend().isPurchaseReady()) {
         auto alert = Alert::create();
         Director::getInstance()->getRunningScene()->addChild(alert);
-        alert->setDescription("payment disabled");
+        alert->setDescription(_("payment", "disabled").get());
         alert->show([]() {});
         return false;
     }
@@ -51,7 +55,7 @@ void showPaymentPendingSpinner(const bool flag)
     lastPendingAlert = Alert::create();
     Director::getInstance()->getRunningScene()->addChild(lastPendingAlert);
 
-    lastPendingAlert->setDescription("shop request pending");
+    lastPendingAlert->setDescription(_("payment", "pending").get());
     lastPendingAlert->enableCloseOnTap(false);
     lastPendingAlert->show([]() {}, true);
 }

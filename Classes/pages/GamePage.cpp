@@ -1,5 +1,9 @@
 #include "GamePage.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
@@ -200,7 +204,7 @@ void GamePage::handleAllQuestionsAnswered()
 
     auto alert = Alert::create();
     addChild(alert);
-    alert->setDescription("DONE");
+    alert->setDescription(_("game", "done").get());
     alert->show([]() { PageManager::shared().scrollUp(); });
 }
 
@@ -211,7 +215,7 @@ void GamePage::handleNoMoreStars()
 
     auto alert = Alert::create();
     addChild(alert);
-    alert->setDescription("NO MORE STARS");
+    alert->setDescription(_("game", "nomorestars").get());
     alert->show([]() { PageManager::shared().scrollUp(); });
 }
 
@@ -221,7 +225,7 @@ void GamePage::handleTimeover()
 
     auto alert = Alert::create();
     addChild(alert);
-    alert->setDescription("TIMEOUT");
+    alert->setDescription(_("game", "timeout").get());
     alert->show([]() { PageManager::shared().scrollUp(); });
 }
 

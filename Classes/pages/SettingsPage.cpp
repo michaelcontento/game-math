@@ -92,7 +92,7 @@ void SettingsPage::updateContainerLayout() const
 ToggleButton* SettingsPage::getSoundButton() const
 {
     const auto btn = ToggleButton::create();
-    btn->getLabel = [](const bool flag) { return flag ? "sound on" : "sound off"; };
+    btn->getLabel = [](const bool flag) { return flag ? "sound.on" : "sound.off"; };
     btn->detectState = []() { return user::hasSoundEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setSoundEnabled(flag); return true; };
 
@@ -102,7 +102,7 @@ ToggleButton* SettingsPage::getSoundButton() const
 ToggleButton* SettingsPage::getMusicButton() const
 {
     const auto btn = ToggleButton::create();
-    btn->getLabel = [](const bool flag) { return flag ? "music on" : "music off"; };
+    btn->getLabel = [](const bool flag) { return flag ? "music.on" : "music.off"; };
     btn->detectState = []() { return user::hasMusicEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setMusicEnabled(flag); return true; };
 
@@ -143,7 +143,7 @@ ToggleButton* SettingsPage::getRestoreButton()
 
     const auto btn = ToggleButton::create();
     btn->setTag(tagRestorePurchases);
-    btn->getLabel = [](const bool flag) { return "restore purchases"; };
+    btn->getLabel = [](const bool flag) { return "restore"; };
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
@@ -164,7 +164,7 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
     
     const auto btn = ToggleButton::create();
     btn->setTag(tagRemoveAdsButton);
-    btn->getLabel = [](const bool flag) { return "remove all ads"; };
+    btn->getLabel = [](const bool flag) { return "removeads"; };
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
@@ -185,7 +185,7 @@ ToggleButton* SettingsPage::getUnlockAllButton()
     
     const auto btn = ToggleButton::create();
     btn->setTag(tagUnlockAllButton);
-    btn->getLabel = [](const bool flag) { return "unlock all"; };
+    btn->getLabel = [](const bool flag) { return "unlockall"; };
     btn->toggleAction = [this](const bool flag) {
         if (user::allLevelGroupsUnlocked()) {
             container->removeChildByTag(tagUnlockAllButton);

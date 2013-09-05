@@ -1,5 +1,9 @@
 #include "MoreGamesPage.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include <avalon/utils/url.h>
 #include <avalon/utils/platform.h>
 #include "../utils/config.h"
@@ -49,7 +53,7 @@ void MoreGamesPage::addLowerIcon()
 
 void MoreGamesPage::addDescription()
 {
-    const auto label = fonts::createLight("do you want to play\nmore free games?", 48);
+    const auto label = fonts::createLight(_("general", "moregames").get(), 48);
     addChild(label);
 
     // color

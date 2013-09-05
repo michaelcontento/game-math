@@ -1,5 +1,9 @@
 #include "Alert.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "utils/config.h"
 #include "utils/color.h"
 #include "utils/fonts.h"
@@ -29,7 +33,7 @@ bool Alert::init()
     setPositionY(config::getFrameSize().height / 2);
 
     // tap to continue
-    tap = fonts::createLight("tap to continue", 36);
+    tap = fonts::createLight(_("general", "taptocontinue").get(), 36);
     addChild(tap);
 
     tap->setAnchorPoint({0.5, 1});

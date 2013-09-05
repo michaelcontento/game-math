@@ -1,5 +1,9 @@
 #include "ToggleButton.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/config.h"
@@ -16,7 +20,7 @@ void ToggleButton::onEnter()
         ->addTargetedDelegate(this, -90, true);
 
     if (label) {
-        label->setString(getLabel(detectState()).c_str());
+        label->setString(_("settings", getLabel(detectState()).c_str()).get().c_str());
     }
 }
 
@@ -48,7 +52,7 @@ void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 
     const auto state = !detectState();
     if (toggleAction(state)) {
-        label->setString(getLabel(state).c_str());
+        label->setString(_("settings", getLabel(state).c_str()).get().c_str());
     }
 }
 

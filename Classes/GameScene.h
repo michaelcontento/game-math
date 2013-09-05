@@ -20,6 +20,7 @@ private:
     void initPayment();
     void initGameCenter();
     void initSoundAndMusic();
+    void initLocalization();
 };
 
 #endif // MATH_GAMESCENE_H

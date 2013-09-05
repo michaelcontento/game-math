@@ -23,6 +23,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C817F18517D8A4C4002D66E8 /* en.ini in Resources */ = {isa = PBXBuildFile; fileRef = C817F18417D8A4C4002D66E8 /* en.ini */; };
 		C81ACC6617D73BE3009245F3 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6317D73BE3009245F3 /* key.png */; };
 		C81ACC6717D73BE3009245F3 /* star-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6417D73BE3009245F3 /* star-empty.png */; };
 		C81ACC6817D73BE3009245F3 /* star-full.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6517D73BE3009245F3 /* star-full.png */; };
@@ -249,6 +250,7 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C817F18417D8A4C4002D66E8 /* en.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en.ini; sourceTree = "<group>"; };
 		C81ACC6317D73BE3009245F3 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		C81ACC6417D73BE3009245F3 /* star-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-empty.png"; sourceTree = "<group>"; };
 		C81ACC6517D73BE3009245F3 /* star-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-full.png"; sourceTree = "<group>"; };
@@ -529,7 +531,6 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C81ACC6917D73BF2009245F3 /* imgs */,
 				C8DD06AB17A28DA6005F1762 /* ads.ini */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
@@ -539,10 +540,20 @@
 				D4EF949F15BD2D9800D803EB /* Icon-144.png */,
 				D4EF949915BD2D8B00D803EB /* Icon-57.png */,
 				D4EF949D15BD2D9600D803EB /* Icon-72.png */,
+				C81ACC6917D73BF2009245F3 /* imgs */,
+				C817F19217D8A4C7002D66E8 /* lang */,
 				C8E9725117C60D5A000B98C7 /* payment.ini */,
 			);
 			name = Resources;
 			path = ../Resources;
+			sourceTree = "<group>";
+		};
+		C817F19217D8A4C7002D66E8 /* lang */ = {
+			isa = PBXGroup;
+			children = (
+				C817F18417D8A4C4002D66E8 /* en.ini */,
+			);
+			name = lang;
 			sourceTree = "<group>";
 		};
 		C81ACC6917D73BF2009245F3 /* imgs */ = {
@@ -1029,6 +1040,7 @@
 				C81ACC6617D73BE3009245F3 /* key.png in Resources */,
 				C81ACC6717D73BE3009245F3 /* star-empty.png in Resources */,
 				C81ACC6817D73BE3009245F3 /* star-full.png in Resources */,
+				C817F18517D8A4C4002D66E8 /* en.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
