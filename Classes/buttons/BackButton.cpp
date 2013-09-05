@@ -39,7 +39,7 @@ bool BackButton::init()
         return false;
     }
 
-    auto btn = Sprite::create("arrow.png");
+    auto btn = Sprite::createWithSpriteFrameName("arrow.png");
     btn->setAnchorPoint({0, 0});
     btn->setScale(0.5 * config::getScaleFactor());
     btn->setColor(Color3B::BLACK);

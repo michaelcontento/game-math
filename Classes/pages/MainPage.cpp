@@ -26,7 +26,7 @@ bool MainPage::init()
 
 void MainPage::addIcon()
 {
-    auto img = Sprite::create("icon-math.png");
+    auto img = Sprite::createWithSpriteFrameName("icon-math.png");
     addChild(img);
 
     img->setAnchorPoint({0.5, 0});

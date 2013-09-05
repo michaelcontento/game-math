@@ -48,7 +48,7 @@ void HintButton::addLabel()
 
 void HintButton::addIcon()
 {
-    auto key = cocos2d::Sprite::create("key.png");
+    auto key = Sprite::createWithSpriteFrameName("key.png");
     addChild(key);
 
     key->setColor(Color3B::BLACK);

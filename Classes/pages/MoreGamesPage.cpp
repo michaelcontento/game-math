@@ -29,7 +29,7 @@ bool MoreGamesPage::init()
 
 void MoreGamesPage::addUpperIcon()
 {
-    upperIcon = Sprite::create("icon-coragames.png");
+    upperIcon = Sprite::createWithSpriteFrameName("icon-coragames.png");
     addChild(upperIcon);
 
     upperIcon->setAnchorPoint({0.5, 0.5});

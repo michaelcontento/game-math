@@ -39,6 +39,9 @@ bool GameScene::init()
     initGameCenter();
     initSoundAndMusic();
 
+    SpriteFrameCache::getInstance()
+        ->addSpriteFramesWithFile("assets.plist");
+
     pageManager = PageManager::create();
     addChild(pageManager);
     pageManager->add("settings", SettingsPage::create());
