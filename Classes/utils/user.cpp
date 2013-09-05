@@ -1,7 +1,12 @@
 #include "user.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include <string>
 #include <vector>
+#include <chrono>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
@@ -154,7 +159,28 @@ void addStarChangeCallback(std::function<void (const int group, const int level)
 bool hasAdsEnabled()
 {
     auto settings = UserDefault::getInstance();
-    return settings->getBoolForKey("ads", true);
+    auto enabled = settings->getBoolForKey("ads", true);
+
+    if (!enabled) {
+        return false;
+    }
+
+    using namespace std::chrono;
+    auto installTs = settings->getDoubleForKey("installts", 0);
+    auto currentTs = duration_cast<minutes>(system_clock::now().time_since_epoch()).count();
+
+    if (installTs == 0) {
+        settings->setDoubleForKey("installts", currentTs);
+        settings->flush();
+        return false;
+    }
+
+    auto cooldown = std::stoi(_("config", "adinstalldelayhours").get()) * 60;
+    if (installTs + cooldown > currentTs) {
+        return false;
+    }
+
+    return true;
 }
 
 void setAdsEnabled(const bool flag)
@@ -164,7 +190,6 @@ void setAdsEnabled(const bool flag)
     settings->flush();
 
     avalon::ads::Manager::enabled = flag;
-    avalon::ads::Manager::hide();
 }
 
 bool hasSoundEnabled()

@@ -83,11 +83,9 @@ void GameScene::addCategoryPages(PageManager& pageManager) const
 
 void GameScene::initAds() const
 {
+    avalon::ads::Manager::initWithIniFile("ads.ini");
+    avalon::ads::Manager::startService();
     avalon::ads::Manager::enabled = user::hasAdsEnabled();
-    if (avalon::ads::Manager::enabled) {
-        avalon::ads::Manager::initWithIniFile("ads.ini");
-        avalon::ads::Manager::startService();
-    }
 }
 
 void GameScene::initPayment()

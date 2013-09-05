@@ -2,6 +2,7 @@
 
 #include <avalon/ads/Manager.h>
 #include "utils/config.h"
+#include "utils/user.h"
 #include "pages/Page.h"
 
 using namespace cocos2d;

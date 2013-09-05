@@ -24,6 +24,8 @@
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		C817F18517D8A4C4002D66E8 /* en.ini in Resources */ = {isa = PBXBuildFile; fileRef = C817F18417D8A4C4002D66E8 /* en.ini */; };
+		C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C817F1A817D8BC3F002D66E8 /* IAd.mm */; };
+		C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */; };
 		C81ACC6617D73BE3009245F3 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6317D73BE3009245F3 /* key.png */; };
 		C81ACC6717D73BE3009245F3 /* star-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6417D73BE3009245F3 /* star-empty.png */; };
 		C81ACC6817D73BE3009245F3 /* star-full.png in Resources */ = {isa = PBXBuildFile; fileRef = C81ACC6517D73BE3009245F3 /* star-full.png */; };
@@ -59,7 +61,6 @@
 		C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E1178EF1CB00F07AE3 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */; };
 		C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E5178EF1F700F07AE3 /* GameKit.framework */; };
-		C84DC2E8178EF22000F07AE3 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E7178EF22000F07AE3 /* iAd.framework */; };
 		C8A6B01517A1333200815182 /* icon-coragames.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01217A1333200815182 /* icon-coragames.png */; };
 		C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01317A1333200815182 /* icon-dtdng.png */; };
 		C8A6B01717A1333200815182 /* icon-math.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01417A1333200815182 /* icon-math.png */; };
@@ -80,12 +81,10 @@
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
 		C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8DD06AB17A28DA6005F1762 /* ads.ini */; };
 		C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */; };
-		C8DD06E117A28DFD005F1762 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BE17A28DFD005F1762 /* IAd.mm */; };
 		C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06BF17A28DFD005F1762 /* libChartboost.a */; };
 		C8DD06E317A28DFD005F1762 /* Revmob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06C017A28DFD005F1762 /* Revmob.cpp */; };
 		C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06C117A28DFD005F1762 /* RevMobAds.framework */; };
 		C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */; };
-		C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */; };
 		C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06DF17A28DFD005F1762 /* TapForTap.mm */; };
 		C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */; };
 		C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06F117A2CE63005F1762 /* helper.cpp */; };
@@ -251,6 +250,12 @@
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C817F18417D8A4C4002D66E8 /* en.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en.ini; sourceTree = "<group>"; };
+		C817F1A817D8BC3F002D66E8 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
+		C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
+		C817F1B317D8C88F002D66E8 /* TapForTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTap.h; sourceTree = "<group>"; };
+		C817F1B417D8C88F002D66E8 /* TapForTapAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAdView.h; sourceTree = "<group>"; };
+		C817F1B517D8C88F002D66E8 /* TapForTapAppWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAppWall.h; sourceTree = "<group>"; };
+		C817F1B617D8C88F002D66E8 /* TapForTapInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapInterstitial.h; sourceTree = "<group>"; };
 		C81ACC6317D73BE3009245F3 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		C81ACC6417D73BE3009245F3 /* star-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-empty.png"; sourceTree = "<group>"; };
 		C81ACC6517D73BE3009245F3 /* star-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-full.png"; sourceTree = "<group>"; };
@@ -358,17 +363,11 @@
 		C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
 		C8DD06BC17A28DFD005F1762 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
 		C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChartboostX_ios.mm; sourceTree = "<group>"; };
-		C8DD06BE17A28DFD005F1762 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
 		C8DD06BF17A28DFD005F1762 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libChartboost.a; sourceTree = "<group>"; };
 		C8DD06C017A28DFD005F1762 /* Revmob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Revmob.cpp; sourceTree = "<group>"; };
 		C8DD06C117A28DFD005F1762 /* RevMobAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevMobAds.framework; sourceTree = "<group>"; };
 		C8DD06C217A28DFD005F1762 /* RevmobBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevmobBridge.h; sourceTree = "<group>"; };
 		C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RevmobBridge.mm; sourceTree = "<group>"; };
-		C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
-		C8DD06DB17A28DFD005F1762 /* TapForTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTap.h; sourceTree = "<group>"; };
-		C8DD06DC17A28DFD005F1762 /* TapForTapAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAdView.h; sourceTree = "<group>"; };
-		C8DD06DD17A28DFD005F1762 /* TapForTapAppWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapAppWall.h; sourceTree = "<group>"; };
-		C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapForTapInterstitial.h; sourceTree = "<group>"; };
 		C8DD06DF17A28DFD005F1762 /* TapForTap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TapForTap.mm; sourceTree = "<group>"; };
 		C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToggleButton.cpp; sourceTree = "<group>"; };
 		C8DD06EF17A2BE0C005F1762 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
@@ -395,11 +394,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C84DC2E8178EF22000F07AE3 /* iAd.framework in Frameworks */,
+				C84DC2E0178EF1C700F07AE3 /* SystemConfiguration.framework in Frameworks */,
 				C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */,
 				C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */,
 				C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */,
-				C84DC2E0178EF1C700F07AE3 /* SystemConfiguration.framework in Frameworks */,
 				1AF4C2F517865DCB00122817 /* libchipmunk iOS.a in Frameworks */,
 				1AF4C2F617865DCB00122817 /* libcocos2dx iOS.a in Frameworks */,
 				1AF4C2F717865DCB00122817 /* libcocos2dx-extensions iOS.a in Frameworks */,
@@ -416,8 +414,8 @@
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 				C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */,
 				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
-				C8DD06E917A28DFD005F1762 /* libTapForTapAds.a in Frameworks */,
 				C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */,
+				C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +552,19 @@
 				C817F18417D8A4C4002D66E8 /* en.ini */,
 			);
 			name = lang;
+			sourceTree = "<group>";
+		};
+		C817F1B117D8C88F002D66E8 /* TapForTap */ = {
+			isa = PBXGroup;
+			children = (
+				C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */,
+				C817F1B317D8C88F002D66E8 /* TapForTap.h */,
+				C817F1B417D8C88F002D66E8 /* TapForTapAdView.h */,
+				C817F1B517D8C88F002D66E8 /* TapForTapAppWall.h */,
+				C817F1B617D8C88F002D66E8 /* TapForTapInterstitial.h */,
+			);
+			name = TapForTap;
+			path = "../../../../../vendors/TapForTap/TapForTap-iOS-2.3.2/TapForTap";
 			sourceTree = "<group>";
 		};
 		C81ACC6917D73BF2009245F3 /* imgs */ = {
@@ -828,31 +839,19 @@
 		C8DD06BA17A28DFD005F1762 /* provider */ = {
 			isa = PBXGroup;
 			children = (
+				C817F1B117D8C88F002D66E8 /* TapForTap */,
+				C817F1A817D8BC3F002D66E8 /* IAd.mm */,
 				C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */,
 				C8DD06BC17A28DFD005F1762 /* Chartboost.h */,
 				C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */,
-				C8DD06BE17A28DFD005F1762 /* IAd.mm */,
 				C8DD06BF17A28DFD005F1762 /* libChartboost.a */,
 				C8DD06C017A28DFD005F1762 /* Revmob.cpp */,
 				C8DD06C117A28DFD005F1762 /* RevMobAds.framework */,
 				C8DD06C217A28DFD005F1762 /* RevmobBridge.h */,
 				C8DD06C317A28DFD005F1762 /* RevmobBridge.mm */,
-				C8DD06D917A28DFD005F1762 /* TapForTap */,
 				C8DD06DF17A28DFD005F1762 /* TapForTap.mm */,
 			);
 			path = provider;
-			sourceTree = "<group>";
-		};
-		C8DD06D917A28DFD005F1762 /* TapForTap */ = {
-			isa = PBXGroup;
-			children = (
-				C8DD06DA17A28DFD005F1762 /* libTapForTapAds.a */,
-				C8DD06DB17A28DFD005F1762 /* TapForTap.h */,
-				C8DD06DC17A28DFD005F1762 /* TapForTapAdView.h */,
-				C8DD06DD17A28DFD005F1762 /* TapForTapAppWall.h */,
-				C8DD06DE17A28DFD005F1762 /* TapForTapInterstitial.h */,
-			);
-			path = TapForTap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1109,12 +1108,12 @@
 				C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */,
 				C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */,
 				C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */,
-				C8DD06E117A28DFD005F1762 /* IAd.mm in Sources */,
 				C8DD06E317A28DFD005F1762 /* Revmob.cpp in Sources */,
 				C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */,
 				C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */,
 				C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */,
 				C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */,
+				C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
