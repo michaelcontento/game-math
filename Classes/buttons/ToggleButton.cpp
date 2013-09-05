@@ -36,10 +36,6 @@ void ToggleButton::onExit()
 
 bool ToggleButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!helper::isNodeInViewRect(*this)) {
-        return false;
-    }
-
     const auto size = getContentSize();
     const auto bb = Rect(0, 0, size.width, size.height);
     return bb.containsPoint(convertTouchToNodeSpace(touch));

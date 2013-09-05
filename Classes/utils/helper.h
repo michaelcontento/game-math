@@ -6,7 +6,6 @@
 
 namespace helper {
 
-bool isNodeInViewRect(const cocos2d::Node& node);
 bool paymentAvailableCheck(avalon::payment::Manager* payment);
 void showPaymentPendingSpinner(const bool flag);
 

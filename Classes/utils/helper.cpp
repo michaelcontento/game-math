@@ -14,12 +14,6 @@ namespace helper {
 
 static Alert* lastPendingAlert = nullptr;
 
-bool isNodeInViewRect(const cocos2d::Node& node)
-{
-    static const Rect viewRect {0, 0, config::getFrameSize().width, config::getFrameSize().height};
-    return viewRect.containsPoint(node.convertToWorldSpace(node.getPosition()));
-}
-
 bool paymentAvailableCheck(avalon::payment::Manager* payment)
 {
     if (!payment->getBackend().isInitialized()) {
