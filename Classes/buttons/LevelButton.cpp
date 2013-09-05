@@ -5,13 +5,13 @@
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/user.h"
-#include "../pages/Page.h"
+#include "../pages/CategoryPage.h"
 #include "../pages/GamePage.h"
 #include "../PageManager.h"
 
 using namespace cocos2d;
 
-LevelButton* LevelButton::create(const int group, const int level, const Page& parentPage)
+LevelButton* LevelButton::create(const int group, const int level, CategoryPage& parentPage)
 {
     LevelButton* pRet = new LevelButton();
     if (pRet && pRet->init(group, level, parentPage)) {
@@ -24,7 +24,7 @@ LevelButton* LevelButton::create(const int group, const int level, const Page& p
     }
 }
 
-bool LevelButton::init(const int group, const int level, const Page& parentPage)
+bool LevelButton::init(const int group, const int level, CategoryPage& parentPage)
 {
     if (!Node::init()) {
         return false;
@@ -184,10 +184,14 @@ void LevelButton::addNumber()
 
 void LevelButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    if (unlocked && hasBeenTouched(touch, event)) {
-        PageManager::shared().scrollDown(
-            GamePage::create(group, level, *parentPage)
-        );
+    if (!hasBeenTouched(touch, event)) {
+        return;
+    }
+
+    if (unlocked) {
+        PageManager::shared().scrollDown(GamePage::create(group, level, *parentPage));
+    } else {
+        parentPage->highlightNextLevel();
     }
 }
 
@@ -204,4 +208,9 @@ bool LevelButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)
     }
 
     return true;
+}
+
+bool LevelButton::isLocked() const
+{
+    return !unlocked;
 }

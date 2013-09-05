@@ -75,6 +75,10 @@ void CategoryPage::addLevelButtons()
 
         containerSize.width  = std::max(containerSize.width,  btn->getPositionX() + btn->getContentSize().width);
         containerSize.height = std::max(containerSize.height, btn->getPositionY() + btn->getContentSize().height);
+
+        const auto halfSize = Point(btn->getContentSize() / 2);
+        btn->setPosition(btn->getPosition() + halfSize);
+        btn->setAnchorPoint({0.5, 0.5});
     }
 
     container->setContentSize(containerSize);
@@ -84,7 +88,29 @@ void CategoryPage::addLevelButtons()
 
 void CategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    for (auto& btn : levelButtons) {
-        btn->onTouch(touch, event);
+    std::for_each(
+        levelButtons.begin(), levelButtons.end(),
+        [&touch, &event](LevelButton* btn) { btn->onTouch(touch, event); }
+    );
+}
+
+void CategoryPage::highlightNextLevel()
+{
+    if (lastBtnActionRunning) {
+        return;
     }
+
+    auto lastBtn = *--std::find_if(
+        levelButtons.begin(), levelButtons.end(),
+        [](LevelButton* btn) { return btn->isLocked(); }
+    );
+
+    lastBtn->stopAllActions();
+    lastBtn->runAction(Sequence::create(
+        CallFunc::create([this]() { lastBtnActionRunning = true; }),
+        ScaleTo::create(0.2, 0.8),
+        ScaleTo::create(0.2, 1.0),
+        CallFunc::create([this]() { lastBtnActionRunning = false; }),
+        NULL
+    ));
 }

@@ -15,9 +15,11 @@ public:
     bool init(const int group);
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
 
+    void highlightNextLevel();
 private:
     std::vector<LevelButton*> levelButtons {};
     int group = -1;
+    bool lastBtnActionRunning = false;
     
     void addHeadlineLabel();
     void addLevelButtons();
