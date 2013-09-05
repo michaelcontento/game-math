@@ -75,7 +75,7 @@ constexpr float getScrollDownDuration()
 
 constexpr float getQuestionFadeTime()
 {
-    return 0.8;
+    return 0.4;
 }
 
 constexpr float getAlertFadeTime()

@@ -14,6 +14,7 @@ public:
     bool init(GamePage& page, const cocos2d::Color3B& color);
 
     void setIsRight(const bool flag);
+    bool isRightAnswer() const;
     void setAnswerString(const std::string& text);
 
     void fadeOutAnswer(const float duration);

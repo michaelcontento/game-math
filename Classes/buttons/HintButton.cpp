@@ -93,11 +93,11 @@ bool HintButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!game->isStarted() || game->isTimeover()) {
-        return;
-    }
-
     if (user::getHintKeys() > 0) {
+        if (!game->isStarted() || game->isTimeover() || !game->canBeRevealed()) {
+            return;
+        }
+
         user::addHintKeys(-1);
         label->setString(std::to_string(user::getHintKeys()).c_str());
         game->revealHint();

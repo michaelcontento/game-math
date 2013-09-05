@@ -36,7 +36,7 @@ float getSwipeMovementMaxY()
 
 float getQuestionStartDelay()
 {
-    return 1.2;
+    return 0.7;
 }
 
 float getProgressbarHeight()

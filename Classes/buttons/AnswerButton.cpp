@@ -14,7 +14,7 @@ void AnswerButton::onEnter()
 
     Director::getInstance()
         ->getTouchDispatcher()
-        ->addTargetedDelegate(this, -90, true);
+        ->addTargetedDelegate(this, -90, false);
 }
 
 void AnswerButton::onExit()
@@ -28,7 +28,7 @@ void AnswerButton::onExit()
 
 bool AnswerButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    return !hasBeenUsed && isAnswerVisible() && boundingBox().containsPoint(touch->getLocation());
+    return !hasBeenUsed && isAnswerVisible();
 }
 
 bool AnswerButton::isAnswerVisible() const
@@ -39,6 +39,9 @@ bool AnswerButton::isAnswerVisible() const
 void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     if (!ccTouchBegan(touch, event)) {
+        return;
+    }
+    if (!boundingBox().containsPoint(touch->getLocation())) {
         return;
     }
     hasBeenUsed = true;
@@ -102,8 +105,17 @@ void AnswerButton::setIsRight(const bool flag)
     isRight = flag;
 }
 
+bool AnswerButton::isRightAnswer() const
+{
+    return isRight;
+}
+
 void AnswerButton::fadeOutAnswer(const float duration)
 {
+    if (!isAnswerVisible()) {
+        return;
+    }
+    
     label->stopAllActions();
     label->runAction(FadeOut::create(duration));
 

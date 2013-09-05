@@ -29,11 +29,13 @@ public:
     bool isStarted() const;
 
     bool isVisible() const override;
+    bool canBeRevealed() const;
 
     void pause();
     void resume(const float delay = 0);
 
 private:
+    bool revealable = false;
     static constexpr unsigned short questionAmount = 10;
     const Page* parentPage = nullptr;
     GameTimer* timer = nullptr;

@@ -119,11 +119,11 @@ void GamePage::addQuestion()
     configureAndAlignQuestionLabel(*question);
 
     question->runAction(Sequence::create(
-        EaseIn::create(FadeOut::create(config::getQuestionStartDelay()), 3),
+        EaseIn::create(FadeOut::create(config::getQuestionStartDelay() * 2), 3),
         CallFunc::create([this]() { question->setString("2"); }),
-        FadeOut::create(config::getQuestionFadeTime()),
+        FadeOut::create(config::getQuestionStartDelay()),
         CallFunc::create([this]() { question->setString("1"); }),
-        FadeOut::create(config::getQuestionFadeTime()),
+        FadeOut::create(config::getQuestionStartDelay()),
         CallFunc::create([this]() { setNextQuestion(); timer->start(); acceptAnswers = true; }),
         NULL
     ));
@@ -249,8 +249,19 @@ bool GamePage::revealHint()
         return false;
     }
 
-    log("HINT!");
+    for (const auto& btn : answerButtons) {
+        if (!btn->isRightAnswer()) {
+            btn->fadeOutAnswer(config::getQuestionFadeTime());
+        }
+    }
+    revealable = false;
+
     return true;
+}
+
+bool GamePage::canBeRevealed() const
+{
+    return revealable;
 }
 
 bool GamePage::isTimeover() const
@@ -311,6 +322,8 @@ void GamePage::setNextQuestion()
 
     question->setString(currentQuestion.question.c_str());
     question->setOpacity(255);
+
+    revealable = true;
 }
 
 void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
