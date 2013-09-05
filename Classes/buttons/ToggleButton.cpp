@@ -4,6 +4,7 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "../PageManager.h"
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/config.h"
@@ -17,7 +18,7 @@ void ToggleButton::onEnter()
 
     Director::getInstance()
         ->getTouchDispatcher()
-        ->addTargetedDelegate(this, -90, true);
+        ->addTargetedDelegate(this, -90, false);
 
     if (label) {
         label->setString(_("settings", getLabel(detectState()).c_str()).get().c_str());
@@ -47,6 +48,16 @@ bool ToggleButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     if (!ccTouchBegan(touch, event)) {
+        return;
+    }
+
+    const auto startDelta = touch->getLocation() - touch->getStartLocation();
+    if (PageManager::shared().hasControl()) {
+        // user is scrolling through the pages
+        return;
+    } else if (startDelta.getLength() >= config::getTouchIgnoreLength()) {
+        // not a valid scrolling touch (maybe a old animation was running?) but
+        // it moved to far to be a valid touch
         return;
     }
 
