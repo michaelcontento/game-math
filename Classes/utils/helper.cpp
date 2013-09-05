@@ -4,6 +4,7 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include <avalon/utils/platform.h>
 #include "config.h"
 #include "../Alert.h"
 #include "../PageManager.h"
@@ -16,18 +17,20 @@ static Alert* lastPendingAlert = nullptr;
 
 bool paymentAvailableCheck(avalon::payment::Manager* payment)
 {
-    if (!payment->getBackend().isInitialized()) {
-        auto alert = Alert::create();
-        Director::getInstance()->getRunningScene()->addChild(alert);
-        alert->setDescription(_("payment", "notready").get());
-        alert->show([]() {});
-        return false;
-    }
-
+#if !AVALON_PLATFORM_IS_IOS
     if (!payment->getBackend().isPurchaseReady()) {
         auto alert = Alert::create();
         Director::getInstance()->getRunningScene()->addChild(alert);
         alert->setDescription(_("payment", "disabled").get());
+        alert->show([]() {});
+        return false;
+    }
+#endif
+
+    if (!payment->getBackend().isInitialized()) {
+        auto alert = Alert::create();
+        Director::getInstance()->getRunningScene()->addChild(alert);
+        alert->setDescription(_("payment", "notready").get());
         alert->show([]() {});
         return false;
     }

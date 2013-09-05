@@ -36,12 +36,12 @@ bool GameScene::init()
     }
 
     updateAssets();
-    initAssets();
-    initLocalization();
-    initAds();
     initPayment();
     initGameCenter();
     initSoundAndMusic();
+    initAssets();
+    initLocalization();
+    initAds();
     initPages();
     profile();
 
