@@ -16,6 +16,7 @@
 #include "utils/config.h"
 
 //#define PROFILE 100
+//#define DEVASSETS
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -34,6 +35,7 @@ bool GameScene::init()
         return false;
     }
 
+    updateAssets();
     initAssets();
     initLocalization();
     initAds();
@@ -42,7 +44,6 @@ bool GameScene::init()
     initSoundAndMusic();
     initPages();
     profile();
-    //updateAssets();
 
     return true;
 }
@@ -86,9 +87,20 @@ void GameScene::initAssets()
 
 void GameScene::updateAssets()
 {
+    auto path = FileUtils::getInstance()->getWritablePath();
+    auto searchPaths = FileUtils::getInstance()->getSearchPaths();
+    searchPaths.insert(searchPaths.begin(), path);
+    FileUtils::getInstance()->setSearchPaths(searchPaths);
+    
     auto mgr = new extension::AssetsManager(
+#ifdef DEVASSETS
+        "http://appdata.coragames.com.s3-website-eu-west-1.amazonaws.com/math/package.zip",
+        "http://appdata.coragames.com.s3-website-eu-west-1.amazonaws.com/math/version",
+#else
         "http://appdata.coragames.com/math/package.zip",
-        "http://appdata.coragames.com/math/version"
+        "http://appdata.coragames.com/math/version",
+#endif
+        path.c_str()
     );
     mgr->setConnectionTimeout(5);
     mgr->update();
@@ -183,7 +195,15 @@ void GameScene::initLocalization()
     }
     lang += ".ini";
 
-    if (!FileUtils::getInstance()->isFileExist(lang.c_str())) {
+    // search for the language file in ALL possible paths
+    bool found = false;
+    for (const auto path : FileUtils::getInstance()->getSearchPaths()) {
+        if (FileUtils::getInstance()->isFileExist(path + lang)) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
         return;
     }
 
