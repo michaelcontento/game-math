@@ -4,6 +4,7 @@
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
 #include <avalon/i18n/Localization.h>
+#include <AssetsManager/AssetsManager.h>
 #include "SimpleAudioEngine.h"
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
@@ -33,15 +34,21 @@ bool GameScene::init()
         return false;
     }
 
+    initAssets();
     initLocalization();
     initAds();
     initPayment();
     initGameCenter();
     initSoundAndMusic();
+    initPages();
+    profile();
+    //updateAssets();
 
-    SpriteFrameCache::getInstance()
-        ->addSpriteFramesWithFile("assets.plist");
+    return true;
+}
 
+void GameScene::initPages()
+{
     pageManager = PageManager::create();
     addChild(pageManager);
     pageManager->add("settings", SettingsPage::create());
@@ -49,7 +56,10 @@ bool GameScene::init()
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
     pageManager->scrollTo("main", 0);
+}
 
+void GameScene::profile()
+{
 #ifdef PROFILE
     for (int group = 1; group <= 10; ++group) {
         for (int level = 1; level <= 16; ++level) {
@@ -66,8 +76,22 @@ bool GameScene::init()
         }
     }
 #endif
+}
 
-    return true;
+void GameScene::initAssets()
+{
+    SpriteFrameCache::getInstance()
+        ->addSpriteFramesWithFile("assets.plist");
+}
+
+void GameScene::updateAssets()
+{
+    auto mgr = new extension::AssetsManager(
+        "http://appdata.coragames.com/math/package.zip",
+        "http://appdata.coragames.com/math/version"
+    );
+    mgr->setConnectionTimeout(5);
+    mgr->update();
 }
 
 void GameScene::addCategoryPages(PageManager& pageManager) const

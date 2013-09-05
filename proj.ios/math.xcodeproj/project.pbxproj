@@ -57,7 +57,6 @@
 		C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E1178EF1CB00F07AE3 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */; };
 		C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E5178EF1F700F07AE3 /* GameKit.framework */; };
-		C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */ = {isa = PBXBuildFile; fileRef = C8A6B01317A1333200815182 /* icon-dtdng.png */; };
 		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
@@ -86,6 +85,8 @@
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F7094617D8E5E80053FE9A /* assets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094417D8E5E80053FE9A /* assets.plist */; };
 		C8F7094717D8E5E80053FE9A /* assets.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094517D8E5E80053FE9A /* assets.png */; };
+		C8F7094B17D8EAC90053FE9A /* icon-down.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094917D8EAC90053FE9A /* icon-down.png */; };
+		C8F7094C17D8EAC90053FE9A /* icon-up.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094A17D8EAC90053FE9A /* icon-up.png */; };
 		D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A0AD0160F154A004552AE /* Default-568h@2x.png */; };
 		D446FD6E16102124000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FD6D16102124000ADA7B /* Default@2x.png */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -320,7 +321,6 @@
 		C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C84DC2E5178EF1F700F07AE3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C84DC2E7178EF22000F07AE3 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		C8A6B01317A1333200815182 /* icon-dtdng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dtdng.png"; sourceTree = "<group>"; };
 		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
 		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
@@ -369,6 +369,8 @@
 		C8F66ED61796874200D9FF84 /* HintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HintButton.h; sourceTree = "<group>"; };
 		C8F7094417D8E5E80053FE9A /* assets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = assets.plist; sourceTree = "<group>"; };
 		C8F7094517D8E5E80053FE9A /* assets.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = assets.png; sourceTree = "<group>"; };
+		C8F7094917D8EAC90053FE9A /* icon-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-down.png"; sourceTree = "<group>"; };
+		C8F7094A17D8EAC90053FE9A /* icon-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-up.png"; sourceTree = "<group>"; };
 		D41A0AD0160F154A004552AE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../proj.ios/Default-568h@2x.png"; sourceTree = "<group>"; };
 		D446FD6D16102124000ADA7B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../proj.ios/Default@2x.png"; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -562,9 +564,10 @@
 		C81ACC6917D73BF2009245F3 /* imgs */ = {
 			isa = PBXGroup;
 			children = (
+				C8F7094917D8EAC90053FE9A /* icon-down.png */,
+				C8F7094A17D8EAC90053FE9A /* icon-up.png */,
 				C8F7094417D8E5E80053FE9A /* assets.plist */,
 				C8F7094517D8E5E80053FE9A /* assets.png */,
-				C8A6B01317A1333200815182 /* icon-dtdng.png */,
 			);
 			name = imgs;
 			sourceTree = "<group>";
@@ -1016,7 +1019,6 @@
 				C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */,
 				C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */,
 				C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */,
-				C8A6B01617A1333200815182 /* icon-dtdng.png in Resources */,
 				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
 				C8E9725217C60D5A000B98C7 /* payment.ini in Resources */,
 				C83CB9C317C6A5B500E8CC93 /* Default-Portrait~ipad.png in Resources */,
@@ -1024,6 +1026,8 @@
 				C817F18517D8A4C4002D66E8 /* en.ini in Resources */,
 				C8F7094617D8E5E80053FE9A /* assets.plist in Resources */,
 				C8F7094717D8E5E80053FE9A /* assets.png in Resources */,
+				C8F7094B17D8EAC90053FE9A /* icon-down.png in Resources */,
+				C8F7094C17D8EAC90053FE9A /* icon-up.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

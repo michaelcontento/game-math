@@ -21,6 +21,10 @@ private:
     void initGameCenter();
     void initSoundAndMusic();
     void initLocalization();
+    void updateAssets();
+    void initAssets();
+    void profile();
+    void initPages();
 };
 
 #endif // MATH_GAMESCENE_H

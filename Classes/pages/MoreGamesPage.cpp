@@ -29,7 +29,7 @@ bool MoreGamesPage::init()
 
 void MoreGamesPage::addUpperIcon()
 {
-    upperIcon = Sprite::createWithSpriteFrameName("icon-coragames.png");
+    upperIcon = Sprite::create("icon-up.png");
     addChild(upperIcon);
 
     upperIcon->setAnchorPoint({0.5, 0.5});
@@ -41,7 +41,7 @@ void MoreGamesPage::addUpperIcon()
 
 void MoreGamesPage::addLowerIcon()
 {
-    lowerIcon = Sprite::create("icon-dtdng.png");
+    lowerIcon = Sprite::create("icon-down.png");
     addChild(lowerIcon);
 
     lowerIcon->setAnchorPoint({0.5, 0.5});

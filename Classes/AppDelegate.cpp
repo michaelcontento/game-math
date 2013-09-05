@@ -18,7 +18,7 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching()
 {
     Director* pDirector = Director::getInstance();
-    pDirector->setDisplayStats(false);
+    pDirector->setDisplayStats(false    );
 
     pDirector->setOpenGLView(EGLView::getInstance());
 
