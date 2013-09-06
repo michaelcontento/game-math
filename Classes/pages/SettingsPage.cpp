@@ -203,6 +203,7 @@ ToggleButton* SettingsPage::getUnlockAllButton()
         auto payment = payment::Loader::globalManager;
         payment->delegate = this;
         if (helper::paymentAvailableCheck(payment.get())) {
+            helper::showPaymentPendingSpinner(true);
             payment->getProduct(key.c_str())->purchase();
         }
         return false;
@@ -266,7 +267,6 @@ void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
 
 void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
-    helper::showPaymentPendingSpinner(true);
 }
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)

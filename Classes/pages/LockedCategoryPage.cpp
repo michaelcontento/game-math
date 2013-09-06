@@ -200,6 +200,7 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
         return; // invalid product id
     }
 
+    helper::showPaymentPendingSpinner(true);
     payment->getProduct(key.c_str())->purchase();
 }
 
@@ -236,4 +237,5 @@ void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const mana
 
 void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentPendingSpinner(false);
 }

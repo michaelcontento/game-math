@@ -87,6 +87,8 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
 
 void Alert::hide()
 {
+    unschedule(schedule_selector(Alert::onTick));
+    
     visible = true;
     touchable = false;
 
@@ -161,5 +163,27 @@ void Alert::visit()
 {
     if (visible) {
         Layer::visit();
+    }
+}
+
+void Alert::setTimeout(const float secs, std::function<void ()> callback)
+{
+    timeoutSecs = secs;
+    timeoutCb = callback;
+
+    schedule(schedule_selector(Alert::onTick), 0.1);
+}
+
+void Alert::onTick(const float dt)
+{
+    if (!visible) {
+        return;
+    }
+    
+    timeoutSecs -= dt;
+    
+    if (timeoutSecs <= 0) {
+        timeoutCb();
+        unschedule(schedule_selector(Alert::onTick));
     }
 }

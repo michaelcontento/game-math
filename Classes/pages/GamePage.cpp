@@ -369,6 +369,7 @@ void GamePage::answeredWrong()
     ));
 
     if (stars.empty()) {
+        timer->removeFromParentAndCleanup(true);
         handleNoMoreStars();
     }
 }

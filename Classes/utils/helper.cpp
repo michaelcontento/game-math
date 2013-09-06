@@ -50,6 +50,17 @@ void showPaymentPendingSpinner(const bool flag)
     lastPendingAlert = Alert::create();
     Director::getInstance()->getRunningScene()->addChild(lastPendingAlert);
 
+    lastPendingAlert->setTimeout(20, []() {
+        helper::showPaymentPendingSpinner(false);
+
+        auto newAlert = Alert::create();
+        Director::getInstance()->getRunningScene()->addChild(newAlert);
+
+        newAlert->setDescription(_("payment", "timeout").get());
+        newAlert->show([]() {});
+    });
+
+
     lastPendingAlert->setDescription(_("payment", "pending").get());
     lastPendingAlert->enableCloseOnTap(false);
     lastPendingAlert->show([]() {}, true);
