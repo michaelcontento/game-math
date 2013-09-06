@@ -64,7 +64,7 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
         bottomAnimationNode = buttonContainer;
         
         float nextPosX = 0;
-        const float padding = 25 * config::getScaleFactor();
+        const float padding = 35 * config::getScaleFactor();
         for (auto& pairs : buttons) {
             auto btn = pairs.first;
             btn->setPositionX(nextPosX);
@@ -252,6 +252,9 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     if (!buttonContainer) {
         buttonContainer = Node::create();
         addChild(buttonContainer);
+
+        auto bump = 10 * config::getScaleFactor();
+        desc->setPositionY(desc->getPositionY() + bump);
     }
 
     auto node = Node::create();
