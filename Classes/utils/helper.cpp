@@ -17,7 +17,6 @@ static Alert* lastPendingAlert = nullptr;
 
 bool paymentAvailableCheck(avalon::payment::Manager* payment)
 {
-#if !AVALON_PLATFORM_IS_IOS
     if (!payment->getBackend().isPurchaseReady()) {
         auto alert = Alert::create();
         Director::getInstance()->getRunningScene()->addChild(alert);
@@ -25,7 +24,6 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
         alert->show([]() {});
         return false;
     }
-#endif
 
     if (!payment->getBackend().isInitialized()) {
         auto alert = Alert::create();
