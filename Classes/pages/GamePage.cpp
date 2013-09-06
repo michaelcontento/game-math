@@ -104,12 +104,13 @@ void GamePage::addHints()
 {
     auto hints = HintButton::create(*this);
     addChild(hints);
+    timer->setHintButton(*hints);
 
     auto fix = 10 * config::getScaleFactor();
 
-    hints->setAnchorPoint({0.5, 1});
+    hints->setAnchorPoint({0.5, 0.5});
     hints->setPositionX(config::getFrameSize().width / 2);
-    hints->setPositionY(config::getFrameSize().height - spacing + fix);
+    hints->setPositionY(config::getFrameSize().height - spacing + fix - (hints->getContentSize().height / 2));
 }
 
 void GamePage::addQuestion()
@@ -327,6 +328,7 @@ void GamePage::setNextQuestion()
     question->setString(currentQuestion.question.c_str());
     question->setOpacity(255);
 
+    timer->resetHintTimer();
     revealable = true;
 }
 
@@ -354,8 +356,17 @@ void GamePage::answeredWrong()
     }
 
     auto star = stars.front();
-    starContainer->removeChild(star);
     stars.pop_front();
+    star->setColor(Color3B::RED);
+    star->runAction(Sequence::create(
+        Spawn::create(
+            FadeOut::create(0.5),
+            ScaleTo::create(0.5, 1.25),
+            NULL
+        ),
+        RemoveSelf::create(),
+        NULL
+    ));
 
     if (stars.empty()) {
         handleNoMoreStars();

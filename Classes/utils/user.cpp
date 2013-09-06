@@ -243,4 +243,17 @@ void addHintKeys(const int amount)
     settings->flush();
 }
 
+bool useBigHintAlert()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("bighintalert", true);
+}
+
+void setUseBigHintAlert(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("bighintalert", flag);
+    settings->flush();
+}
+
 } // namespace user

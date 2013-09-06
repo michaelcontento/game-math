@@ -9,6 +9,8 @@ class GamePage;
 class HintButton : public cocos2d::Node, public cocos2d::TouchDelegate,  public avalon::payment::ManagerDelegate
 {
 public:
+    constexpr static float alertDelay = 15.0f;
+
     static HintButton* create(void) = delete;
     static HintButton* create(GamePage& game);
     bool init(GamePage& game);
@@ -23,6 +25,8 @@ public:
 
     void onTransactionStart(avalon::payment::Manager* const manager) override;
     void onTransactionEnd(avalon::payment::Manager* const manager) override;
+
+    void alert();
 
 private:
     GamePage* game = nullptr;

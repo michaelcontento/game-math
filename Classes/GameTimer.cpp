@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "utils/fonts.h"
 #include "pages/GamePage.h"
+#include "buttons/HintButton.h"
 
 using namespace cocos2d;
 
@@ -87,7 +88,13 @@ void GameTimer::onTick(const float dt)
         pauseDelay -= dt;
         return;
     }
-    
+
+    hintTimer += dt;
+    if (hint && hintTimer > HintButton::alertDelay) {
+        hint->alert();
+        resetHintTimer();
+    }
+
     time = fmax(0.0, time - dt);
     updateLabelString();
 
@@ -110,4 +117,15 @@ void GameTimer::updateLabelString()
     char buf[10] = {0};
     snprintf(buf, sizeof(buf), "%.1f", time);
     label->setString(buf);
+}
+
+void GameTimer::setHintButton(HintButton& hint)
+{
+    this->hint = &hint;
+    resetHintTimer();
+}
+
+void GameTimer::resetHintTimer()
+{
+    hintTimer = 0;
 }

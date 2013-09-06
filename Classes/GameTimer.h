@@ -6,10 +6,11 @@
 #include "utils/config.h"
 
 class GamePage;
+class HintButton;
 
 class GameTimer : public cocos2d::Node
 {
-public:
+public:    
     static GameTimer* create(void) = delete;
     static GameTimer* create(GamePage& page);
     bool init(GamePage& page);
@@ -22,9 +23,13 @@ public:
     void resume(const float delay = 0);
 
     void onTick(const float dt);
+    void setHintButton(HintButton& hint);
+    void resetHintTimer();
 
 private:
     GamePage* page = nullptr;
+    float hintTimer = 0;
+    HintButton* hint = nullptr;
     cocos2d::LabelTTF* label = nullptr;
     bool started = false;
     bool paused = false;

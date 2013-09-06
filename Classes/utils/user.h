@@ -32,6 +32,9 @@ void setMusicEnabled(const bool flag = true);
 int getHintKeys();
 void addHintKeys(const int amount);
 
+bool useBigHintAlert();
+void setUseBigHintAlert(const bool flag = true);
+
 } // namespace user
 
 #endif // MATH_USER_H

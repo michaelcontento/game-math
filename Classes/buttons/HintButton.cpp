@@ -1,10 +1,15 @@
 #include "HintButton.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include "../utils/fonts.h"
 #include "../utils/user.h"
 #include "../utils/config.h"
 #include "../utils/helper.h"
 #include "../pages/GamePage.h"
+#include "../Alert.h"
 
 using namespace cocos2d;
 
@@ -139,4 +144,28 @@ void HintButton::onTransactionEnd(avalon::payment::Manager* const manager)
 {
     helper::showPaymentPendingSpinner(false);
     game->resume(1.0);
+}
+
+void HintButton::alert()
+{
+    if (user::useBigHintAlert()) {
+        user::setUseBigHintAlert(false);
+        game->pause();
+
+        auto alert = Alert::create();
+        Director::getInstance()->getRunningScene()->addChild(alert);
+        alert->setDescription(_("game", "explainhints").get());
+        alert->show([this]() { game->resume(); });
+    }
+
+    stopAllActions();
+    runAction(
+        Repeat::create(
+            Sequence::create(
+                ScaleTo::create(0.3, 1.25),
+                ScaleTo::create(0.3, 1.0),
+                NULL
+            ),
+        2)
+    );
 }
