@@ -198,8 +198,12 @@ bool GamePage::allQuestionsAnswered() const
 
 void GamePage::handleAllQuestionsAnswered()
 {
-    timer->stop();
+    for (auto& btn : answerButtons) {
+        btn->enabled = false;
+    }
+
     acceptAnswers = false;
+    timer->stop();
 
     user::setLevelStars(group, level, stars.size());
 

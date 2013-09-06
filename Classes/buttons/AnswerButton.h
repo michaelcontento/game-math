@@ -9,6 +9,8 @@ class GamePage;
 class AnswerButton : public cocos2d::Node, public cocos2d::TouchDelegate
 {
 public:
+    bool enabled = true;
+    
     static AnswerButton* create(void) = delete;
     static AnswerButton* create(GamePage& page, const cocos2d::Color3B& color);
     bool init(GamePage& page, const cocos2d::Color3B& color);
