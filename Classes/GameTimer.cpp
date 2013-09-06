@@ -71,6 +71,7 @@ void GameTimer::start()
 void GameTimer::stop()
 {
     unschedule(schedule_selector(GameTimer::onTick));
+    started = false;
 }
 
 bool GameTimer::isStarted() const

@@ -42,8 +42,8 @@ bool GamePage::init(const int group, const int level, const Page& parentPage)
 
     generateQuestions();
     addStars();
-    addTimer();
     addHints();
+    addTimer();
     addBackButton();
     addQuestion();
     addAnswerButtons();
@@ -54,6 +54,36 @@ bool GamePage::init(const int group, const int level, const Page& parentPage)
 
 void GamePage::restart()
 {
+    questions.clear();
+    generateQuestions();
+
+    for (auto& btn : answerButtons) {
+        btn->enabled = true;
+        btn->fadeOutAnswer(config::getQuestionFadeTime());
+    }
+
+    stars.clear();
+    starContainer->removeAllChildren();
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
+
+    updateProgressbar();
+
+    if (timer) {
+        timer->removeFromParent();
+        timer = nullptr;
+    }
+    addTimer();
+
+    timeoverAlreadyHandled = false;
+    revealable = true;
+    resume();
+
+    if (question) {
+        question->stopAllActions();
+        question->runAction(Sequence::create(FadeOut::create(0.2), RemoveSelf::create(), NULL));
+        question = nullptr;
+    }
+    addQuestion();
 }
 
 void GamePage::generateQuestions()
@@ -68,6 +98,7 @@ void GamePage::addTimer()
 {
     timer = GameTimer::create(*this);
     addChild(timer);
+    timer->setHintButton(*hints);
 
     auto fix = 5 * config::getScaleFactor();
 
@@ -102,9 +133,8 @@ void GamePage::addStars()
 
 void GamePage::addHints()
 {
-    auto hints = HintButton::create(*this);
+    hints = HintButton::create(*this);
     addChild(hints);
-    timer->setHintButton(*hints);
 
     auto fix = 10 * config::getScaleFactor();
 
@@ -210,28 +240,41 @@ void GamePage::handleAllQuestionsAnswered()
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "done").get());
-    alert->show([]() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "next").get(), []() { PageManager::shared().scrollUp(); });
+    alert->show([]() { });
+
 }
 
 void GamePage::handleNoMoreStars()
 {
+    for (auto& btn : answerButtons) {
+        btn->enabled = false;
+    }
     acceptAnswers = false;
-    timer->stop();
 
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "nomorestars").get());
-    alert->show([]() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "restart").get(), [this]() { restart(); });
+    alert->show([]() {});
 }
 
 void GamePage::handleTimeover()
 {
+    for (auto& btn : answerButtons) {
+        btn->enabled = false;
+    }
+
     acceptAnswers = false;
 
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "timeout").get());
-    alert->show([]() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "restart").get(), [this]() { restart(); });
+    alert->show([]() { });
 }
 
 void GamePage::timeover()
@@ -373,7 +416,8 @@ void GamePage::answeredWrong()
     ));
 
     if (stars.empty()) {
-        timer->removeFromParentAndCleanup(true);
+        timer->removeFromParent();
+        timer = nullptr;
         handleNoMoreStars();
     }
 }

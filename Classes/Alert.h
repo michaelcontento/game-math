@@ -2,6 +2,7 @@
 #define MATH_ALERT_H
 
 #include <functional>
+#include <vector>
 #include "cocos2d.h"
 
 class Alert : public cocos2d::Layer
@@ -21,6 +22,8 @@ public:
     void setTimeout(const float secs, std::function<void ()> callback);
     void onTick(const float dt);
 
+    void addButton(const std::string& description, std::function<void ()> callback);
+
     bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
@@ -28,8 +31,11 @@ private:
     bool visible = false;
     bool touchable = false;
     bool closeOnTap = true;
+    std::vector<std::pair<Node*, std::function< void()>>> buttons;
     std::function<void ()> callback;
+    std::function<void ()> buttonCb;
     std::function<void ()> timeoutCb;
+    Node* buttonContainer = nullptr;
     float timeoutSecs = 0;
     cocos2d::LabelTTF* desc = nullptr;
     cocos2d::DrawNode* draw = nullptr;

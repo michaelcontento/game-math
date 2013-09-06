@@ -55,25 +55,50 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
     draw->stopAllActions();
     draw->runAction(EaseInOut::create(ScaleTo::create(config::getAlertFadeTime() * instaMod, 1, 1), 3));
 
-    tap->stopAllActions();
-    tap->runAction(Sequence::create(
-        DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
-        EaseInOut::create(
-            Spawn::create(
-                MoveTo::create(config::getAlertFadeTime() * instaMod, {getContentSize().width / 2, tap->getPositionY()}),
-                FadeIn::create(config::getAlertFadeTime() * instaMod),
-                NULL
+    Node* bottomAnimationNode = nullptr;
+    if (tap) {
+        bottomAnimationNode = tap;
+    }
+
+    if (buttonContainer) {
+        bottomAnimationNode = buttonContainer;
+        
+        float nextPosX = 0;
+        const float padding = 25 * config::getScaleFactor();
+        for (auto& pairs : buttons) {
+            auto btn = pairs.first;
+            btn->setPositionX(nextPosX);
+            nextPosX += btn->getContentSize().width + padding;
+        }
+
+        nextPosX -= padding;
+        const auto size = Size(nextPosX, buttons.front().first->getContentSize().height);
+        buttonContainer->setContentSize(size);
+        buttonContainer->setAnchorPoint({0.5, 0});
+        buttonContainer->setPositionX(getContentSize().width + (size.width / 2) + 10);
+    }
+    
+    if (bottomAnimationNode) {
+        bottomAnimationNode->stopAllActions();
+        bottomAnimationNode->runAction(Sequence::create(
+            DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
+            EaseInOut::create(
+                Spawn::create(
+                    MoveTo::create(config::getAlertFadeTime() * instaMod, {getContentSize().width / 2, bottomAnimationNode->getPositionY()}),
+                    FadeIn::create(config::getAlertFadeTime() * instaMod),
+                    NULL
+                ),
+                3
             ),
-            3
-        ),
-        CallFunc::create([this]() {
-            touchable = true;
-            Director::getInstance()
-                ->getTouchDispatcher()
-                ->addTargetedDelegate(this, -100, true);
-        }),
-        NULL
-    ));
+            CallFunc::create([this]() {
+                touchable = true;
+                Director::getInstance()
+                    ->getTouchDispatcher()
+                    ->addTargetedDelegate(this, -100, true);
+            }),
+            NULL
+        ));
+    }
 
     if (desc) {
         desc->stopAllActions();
@@ -101,21 +126,33 @@ void Alert::hide()
             Director::getInstance()
                 ->getTouchDispatcher()
                 ->removeDelegate(this);
+            if (this->buttonCb) this->buttonCb();
             this->callback();
         }),
+        RemoveSelf::create(),
         NULL
     ));
 
-    auto pos = Point(tap->getContentSize().width * -1, tap->getPositionY());
-    tap->stopAllActions();
-    tap->runAction(EaseInOut::create(
-        Spawn::create(
-            MoveTo::create(config::getAlertFadeTime(), pos),
-            FadeOut::create(config::getAlertFadeTime()),
-            NULL
-        ),
-        3
-    ));
+    Node* bottomAnimationNode = nullptr;
+    if (tap) {
+        bottomAnimationNode = tap;
+    }    
+    if (buttonContainer) {
+        bottomAnimationNode = buttonContainer;
+    }
+
+    if (bottomAnimationNode) {
+        auto pos = Point(bottomAnimationNode->getContentSize().width * -1, bottomAnimationNode->getPositionY());
+        bottomAnimationNode->stopAllActions();
+        bottomAnimationNode->runAction(EaseInOut::create(
+            Spawn::create(
+                MoveTo::create(config::getAlertFadeTime(), pos),
+                FadeOut::create(config::getAlertFadeTime()),
+                NULL
+            ),
+            3
+        ));
+    }
 
     if (desc) {
         auto pos = Point(getContentSize().width + desc->getContentSize().width, desc->getPositionY());
@@ -127,7 +164,7 @@ void Alert::hide()
 void Alert::enableCloseOnTap(const bool flag)
 {
     closeOnTap = flag;
-    tap->setVisible(flag);
+    if (tap) tap->setVisible(flag);
 }
 
 void Alert::setDescription(const std::string& description)
@@ -155,8 +192,25 @@ void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
     if (!touchable || !closeOnTap) {
         return;
     }
-    
-    hide();
+
+    if (buttons.empty()) {
+        hide();
+        return;
+    }
+
+    for (auto& pair : buttons) {
+        auto btn = pair.first;
+        auto cb = pair.second;
+
+        auto location = convertTouchToNodeSpace(touch);
+        location.x = buttonContainer->convertToNodeSpace(location).x;
+
+        if (btn->boundingBox().containsPoint(location)) {
+            buttonCb = cb;
+            hide();
+            return;
+        }
+    }
 }
 
 void Alert::visit()
@@ -186,4 +240,40 @@ void Alert::onTick(const float dt)
         timeoutCb();
         unschedule(schedule_selector(Alert::onTick));
     }
+}
+
+void Alert::addButton(const std::string& description, std::function<void ()> callback)
+{
+    if (tap) {
+        tap->removeFromParent();
+        tap = nullptr;
+    }
+
+    if (!buttonContainer) {
+        buttonContainer = Node::create();
+        addChild(buttonContainer);
+    }
+
+    auto node = Node::create();
+    buttonContainer->addChild(node);
+    buttons.push_back(std::make_pair(node, callback));
+
+    const auto size = Size(220, 40) * config::getScaleFactor();
+    node->setContentSize(size);
+
+    node->setAnchorPoint({0, 1});
+    node->setPositionY(getContentSize().height / 2 * -1);
+
+    auto draw = DrawNode::create();
+    node->addChild(draw);
+    Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
+    draw->drawPolygon(verts, 4, color::toRGBA(Color3B::BLACK), 0, {});
+
+    auto label = fonts::createLight(description, 36);
+    label->setColor(Color3B::WHITE);
+    label->setAnchorPoint({0.5, 0.5});
+    label->setHorizontalAlignment(TextHAlignment::CENTER);
+    label->setVerticalAlignment(TextVAlignment::CENTER);
+    label->setPosition(Point(size / 2));
+    node->addChild(label);
 }
