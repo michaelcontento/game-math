@@ -256,4 +256,24 @@ void setUseBigHintAlert(const bool flag)
     settings->flush();
 }
 
+void clear()
+{
+    setUseBigHintAlert(true);
+    
+    auto settings = UserDefault::getInstance();
+    settings->setIntegerForKey("hints", 3);
+    settings->setBoolForKey("ads", true);
+    settings->setDoubleForKey("installts", 0);
+
+    for (int i = 0; i <= 10; ++i) {
+        for (int j = 0; i <= 16; ++j) {
+            settings->setBoolForKey(impl::getLockedKey(i).c_str(), true);
+            settings->setIntegerForKey(impl::getStarsKey(i, j).c_str(), 0);
+        }
+    }
+
+    settings->flush();
+
+}
+
 } // namespace user

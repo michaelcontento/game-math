@@ -35,6 +35,8 @@ void addHintKeys(const int amount);
 bool useBigHintAlert();
 void setUseBigHintAlert(const bool flag = true);
 
+void clear();
+
 } // namespace user
 
 #endif // MATH_USER_H

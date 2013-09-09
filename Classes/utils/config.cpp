@@ -404,7 +404,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
             int a = c - b;
 
             auto qDice = createDice(0, c);
-            int q1 = qDice({b});
+            int q1 = qDice({a});
             int q2 = c - q1;
 
             int w1, w2, c1 = 0;
@@ -1577,7 +1577,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
         case 3: return [easy]() {
             diceFunction dice;
             if (easy) {
-                dice = createDice(0, 12);
+                dice = createDice(1, 12);
             } else {
                 dice = createDice(4, 20);
             }
@@ -1645,7 +1645,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
         case 5: return [easy]() {
             diceFunction dice;
             if (easy) {
-                dice = createDice(0, 12);
+                dice = createDice(1, 12);
             } else {
                 dice = createDice(4, 20);
             }
@@ -2135,7 +2135,7 @@ std::function<Question()> getGeneratorArithmetic(const int number, const bool ea
             std::string cStr = std::to_string(c);
             if (a < 0) aStr = "(" + aStr + ")";
             if (b < 0) bStr = "(" + bStr + ")";
-            if (c < 0) bStr = "(" + cStr + ")";
+            if (c < 0) cStr = "(" + cStr + ")";
 
             return Question(
                 aStr + " " + op1 + " " + bStr + " " + op2 + " " + cStr,
@@ -2574,8 +2574,8 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
 
             return Question(
                 _("questions", "percentof")
-                    .assign("{value}", std::to_string(c).c_str())
-                    .assign("{perc}", std::to_string(perc).c_str())
+                    .assign("value", std::to_string(c).c_str())
+                    .assign("perc", std::to_string(perc).c_str())
                     .get(),
                 std::to_string(val),
                 std::to_string(w1),

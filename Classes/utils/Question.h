@@ -17,8 +17,10 @@ public:
     Question(std::string question, std::string rightAnswer, std::string wrongAnswer1, std::string wrongAnswer2)
     : question(question), rightAnswer(rightAnswer), wrongAnswer1(wrongAnswer1), wrongAnswer2(wrongAnswer2)
     {
+        BOOST_ASSERT_MSG(rightAnswer != question, rightAnswer.c_str());
         BOOST_ASSERT_MSG(rightAnswer != wrongAnswer1, rightAnswer.c_str());
         BOOST_ASSERT_MSG(rightAnswer != wrongAnswer2, rightAnswer.c_str());
+        BOOST_ASSERT_MSG(wrongAnswer1 != wrongAnswer2, wrongAnswer1.c_str());
 
         format(this->question);
         format(this->rightAnswer);
