@@ -1,6 +1,7 @@
 #include "fonts.h"
 
 #include "config.h"
+#include "user.h"
 
 namespace fonts {
 
@@ -15,6 +16,10 @@ cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short si
 
 cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size)
 {
+    if (user::useBigFonts()) {
+        return createNormal(text, size);
+    }
+    
     return cocos2d::LabelTTF::create(
         text.c_str(),
         "HelveticaNeue-UltraLight",

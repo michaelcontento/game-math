@@ -37,6 +37,7 @@ static std::vector<std::function<void (const int group, const int level)>> starC
 
 bool isLevelGroupLocked(const int group)
 {
+    return false;
     if (group == 0) {
         return false;
     }
@@ -65,6 +66,7 @@ bool allLevelGroupsUnlocked()
 
 int getLevelStars(const int group, const int level)
 {
+    return 3;
     if (group <= 0 || level <= 0) {
         return 0;
     }
@@ -273,7 +275,19 @@ void clear()
     }
 
     settings->flush();
+}
 
+bool useBigFonts()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("bigfonts", false);
+}
+
+void setUseBigFonts(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("bigfonts", flag);
+    settings->flush();
 }
 
 } // namespace user

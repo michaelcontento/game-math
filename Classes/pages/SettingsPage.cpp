@@ -1,11 +1,16 @@
 #include "SettingsPage.h"
 
+#include <avalon/i18n/Localization.h>
+#include <avalon/i18n/LanguageKey.h>
+using avalon::i18n::_;
+
 #include <typeinfo>
 #include <list>
 #include <avalon/GameCenter.h>
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
+#include "../Alert.h"
 #include "../buttons/ToggleButton.h"
 #include "PageManager.h"
 #include "LockedCategoryPage.h"
@@ -35,6 +40,7 @@ void SettingsPage::addButtons()
         getLeaderboardButton(),
         getAchievementsButton(),
         getBlankButton(),
+        getBigFontButton(),
         getMusicButton(),
         getSoundButton()
     };
@@ -105,6 +111,23 @@ ToggleButton* SettingsPage::getMusicButton() const
     btn->getLabel = [](const bool flag) { return flag ? "music.on" : "music.off"; };
     btn->detectState = []() { return user::hasMusicEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setMusicEnabled(flag); return true; };
+
+    return btn;
+}
+
+ToggleButton* SettingsPage::getBigFontButton() const
+{
+    const auto btn = ToggleButton::create();
+    btn->getLabel = [](const bool flag) { return flag ? "bigfont.on" : "bigfont.off"; };
+    btn->detectState = []() { return user::useBigFonts(); };
+    btn->toggleAction = [](const bool flag) {
+        user::setUseBigFonts(flag);
+        auto alert = Alert::create();
+        Director::getInstance()->getRunningScene()->addChild(alert);
+        alert->setDescription(_("settings", "restartrequired").get());
+        alert->show([]() {});
+        return true;
+    };
 
     return btn;
 }

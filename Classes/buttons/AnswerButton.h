@@ -31,7 +31,8 @@ public:
 
 private:
     GamePage* page = nullptr;
-    cocos2d::LabelTTF* label = nullptr;
+    cocos2d::Node* container = nullptr;
+    float lastContainerPos = 0;
     cocos2d::LabelTTF* indicatorLabelLeft = nullptr;
     cocos2d::LabelTTF* indicatorLabelRight = nullptr;
     const float startPosLeft  = (50 * config::getScaleFactor()) * -1;
@@ -40,7 +41,10 @@ private:
     const float endPosRight   = (60 * config::getScaleFactor()) * -1 + config::getFrameSize().width;
     bool isRight = false;
     bool hasBeenUsed = true;
-    
+
+    cocos2d::LabelTTF* addSubLabel(const std::string& text, const int fontSize);
+    bool replaceSqrt(const std::string& text);
+    bool replaceFraction(const std::string& text);
     void addBackground(const cocos2d::Color3B& color);
     void addLabels();
 };

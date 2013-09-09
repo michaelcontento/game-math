@@ -159,7 +159,7 @@ std::string formatFraction(const int a, const int b)
 
 std::string formatFraction(const std::string a, const std::string b)
 {
-    return std::string("F#") + a + ";" + b + "#";
+    return std::string("FRC#") + a + ";" + b + "#";
 };
 
 std::string formatPower(const int a)
@@ -174,7 +174,7 @@ std::string formatSqrt(const int a)
 
 std::string formatSqrt(const std::string a)
 {
-    return std::string("SQRT#") + a + "#";
+    return std::string("SQR#") + a + "#";
 }
 
 void uniqueValues(const int& a, int& b, int& c)
