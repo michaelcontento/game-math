@@ -25,6 +25,9 @@
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C813855B17DE8BBA0074DE85 /* QuestionString.cpp */; };
 		C813856B17DF58C50074DE85 /* de.ini in Resources */ = {isa = PBXBuildFile; fileRef = C813856A17DF58C50074DE85 /* de.ini */; };
+		C813859017DF73FE0074DE85 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C813858F17DF73FD0074DE85 /* Security.framework */; };
+		C813859417DF74F30074DE85 /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C813859317DF74F30074DE85 /* libFlurry_4.2.3.a */; };
+		C813859717DF77CE0074DE85 /* MyFlurry.mm in Sources */ = {isa = PBXBuildFile; fileRef = C813859617DF77CD0074DE85 /* MyFlurry.mm */; };
 		C817F18517D8A4C4002D66E8 /* en.ini in Resources */ = {isa = PBXBuildFile; fileRef = C817F18417D8A4C4002D66E8 /* en.ini */; };
 		C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C817F1A817D8BC3F002D66E8 /* IAd.mm */; };
 		C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */; };
@@ -251,6 +254,11 @@
 		C813855B17DE8BBA0074DE85 /* QuestionString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuestionString.cpp; sourceTree = "<group>"; };
 		C813855C17DE8BBA0074DE85 /* QuestionString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionString.h; sourceTree = "<group>"; };
 		C813856A17DF58C50074DE85 /* de.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = de.ini; sourceTree = "<group>"; };
+		C813858F17DF73FD0074DE85 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C813859217DF74F30074DE85 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		C813859317DF74F30074DE85 /* libFlurry_4.2.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.2.3.a; sourceTree = "<group>"; };
+		C813859517DF77CD0074DE85 /* MyFlurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFlurry.h; sourceTree = "<group>"; };
+		C813859617DF77CD0074DE85 /* MyFlurry.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyFlurry.mm; sourceTree = "<group>"; };
 		C817F18417D8A4C4002D66E8 /* en.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en.ini; sourceTree = "<group>"; };
 		C817F1A817D8BC3F002D66E8 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
 		C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
@@ -393,6 +401,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C813859017DF73FE0074DE85 /* Security.framework in Frameworks */,
 				C84DC2E0178EF1C700F07AE3 /* SystemConfiguration.framework in Frameworks */,
 				C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */,
 				C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */,
@@ -415,6 +424,7 @@
 				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
 				C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */,
 				C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */,
+				C813859417DF74F30074DE85 /* libFlurry_4.2.3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +499,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				C813858F17DF73FD0074DE85 /* Security.framework */,
 				C83CB9C417C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png */,
 				C83CB9C217C6A5B500E8CC93 /* Default-Portrait~ipad.png */,
 				1AF4C2BB17865D9500122817 /* cocos2d_libs.xcodeproj */,
@@ -543,6 +554,16 @@
 			);
 			name = Resources;
 			path = ../Resources;
+			sourceTree = "<group>";
+		};
+		C813859117DF74F30074DE85 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				C813859217DF74F30074DE85 /* Flurry.h */,
+				C813859317DF74F30074DE85 /* libFlurry_4.2.3.a */,
+			);
+			name = Flurry;
+			path = "../../../vendors/Flurry-iOS-4.2.3/Flurry";
 			sourceTree = "<group>";
 		};
 		C817F19217D8A4C7002D66E8 /* lang */ = {
@@ -691,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				C8DD06B917A28DFD005F1762 /* ads */,
+				C813859117DF74F30074DE85 /* Flurry */,
 				C84DC202178EEC9000F07AE3 /* gamecenter */,
 				C84DC206178EEC9000F07AE3 /* payment */,
 				C84DC20A178EEC9000F07AE3 /* ui */,
@@ -808,6 +830,8 @@
 				C8CB342B178B0469001294B7 /* fonts.h */,
 				C8DD06F117A2CE63005F1762 /* helper.cpp */,
 				C8DD06F217A2CE63005F1762 /* helper.h */,
+				C813859517DF77CD0074DE85 /* MyFlurry.h */,
+				C813859617DF77CD0074DE85 /* MyFlurry.mm */,
 				C8E06A5617CD12E90062819A /* Question.h */,
 				C813855B17DE8BBA0074DE85 /* QuestionString.cpp */,
 				C813855C17DE8BBA0074DE85 /* QuestionString.h */,
@@ -1112,6 +1136,7 @@
 				C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */,
 				C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */,
 				C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */,
+				C813859717DF77CE0074DE85 /* MyFlurry.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1192,6 +1217,7 @@
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/TapForTap\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
+					"\"$(SRCROOT)/../Vendors/avalon/vendors/Flurry-iOS-4.2.3/Flurry\"",
 				);
 				OTHER_CFLAGS = "-O2";
 				PRODUCT_NAME = math;
@@ -1253,6 +1279,7 @@
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/TapForTap\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
+					"\"$(SRCROOT)/../Vendors/avalon/vendors/Flurry-iOS-4.2.3/Flurry\"",
 				);
 				PRODUCT_NAME = math;
 				PROVISIONING_PROFILE = "";

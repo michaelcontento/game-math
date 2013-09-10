@@ -5,6 +5,8 @@
 #import "RootViewController.h"
 #import <Crashlytics/Crashlytics.h>
 
+#import "Flurry.h"
+
 @implementation AppController
 
 #pragma mark -
@@ -52,6 +54,9 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] setStatusBarHidden:true];
 
     cocos2d::Application::getInstance()->run();
+
+    [Flurry setCrashReportingEnabled:NO];
+    [Flurry startSession:@"BQ22HDJYS2JMV24NWPGJ"];
 
     [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
 

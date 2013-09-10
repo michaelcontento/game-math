@@ -8,6 +8,7 @@ using avalon::i18n::_;
 #include <avalon/utils/platform.h>
 #include "../utils/config.h"
 #include "../utils/fonts.h"
+#include "../utils/MyFlurry.h"
 #include "../PageManager.h"
 #include "../Alert.h"
 
@@ -93,4 +94,6 @@ void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
     avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
 #endif
+
+    MyFlurry::logEvent("moregames");
 }

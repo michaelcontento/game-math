@@ -8,6 +8,7 @@ using avalon::i18n::_;
 #include "../utils/user.h"
 #include "../utils/config.h"
 #include "../utils/helper.h"
+#include "../utils/MyFlurry.h"
 #include "../pages/GamePage.h"
 #include "../Alert.h"
 
@@ -128,22 +129,26 @@ void HintButton::onPurchaseSucceed(avalon::payment::Manager* const manager, aval
     consumable->consume();
 
     label->setString(std::to_string(user::getHintKeys()).c_str());
+    MyFlurry::logEventWithType("purchase-succeed", "hints");
 }
 
 void HintButton::onPurchaseFail(avalon::payment::Manager* const manager)
 {
+    MyFlurry::logEventWithType("purchase-fail", "hints");
 }
 
 void HintButton::onTransactionStart(avalon::payment::Manager* const manager)
 {
     game->pause();
     helper::showPaymentPendingSpinner(true);
+    MyFlurry::startTimedEvent("payment-transaction");
 }
 
 void HintButton::onTransactionEnd(avalon::payment::Manager* const manager)
 {
     helper::showPaymentPendingSpinner(false);
     game->resume(1.0);
+    MyFlurry::endTimedEvent("payment-transaction");
 }
 
 void HintButton::alert()

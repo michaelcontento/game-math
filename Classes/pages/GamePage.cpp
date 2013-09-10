@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
+#include "../utils/MyFlurry.h"
 #include "../utils/QuestionString.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"
@@ -269,6 +270,8 @@ void GamePage::handleNoMoreStars()
     alert->addButton(_("game", "menu").get(), []() { PageManager::shared().scrollUp(); });
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() {});
+
+    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".nomorestars");
 }
 
 void GamePage::handleTimeover()
@@ -285,6 +288,8 @@ void GamePage::handleTimeover()
     alert->addButton(_("game", "menu").get(), []() { PageManager::shared().scrollUp(); });
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() { });
+
+    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".timeout");
 }
 
 void GamePage::timeover()
@@ -318,6 +323,7 @@ bool GamePage::revealHint()
     }
     revealable = false;
 
+    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".hintused");
     return true;
 }
 

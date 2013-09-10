@@ -8,6 +8,7 @@ using avalon::i18n::_;
 #include "../utils/color.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
+#include "../utils/MyFlurry.h"
 #include "../PageManager.h"
 #include "CategoryPage.h"
 
@@ -213,6 +214,7 @@ void LockedCategoryPage::onPurchaseSucceed(avalon::payment::Manager* const manag
 {
     user::setLevelGroupLocked(getPaymentGroupId(), false);
     unlock();
+    MyFlurry::logEventWithType("purchase-succeed", "pack." + std::to_string(getPaymentGroupId()));
 }
 
 void LockedCategoryPage::unlock()
@@ -230,13 +232,16 @@ void LockedCategoryPage::unlock()
 void LockedCategoryPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
     helper::showPaymentFailed();
+    MyFlurry::logEvent("purchase-fail");
 }
 
 void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
+    MyFlurry::startTimedEvent("payment-transaction");
 }
 
 void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
     helper::showPaymentPendingSpinner(false);
+    MyFlurry::endTimedEvent("payment-transaction");
 }

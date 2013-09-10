@@ -10,6 +10,7 @@ using avalon::i18n::_;
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
+#include "MyFlurry.h"
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
@@ -111,6 +112,11 @@ void setLevelStars(const int group, const int level, const int stars)
     for (auto& callback : impl::starCallbacks) {
         callback(group, level);
     }
+
+    MyFlurry::logEventWithType(
+        std::to_string(group) + "." + std::to_string(level) + ".stars",
+        std::to_string(stars)
+    );
 }
 
 int getSolvedLevelsInAllGroups()

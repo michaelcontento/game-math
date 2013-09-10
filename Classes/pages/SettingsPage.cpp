@@ -10,6 +10,7 @@ using avalon::i18n::_;
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
+#include "../utils/MyFlurry.h"
 #include "../Alert.h"
 #include "../buttons/ToggleButton.h"
 #include "PageManager.h"
@@ -41,8 +42,8 @@ void SettingsPage::addButtons()
         getAchievementsButton(),
         getBlankButton(),
         getBigFontButton(),
-        getMusicButton(),
-        getSoundButton()
+        getSoundButton(),
+        getMusicButton()
     };
 
     container = Node::create();
@@ -245,6 +246,7 @@ Node* SettingsPage::getBlankButton() const
 
 void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
 {
+
     auto id = product->getProductId();
     
     if (id.find(".pack.") != std::string::npos) {
@@ -254,15 +256,19 @@ void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, av
     }
 
     if (id.find(".all.") != std::string::npos) {
+        MyFlurry::stopLogging = true;
         unlockPage(1, manager, product);
         unlockPage(2, manager, product);
         unlockPage(3, manager, product);
         unlockPage(4, manager, product);
+        MyFlurry::stopLogging = false;
+        MyFlurry::logEventWithType("purchase-succeed", "unlockall");
         return;
     }
 
     if (id.find(".removeads") != std::string::npos) {
         user::setAdsEnabled(false);
+        MyFlurry::logEventWithType("purchase-succeed", "removeads");
         return;
     }
 
@@ -287,11 +293,13 @@ void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const man
 void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
     helper::showPaymentFailed();
+    MyFlurry::logEvent("purchase-fail");
 }
 
 void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
     helper::showPaymentPendingSpinner(true);
+    MyFlurry::startTimedEvent("payment-transaction");
 }
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
@@ -320,13 +328,16 @@ void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
     }
 
     helper::showPaymentPendingSpinner(false);
+    MyFlurry::endTimedEvent("payment-transaction");
 }
 
 void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)
 {
+    MyFlurry::logEvent("restore-succeed");
 }
 
 void SettingsPage::onRestoreFail(avalon::payment::Manager* const manager)
 {
     helper::showPaymentFailed();
+    MyFlurry::logEvent("restore-fail");
 }
