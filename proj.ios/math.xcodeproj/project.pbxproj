@@ -539,8 +539,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				C81385C017DFAF2E0074DE85 /* CFNetwork.framework */,
-				C813858F17DF73FD0074DE85 /* Security.framework */,
 				C83CB9C417C6A5B800E8CC93 /* Default-Portrait@2x~ipad.png */,
 				C83CB9C217C6A5B500E8CC93 /* Default-Portrait~ipad.png */,
 				1AF4C2BB17865D9500122817 /* cocos2d_libs.xcodeproj */,
@@ -557,6 +555,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C81385C017DFAF2E0074DE85 /* CFNetwork.framework */,
+				C813858F17DF73FD0074DE85 /* Security.framework */,
 				C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */,
 				C84DC2E1178EF1CB00F07AE3 /* AdSupport.framework */,
 				D44C620F132DFF4E0009C878 /* AudioToolbox.framework */,
@@ -1377,6 +1377,7 @@
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
+					"NDEBUG=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";
