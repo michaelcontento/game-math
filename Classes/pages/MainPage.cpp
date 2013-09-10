@@ -41,7 +41,7 @@ void MainPage::addIcon()
 
 void MainPage::addTapToPlayLabel()
 {
-    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42);
+    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
     // color
@@ -49,8 +49,6 @@ void MainPage::addTapToPlayLabel()
 
     // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});
-    tapToPlay->setHorizontalAlignment(TextHAlignment::CENTER);
-    tapToPlay->setVerticalAlignment(TextVAlignment::CENTER);
 
     // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);

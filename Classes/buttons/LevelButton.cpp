@@ -167,18 +167,11 @@ cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 
 void LevelButton::addNumber()
 {
-    label = fonts::createLight(std::to_string(level).c_str(), 67);
+    label = fonts::createLight(std::to_string(level).c_str(), 67, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
-    // color
     label->setColor(Color3B::WHITE);
-
-    // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
     label->setPosition(Point(getContentSize() / 2));
 }
 

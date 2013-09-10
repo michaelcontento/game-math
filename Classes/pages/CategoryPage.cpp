@@ -38,18 +38,11 @@ bool CategoryPage::init(const int group)
 
 void CategoryPage::addHeadlineLabel()
 {
-    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72);
+    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
-    // color
     tapToPlay->setColor(Color3B::WHITE);
-
-    // alignment
     tapToPlay->setAnchorPoint({0.5, 0.5});
-    tapToPlay->setHorizontalAlignment(TextHAlignment::CENTER);
-    tapToPlay->setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
     tapToPlay->setPositionX(config::getFrameSize().width / 2);
     tapToPlay->setPositionY(config::getFrameSize().height - (75 * config::getScaleFactor()));
 }

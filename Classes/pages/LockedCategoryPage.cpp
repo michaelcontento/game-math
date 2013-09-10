@@ -48,18 +48,11 @@ bool LockedCategoryPage::init(const int group)
 
 void LockedCategoryPage::addHeadlineLabel()
 {
-    auto label = fonts::createNormal(getHeadline().c_str(), 72);
+    auto label = fonts::createNormal(getHeadline().c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
-    // color
     label->setColor(Color3B::BLACK);
-
-    // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
     label->setPositionX(config::getFrameSize().width / 2);
     label->setPositionY(config::getFrameSize().height - (75 * config::getScaleFactor()));
 }
@@ -67,18 +60,11 @@ void LockedCategoryPage::addHeadlineLabel()
 void LockedCategoryPage::addSublineLabel()
 {
     auto txt =  _(("locked." + std::to_string(group)).c_str(), "subline").get();
-    auto label = fonts::createLight(txt, 36);
+    auto label = fonts::createLight(txt, 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
-    // color
     label->setColor(Color3B::BLACK);
-
-    // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
     label->setPositionX(config::getFrameSize().width / 2);
     label->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
 }
@@ -113,21 +99,17 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->drawPolygon(vertsB, 4, color::toRGBA(colorB), 0, {});
 
     // upper label
-    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 68);
+    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 68, TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelA->setColor(Color3B::WHITE);
     labelA->setAnchorPoint({0.5, 0.5});
-    labelA->setHorizontalAlignment(TextHAlignment::CENTER);
-    labelA->setVerticalAlignment(TextVAlignment::CENTER);
     labelA->setPositionX(size.width / 2);
     labelA->setPositionY(size.height + spacing + (size.height / 2));
     boxes->addChild(labelA);
 
     // lower label
-    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 68);
+    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 68, TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelB->setColor(Color3B::WHITE);
     labelB->setAnchorPoint({0.5, 0.5});
-    labelB->setHorizontalAlignment(TextHAlignment::CENTER);
-    labelB->setVerticalAlignment(TextVAlignment::CENTER);
     labelB->setPositionX(size.width / 2);
     labelB->setPositionY(size.height / 2);
     boxes->addChild(labelB);
@@ -141,11 +123,9 @@ void LockedCategoryPage::addCategoryBoxes()
 
 void LockedCategoryPage::addDescriptionLabel()
 {
-    auto label = fonts::createLight(getDescription().c_str(), 36);
+    auto label = fonts::createLight(getDescription().c_str(), 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
     label->setPositionX(config::getFrameSize().width / 2);
     label->setPositionY((config::getFrameSize().height / 4 * 1) + middleOffsetY);
     addChild(label);
@@ -169,11 +149,9 @@ void LockedCategoryPage::addPlayButton()
 
     // == LABEL
 
-    auto label = fonts::createLight(_("general", "play").get(), 72);
+    auto label = fonts::createLight(_("general", "play").get(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
     label->setPosition(Point(size / 2));
     draw->addChild(label);
 }

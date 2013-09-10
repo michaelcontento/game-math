@@ -34,16 +34,14 @@ cocos2d::LabelTTF* QuestionString::addSubLabel(const std::string& text, const in
 {
     LabelTTF* label = nullptr;
     if (bold) {
-        label = fonts::createNormal(text, fontSize);
+        label = fonts::createNormal(text, fontSize, TextHAlignment::CENTER, TextVAlignment::CENTER);
     } else {
-        label = fonts::createLight(text, fontSize);
+        label = fonts::createLight(text, fontSize, TextHAlignment::CENTER, TextVAlignment::CENTER);
     }
     addChild(label);
 
     label->setColor(getColor());
     label->setAnchorPoint({0, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
     label->setPositionX(lastPos);
 
     const static auto padding = (1 * config::getScaleFactor());

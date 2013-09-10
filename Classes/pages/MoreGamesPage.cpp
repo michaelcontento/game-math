@@ -54,18 +54,11 @@ void MoreGamesPage::addLowerIcon()
 
 void MoreGamesPage::addDescription()
 {
-    const auto label = fonts::createLight(_("general", "moregames").get(), 48);
+    const auto label = fonts::createLight(_("general", "moregames").get(), 48, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
-    // color
     label->setColor(Color3B::BLACK);
-
-    // alignment
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
     label->setPosition(Point(config::getFrameSize() / 2));
 }
 

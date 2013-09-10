@@ -5,16 +5,19 @@
 
 namespace fonts {
 
-cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size)
+cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
 {
     return cocos2d::LabelTTF::create(
         text.c_str(),
         "HelveticaNeue-Light",
-        size * config::getScaleFactor()
+        size * config::getScaleFactor(),
+        cocos2d::Size::ZERO,
+        hAlignment,
+        vAlignment
     );
 }
 
-cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size)
+cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
 {
     const static auto useBigFonts = user::useBigFonts();
     if (useBigFonts) {
@@ -24,7 +27,10 @@ cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short siz
     return cocos2d::LabelTTF::create(
         text.c_str(),
         "HelveticaNeue-UltraLight",
-        size * config::getScaleFactor()
+        size * config::getScaleFactor(),
+        cocos2d::Size::ZERO,
+        hAlignment,
+        vAlignment
     );
 }
 

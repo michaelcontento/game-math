@@ -172,14 +172,12 @@ void Alert::enableCloseOnTap(const bool flag)
 void Alert::setDescription(const std::string& description)
 {
     if (!desc) {
-        desc = fonts::createNormal(description.c_str(), 72);
+        desc = fonts::createNormal(description.c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
         addChild(desc);
 
         desc->setAnchorPoint({0.5, 0.3});
         desc->setPosition(Point(getContentSize()));
         desc->setPositionY(desc->getPositionY() - getContentSize().height);
-        desc->setHorizontalAlignment(TextHAlignment::CENTER);
-        desc->setVerticalAlignment(TextVAlignment::CENTER);
     }
 
     desc->setString(description.c_str());
@@ -283,11 +281,9 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
     draw->drawPolygon(verts, 4, color::toRGBA(Color3B::BLACK), 0, {});
 
-    auto label = fonts::createLight(description, 36);
+    auto label = fonts::createLight(description, 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
-    label->setHorizontalAlignment(TextHAlignment::CENTER);
-    label->setVerticalAlignment(TextVAlignment::CENTER);
     label->setPosition(Point(size / 2));
     node->addChild(label);
 }
