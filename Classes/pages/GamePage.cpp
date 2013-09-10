@@ -248,8 +248,10 @@ void GamePage::handleAllQuestionsAnswered()
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "done").get());
-    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
-    alert->addButton(_("game", "next").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "menu").get(), []() { PageManager::shared().scrollUp(); });
+    if (level < 16) {
+        alert->addButton(_("game", "next").get(), [this]() { ++level; restart(); });
+    }
     alert->show([]() { });
 
 }
@@ -264,7 +266,7 @@ void GamePage::handleNoMoreStars()
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "nomorestars").get());
-    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "menu").get(), []() { PageManager::shared().scrollUp(); });
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() {});
 }
@@ -280,7 +282,7 @@ void GamePage::handleTimeover()
     auto alert = Alert::create();
     addChild(alert);
     alert->setDescription(_("game", "timeout").get());
-    alert->addButton(_("game", "back").get(), []() { PageManager::shared().scrollUp(); });
+    alert->addButton(_("game", "menu").get(), []() { PageManager::shared().scrollUp(); });
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() { });
 }

@@ -186,10 +186,13 @@ void Alert::setDescription(const std::string& description)
 
     const auto textSize = desc->getContentSize();
     const static auto maxWidth = config::getFrameSize().width * 0.9;
+    const static auto maxHeight = getContentSize().height * 1.2;
+
     if (textSize.width > maxWidth) {
         desc->setScale(maxWidth / textSize.width);
-    } else {
-        desc->setScale(1);
+    }
+    if (textSize.height > maxHeight) {
+        desc->setScale(MIN(desc->getScale(), maxHeight / textSize.height));
     }
 }
 
@@ -263,9 +266,6 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     if (!buttonContainer) {
         buttonContainer = Node::create();
         addChild(buttonContainer);
-
-        auto bump = 10 * config::getScaleFactor();
-        desc->setPositionY(desc->getPositionY() + bump);
     }
 
     auto node = Node::create();
