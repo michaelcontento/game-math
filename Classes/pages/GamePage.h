@@ -11,6 +11,7 @@
 class AnswerButton;
 class GameTimer;
 class HintButton;
+class QuestionString;
 
 class GamePage : public Page
 {
@@ -42,7 +43,7 @@ private:
     HintButton* hints = nullptr;
     cocos2d::Node* progressBarLeft = nullptr;
     cocos2d::Node* progressBarRight = nullptr;
-    cocos2d::LabelTTF* question = nullptr;
+    QuestionString* question = nullptr;
     std::vector<AnswerButton*> answerButtons {};
     std::unordered_set<Question> questions {};
     bool timeoverAlreadyHandled = false;
@@ -72,7 +73,6 @@ private:
     void markQuestionAnswered();
     void updateProgressbar();
     void setNextQuestion();
-    void configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const;
     cocos2d::Color3B getNextAnswerButtonColor(const cocos2d::Color3B& color) const;
 };
 

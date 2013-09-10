@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
+#include "../utils/QuestionString.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"
 #include "../buttons/BackButton.h"
@@ -149,15 +150,22 @@ void GamePage::addQuestion()
         throw new std::runtime_error("question already present");
     }
 
-    question = fonts::createNormal("3", 96);
+    question = QuestionString::create(96);
+    question->bold = true;
+    question->setColor(Color3B::BLACK);
+    question->setAnchorPoint({0.5, 0.5});
+    question->setPosition({
+        getContentSize().width / 2,
+        (getContentSize().height / 3 * 2) - (25 * config::getScaleFactor())
+    });
+    question->setText("3");
     addChild(question);
-    configureAndAlignQuestionLabel(*question);
 
     question->runAction(Sequence::create(
         EaseIn::create(FadeOut::create(config::getQuestionStartDelay() * 2), 3),
-        CallFunc::create([this]() { question->setString("2"); }),
+        CallFunc::create([this]() { question->setText("2"); }),
         FadeOut::create(config::getQuestionStartDelay()),
-        CallFunc::create([this]() { question->setString("1"); }),
+        CallFunc::create([this]() { question->setText("1"); }),
         FadeOut::create(config::getQuestionStartDelay()),
         CallFunc::create([this]() { setNextQuestion(); timer->start(); acceptAnswers = true; }),
         NULL
@@ -372,28 +380,11 @@ void GamePage::setNextQuestion()
         btn->showAnswer();
     }
 
-    question->setString(currentQuestion.question.c_str());
+    question->setText(currentQuestion.question.c_str());
     question->setOpacity(255);
 
     timer->resetHintTimer();
     revealable = true;
-}
-
-void GamePage::configureAndAlignQuestionLabel(cocos2d::LabelTTF& label) const
-{
-    // color
-    label.setColor(Color3B::BLACK);
- 
-    // alignment
-    label.setAnchorPoint({0.5, 0.5});
-    label.setHorizontalAlignment(TextHAlignment::CENTER);
-    label.setVerticalAlignment(TextVAlignment::CENTER);
-
-    // positioning
-    label.setPosition({
-        getContentSize().width / 2,
-        (getContentSize().height / 3 * 2) - (25 * config::getScaleFactor())
-    });
 }
 
 void GamePage::answeredWrong()
