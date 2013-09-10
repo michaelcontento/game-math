@@ -17,7 +17,7 @@ public:
     void enableCloseOnTap(const bool flag = true);
 
     void show(std::function<void ()> callback, const bool instant = false);
-    void hide();
+    void hide(const bool instant = false);
 
     void setTimeout(const float secs, std::function<void ()> callback);
     void onTick(const float dt);

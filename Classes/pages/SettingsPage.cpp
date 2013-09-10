@@ -286,10 +286,12 @@ void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const man
 
 void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentFailed();
 }
 
 void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentPendingSpinner(true);
 }
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
@@ -326,4 +328,5 @@ void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)
 
 void SettingsPage::onRestoreFail(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentFailed();
 }

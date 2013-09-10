@@ -36,10 +36,18 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
     return true;
 }
 
+void showPaymentFailed()
+{
+    auto alert = Alert::create();
+    Director::getInstance()->getRunningScene()->addChild(alert);
+    alert->setDescription(_("payment", "failed").get());
+    alert->show([]() {}, true);
+}
+
 void showPaymentPendingSpinner(const bool flag)
 {
     if (lastPendingAlert) {
-        lastPendingAlert->hide();
+        lastPendingAlert->hide(true);
         lastPendingAlert = nullptr;
     }
 

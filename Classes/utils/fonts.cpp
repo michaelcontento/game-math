@@ -16,7 +16,8 @@ cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short si
 
 cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size)
 {
-    if (user::useBigFonts()) {
+    const static auto useBigFonts = user::useBigFonts();
+    if (useBigFonts) {
         return createNormal(text, size);
     }
     

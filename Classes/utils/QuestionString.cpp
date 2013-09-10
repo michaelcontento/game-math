@@ -54,6 +54,7 @@ cocos2d::LabelTTF* QuestionString::addSubLabel(const std::string& text, const in
 
 bool QuestionString::replaceSqrt(const std::string& text)
 {
+    const static auto lineLeftOffset = 7 * config::getScaleFactor();
     auto work = text;
     auto pos = work.find("SQR#");
     if (pos == std::string::npos) {
@@ -82,7 +83,6 @@ bool QuestionString::replaceSqrt(const std::string& text)
 
         // extend the line of the square root sign
         const auto restPos = lastPos;
-        const static auto lineLeftOffset = 3 * config::getScaleFactor();
         const auto lineLenght = lastPos - oldLastPos + lineLeftOffset;
 
         std::string lineStr = "_";
@@ -224,6 +224,12 @@ void QuestionString::setText(const std::string& text)
     }
 
     setContentSize(Size(lastPos, 0));
+    const static auto maxWidth = config::getFrameSize().width * 0.9;
+    if (lastPos > maxWidth) {
+        setScaleX(maxWidth / lastPos);
+    } else {
+        setScaleX(1);
+    }
 }
 
 void QuestionString::setColor(const cocos2d::Color3B& color)

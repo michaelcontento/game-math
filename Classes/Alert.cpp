@@ -110,17 +110,19 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
     }
 }
 
-void Alert::hide()
+void Alert::hide(const bool instant)
 {
     unschedule(schedule_selector(Alert::onTick));
     
     visible = true;
     touchable = false;
 
+    float instaMod = instant ? 0 : 1;
+
     draw->stopAllActions();
     draw->runAction(Sequence::create(
-        DelayTime::create(config::getAlertFadeTime() * 0.2),
-        EaseInOut::create(ScaleTo::create(config::getAlertFadeTime(), 1, 0), 3),
+        DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
+        EaseInOut::create(ScaleTo::create(config::getAlertFadeTime() * instaMod, 1, 0), 3),
         CallFunc::create([this]() {
             visible = false;
             Director::getInstance()
@@ -146,8 +148,8 @@ void Alert::hide()
         bottomAnimationNode->stopAllActions();
         bottomAnimationNode->runAction(EaseInOut::create(
             Spawn::create(
-                MoveTo::create(config::getAlertFadeTime(), pos),
-                FadeOut::create(config::getAlertFadeTime()),
+                MoveTo::create(config::getAlertFadeTime() * instaMod, pos),
+                FadeOut::create(config::getAlertFadeTime() * instaMod),
                 NULL
             ),
             3
@@ -157,7 +159,7 @@ void Alert::hide()
     if (desc) {
         auto pos = Point(getContentSize().width + desc->getContentSize().width, desc->getPositionY());
         desc->stopAllActions();
-        desc->runAction(EaseInOut::create(MoveTo::create(config::getAlertFadeTime(), pos), 3));
+        desc->runAction(EaseInOut::create(MoveTo::create(config::getAlertFadeTime() * instaMod, pos), 3));
     }
 }
 
@@ -169,17 +171,26 @@ void Alert::enableCloseOnTap(const bool flag)
 
 void Alert::setDescription(const std::string& description)
 {
-    if (desc) {
-        desc->setString(description.c_str());
-        return;
+    if (!desc) {
+        desc = fonts::createNormal(description.c_str(), 72);
+        addChild(desc);
+
+        desc->setAnchorPoint({0.5, 0.3});
+        desc->setPosition(Point(getContentSize()));
+        desc->setPositionY(desc->getPositionY() - getContentSize().height);
+        desc->setHorizontalAlignment(TextHAlignment::CENTER);
+        desc->setVerticalAlignment(TextVAlignment::CENTER);
     }
 
-    desc = fonts::createNormal(description.c_str(), 72);
-    addChild(desc);
+    desc->setString(description.c_str());
 
-    desc->setAnchorPoint({0.5, 1});
-    desc->setPosition(Point(getContentSize() / 2));
-    desc->setPositionX(desc->getContentSize().width * -1);
+    const auto textSize = desc->getContentSize();
+    const static auto maxWidth = config::getFrameSize().width * 0.9;
+    if (textSize.width > maxWidth) {
+        desc->setScale(maxWidth / textSize.width);
+    } else {
+        desc->setScale(1);
+    }
 }
 
 bool Alert::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)

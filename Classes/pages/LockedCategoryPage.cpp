@@ -229,6 +229,7 @@ void LockedCategoryPage::unlock()
 
 void LockedCategoryPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentFailed();
 }
 
 void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const manager)
