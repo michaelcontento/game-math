@@ -31,6 +31,7 @@ public:
 private:
     GamePage* game = nullptr;
     cocos2d::LabelTTF* label = nullptr;
+    cocos2d::Sprite* key = nullptr;
 
     void addLabel();
     void addIcon();

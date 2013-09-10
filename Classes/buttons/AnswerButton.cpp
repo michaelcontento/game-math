@@ -43,9 +43,14 @@ void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
     if (!enabled || !ccTouchBegan(touch, event)) {
         return;
     }
-    if (!boundingBox().containsPoint(touch->getLocation())) {
+
+    static const auto padding = config::getAnswerButtonPadding();
+    const auto bb = Rect(0, padding * -0.5, getContentSize().width, getContentSize().height + padding);
+    const auto loc = convertTouchToNodeSpace(touch);
+    if (!bb.containsPoint(loc)) {
         return;
     }
+    
     hasBeenUsed = true;
     
     indicatorLabelLeft->stopAllActions();

@@ -54,7 +54,7 @@ void HintButton::addLabel()
 
 void HintButton::addIcon()
 {
-    auto key = Sprite::createWithSpriteFrameName("key.png");
+    key = Sprite::createWithSpriteFrameName("key.png");
     addChild(key);
 
     key->setColor(Color3B::BLACK);
@@ -94,7 +94,10 @@ void HintButton::onExit()
 
 bool HintButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    return boundingBox().containsPoint(touch->getLocation());
+    const auto bb = key->getBoundingBox();
+    const auto mid = Point(bb.getMidX(), bb.getMidY());
+    const auto loc = convertTouchToNodeSpace(touch);
+    return (loc - mid).getLength() <= 120;
 }
 
 void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
