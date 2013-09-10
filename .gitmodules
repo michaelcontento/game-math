@@ -1,3 +1,6 @@
 [submodule "Vendors/avalon"]
 	path = Vendors/avalon
 	url = git@github.com:michaelcontento/avalon.git
+[submodule "Vendors/appirater"]
+	path = Vendors/appirater
+	url = https://github.com/arashpayan/appirater.git
