@@ -24,6 +24,7 @@
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C813855B17DE8BBA0074DE85 /* QuestionString.cpp */; };
+		C813856B17DF58C50074DE85 /* de.ini in Resources */ = {isa = PBXBuildFile; fileRef = C813856A17DF58C50074DE85 /* de.ini */; };
 		C817F18517D8A4C4002D66E8 /* en.ini in Resources */ = {isa = PBXBuildFile; fileRef = C817F18417D8A4C4002D66E8 /* en.ini */; };
 		C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C817F1A817D8BC3F002D66E8 /* IAd.mm */; };
 		C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */; };
@@ -249,6 +250,7 @@
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C813855B17DE8BBA0074DE85 /* QuestionString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuestionString.cpp; sourceTree = "<group>"; };
 		C813855C17DE8BBA0074DE85 /* QuestionString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionString.h; sourceTree = "<group>"; };
+		C813856A17DF58C50074DE85 /* de.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = de.ini; sourceTree = "<group>"; };
 		C817F18417D8A4C4002D66E8 /* en.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = en.ini; sourceTree = "<group>"; };
 		C817F1A817D8BC3F002D66E8 /* IAd.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IAd.mm; sourceTree = "<group>"; };
 		C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTapForTapAds.a; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 		C817F19217D8A4C7002D66E8 /* lang */ = {
 			isa = PBXGroup;
 			children = (
+				C813856A17DF58C50074DE85 /* de.ini */,
 				C817F18417D8A4C4002D66E8 /* en.ini */,
 			);
 			name = lang;
@@ -1033,6 +1036,7 @@
 				C8F7094717D8E5E80053FE9A /* assets.png in Resources */,
 				C8F7094B17D8EAC90053FE9A /* icon-down.png in Resources */,
 				C8F7094C17D8EAC90053FE9A /* icon-up.png in Resources */,
+				C813856B17DF58C50074DE85 /* de.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
