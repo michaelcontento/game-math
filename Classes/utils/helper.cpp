@@ -74,4 +74,12 @@ void showPaymentPendingSpinner(const bool flag)
     lastPendingAlert->show([]() {}, true);
 }
 
+void showGameCenterAlert()
+{
+    auto alert = Alert::create();
+    Director::getInstance()->getRunningScene()->addChild(alert);
+    alert->setDescription(_("settings", "gamecenterdisabled").get());
+    alert->show([]() {});
+}
+
 } // namespace helper

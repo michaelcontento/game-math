@@ -139,7 +139,9 @@ ToggleButton* SettingsPage::getAchievementsButton() const
     btn->getLabel = [](const bool flag) { return "achievements"; };
     btn->toggleAction = [](const bool flag) {
         auto gc = avalon::GameCenter();
-        gc.showAchievements();
+        if (!gc.showAchievements()) {
+            helper::showGameCenterAlert();
+        }
         return false;
     };
 
@@ -152,7 +154,9 @@ ToggleButton* SettingsPage::getLeaderboardButton() const
     btn->getLabel = [](const bool flag) { return "leaderboard"; };
     btn->toggleAction = [](const bool flag) {
         auto gc = avalon::GameCenter();
-        gc.showScores();
+        if (!gc.showScores()) {
+            helper::showGameCenterAlert();
+        }
         return false;
     };
 

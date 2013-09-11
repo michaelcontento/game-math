@@ -9,6 +9,7 @@ namespace helper {
 bool paymentAvailableCheck(avalon::payment::Manager* payment);
 void showPaymentPendingSpinner(const bool flag);
 void showPaymentFailed();
+void showGameCenterAlert();
 
 }; // namespace helper
 
