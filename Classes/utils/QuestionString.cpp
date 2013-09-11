@@ -24,7 +24,7 @@ bool QuestionString::init(const int baseSize)
         return false;
     }
 
-    this->baseSize = baseSize * config::getScaleFactorHeightMagic();
+    this->baseSize = baseSize * config::getScaleFactorHeight();
     setAnchorPoint({0.5, 0});
     
     return true;
@@ -32,12 +32,7 @@ bool QuestionString::init(const int baseSize)
 
 cocos2d::LabelTTF* QuestionString::addSubLabel(const std::string& text, const int fontSize)
 {
-    LabelTTF* label = nullptr;
-    if (bold) {
-        label = fonts::createNormal(text, fontSize, TextHAlignment::CENTER, TextVAlignment::CENTER);
-    } else {
-        label = fonts::createLight(text, fontSize, TextHAlignment::CENTER, TextVAlignment::CENTER);
-    }
+    LabelTTF* label = fonts::createLight(text, fontSize, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
     label->setColor(getColor());
@@ -108,7 +103,7 @@ bool QuestionString::replaceSqrt(const std::string& text)
 
 bool QuestionString::replaceFraction(const std::string& text)
 {
-    const auto verticalOffset = static_cast<int>(baseSize * 0.278) * config::getScaleFactor();
+    const auto verticalOffset = static_cast<int>(baseSize * 0.328) * config::getScaleFactor();
     static const auto lineExtra = 2 * config::getScaleFactor();
     auto work = text;
     auto pos = work.find("FRC#");
@@ -126,14 +121,14 @@ bool QuestionString::replaceFraction(const std::string& text)
 
         // get the upper text
         pos = work.find(";");
-        auto upper = addSubLabel(work.substr(0, pos), baseSize * 0.625);
+        auto upper = addSubLabel(work.substr(0, pos), baseSize * 0.632);
         lastPos = oldLastPos;
         upper->setPositionY(upper->getPositionY() + verticalOffset);
         work = work.substr(pos + 1);
 
         // get the upper text
         pos = work.find("#");
-        auto lower = addSubLabel(work.substr(0, pos), baseSize * 0.625);
+        auto lower = addSubLabel(work.substr(0, pos), baseSize * 0.632);
         lastPos = oldLastPos;
         lower->setPositionY(lower->getPositionY() - verticalOffset);
         work = work.substr(pos + 1);

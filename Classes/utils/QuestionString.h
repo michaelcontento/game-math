@@ -7,8 +7,6 @@
 class QuestionString : public cocos2d::NodeRGBA
 {
 public:
-    bool bold = false;
-    
     static QuestionString* create(void) = delete;
     static QuestionString* create(const int baseSize);
     bool init(const int baseSize);

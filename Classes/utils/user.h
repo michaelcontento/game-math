@@ -35,9 +35,6 @@ void addHintKeys(const int amount);
 bool useBigHintAlert();
 void setUseBigHintAlert(const bool flag = true);
 
-bool useBigFonts();
-void setUseBigFonts(const bool flag = true);
-
 void clear();
 
 } // namespace user

@@ -43,7 +43,7 @@ bool HintButton::init(GamePage& game)
 
 void HintButton::addLabel()
 {
-    label = fonts::createLight(std::to_string(user::getHintKeys()), 48 * config::getScaleFactorHeightMagic());
+    label = fonts::createLight(std::to_string(user::getHintKeys()), 42 * config::getScaleFactorHeightMagic());
     addChild(label);
 
     label->setColor(Color3B::BLACK);

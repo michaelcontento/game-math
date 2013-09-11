@@ -9,7 +9,7 @@ cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short si
 {
     return cocos2d::LabelTTF::create(
         text.c_str(),
-        "HelveticaNeue-Light",
+        "HelveticaNeue-Medium",
         size * config::getScaleFactor(),
         cocos2d::Size::ZERO,
         hAlignment,
@@ -19,14 +19,9 @@ cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short si
 
 cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
 {
-    const static auto useBigFonts = user::useBigFonts();
-    if (useBigFonts) {
-        return createNormal(text, size);
-    }
-    
     return cocos2d::LabelTTF::create(
         text.c_str(),
-        "HelveticaNeue-UltraLight",
+        "HelveticaNeue-Light",
         size * config::getScaleFactor(),
         cocos2d::Size::ZERO,
         hAlignment,

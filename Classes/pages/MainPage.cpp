@@ -41,7 +41,7 @@ void MainPage::addIcon()
 
 void MainPage::addTapToPlayLabel()
 {
-    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
     // color

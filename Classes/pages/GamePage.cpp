@@ -151,8 +151,7 @@ void GamePage::addQuestion()
         throw new std::runtime_error("question already present");
     }
 
-    question = QuestionString::create(96);
-    question->bold = true;
+    question = QuestionString::create(114);
     question->setColor(Color3B::BLACK);
     question->setAnchorPoint({0.5, 0.5});
     question->setPosition({

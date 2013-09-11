@@ -54,7 +54,7 @@ void MoreGamesPage::addLowerIcon()
 
 void MoreGamesPage::addDescription()
 {
-    const auto label = fonts::createLight(_("general", "moregames").get(), 48 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    const auto label = fonts::createLight(_("general", "moregames").get(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
     label->setColor(Color3B::BLACK);

@@ -69,7 +69,7 @@ float getAnswerButtonPadding()
 
 cocos2d::Size getAnswerButtonSize()
 {
-    return {getFrameSize().width, 80 * std::max(config::getScaleFactor(), config::getScaleFactorHeight())};
+    return {getFrameSize().width, 85 * std::max(config::getScaleFactor(), config::getScaleFactorHeight())};
 }
 
 std::string getGroupHeadline(const int group)

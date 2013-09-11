@@ -281,17 +281,4 @@ void clear()
     settings->flush();
 }
 
-bool useBigFonts()
-{
-    auto settings = UserDefault::getInstance();
-    return settings->getBoolForKey("bigfonts", false);
-}
-
-void setUseBigFonts(const bool flag)
-{
-    auto settings = UserDefault::getInstance();
-    settings->setBoolForKey("bigfonts", flag);
-    settings->flush();
-}
-
 } // namespace user

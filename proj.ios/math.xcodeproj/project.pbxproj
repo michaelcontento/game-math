@@ -43,6 +43,7 @@
 		C83324E517E071A9005BD6AD /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C83324E317E071A9005BD6AD /* Default-Landscape@2x~ipad.png */; };
 		C83324E617E071A9005BD6AD /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C83324E417E071A9005BD6AD /* Default-Landscape~ipad.png */; };
 		C83324E817E071B6005BD6AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C83324E717E071B6005BD6AD /* Images.xcassets */; };
+		C835111B17E0A6820028F8FA /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C835111A17E0A6820028F8FA /* HelveticaNeueMedium.ttf */; };
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F871797F5F100FA1F87 /* Alert.cpp */; };
 		C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */; };
@@ -83,7 +84,6 @@
 		C8CB340A17870AA4001294B7 /* SettingsPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB340417870AA4001294B7 /* SettingsPage.cpp */; };
 		C8CB341C178AC86D001294B7 /* Page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB341B178AC86D001294B7 /* Page.cpp */; };
 		C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */; };
-		C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CB3429178B0068001294B7 /* HelveticaNeueUltraLight.ttf */; };
 		C8CB342D178B0581001294B7 /* fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342C178B0581001294B7 /* fonts.cpp */; };
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
 		C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8DD06AB17A28DA6005F1762 /* ads.ini */; };
@@ -317,6 +317,7 @@
 		C83324E317E071A9005BD6AD /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		C83324E417E071A9005BD6AD /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		C83324E717E071B6005BD6AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = math/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		C835111A17E0A6820028F8FA /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
 		C8359F761797E81400FA1F87 /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
 		C8359F771797E81400FA1F87 /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		C8359F871797F5F100FA1F87 /* Alert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Alert.cpp; path = ../Classes/Alert.cpp; sourceTree = "<group>"; };
@@ -402,7 +403,6 @@
 		C8CB341A178AAEF7001294B7 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		C8CB341B178AC86D001294B7 /* Page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Page.cpp; sourceTree = "<group>"; };
 		C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueLight.ttf; sourceTree = "<group>"; };
-		C8CB3429178B0068001294B7 /* HelveticaNeueUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueUltraLight.ttf; sourceTree = "<group>"; };
 		C8CB342B178B0469001294B7 /* fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fonts.h; sourceTree = "<group>"; };
 		C8CB342C178B0581001294B7 /* fonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fonts.cpp; sourceTree = "<group>"; };
 		C8CB342E178B05CB001294B7 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
@@ -910,7 +910,7 @@
 		C8CB3426178AFDA3001294B7 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C8CB3429178B0068001294B7 /* HelveticaNeueUltraLight.ttf */,
+				C835111A17E0A6820028F8FA /* HelveticaNeueMedium.ttf */,
 				C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */,
 			);
 			name = fonts;
@@ -1150,7 +1150,6 @@
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */,
-				C8CB342A178B0068001294B7 /* HelveticaNeueUltraLight.ttf in Resources */,
 				C83324E817E071B6005BD6AD /* Images.xcassets in Resources */,
 				C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */,
 				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
@@ -1160,6 +1159,7 @@
 				C817F18517D8A4C4002D66E8 /* en.ini in Resources */,
 				C8F7094617D8E5E80053FE9A /* assets.plist in Resources */,
 				C8F7094717D8E5E80053FE9A /* assets.png in Resources */,
+				C835111B17E0A6820028F8FA /* HelveticaNeueMedium.ttf in Resources */,
 				C8F7094B17D8EAC90053FE9A /* icon-down.png in Resources */,
 				C83324E617E071A9005BD6AD /* Default-Landscape~ipad.png in Resources */,
 				C8F7094C17D8EAC90053FE9A /* icon-up.png in Resources */,

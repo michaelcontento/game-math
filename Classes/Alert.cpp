@@ -33,7 +33,7 @@ bool Alert::init()
     setPositionY(config::getFrameSize().height / 2);
 
     // tap to continue
-    tap = fonts::createLight(_("general", "taptocontinue").get(), 36 * config::getScaleFactorHeightMagic());
+    tap = fonts::createLight(_("general", "taptocontinue").get(), 42);
     addChild(tap);
 
     tap->setAnchorPoint({0.5, 1});
@@ -173,7 +173,7 @@ void Alert::enableCloseOnTap(const bool flag)
 void Alert::setDescription(const std::string& description)
 {
     if (!desc) {
-        desc = fonts::createNormal(description.c_str(), 72 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+        desc = fonts::createLight(description.c_str(), 72 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
         addChild(desc);
 
         desc->setAnchorPoint({0.5, 0.3});
@@ -283,7 +283,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
     draw->drawPolygon(verts, 4, color::toRGBA(Color3B({55, 55, 55})), 0, {});
 
-    auto label = fonts::createLight(description, 42 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(description, 36 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));

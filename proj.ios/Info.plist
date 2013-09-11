@@ -38,7 +38,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>HelveticaNeueLight.ttf</string>
-		<string>HelveticaNeueUltraLight.ttf</string>
+		<string>HelveticaNeueMedium.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
