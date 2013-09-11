@@ -60,7 +60,7 @@ void SettingsPage::addButtons()
 
 void SettingsPage::updateContainerLayout() const
 {
-    const auto spacing = 15 * config::getScaleFactor();
+    const auto spacing = 15 * config::getScaleFactorHeightMagic();
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;

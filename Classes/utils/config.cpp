@@ -15,7 +15,21 @@ namespace config {
 
 float getScaleFactor()
 {
-    return getFrameSize().width / getDesignWidth();
+    static const auto factor = getFrameSize().width / getDesignWidth();
+    return factor;
+}
+
+float getScaleFactorHeight()
+{
+    static auto factor = getFrameSize().height / getDesignHeight();
+    while (factor >= 2) --factor;
+    return factor;
+}
+
+float getScaleFactorHeightMagic()
+{
+    static const auto factor = std::max(1.0, ((getScaleFactorHeight() - 1.0) * 5) + 1.0);
+    return factor;
 }
 
 cocos2d::Size getFrameSize()
@@ -45,17 +59,17 @@ float getQuestionStartDelay()
 
 float getProgressbarHeight()
 {
-    return 8 * getScaleFactor();
+    return 8 * std::max(config::getScaleFactor(), config::getScaleFactorHeightMagic());
 }
 
 float getAnswerButtonPadding()
 {
-    return 30 * config::getScaleFactor();
+    return 30 * std::max(config::getScaleFactor(), config::getScaleFactorHeight());
 }
 
 cocos2d::Size getAnswerButtonSize()
 {
-    return {getFrameSize().width, 80 * getScaleFactor()};
+    return {getFrameSize().width, 80 * std::max(config::getScaleFactor(), config::getScaleFactorHeight())};
 }
 
 std::string getGroupHeadline(const int group)

@@ -24,7 +24,7 @@ bool QuestionString::init(const int baseSize)
         return false;
     }
 
-    this->baseSize = baseSize;
+    this->baseSize = baseSize * config::getScaleFactorHeightMagic();
     setAnchorPoint({0.5, 0});
     
     return true;
@@ -222,11 +222,12 @@ void QuestionString::setText(const std::string& text)
     }
 
     setContentSize(Size(lastPos, 0));
+
     const static auto maxWidth = config::getFrameSize().width * 0.9;
     if (lastPos > maxWidth) {
-        setScaleX(maxWidth / lastPos);
+        setScale(maxWidth / lastPos);
     } else {
-        setScaleX(1);
+        setScale(1);
     }
 }
 

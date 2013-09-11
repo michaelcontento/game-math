@@ -38,7 +38,7 @@ bool CategoryPage::init(const int group)
 
 void CategoryPage::addHeadlineLabel()
 {
-    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
     tapToPlay->setColor(Color3B::WHITE);
@@ -52,7 +52,8 @@ void CategoryPage::addLevelButtons()
     auto container = Node::create();
     addChild(container);
 
-    auto spacing = 15 * config::getScaleFactor();
+    auto spacingX = 15 * config::getScaleFactor();
+    auto spacingY = 15 * std::max(config::getScaleFactor(), config::getScaleFactorHeightMagic());
     auto containerSize = container->getContentSize();
     auto gridSize = Point(4, 4);
 
@@ -63,8 +64,8 @@ void CategoryPage::addLevelButtons()
 
         auto gridPos = Point(i % int(gridSize.x), (gridSize.y - 1) - int(i / gridSize.y));
         auto size = btn->getContentSize();
-        btn->setPositionX(gridPos.x * (size.width  + spacing) - spacing);
-        btn->setPositionY(gridPos.y * (size.height + spacing) - spacing);
+        btn->setPositionX(gridPos.x * (size.width  + spacingX) - spacingX);
+        btn->setPositionY(gridPos.y * (size.height + spacingY) - spacingY);
 
         containerSize.width  = std::max(containerSize.width,  btn->getPositionX() + btn->getContentSize().width);
         containerSize.height = std::max(containerSize.height, btn->getPositionY() + btn->getContentSize().height);

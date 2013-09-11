@@ -34,19 +34,20 @@ cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short siz
     );
 }
 
-cocos2d::Sprite* createStar(const cocos2d::Color3B& color, const bool filled)
+cocos2d::Sprite* createStar(const cocos2d::Color3B& color, const bool filled, const bool magic)
 {
     auto star = cocos2d::Sprite::createWithSpriteFrameName(filled ? "star-full.png" : "star-empty.png");
     star->setColor(color);
-    star->setScale(0.5 * config::getScaleFactor());    
+    const auto factor = magic ? config::getScaleFactorHeightMagic() : config::getScaleFactorHeight();
+    star->setScale(0.5 * config::getScaleFactor() * factor);
     return star;
 }
 
-void fillStarContainer(cocos2d::Node& cocosContainer, std::deque<cocos2d::Sprite*>& cppContainer, const int amount, const cocos2d::Color3B& color, const bool filled)
+void fillStarContainer(cocos2d::Node& cocosContainer, std::deque<cocos2d::Sprite*>& cppContainer, const int amount, const cocos2d::Color3B& color, const bool filled, const bool magic)
 {
     auto padding = 3 * config::getScaleFactor();
     for (int i = 1; i <= amount; ++i) {
-        auto star = fonts::createStar(color, filled);
+        auto star = fonts::createStar(color, filled, magic);
         cocosContainer.addChild(star);
         cppContainer.push_back(star);
 

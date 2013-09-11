@@ -32,7 +32,7 @@ void MainPage::addIcon()
     img->setAnchorPoint({0.5, 0});
     img->setPosition(Point(config::getFrameSize() / 2));
 
-    img->setScale(config::getScaleFactor());
+    img->setScale(std::max(config::getScaleFactor(), config::getScaleFactorHeight()));
 
     // fade
     img->setOpacity(0);
@@ -41,7 +41,7 @@ void MainPage::addIcon()
 
 void MainPage::addTapToPlayLabel()
 {
-    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto tapToPlay = fonts::createLight(_("general", "taptoplay").get(), 42 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
     // color

@@ -60,7 +60,7 @@ void LockedCategoryPage::addHeadlineLabel()
 void LockedCategoryPage::addSublineLabel()
 {
     auto txt =  _(("locked." + std::to_string(group)).c_str(), "subline").get();
-    auto label = fonts::createLight(txt, 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(txt, 48, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
     label->setColor(Color3B::BLACK);
@@ -81,11 +81,11 @@ std::string LockedCategoryPage::getDescription() const
 
 void LockedCategoryPage::addCategoryBoxes()
 {
-    auto boxes = DrawNode::create();
+    boxes = DrawNode::create();
     addChild(boxes);
 
     // keep things "readable"
-    Size size = {config::getFrameSize().width * 0.75, config::getAnswerButtonSize().height * 1.25};
+    Size size = {config::getFrameSize().width, config::getAnswerButtonSize().height * 1.15};
     float spacing = 50 * config::getScaleFactor();
 
     // upper rectangle
@@ -99,7 +99,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->drawPolygon(vertsB, 4, color::toRGBA(colorB), 0, {});
 
     // upper label
-    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 68, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 80 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelA->setColor(Color3B::WHITE);
     labelA->setAnchorPoint({0.5, 0.5});
     labelA->setPositionX(size.width / 2);
@@ -107,7 +107,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->addChild(labelA);
 
     // lower label
-    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 68, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 80 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelB->setColor(Color3B::WHITE);
     labelB->setAnchorPoint({0.5, 0.5});
     labelB->setPositionX(size.width / 2);
@@ -123,7 +123,7 @@ void LockedCategoryPage::addCategoryBoxes()
 
 void LockedCategoryPage::addDescriptionLabel()
 {
-    auto label = fonts::createLight(getDescription().c_str(), 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(getDescription().c_str(), 48, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({0.5, 0.5});
     label->setPositionX(config::getFrameSize().width / 2);
@@ -149,7 +149,7 @@ void LockedCategoryPage::addPlayButton()
 
     // == LABEL
 
-    auto label = fonts::createLight(_("general", "play").get(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(_("general", "play").get(), 74 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));
@@ -158,7 +158,8 @@ void LockedCategoryPage::addPlayButton()
 
 void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
-    if (!draw->getBoundingBox().containsPoint(touch.getLocation())) {
+    const auto loc = touch.getLocation();
+    if (!draw->getBoundingBox().containsPoint(loc) && !boxes->getBoundingBox().containsPoint(loc)) {
         return; // not the play button touched
     }
 

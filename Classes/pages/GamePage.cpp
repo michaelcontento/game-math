@@ -66,7 +66,7 @@ void GamePage::restart()
 
     stars.clear();
     starContainer->removeAllChildren();
-    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false, true);
 
     updateProgressbar();
 
@@ -124,7 +124,7 @@ void GamePage::addStars()
     starContainer = Node::create();
     addChild(starContainer);
 
-    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false, true);
 
     auto fix = 5 * config::getScaleFactor();
 

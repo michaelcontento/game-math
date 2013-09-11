@@ -172,14 +172,14 @@ void AnswerButton::addBackground(const cocos2d::Color3B& color)
 
 void AnswerButton::addLabels()
 {
-    indicatorLabelLeft = fonts::createLight("", 72);
+    indicatorLabelLeft = fonts::createLight("", 72 * config::getScaleFactorHeightMagic());
     indicatorLabelLeft->setColor(Color3B::WHITE);
     indicatorLabelLeft->setAnchorPoint({0.5, 0.5});
     indicatorLabelLeft->setPositionX(startPosLeft);
     indicatorLabelLeft->setPositionY(getContentSize().height / 2);
     addChild(indicatorLabelLeft);
 
-    indicatorLabelRight = fonts::createLight("", 72);
+    indicatorLabelRight = fonts::createLight("", 72 * config::getScaleFactorHeightMagic());
     indicatorLabelRight->setColor(indicatorLabelLeft->getColor());
     indicatorLabelRight->setAnchorPoint(indicatorLabelLeft->getAnchorPoint());
     indicatorLabelRight->setPositionX(startPosRight);

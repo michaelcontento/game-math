@@ -11,6 +11,8 @@
 namespace config {
 
 float getScaleFactor();
+float getScaleFactorHeight();
+float getScaleFactorHeightMagic();
 cocos2d::Size getFrameSize();
 float getTouchIgnoreLength();
 float getSwipeMovementMinX();
@@ -46,6 +48,11 @@ std::function<Question()> getGeneratorMixed(const int number, const bool easy);
 constexpr float getDesignWidth()
 {
     return 768;
+}
+
+constexpr float getDesignHeight()
+{
+    return 1024;
 }
 
 constexpr float getGameTime()

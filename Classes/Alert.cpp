@@ -20,7 +20,7 @@ bool Alert::init()
     draw = DrawNode::create();
     addChild(draw);
 
-    auto height = 200 * config::getScaleFactor() * 0.5;
+    auto height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeightMagic();
     auto width = config::getFrameSize().width;
     Point verts[] = {{0, -height}, {0, height}, {width, height}, {width, -height}};
 
@@ -33,7 +33,7 @@ bool Alert::init()
     setPositionY(config::getFrameSize().height / 2);
 
     // tap to continue
-    tap = fonts::createLight(_("general", "taptocontinue").get(), 36);
+    tap = fonts::createLight(_("general", "taptocontinue").get(), 36 * config::getScaleFactorHeightMagic());
     addChild(tap);
 
     tap->setAnchorPoint({0.5, 1});
@@ -166,13 +166,14 @@ void Alert::hide(const bool instant)
 void Alert::enableCloseOnTap(const bool flag)
 {
     closeOnTap = flag;
-    if (tap) tap->setVisible(flag);
+    if (tap)  tap->setVisible(flag);
+    if (desc) desc->setAnchorPoint({0.5, flag ? 0.3 : 0.5});
 }
 
 void Alert::setDescription(const std::string& description)
 {
     if (!desc) {
-        desc = fonts::createNormal(description.c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
+        desc = fonts::createNormal(description.c_str(), 72 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
         addChild(desc);
 
         desc->setAnchorPoint({0.5, 0.3});
@@ -181,6 +182,7 @@ void Alert::setDescription(const std::string& description)
     }
 
     desc->setString(description.c_str());
+    desc->setPositionX(desc->getContentSize().width * -0.5);
 
     const auto textSize = desc->getContentSize();
     const static auto maxWidth = config::getFrameSize().width * 0.9;
@@ -270,7 +272,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     buttonContainer->addChild(node);
     buttons.push_back(std::make_pair(node, callback));
 
-    const auto size = Size(220, 40) * config::getScaleFactor();
+    const auto size = Size(220, 40) * config::getScaleFactor() * config::getScaleFactorHeightMagic();
     node->setContentSize(size);
 
     node->setAnchorPoint({0, 1});
@@ -279,9 +281,9 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     auto draw = DrawNode::create();
     node->addChild(draw);
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
-    draw->drawPolygon(verts, 4, color::toRGBA(Color3B::BLACK), 0, {});
+    draw->drawPolygon(verts, 4, color::toRGBA(Color3B({55, 55, 55})), 0, {});
 
-    auto label = fonts::createLight(description, 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(description, 42 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));

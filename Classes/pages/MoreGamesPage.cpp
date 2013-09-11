@@ -37,7 +37,7 @@ void MoreGamesPage::addUpperIcon()
     upperIcon->setPositionX(config::getFrameSize().width / 2);
     upperIcon->setPositionY(config::getFrameSize().height / 4 * 3);
 
-    upperIcon->setScale(config::getScaleFactor());
+    upperIcon->setScale(std::max(config::getScaleFactor(), config::getScaleFactorHeight()));
 }
 
 void MoreGamesPage::addLowerIcon()
@@ -49,12 +49,12 @@ void MoreGamesPage::addLowerIcon()
     lowerIcon->setPositionX(config::getFrameSize().width / 2);
     lowerIcon->setPositionY(config::getFrameSize().height / 4 * 1);
 
-    lowerIcon->setScale(config::getScaleFactor());
+    lowerIcon->setScale(std::max(config::getScaleFactor(), config::getScaleFactorHeight()));
 }
 
 void MoreGamesPage::addDescription()
 {
-    const auto label = fonts::createLight(_("general", "moregames").get(), 48, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    const auto label = fonts::createLight(_("general", "moregames").get(), 48 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
     label->setColor(Color3B::BLACK);

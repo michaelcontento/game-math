@@ -94,7 +94,8 @@ void LevelButton::refillStarContainerIfRequired(const int amount)
         stars,
         amount,
         parentPage->getBackground(),
-        true
+        true,
+        false
     );
 }
 
@@ -130,7 +131,7 @@ void LevelButton::initializeStarContainerIfRequired()
 
 void LevelButton::configureSize()
 {
-    const auto size = 150 * config::getScaleFactor();
+    const auto size = 160 * config::getScaleFactor();
     setContentSize({size, size});
 }
 
@@ -167,7 +168,7 @@ cocos2d::Color4F LevelButton::getBackgroundColorFromParentPage() const
 
 void LevelButton::addNumber()
 {
-    label = fonts::createLight(std::to_string(level).c_str(), 67, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    label = fonts::createLight(std::to_string(level).c_str(), 67 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(label);
 
     label->setColor(Color3B::WHITE);

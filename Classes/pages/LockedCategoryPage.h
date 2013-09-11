@@ -25,6 +25,7 @@ private:
     int group = -1;
     const float middleOffsetY = 50 * config::getScaleFactor();
     cocos2d::DrawNode* draw = nullptr;
+    cocos2d::DrawNode* boxes = nullptr;
 
     void addHeadlineLabel();
     void addSublineLabel();
