@@ -106,6 +106,9 @@ void setLevelStars(const int group, const int level, const int stars)
     if (oldStars == 0) {
         auto totalLevels = getSolvedLevelsInAllGroups();
         gc.postScore("com.coragames.math.lb.alllevels", totalLevels);
+
+        auto valueAllLevels = 100.0 / (16.0 * 10) * totalLevels;
+        gc.postAchievement("com.coragames.math.ac.alllevels",  valueAllLevels);
     }
 
     // trigger callbacks
