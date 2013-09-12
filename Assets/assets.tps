@@ -112,6 +112,8 @@
         </struct>
         <key>dataFileName</key>
         <filename>../Resources/assets.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string>/HD/</string>
         <key>forceIdenticalLayout</key>
