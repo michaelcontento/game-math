@@ -7,11 +7,11 @@
             <key>arrow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{476,2},{62,81}}</string>
+                <string>{{526,2},{62,81}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{62,81}}</string>
                 <key>sourceSize</key>
@@ -20,37 +20,37 @@
             <key>icon-coragames.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{239,2},{235,235}}</string>
+                <string>{{264,2},{260,260}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{235,235}}</string>
+                <string>{{0,0},{260,260}}</string>
                 <key>sourceSize</key>
-                <string>{235,235}</string>
+                <string>{260,260}</string>
             </dict>
             <key>icon-math.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{235,235}}</string>
+                <string>{{2,2},{260,260}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{235,235}}</string>
+                <string>{{0,0},{260,260}}</string>
                 <key>sourceSize</key>
-                <string>{235,235}</string>
+                <string>{260,260}</string>
             </dict>
             <key>key.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{540,2},{47,60}}</string>
+                <string>{{526,204},{47,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{47,60}}</string>
                 <key>sourceSize</key>
@@ -59,7 +59,7 @@
             <key>star-empty.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{476,154},{67,67}}</string>
+                <string>{{526,135},{67,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>star-full.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{476,85},{67,67}}</string>
+                <string>{{526,66},{67,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -90,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>assets.png</string>
             <key>size</key>
-            <string>{589,239}</string>
+            <string>{609,264}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b30e3ada96043f4de050e607850f1126$</string>
+            <string>$TexturePacker:SmartUpdate:674733afb1846c031757694bae28018d$</string>
             <key>textureFileName</key>
             <string>assets.png</string>
         </dict>
