@@ -124,7 +124,7 @@ void GameScene::initAds() const
 {
     avalon::ads::Manager::initWithIniFile("ads.ini");
     avalon::ads::Manager::startService();
-    avalon::ads::Manager::enabled = user::hasAdsEnabled();
+    avalon::ads::Manager::enabled = true;//user::hasAdsEnabled();
 }
 
 void GameScene::initPayment()
