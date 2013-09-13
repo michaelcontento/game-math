@@ -36,7 +36,7 @@ bool Alert::init()
     setPositionY(config::getFrameSize().height / 2);
 
     // tap to continue
-    tap = fonts::createLight(_("general", "taptocontinue").get(), 42);
+    tap = fonts::createLight(_("general", "taptocontinue").get(), 42, TextHAlignment::CENTER, TextVAlignment::TOP, 66);
     addChild(tap);
 
     tap->setAnchorPoint({0.5, 1});
