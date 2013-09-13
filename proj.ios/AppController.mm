@@ -5,6 +5,8 @@
 #import "RootViewController.h"
 
 #import <Crashlytics/Crashlytics.h>
+#import <AdSupport/ASIdentifierManager.h>
+#import "AppsFlyer.h"
 #import "Flurry.h"
 #import "Appirater.h"
 
@@ -56,6 +58,8 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
 
+    [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
+
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:@"BQ22HDJYS2JMV24NWPGJ"];
 
@@ -66,8 +70,6 @@ static AppDelegate s_sharedApplication;
     [Appirater setTimeBeforeReminding:2];
     [Appirater setDebug:NO];
     [Appirater appLaunched:YES];
-
-    [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
 
     return YES;
 }
@@ -86,6 +88,7 @@ static AppDelegate s_sharedApplication;
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     cocos2d::Director::getInstance()->resume();
+    [AppsFlyer notifyAppID:@"691861483;wTExZvNax5ThJYdZ7zXDu7"];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

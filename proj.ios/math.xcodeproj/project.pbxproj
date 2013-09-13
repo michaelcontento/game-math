@@ -86,6 +86,7 @@
 		C8D1890417E328F500D0717A /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890217E328F500D0717A /* wrong.mp3 */; };
 		C8D1890917E3327300D0717A /* lost.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890817E3327300D0717A /* lost.mp3 */; };
 		C8D1890C17E3342F00D0717A /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890B17E3342F00D0717A /* background.mp3 */; };
+		C8D1891017E3494200D0717A /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D1890F17E3494200D0717A /* libAppsFlyerLib.a */; };
 		C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8DD06AB17A28DA6005F1762 /* ads.ini */; };
 		C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */; };
 		C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06BF17A28DFD005F1762 /* libChartboost.a */; };
@@ -402,6 +403,8 @@
 		C8D1890217E328F500D0717A /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
 		C8D1890817E3327300D0717A /* lost.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lost.mp3; sourceTree = "<group>"; };
 		C8D1890B17E3342F00D0717A /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
+		C8D1890E17E3494200D0717A /* AppsFlyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyer.h; sourceTree = "<group>"; };
+		C8D1890F17E3494200D0717A /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppsFlyerLib.a; sourceTree = "<group>"; };
 		C8DD06AB17A28DA6005F1762 /* ads.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ads.ini; sourceTree = "<group>"; };
 		C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
 		C8DD06BC17A28DFD005F1762 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
@@ -441,6 +444,7 @@
 				C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */,
 				C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */,
 				C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */,
+				C8D1891017E3494200D0717A /* libAppsFlyerLib.a in Frameworks */,
 				1AF4C2F517865DCB00122817 /* libchipmunk iOS.a in Frameworks */,
 				1AF4C2F617865DCB00122817 /* libcocos2dx iOS.a in Frameworks */,
 				1AF4C2F717865DCB00122817 /* libcocos2dx-extensions iOS.a in Frameworks */,
@@ -645,6 +649,7 @@
 		C84DC135178EEC9000F07AE3 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				C8D1890D17E3494200D0717A /* AF-iOS-SDK-v2.5.1.9.8 */,
 				C813859917DFAEA50074DE85 /* appirater */,
 				C84DC136178EEC9000F07AE3 /* avalon */,
 			);
@@ -906,6 +911,15 @@
 				C8D1890217E328F500D0717A /* wrong.mp3 */,
 			);
 			name = sounds;
+			sourceTree = "<group>";
+		};
+		C8D1890D17E3494200D0717A /* AF-iOS-SDK-v2.5.1.9.8 */ = {
+			isa = PBXGroup;
+			children = (
+				C8D1890E17E3494200D0717A /* AppsFlyer.h */,
+				C8D1890F17E3494200D0717A /* libAppsFlyerLib.a */,
+			);
+			path = "AF-iOS-SDK-v2.5.1.9.8";
 			sourceTree = "<group>";
 		};
 		C8DD06B917A28DFD005F1762 /* ads */ = {
@@ -1355,6 +1369,7 @@
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
 					"\"$(SRCROOT)/../Vendors/avalon/vendors/Flurry-iOS-4.2.3/Flurry\"",
+					"\"$(SRCROOT)/../Vendors/AF-iOS-SDK-v2.5.1.9.8/\"",
 				);
 				LLVM_LTO = YES;
 				OTHER_CFLAGS = "-O2";
@@ -1425,6 +1440,7 @@
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider\"",
 					"\"$(SRCROOT)/../Vendors/avalon/avalon/platform/ios/ads/provider/samsungadhub\"",
 					"\"$(SRCROOT)/../Vendors/avalon/vendors/Flurry-iOS-4.2.3/Flurry\"",
+					"\"$(SRCROOT)/../Vendors/AF-iOS-SDK-v2.5.1.9.8/\"",
 				);
 				LLVM_LTO = YES;
 				PRODUCT_NAME = "Math Plus";
