@@ -67,6 +67,7 @@
 		C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E1178EF1CB00F07AE3 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */; };
 		C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E5178EF1F700F07AE3 /* GameKit.framework */; };
+		C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87542A317E368DA008DC473 /* AboutPage.cpp */; };
 		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
@@ -370,6 +371,8 @@
 		C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C84DC2E5178EF1F700F07AE3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C84DC2E7178EF22000F07AE3 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		C87542A317E368DA008DC473 /* AboutPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutPage.cpp; sourceTree = "<group>"; };
+		C87542A417E368DA008DC473 /* AboutPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPage.h; sourceTree = "<group>"; };
 		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
 		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
@@ -849,6 +852,8 @@
 		C8CB340117870AA4001294B7 /* pages */ = {
 			isa = PBXGroup;
 			children = (
+				C87542A317E368DA008DC473 /* AboutPage.cpp */,
+				C87542A417E368DA008DC473 /* AboutPage.h */,
 				C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */,
 				C8B48A75178C37FB00EC57FD /* CategoryPage.h */,
 				C8B48A83178C3D7300EC57FD /* GamePage.cpp */,
@@ -1241,6 +1246,7 @@
 				C8DD06E517A28DFD005F1762 /* RevmobBridge.mm in Sources */,
 				C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */,
 				C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */,
+				C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */,
 				C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */,
 				C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */,
 				C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */,

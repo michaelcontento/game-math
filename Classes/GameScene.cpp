@@ -11,6 +11,7 @@
 #include "pages/MainPage.h"
 #include "pages/SettingsPage.h"
 #include "pages/CategoryPage.h"
+#include "pages/AboutPage.h"
 #include "pages/LockedCategoryPage.h"
 #include "pages/MoreGamesPage.h"
 #include "PageManager.h"
@@ -62,6 +63,7 @@ void GameScene::initPages()
 {
     pageManager = PageManager::create();
     addChild(pageManager);
+    pageManager->add("about", AboutPage::create());
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
