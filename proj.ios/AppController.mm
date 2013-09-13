@@ -58,10 +58,8 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
 
-    [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
-
     [Flurry setCrashReportingEnabled:NO];
-    [Flurry startSession:@"BQ22HDJYS2JMV24NWPGJ"];
+    [Flurry startSession:@"Z7ZRJTNR32CJJDKQY5J4"];
 
     [Appirater setAppId:@"691861483"];
     [Appirater setDaysUntilPrompt:1];
@@ -70,6 +68,8 @@ static AppDelegate s_sharedApplication;
     [Appirater setTimeBeforeReminding:2];
     [Appirater setDebug:NO];
     [Appirater appLaunched:YES];
+
+    [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
 
     return YES;
 }
