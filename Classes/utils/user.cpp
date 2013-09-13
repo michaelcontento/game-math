@@ -265,6 +265,20 @@ void setUseBigHintAlert(const bool flag)
     settings->flush();
 }
 
+bool useVibration()
+{
+    auto settings = UserDefault::getInstance();
+    return settings->getBoolForKey("vibrate", false);
+}
+
+void setUseVibration(const bool flag)
+{
+    auto settings = UserDefault::getInstance();
+    settings->setBoolForKey("vibrate", flag);
+    settings->flush();
+}
+
+
 void clear()
 {
     setUseBigHintAlert(true);

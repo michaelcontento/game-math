@@ -41,6 +41,7 @@ void SettingsPage::addButtons()
         getLeaderboardButton(),
         getAchievementsButton(),
         getBlankButton(),
+        getVibrateButton(),
         getSoundButton(),
         getMusicButton()
     };
@@ -101,6 +102,16 @@ ToggleButton* SettingsPage::getSoundButton() const
     btn->getLabel = [](const bool flag) { return flag ? "sound.on" : "sound.off"; };
     btn->detectState = []() { return user::hasSoundEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setSoundEnabled(flag); return true; };
+
+    return btn;
+}
+
+ToggleButton* SettingsPage::getVibrateButton() const
+{
+    const auto btn = ToggleButton::create();
+    btn->getLabel = [](const bool flag) { return flag ? "vibrate.on" : "vibrate.off"; };
+    btn->detectState = []() { return user::useVibration(); };
+    btn->toggleAction = [](const bool flag) { user::setUseVibration(flag); return true; };
 
     return btn;
 }

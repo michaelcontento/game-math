@@ -35,6 +35,9 @@ void addHintKeys(const int amount);
 bool useBigHintAlert();
 void setUseBigHintAlert(const bool flag = true);
 
+bool useVibration();
+void setUseVibration(const bool flag = true);
+
 void clear();
 
 } // namespace user

@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
+#include "../utils/vibrate.h"
 #include "../utils/MyFlurry.h"
 #include "../utils/QuestionString.h"
 #include "../buttons/AnswerButton.h"
@@ -176,7 +177,7 @@ void GamePage::addProgressbar()
 {
     // == DrawNode
     auto height = config::getProgressbarHeight();
-    Point verts[] = {
+    cocos2d::Point verts[] = {
         {0, 0}, {0, height},
         {getContentSize().width / 2, height}, {getContentSize().width / 2, 0}
     };
@@ -412,6 +413,10 @@ void GamePage::answeredWrong()
         RemoveSelf::create(),
         NULL
     ));
+
+    if (user::useVibration()) {
+        vibrate::silenced();
+    }
 
     if (stars.empty()) {
         timer->removeFromParent();

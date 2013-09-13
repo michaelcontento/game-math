@@ -391,6 +391,7 @@
 		C8CB342C178B0581001294B7 /* fonts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fonts.cpp; sourceTree = "<group>"; };
 		C8CB342E178B05CB001294B7 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		C8CB342F178B05CB001294B7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		C8D188F117E31F9500D0717A /* vibrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vibrate.h; sourceTree = "<group>"; };
 		C8DD06AB17A28DA6005F1762 /* ads.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ads.ini; sourceTree = "<group>"; };
 		C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
 		C8DD06BC17A28DFD005F1762 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
@@ -869,6 +870,7 @@
 				C813855C17DE8BBA0074DE85 /* QuestionString.h */,
 				C81FBE82179D4BC600E794A3 /* user.cpp */,
 				C81FBE83179D4BC600E794A3 /* user.h */,
+				C8D188F117E31F9500D0717A /* vibrate.h */,
 			);
 			name = utils;
 			path = ../Classes/utils;
