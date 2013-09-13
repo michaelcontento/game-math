@@ -233,7 +233,7 @@ void setMusicEnabled(const bool flag)
     settings->flush();
 
     if (flag) {
-        //SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
     } else {
         SimpleAudioEngine::getInstance()->stopBackgroundMusic(false);
     }
