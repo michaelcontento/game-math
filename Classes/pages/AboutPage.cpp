@@ -245,12 +245,14 @@ void AboutPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalo
 
     consumable->consume();
     purchased = true;
+    
+    MyFlurry::logEventWithType("purchase-succeed", "support");
 }
 
 void AboutPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
     helper::showPaymentFailed();
-    MyFlurry::logEvent("purchase-fail");
+    MyFlurry::logEventWithType("purchase-fail", "support");
 }
 
 void AboutPage::onTransactionStart(avalon::payment::Manager* const manager)

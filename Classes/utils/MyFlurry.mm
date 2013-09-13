@@ -19,8 +19,8 @@ void MyFlurry::logEventWithType(const std::string& name, const std::string& type
     if (stopLogging) return;
 #if AVALON_PLATFORM_IS_IOS
     NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
-        @"type",
         [NSString stringWithUTF8String:type.c_str()],
+        @"type",
         nil
     ];
     [Flurry logEvent:[NSString stringWithUTF8String:name.c_str()] withParameters:articleParams];
