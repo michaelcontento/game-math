@@ -7,8 +7,8 @@
 
 namespace fonts {
 
-cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment = cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment vAlignment = cocos2d::TextVAlignment::TOP);
-cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment = cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment vAlignment = cocos2d::TextVAlignment::TOP);
+cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment = cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment vAlignment = cocos2d::TextVAlignment::TOP, const unsigned short maxSize = 0);
+cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment = cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment vAlignment = cocos2d::TextVAlignment::TOP, const unsigned short maxSize = 0);
 cocos2d::Sprite* createStar(const cocos2d::Color3B& color, const bool filled, const bool magic);
 void fillStarContainer(cocos2d::Node& cocosContainer, std::deque<cocos2d::Sprite*>& cppContainer, const int amount, const cocos2d::Color3B& color, const bool filled, const bool magic);
 

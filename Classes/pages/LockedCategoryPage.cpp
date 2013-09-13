@@ -60,7 +60,7 @@ void LockedCategoryPage::addHeadlineLabel()
 void LockedCategoryPage::addSublineLabel()
 {
     auto txt =  _(("locked." + std::to_string(group)).c_str(), "subline").get();
-    auto label = fonts::createLight(txt, 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(txt, 42, TextHAlignment::CENTER, TextVAlignment::CENTER, 66);
     addChild(label);
 
     label->setColor(Color3B::BLACK);
@@ -85,7 +85,7 @@ void LockedCategoryPage::addCategoryBoxes()
     addChild(boxes);
 
     // keep things "readable"
-    Size size = {config::getFrameSize().width, config::getAnswerButtonSize().height * 1.15};
+    Size size = {config::getFrameSize().width, config::getAnswerButtonSize().height * 1.05};
     float spacing = 30 * config::getScaleFactor();
 
     // upper rectangle
@@ -123,7 +123,7 @@ void LockedCategoryPage::addCategoryBoxes()
 
 void LockedCategoryPage::addDescriptionLabel()
 {
-    auto label = fonts::createLight(getDescription().c_str(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(getDescription().c_str(), 42, TextHAlignment::CENTER, TextVAlignment::CENTER, 66);
     label->setColor(Color3B::BLACK);
     label->setAnchorPoint({0.5, 0.5});
     label->setPositionX(config::getFrameSize().width / 2);

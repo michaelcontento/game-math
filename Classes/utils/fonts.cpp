@@ -5,24 +5,34 @@
 
 namespace fonts {
 
-cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
+cocos2d::LabelTTF* createNormal(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment, const unsigned short maxSize)
 {
+    auto fontSize = size * config::getScaleFactor();
+    if (maxSize > 0) {
+        fontSize = MIN(maxSize, fontSize);
+    }
+
     return cocos2d::LabelTTF::create(
         text.c_str(),
         "HelveticaNeue-Medium",
-        size * config::getScaleFactor(),
+        fontSize,
         cocos2d::Size::ZERO,
         hAlignment,
         vAlignment
     );
 }
 
-cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment)
+cocos2d::LabelTTF* createLight(const std::string& text, const unsigned short size, cocos2d::TextHAlignment hAlignment, cocos2d::TextVAlignment vAlignment, const unsigned short maxSize)
 {
+    auto fontSize = size * config::getScaleFactor();
+    if (maxSize > 0) {
+        fontSize = MIN(maxSize, fontSize);
+    }
+
     return cocos2d::LabelTTF::create(
         text.c_str(),
         "HelveticaNeue-Light",
-        size * config::getScaleFactor(),
+        fontSize,
         cocos2d::Size::ZERO,
         hAlignment,
         vAlignment

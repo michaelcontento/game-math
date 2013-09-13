@@ -946,7 +946,7 @@
 						DevelopmentTeam = 9X4A9Z3TG3;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
