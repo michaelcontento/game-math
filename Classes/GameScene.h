@@ -16,10 +16,11 @@ private:
     PageManager* pageManager = nullptr;
 
     void addCategoryPages(PageManager& pageManager) const;
-    void initAds() const;
-    void initPayment();
-    void initGameCenter();
-    void initSoundAndMusic();
+    static void initAds();
+    static void threadInit();
+    static void initPayment();
+    static void initGameCenter();
+    static void initSoundAndMusic();
     void initLocalization();
     void updateAssets();
     void initAssets();

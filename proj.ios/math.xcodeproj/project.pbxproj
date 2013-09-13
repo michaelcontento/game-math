@@ -81,6 +81,11 @@
 		C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CB3422178AFDA0001294B7 /* HelveticaNeueLight.ttf */; };
 		C8CB342D178B0581001294B7 /* fonts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342C178B0581001294B7 /* fonts.cpp */; };
 		C8CB3430178B05CB001294B7 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8CB342E178B05CB001294B7 /* config.cpp */; };
+		C8D1890017E3258600D0717A /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D188FF17E3258600D0717A /* click.mp3 */; };
+		C8D1890317E328F500D0717A /* solved.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890117E328F500D0717A /* solved.mp3 */; };
+		C8D1890417E328F500D0717A /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890217E328F500D0717A /* wrong.mp3 */; };
+		C8D1890917E3327300D0717A /* lost.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890817E3327300D0717A /* lost.mp3 */; };
+		C8D1890C17E3342F00D0717A /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C8D1890B17E3342F00D0717A /* background.mp3 */; };
 		C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8DD06AB17A28DA6005F1762 /* ads.ini */; };
 		C8DD06E017A28DFD005F1762 /* ChartboostX_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06BD17A28DFD005F1762 /* ChartboostX_ios.mm */; };
 		C8DD06E217A28DFD005F1762 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DD06BF17A28DFD005F1762 /* libChartboost.a */; };
@@ -392,6 +397,11 @@
 		C8CB342E178B05CB001294B7 /* config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = config.cpp; sourceTree = "<group>"; };
 		C8CB342F178B05CB001294B7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		C8D188F117E31F9500D0717A /* vibrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vibrate.h; sourceTree = "<group>"; };
+		C8D188FF17E3258600D0717A /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
+		C8D1890117E328F500D0717A /* solved.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = solved.mp3; sourceTree = "<group>"; };
+		C8D1890217E328F500D0717A /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
+		C8D1890817E3327300D0717A /* lost.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lost.mp3; sourceTree = "<group>"; };
+		C8D1890B17E3342F00D0717A /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background.mp3; sourceTree = "<group>"; };
 		C8DD06AB17A28DA6005F1762 /* ads.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ads.ini; sourceTree = "<group>"; };
 		C8DD06BB17A28DFD005F1762 /* CBAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAnalytics.h; sourceTree = "<group>"; };
 		C8DD06BC17A28DFD005F1762 /* Chartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chartboost.h; sourceTree = "<group>"; };
@@ -569,6 +579,7 @@
 				C81ACC6917D73BF2009245F3 /* imgs */,
 				C817F19217D8A4C7002D66E8 /* lang */,
 				C8E9725117C60D5A000B98C7 /* payment.ini */,
+				C8D1890517E328F700D0717A /* sounds */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -885,6 +896,18 @@
 			name = fonts;
 			sourceTree = "<group>";
 		};
+		C8D1890517E328F700D0717A /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				C8D1890B17E3342F00D0717A /* background.mp3 */,
+				C8D188FF17E3258600D0717A /* click.mp3 */,
+				C8D1890817E3327300D0717A /* lost.mp3 */,
+				C8D1890117E328F500D0717A /* solved.mp3 */,
+				C8D1890217E328F500D0717A /* wrong.mp3 */,
+			);
+			name = sounds;
+			sourceTree = "<group>";
+		};
 		C8DD06B917A28DFD005F1762 /* ads */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,11 +1134,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D1890017E3258600D0717A /* click.mp3 in Resources */,
+				C8D1890317E328F500D0717A /* solved.mp3 in Resources */,
 				C8CB3424178AFDA0001294B7 /* HelveticaNeueLight.ttf in Resources */,
 				C83324E817E071B6005BD6AD /* Images.xcassets in Resources */,
 				C84DC275178EEC9000F07AE3 /* ChartboostX.h in Resources */,
 				C8DD06AC17A28DA6005F1762 /* ads.ini in Resources */,
 				C8E9725217C60D5A000B98C7 /* payment.ini in Resources */,
+				C8D1890917E3327300D0717A /* lost.mp3 in Resources */,
 				C817F18517D8A4C4002D66E8 /* en.ini in Resources */,
 				C8F7094617D8E5E80053FE9A /* assets.plist in Resources */,
 				C8F7094717D8E5E80053FE9A /* assets.png in Resources */,
@@ -1124,6 +1150,8 @@
 				C8F7094C17D8EAC90053FE9A /* icon-up.png in Resources */,
 				C813856B17DF58C50074DE85 /* de.ini in Resources */,
 				C81385BB17DFAEA50074DE85 /* .gitignore in Resources */,
+				C8D1890417E328F500D0717A /* wrong.mp3 in Resources */,
+				C8D1890C17E3342F00D0717A /* background.mp3 in Resources */,
 				C81385BD17DFAEA50074DE85 /* Appirater.podspec in Resources */,
 				C81385BE17DFAEA50074DE85 /* AppiraterLocalizable.strings in Resources */,
 				C81385BF17DFAEA50074DE85 /* README.md in Resources */,

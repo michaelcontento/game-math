@@ -4,6 +4,9 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include "utils/config.h"
 #include "utils/color.h"
 #include "utils/fonts.h"
@@ -222,6 +225,7 @@ void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         if (btn->boundingBox().containsPoint(location)) {
             buttonCb = cb;
             hide();
+            SimpleAudioEngine::getInstance()->playEffect("click.mp3");
             return;
         }
     }

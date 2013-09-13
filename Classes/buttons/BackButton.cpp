@@ -3,6 +3,9 @@
 #include "../PageManager.h"
 #include "../utils/config.h"
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 using namespace cocos2d;
 
 void BackButton::onEnter()
@@ -34,6 +37,7 @@ bool BackButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 void BackButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     PageManager::shared().scrollUp();
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
 
 bool BackButton::init()

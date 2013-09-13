@@ -1,5 +1,8 @@
 #include "ToggleButton.h"
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include <avalon/i18n/Localization.h>
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
@@ -61,6 +64,7 @@ void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
     if (toggleAction(state)) {
         label->setString(_("settings", getLabel(state).c_str()).get().c_str());
     }
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
 
 bool ToggleButton::init()

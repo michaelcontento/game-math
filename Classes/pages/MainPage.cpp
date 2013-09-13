@@ -4,6 +4,9 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../PageManager.h"
@@ -62,4 +65,5 @@ void MainPage::addTapToPlayLabel()
 void MainPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 {
     PageManager::shared().scrollTo("category-1", config::getSnapAnimationDuration() * 2);
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }

@@ -1,5 +1,7 @@
 #include "GameScene.h"
 
+#include <thread>
+#include <chrono>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
@@ -36,16 +38,23 @@ bool GameScene::init()
     }
 
     updateAssets();
-    initPayment();
-    initGameCenter();
-    initSoundAndMusic();
     initAssets();
     initLocalization();
-    initAds();
     initPages();
     profile();
 
+    std::thread t(threadInit);
+    t.detach();
+
     return true;
+}
+
+void GameScene::threadInit()
+{
+    initPayment();
+    initGameCenter();
+    initSoundAndMusic();
+    initAds();
 }
 
 void GameScene::initPages()
@@ -120,11 +129,11 @@ void GameScene::addCategoryPages(PageManager& pageManager) const
     }
 }
 
-void GameScene::initAds() const
+void GameScene::initAds()
 {
     avalon::ads::Manager::initWithIniFile("ads.ini");
     avalon::ads::Manager::startService();
-    avalon::ads::Manager::enabled = true;//user::hasAdsEnabled();
+    avalon::ads::Manager::enabled = user::hasAdsEnabled();
 }
 
 void GameScene::initPayment()
@@ -143,10 +152,16 @@ void GameScene::initGameCenter()
 void GameScene::initSoundAndMusic()
 {
     if (user::hasMusicEnabled()) {
-        //SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("background.mp3", true);
+        SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2);
     }
-    
-    if (!user::hasSoundEnabled()) {
+
+    if (user::hasSoundEnabled()) {
+        SimpleAudioEngine::getInstance()->preloadEffect("click.mp3");
+        SimpleAudioEngine::getInstance()->preloadEffect("solved.mp3");
+        SimpleAudioEngine::getInstance()->preloadEffect("lost.mp3");
+        SimpleAudioEngine::getInstance()->preloadEffect("wrong.mp3");
+    } else {
         SimpleAudioEngine::getInstance()->setEffectsVolume(0);
     }
 }

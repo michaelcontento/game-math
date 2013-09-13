@@ -4,6 +4,9 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
@@ -255,6 +258,8 @@ void GamePage::handleAllQuestionsAnswered()
     }
     alert->show([]() { });
 
+    SimpleAudioEngine::getInstance()->playEffect("solved.mp3");
+    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".solved");
 }
 
 void GamePage::handleNoMoreStars()
@@ -271,6 +276,7 @@ void GamePage::handleNoMoreStars()
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() {});
 
+    SimpleAudioEngine::getInstance()->playEffect("lost.mp3");
     MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".nomorestars");
 }
 
@@ -289,6 +295,7 @@ void GamePage::handleTimeover()
     alert->addButton(_("game", "restart").get(), [this]() { restart(); });
     alert->show([]() { });
 
+    SimpleAudioEngine::getInstance()->playEffect("lost.mp3");
     MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".timeout");
 }
 
@@ -355,6 +362,7 @@ void GamePage::markQuestionAnswered()
         handleAllQuestionsAnswered();
         return;
     }
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 
     question->runAction(Sequence::create(
         FadeOut::create(config::getQuestionFadeTime()),
@@ -422,6 +430,8 @@ void GamePage::answeredWrong()
         timer->removeFromParent();
         timer = nullptr;
         handleNoMoreStars();
+    } else {
+        SimpleAudioEngine::getInstance()->playEffect("wrong.mp3");
     }
 }
 

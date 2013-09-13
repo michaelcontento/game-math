@@ -1,5 +1,8 @@
 #include "MoreGamesPage.h"
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include <avalon/i18n/Localization.h>
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
@@ -88,5 +91,6 @@ void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
 #endif
 
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
     MyFlurry::logEvent("moregames");
 }

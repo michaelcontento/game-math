@@ -17,6 +17,18 @@ static Alert* lastPendingAlert = nullptr;
 
 bool paymentAvailableCheck(avalon::payment::Manager* payment)
 {
+    auto notReady = []() {
+        auto alert = Alert::create();
+        Director::getInstance()->getRunningScene()->addChild(alert);
+        alert->setDescription(_("payment", "notready").get());
+        alert->show([]() {});
+        return false;
+    };
+
+    if (!payment) {
+        return notReady();
+    }
+
     if (!payment->getBackend().isPurchaseReady()) {
         auto alert = Alert::create();
         Director::getInstance()->getRunningScene()->addChild(alert);
@@ -26,11 +38,7 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
     }
 
     if (!payment->getBackend().isInitialized()) {
-        auto alert = Alert::create();
-        Director::getInstance()->getRunningScene()->addChild(alert);
-        alert->setDescription(_("payment", "notready").get());
-        alert->show([]() {});
-        return false;
+        return notReady();
     }
 
     return true;

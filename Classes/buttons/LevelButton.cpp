@@ -1,5 +1,8 @@
 #include "LevelButton.h"
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include <functional>
 #include "../utils/config.h"
 #include "../utils/fonts.h"
@@ -187,6 +190,7 @@ void LevelButton::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     } else {
         parentPage->highlightNextLevel();
     }
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
 
 bool LevelButton::hasBeenTouched(cocos2d::Touch& touch, cocos2d::Event& event)

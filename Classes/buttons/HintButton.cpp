@@ -4,6 +4,9 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include "../utils/fonts.h"
 #include "../utils/user.h"
 #include "../utils/config.h"
@@ -111,11 +114,13 @@ void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         game->revealHint();
     } else {
         auto payment = avalon::payment::Loader::globalManager;
-        payment->delegate = this;
         if (helper::paymentAvailableCheck(payment.get())) {
+            payment->delegate = this;
             payment->purchase("hints");
         }
     }
+
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
 
 void HintButton::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)

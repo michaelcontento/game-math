@@ -4,6 +4,9 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
+
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/user.h"
@@ -169,11 +172,10 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     }
 
     auto payment = payment::Loader::globalManager;
-    payment->delegate = this;
-
     if (!helper::paymentAvailableCheck(payment.get())) {
         return; // payment not available
     }
+    payment->delegate = this;
 
     const auto key = std::string("pack.") + std::to_string(getPaymentGroupId());
     if (!payment->hasProduct(key.c_str())) {
@@ -182,6 +184,7 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 
     helper::showPaymentPendingSpinner(true);
     payment->getProduct(key.c_str())->purchase();
+    SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
 
 int LockedCategoryPage::getPaymentGroupId() const

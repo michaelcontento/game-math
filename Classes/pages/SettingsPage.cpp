@@ -167,8 +167,8 @@ ToggleButton* SettingsPage::getRestoreButton()
     btn->getLabel = [](const bool flag) { return "restore"; };
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
-        payment->delegate = this;
         if (helper::paymentAvailableCheck(payment.get())) {
+            payment->delegate = this;
             payment->restorePurchases();
         }
         return false;
@@ -188,8 +188,8 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
     btn->getLabel = [](const bool flag) { return "removeads"; };
     btn->toggleAction = [this](const bool flag) {
         auto payment = payment::Loader::globalManager;
-        payment->delegate = this;
         if (helper::paymentAvailableCheck(payment.get())) {
+            payment->delegate = this;
             payment->getProduct("removeads")->purchase();
         }
         return false;
@@ -222,9 +222,9 @@ ToggleButton* SettingsPage::getUnlockAllButton()
         auto key = std::string("all.") + std::to_string(locked);
         
         auto payment = payment::Loader::globalManager;
-        payment->delegate = this;
         if (helper::paymentAvailableCheck(payment.get())) {
             helper::showPaymentPendingSpinner(true);
+            payment->delegate = this;
             payment->getProduct(key.c_str())->purchase();
         }
         return false;
