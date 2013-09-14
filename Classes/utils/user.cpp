@@ -51,6 +51,10 @@ void setLevelGroupLocked(const int group, const bool flag)
     auto settings = UserDefault::getInstance();
     settings->setBoolForKey(impl::getLockedKey(group).c_str(), flag);
     settings->flush();
+
+    if (!isLevelGroupLocked(1) && !isLevelGroupLocked(2) && !isLevelGroupLocked(3) && !isLevelGroupLocked(4)) {
+        setAdsEnabled(false);
+    }
 }
 
 bool allLevelGroupsUnlocked()
