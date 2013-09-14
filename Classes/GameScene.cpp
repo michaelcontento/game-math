@@ -38,7 +38,7 @@ bool GameScene::init()
         return false;
     }
 
-    //updateAssets();
+    updateAssets();
     initAssets();
     initLocalization();
     initPages();
