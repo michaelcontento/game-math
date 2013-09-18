@@ -2,6 +2,7 @@
 
 #include <thread>
 #include <chrono>
+#include <string>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
@@ -17,6 +18,7 @@
 #include "PageManager.h"
 #include "utils/user.h"
 #include "utils/config.h"
+#include "utils/android_fixes.h"
 
 //#define PROFILE 100
 //#define DEVASSETS

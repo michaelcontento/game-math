@@ -12,6 +12,7 @@ using namespace CocosDenshion;
 #include "../utils/user.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
+#include "../utils/android_fixes.h"
 #include "../PageManager.h"
 #include "CategoryPage.h"
 
@@ -88,7 +89,7 @@ void LockedCategoryPage::addCategoryBoxes()
     addChild(boxes);
 
     // keep things "readable"
-    Size size = {config::getFrameSize().width, config::getAnswerButtonSize().height * 1.05};
+    Size size = {config::getFrameSize().width, config::getAnswerButtonSize().height * 1.05f};
     float spacing = 30 * config::getScaleFactor();
 
     // upper rectangle

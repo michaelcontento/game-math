@@ -12,6 +12,7 @@ using namespace CocosDenshion;
 #include "../utils/user.h"
 #include "../utils/vibrate.h"
 #include "../utils/MyFlurry.h"
+#include "../utils/android_fixes.h"
 #include "../utils/QuestionString.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"

@@ -373,6 +373,7 @@
 		C84DC2E7178EF22000F07AE3 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		C87542A317E368DA008DC473 /* AboutPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutPage.cpp; sourceTree = "<group>"; };
 		C87542A417E368DA008DC473 /* AboutPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPage.h; sourceTree = "<group>"; };
+		C8902A1C17E91C7200995BA9 /* android_fixes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = android_fixes.h; sourceTree = "<group>"; };
 		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
 		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
@@ -876,6 +877,7 @@
 		C8CB341117871B29001294B7 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				C8902A1C17E91C7200995BA9 /* android_fixes.h */,
 				C8B48A8A178C8A9400EC57FD /* color.cpp */,
 				C8B48A8B178C8A9400EC57FD /* color.h */,
 				C8CB342E178B05CB001294B7 /* config.cpp */,

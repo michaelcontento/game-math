@@ -185,7 +185,7 @@ void AboutPage::toggleVisibility()
     const auto duration = 0.5;
     const auto containerPosX = container->getPositionX();
     const auto containerHeight = container->getContentSize().height;
-    const auto containerUpperPosY = (icon->getPositionY() - (icon->getContentSize().height * icon->getScaleY() * 0.5)) * 0.5;
+    const auto containerUpperPosY = (icon->getPositionY() - (icon->getContentSize().height * icon->getScaleY() * 0.5f)) * 0.5f;
     const auto iconScale = icon->getScale();
 
     stopAllActions();
@@ -195,7 +195,7 @@ void AboutPage::toggleVisibility()
 
     if (visible) {
         desc->runAction(EaseOut::create(FadeOut::create(duration), 3));
-        container->runAction(MoveTo::create(duration, {containerPosX, containerHeight * -0.5}));
+        container->runAction(MoveTo::create(duration, {containerPosX, containerHeight * -0.5f}));
     } else {
         desc->runAction(EaseIn::create(FadeIn::create(duration), 3));
         container->runAction(MoveTo::create(duration, {containerPosX, containerUpperPosY}));

@@ -12,6 +12,7 @@ using avalon::i18n::_;
 #include <avalon/GameCenter.h>
 #include "MyFlurry.h"
 #include "cocos2d.h"
+#include "android_fixes.h"
 #include "SimpleAudioEngine.h"
 
 using namespace cocos2d;

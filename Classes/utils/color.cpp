@@ -29,7 +29,7 @@ cocos2d::Color3B toRGB(const cocos2d::Color4F& color)
     
 cocos2d::Color4F toRGBA(const cocos2d::Color3B& color)
 {
-    return {color.r / 255.0, color.g / 255.0, color.b / 255.0, 1.0};
+    return {color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, 1.0f};
 }
 
 } // namespace color

@@ -23,8 +23,8 @@ bool Alert::init()
     draw = DrawNode::create();
     addChild(draw);
 
-    auto height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeightMagic();
-    auto width = config::getFrameSize().width;
+    const float height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeightMagic();
+    const float width = config::getFrameSize().width;
     Point verts[] = {{0, -height}, {0, height}, {width, height}, {width, -height}};
 
     auto color = color::toRGBA(Color3B(87, 87, 87));
@@ -170,7 +170,7 @@ void Alert::enableCloseOnTap(const bool flag)
 {
     closeOnTap = flag;
     if (tap)  tap->setVisible(flag);
-    if (desc) desc->setAnchorPoint({0.5, flag ? 0.3 : 0.5});
+    if (desc) desc->setAnchorPoint({0.5, flag ? 0.3f : 0.5f});
 }
 
 void Alert::setDescription(const std::string& description)
@@ -222,7 +222,7 @@ void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         auto location = convertTouchToNodeSpace(touch);
         location.x = buttonContainer->convertToNodeSpace(location).x;
 
-        if (btn->boundingBox().containsPoint(location)) {
+        if (btn->getBoundingBox().containsPoint(location)) {
             buttonCb = cb;
             hide();
             SimpleAudioEngine::getInstance()->playEffect("click.mp3");

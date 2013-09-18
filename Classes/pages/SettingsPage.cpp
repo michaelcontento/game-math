@@ -11,6 +11,7 @@ using avalon::i18n::_;
 #include "../utils/user.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
+#include "../utils/android_fixes.h"
 #include "../Alert.h"
 #include "../buttons/ToggleButton.h"
 #include "PageManager.h"

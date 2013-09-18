@@ -12,6 +12,7 @@ using namespace CocosDenshion;
 #include "../utils/config.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
+#include "../utils/android_fixes.h"
 #include "../pages/GamePage.h"
 #include "../Alert.h"
 

@@ -8,6 +8,7 @@ using avalon::i18n::_;
 #include <boost/assert.hpp>
 #include <vector>
 #include "color.h"
+#include "android_fixes.h"
 
 using namespace cocos2d;
 
