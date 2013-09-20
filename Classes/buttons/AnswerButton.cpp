@@ -12,23 +12,17 @@ using namespace cocos2d;
 
 void AnswerButton::onEnter()
 {
-    Node::onEnter();
-
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, -90, false);
+    Layer::onEnter();
+    setTouchEnabled(true);
 }
 
 void AnswerButton::onExit()
 {
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->removeDelegate(this);
-
-    Node::onExit();
+    setTouchEnabled(false);
+    Layer::onExit();
 }
 
-bool AnswerButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool AnswerButton::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     return !hasBeenUsed && isAnswerVisible();
 }
@@ -38,9 +32,9 @@ bool AnswerButton::isAnswerVisible() const
     return question->isVisible();
 }
 
-void AnswerButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void AnswerButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!enabled || !ccTouchBegan(touch, event)) {
+    if (!enabled || !onTouchBegan(touch, event)) {
         return;
     }
 
@@ -86,7 +80,7 @@ AnswerButton* AnswerButton::create(GamePage& page, const cocos2d::Color3B& color
 
 bool AnswerButton::init(GamePage& page, const cocos2d::Color3B& color)
 {
-    if (!Node::init()) {
+    if (!Layer::init()) {
         return false;
     }
 

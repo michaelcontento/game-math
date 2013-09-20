@@ -24,8 +24,8 @@ public:
 
     void addButton(const std::string& description, std::function<void ()> callback);
 
-    bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
     bool visible = false;

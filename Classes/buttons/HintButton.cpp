@@ -33,7 +33,7 @@ HintButton* HintButton::create(GamePage& game)
 
 bool HintButton::init(GamePage& game)
 {
-    if (!Node::init()) {
+    if (!Layer::init()) {
         return false;
     }
 
@@ -79,23 +79,17 @@ void HintButton::addIcon()
 
 void HintButton::onEnter()
 {
-    Node::onEnter();
-
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, 0, true);
+    Layer::onEnter();
+    setTouchEnabled(true);
 }
 
 void HintButton::onExit()
 {
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->removeDelegate(this);
-
-    Node::onExit();
+    setTouchEnabled(false);
+    Layer::onExit();
 }
 
-bool HintButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool HintButton::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     const auto bb = key->getBoundingBox();
     const auto mid = Point(bb.getMidX(), bb.getMidY());
@@ -103,7 +97,7 @@ bool HintButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     return (loc - mid).getLength() <= 120;
 }
 
-void HintButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void HintButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     if (user::getHintKeys() > 0) {
         if (!game->isStarted() || game->isTimeover() || !game->canBeRevealed()) {

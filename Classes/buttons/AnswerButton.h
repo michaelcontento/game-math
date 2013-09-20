@@ -7,7 +7,7 @@
 class GamePage;
 class QuestionString;
 
-class AnswerButton : public cocos2d::Node, public cocos2d::TouchDelegate
+class AnswerButton : public cocos2d::Layer
 {
 public:
     bool enabled = true;
@@ -27,8 +27,8 @@ public:
 
     void onEnter() override;
     void onExit() override;
-    bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
     GamePage* page = nullptr;

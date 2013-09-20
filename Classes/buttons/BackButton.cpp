@@ -10,23 +10,17 @@ using namespace cocos2d;
 
 void BackButton::onEnter()
 {
-    Node::onEnter();
-
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, 0, true);
+    Layer::onEnter();
+    setTouchEnabled(true);
 }
 
 void BackButton::onExit()
 {
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->removeDelegate(this);
-
+    setTouchEnabled(false);
     Node::onExit();
 }
 
-bool BackButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool BackButton::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     const auto bb = btn->getBoundingBox();
     const auto mid = Point(bb.getMidX(), bb.getMidY());
@@ -34,7 +28,7 @@ bool BackButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     return (loc - mid).getLength() <= 120;
 }
 
-void BackButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void BackButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     PageManager::shared().scrollUp();
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");
@@ -42,7 +36,7 @@ void BackButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 
 bool BackButton::init()
 {
-    if (!Node::init()) {
+    if (!Layer::init()) {
         return false;
     }
 

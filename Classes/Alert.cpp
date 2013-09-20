@@ -95,9 +95,7 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
             ),
             CallFunc::create([this]() {
                 touchable = true;
-                Director::getInstance()
-                    ->getTouchDispatcher()
-                    ->addTargetedDelegate(this, -100, true);
+                setTouchEnabled(true);
             }),
             NULL
         ));
@@ -128,9 +126,7 @@ void Alert::hide(const bool instant)
         EaseInOut::create(ScaleTo::create(config::getAlertFadeTime() * instaMod, 1, 0), 3),
         CallFunc::create([this]() {
             visible = false;
-            Director::getInstance()
-                ->getTouchDispatcher()
-                ->removeDelegate(this);
+            setTouchEnabled(false);
             if (this->buttonCb) this->buttonCb();
             this->callback();
         }),
@@ -199,12 +195,12 @@ void Alert::setDescription(const std::string& description)
     }
 }
 
-bool Alert::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool Alert::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     return true;
 }
 
-void Alert::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void Alert::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     if (!touchable || !closeOnTap) {
         return;

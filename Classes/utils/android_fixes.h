@@ -7,21 +7,8 @@
 
 namespace std {
 
-template <typename T>
-string to_string(const T &t)
-{
-    std::ostringstream os;
-    os << t;
-    return os.str();
-}
-
-int stoi(const std::string &str)
-{
-    std::istringstream is(str);
-    int t;
-    is >> t;
-    return t;
-}
+string to_string(int val);
+int stoi(const std::string &str);
 
 } // namespace std
 

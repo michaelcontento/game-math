@@ -6,7 +6,7 @@
 
 class GamePage;
 
-class HintButton : public cocos2d::Node, public cocos2d::TouchDelegate,  public avalon::payment::ManagerDelegate
+class HintButton : public cocos2d::Layer, public avalon::payment::ManagerDelegate
 {
 public:
     constexpr static float alertDelay = 15.0f;
@@ -17,8 +17,8 @@ public:
 
     void onEnter() override;
     void onExit() override;
-    bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
     void onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product) override;
     void onPurchaseFail(avalon::payment::Manager* const manager) override;

@@ -58,19 +58,12 @@ void Page::visit()
 #pragma -
 #pragma mark Touch handling
 
-void Page::registerWithTouchDispatcher()
-{
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, 0, false);
-}
-
-bool Page::ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
+bool Page::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     return isVisible();
 }
 
-void Page::ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
+void Page::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
     auto startDelta = pTouch->getLocation() - pTouch->getStartLocation();
 

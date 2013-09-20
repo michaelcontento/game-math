@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class BackButton : public cocos2d::Node, public cocos2d::TouchDelegate
+class BackButton : public cocos2d::Layer
 {
 public:
     CREATE_FUNC(BackButton);
@@ -11,8 +11,8 @@ public:
     bool init() override;
     void onEnter() override;
     void onExit() override;
-    bool ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
     cocos2d::Sprite* btn = nullptr;

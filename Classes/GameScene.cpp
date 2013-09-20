@@ -7,6 +7,7 @@
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
 #include <avalon/i18n/Localization.h>
+#include <avalon/utils/platform.h>
 #include <AssetsManager/AssetsManager.h>
 #include "SimpleAudioEngine.h"
 #include "pages/MainPage.h"
@@ -46,15 +47,21 @@ bool GameScene::init()
     initPages();
     profile();
 
+#if AVALON_PLATFORM_IS_IOS
     std::thread t(threadInit);
     t.detach();
+#else
+    threadInit();
+#endif
 
     return true;
 }
 
 void GameScene::threadInit()
 {
+#if AVALON_PLATFORM_IS_IOS
     std::this_thread::sleep_for(std::chrono::seconds(1));
+#endif
     initPayment();
     initGameCenter();
     initSoundAndMusic();

@@ -13,9 +13,8 @@ public:
     bool init() override;
     void visit() override;
 
-    void registerWithTouchDispatcher() override;
-    bool ccTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
-    void ccTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent) override;
+    virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) override;
+    virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) override;
     virtual void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) {};
 
     void setBackground(const cocos2d::Color3B& color);

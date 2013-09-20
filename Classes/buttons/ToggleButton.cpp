@@ -17,11 +17,8 @@ using namespace cocos2d;
 
 void ToggleButton::onEnter()
 {
-    Node::onEnter();
-
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->addTargetedDelegate(this, -90, false);
+    Layer::onEnter();
+    setTouchEnabled(true);
 
     if (label) {
         label->setString(_("settings", getLabel(detectState()).c_str()).get().c_str());
@@ -30,23 +27,20 @@ void ToggleButton::onEnter()
 
 void ToggleButton::onExit()
 {
-    Director::getInstance()
-        ->getTouchDispatcher()
-        ->removeDelegate(this);
-
-    Node::onExit();
+    setTouchEnabled(false);
+    Layer::onExit();
 }
 
-bool ToggleButton::ccTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool ToggleButton::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     const auto size = getContentSize();
     const auto bb = Rect(0, 0, size.width, size.height);
     return bb.containsPoint(convertTouchToNodeSpace(touch));
 }
 
-void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void ToggleButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    if (!ccTouchBegan(touch, event)) {
+    if (!onTouchBegan(touch, event)) {
         return;
     }
 
@@ -69,7 +63,7 @@ void ToggleButton::ccTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 
 bool ToggleButton::init()
 {
-    if (!Node::init()) {
+    if (!Layer::init()) {
         return false;
     }
 

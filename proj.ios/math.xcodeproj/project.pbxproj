@@ -68,6 +68,7 @@
 		C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E3178EF1D200F07AE3 /* StoreKit.framework */; };
 		C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84DC2E5178EF1F700F07AE3 /* GameKit.framework */; };
 		C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87542A317E368DA008DC473 /* AboutPage.cpp */; };
+		C897FDA517EC801F005A2D65 /* android_fixes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C897FDA417EC801F005A2D65 /* android_fixes.cpp */; };
 		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
@@ -374,6 +375,7 @@
 		C87542A317E368DA008DC473 /* AboutPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutPage.cpp; sourceTree = "<group>"; };
 		C87542A417E368DA008DC473 /* AboutPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPage.h; sourceTree = "<group>"; };
 		C8902A1C17E91C7200995BA9 /* android_fixes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = android_fixes.h; sourceTree = "<group>"; };
+		C897FDA417EC801F005A2D65 /* android_fixes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = android_fixes.cpp; sourceTree = "<group>"; };
 		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
 		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 		C8CB341117871B29001294B7 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				C897FDA417EC801F005A2D65 /* android_fixes.cpp */,
 				C8902A1C17E91C7200995BA9 /* android_fixes.h */,
 				C8B48A8A178C8A9400EC57FD /* color.cpp */,
 				C8B48A8B178C8A9400EC57FD /* color.h */,
@@ -1214,6 +1217,7 @@
 				C8CB342D178B0581001294B7 /* fonts.cpp in Sources */,
 				C8CB3430178B05CB001294B7 /* config.cpp in Sources */,
 				C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */,
+				C897FDA517EC801F005A2D65 /* android_fixes.cpp in Sources */,
 				C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */,
 				C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */,
 				C8B48A8C178C8A9400EC57FD /* color.cpp in Sources */,

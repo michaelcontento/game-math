@@ -2680,6 +2680,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
                 ++diff;
                 avg = sum / static_cast<float>(amount);
             }
+            int avgInt = static_cast<int>(avg);
 
             std::vector<int> shuffelNbr {usedNbrs.begin(), usedNbrs.end()};
             if (diff > 0) {
@@ -2696,13 +2697,13 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             q = q.substr(0, q.length() - 2) + "\n" + _("questions", "average").get() + "?";
 
             auto wDice = createDiceRange(avg);
-            int w1 = wDice({avg});
-            int w2 = wDice({avg, w1});
-            uniqueValues(static_cast<int>(avg), w1, w2);
+            int w1 = wDice({avgInt});
+            int w2 = wDice({avgInt, w1});
+            uniqueValues(avgInt, w1, w2);
 
             return Question(
                 q,
-                std::to_string(static_cast<int>(avg)),
+                std::to_string(avgInt),
                 std::to_string(w1),
                 std::to_string(w2)
             );
