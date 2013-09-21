@@ -23,7 +23,7 @@ bool Alert::init()
     draw = DrawNode::create();
     addChild(draw);
 
-    const float height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeightMagic();
+    const float height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeight();
     const float width = config::getFrameSize().width;
     Point verts[] = {{0, -height}, {0, height}, {width, height}, {width, -height}};
 
@@ -84,6 +84,11 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
     if (bottomAnimationNode) {
         bottomAnimationNode->stopAllActions();
         bottomAnimationNode->runAction(Sequence::create(
+            CallFunc::create([this]() {
+                setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+                setSwallowsTouches(true);
+                setTouchEnabledWithFixedPriority(-200);
+            }),
             DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
             EaseInOut::create(
                 Spawn::create(
@@ -95,7 +100,6 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
             ),
             CallFunc::create([this]() {
                 touchable = true;
-                setTouchEnabled(true);
             }),
             NULL
         ));
@@ -172,7 +176,7 @@ void Alert::enableCloseOnTap(const bool flag)
 void Alert::setDescription(const std::string& description)
 {
     if (!desc) {
-        desc = fonts::createLight(description.c_str(), 72 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+        desc = fonts::createLight(description.c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
         addChild(desc);
 
         desc->setAnchorPoint({0.5, 0.3});
@@ -272,7 +276,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     buttonContainer->addChild(node);
     buttons.push_back(std::make_pair(node, callback));
 
-    const auto size = Size(220, 40) * config::getScaleFactor() * config::getScaleFactorHeightMagic();
+    const auto size = Size(220, 40) * config::getScaleFactor() * config::getScaleFactorHeight();
     node->setContentSize(size);
 
     node->setAnchorPoint({0, 1});
@@ -283,7 +287,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
     draw->drawPolygon(verts, 4, color::toRGBA(Color3B({55, 55, 55})), 0, {});
 
-    auto label = fonts::createLight(description, 36 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(description, 36 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));

@@ -18,7 +18,10 @@ using namespace cocos2d;
 void ToggleButton::onEnter()
 {
     Layer::onEnter();
-    setTouchEnabled(true);
+
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(false);
+    setTouchEnabledWithFixedPriority(-100);
 
     if (label) {
         label->setString(_("settings", getLabel(detectState()).c_str()).get().c_str());
@@ -28,6 +31,7 @@ void ToggleButton::onEnter()
 void ToggleButton::onExit()
 {
     setTouchEnabled(false);
+    
     Layer::onExit();
 }
 
@@ -89,7 +93,7 @@ void ToggleButton::addBackground()
 
 void ToggleButton::addLabel()
 {
-    label = fonts::createLight(getLabel(detectState()).c_str(), 52 * config::getScaleFactorHeightMagic(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    label = fonts::createLight(getLabel(detectState()).c_str(), 52 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(getContentSize() / 2));

@@ -2,6 +2,7 @@
 
 #include "../PageManager.h"
 #include "../utils/config.h"
+#include "../utils/helper.h"
 
 using namespace cocos2d;
 
@@ -28,8 +29,10 @@ bool Page::init()
         return false;
     }
 
-    setTouchEnabled(true);
-
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(false);
+    setTouchEnabledWithFixedPriority(-50);
+    
     return true;
 }
 

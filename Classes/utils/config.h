@@ -12,7 +12,6 @@ namespace config {
 
 float getScaleFactor();
 float getScaleFactorHeight();
-float getScaleFactorHeightMagic();
 cocos2d::Size getFrameSize();
 float getTouchIgnoreLength();
 float getSwipeMovementMinX();

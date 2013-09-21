@@ -137,7 +137,7 @@ ToggleButton* AboutPage::getFacebookButton() const
 
 void AboutPage::updateContainerLayout() const
 {
-    const auto spacing = 15 * config::getScaleFactorHeightMagic();
+    const auto spacing = 15 * config::getScaleFactorHeight();
     float nextPosY = 0;
     float maxWidth = 0;
 
@@ -247,6 +247,17 @@ void AboutPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalo
     purchased = true;
     
     MyFlurry::logEventWithType("purchase-succeed", "support");
+}
+
+#if AVALON_PLATFORM_IS_IOS
+    #include <avalon/platform/android/utils/android.h>
+#endif
+void AboutPage::visit()
+{
+    Page::visit();
+#if AVALON_PLATFORM_IS_IOS
+    avalon::utils::android::executeRunnables();
+#endif
 }
 
 void AboutPage::onPurchaseFail(avalon::payment::Manager* const manager)

@@ -23,8 +23,8 @@ import com.amazon.inapp.purchasing.PurchaseUpdatesResponse.PurchaseUpdatesReques
 import com.amazon.inapp.purchasing.PurchasingManager;
 import com.amazon.inapp.purchasing.Receipt;
 
-import org.cocos2dx.lib.Cocos2dxHelper;
 import com.avalon.payment.Backend;
+import com.avalon.utils.AndroidHelper;
 
 /**
  * Purchasing Observer will be called on by the Purchasing Manager asynchronously.
@@ -36,7 +36,6 @@ public class PurchasingObserver extends BasePurchasingObserver
 {
     private static final String OFFSET = "offset";
     private static final String TAG = "avalon.payment.PurchasingObserver";
-    private static Activity activity = Cocos2dxHelper.getActivity();
     private String userId;
     public Map<String, String> requestIds;
     public Integer taskCount = 0;
@@ -46,7 +45,7 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public PurchasingObserver()
     {
-        super(activity);
+        super(AndroidHelper.getActivity());
         PurchasingManager.registerObserver(this);
         requestIds = new HashMap<String, String>();
     }
@@ -59,17 +58,17 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public void purchase(String productId, boolean isConsumable)
     {
-        Log.v(TAG, "purchase started: SKU - " + productId);
-        final String requestId = PurchasingManager.initiatePurchaseRequest(productId);
-        requestIds.put(requestId, productId);
-
         if (++taskCount == 1) {
-            activity.runOnUiThread(new Runnable() {
+            AndroidHelper.runOnMainThread(new Runnable() {
                 public void run() {
                     Backend.delegateOnTransactionStart();
                 }
             });
         }
+
+        Log.v(TAG, "purchase started: SKU - " + productId);
+        final String requestId = PurchasingManager.initiatePurchaseRequest(productId);
+        requestIds.put(requestId, productId);
     }
 
     /**
@@ -182,7 +181,7 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public SharedPreferences getSharedPreferencesForCurrentUser()
     {
-        return activity.getSharedPreferences(userId, Context.MODE_PRIVATE);
+        return AndroidHelper.getActivity().getSharedPreferences(userId, Context.MODE_PRIVATE);
     }
 
     /*
@@ -191,23 +190,30 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public void sendStoresProductsAndStartService()
     {
-        activity.runOnUiThread(new Runnable() {
+        AndroidHelper.runOnMainThread(new Runnable() {
             public void run() {
                 Backend.delegateOnServiceStarted();
             }
         });
-        
+
         for (final Map.Entry<String,?> entry : getSharedPreferencesForCurrentUser().getAll().entrySet()) {
             if (entry.getKey().equals(OFFSET)) {
                 continue;
             }
-            
-            activity.runOnUiThread(new Runnable() {
+
+            AndroidHelper.runOnMainThread(new Runnable() {
                 public void run() {
                     Backend.delegateOnPurchaseSucceed(entry.getKey());
                 }
             });
         }
+
+        // Call initiatePurchaseUpdatesRequest for the returned user
+        // to sync purchases that are not yet fulfilled.
+        final SharedPreferences settings = getSharedPreferencesForCurrentUser();
+        PurchasingManager.initiatePurchaseUpdatesRequest(Offset.fromString(
+            settings.getString(OFFSET, Offset.BEGINNING.toString())
+        ));
     }
 
     /*
@@ -236,18 +242,11 @@ public class PurchasingObserver extends BasePurchasingObserver
             super.onPostExecute(result);
 
             if (result) {
-                activity.runOnUiThread(new Runnable() {
+                AndroidHelper.runOnMainThread(new Runnable() {
                     public void run() {
                         Backend.onInitialized();
                     }
                 });
-
-                // Call initiatePurchaseUpdatesRequest for the returned user
-                // to sync purchases that are not yet fulfilled.
-                final SharedPreferences settings = getSharedPreferencesForCurrentUser();
-                PurchasingManager.initiatePurchaseUpdatesRequest(Offset.fromString(
-                    settings.getString(OFFSET, Offset.BEGINNING.toString())
-                ));
             }
         }
     }
@@ -267,7 +266,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     // Skus that you can not purchase will be here.
                     for (final String s : itemDataResponse.getUnavailableSkus()) {
                         Log.v(TAG, "onItemDataResponse: Unavailable SKU: " + s);
-                        activity.runOnUiThread(new Runnable() {
+                        AndroidHelper.runOnMainThread(new Runnable() {
                             public void run() {
                                 Backend.delegateOnItemData(s, "", "", "", 0.0f);
                             }
@@ -287,7 +286,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                             "onItemDataResponse: Item\n  Title: %s\n  Type: %s\n  SKU: %s\n  Price: %s\n  Description: %s\n",
                             i.getTitle(), i.getItemType(), i.getSku(), i.getPrice(), i.getDescription()
                         ));
-                        activity.runOnUiThread(new Runnable() {
+                        AndroidHelper.runOnMainThread(new Runnable() {
                             public void run() {
                                 Backend.delegateOnItemData(key, i.getTitle(), i.getDescription(), i.getPrice(), 0.0f);
                             }
@@ -307,7 +306,7 @@ public class PurchasingObserver extends BasePurchasingObserver
         protected void onPostExecute(final Boolean success)
         {
             super.onPostExecute(success);
-            
+
             if (success) {
                 sendStoresProductsAndStartService();
             }
@@ -344,7 +343,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     final Receipt receipt = purchaseResponse.getReceipt();
                     printReceipt(receipt);
 
-                    activity.runOnUiThread(new Runnable() {
+                    AndroidHelper.runOnMainThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(receipt.getSku());
                         }
@@ -360,12 +359,12 @@ public class PurchasingObserver extends BasePurchasingObserver
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
 
-                    activity.runOnUiThread(new Runnable() {
+                    AndroidHelper.runOnMainThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(sku);
                         }
                     });
-                    
+
                     editor.putBoolean(sku, true);
                     editor.commit();
                     return true;
@@ -374,25 +373,25 @@ public class PurchasingObserver extends BasePurchasingObserver
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
 
-                    activity.runOnUiThread(new Runnable() {
+                    AndroidHelper.runOnMainThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseFail();
                         }
                     });
-                    
+
                     Log.v(TAG, "onPurchaseResponse: Failed SKU: " + sku);
                     return false;
 
                 case INVALID_SKU:
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
-                    
-                    activity.runOnUiThread(new Runnable() {
+
+                    AndroidHelper.runOnMainThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseFail();
                         }
                     });
-                    
+
                     Log.v(TAG, "onPurchaseResponse: Invalid SKU: " + sku);
                     return false;
             }
@@ -405,7 +404,7 @@ public class PurchasingObserver extends BasePurchasingObserver
         {
             super.onPostExecute(success);
             if (--taskCount == 0) {
-                activity.runOnUiThread(new Runnable() {
+                AndroidHelper.runOnMainThread(new Runnable() {
                     public void run() {
                         Backend.delegateOnTransactionEnd();
                     }
@@ -454,7 +453,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                 printReceipt(receipt);
 
                 if (receipt.getItemType() == ItemType.ENTITLED) {
-                    activity.runOnUiThread(new Runnable() {
+                    AndroidHelper.runOnMainThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(receipt.getSku());
                         }
@@ -464,7 +463,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     editor.commit();
                 }
             }
-            
+
             /*
              * Store the offset into shared preferences. If there has been more purchases since the
              * last time our application updated, another initiatePurchaseUpdatesRequest is called with the new

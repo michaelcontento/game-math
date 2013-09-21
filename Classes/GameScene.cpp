@@ -2,7 +2,6 @@
 
 #include <thread>
 #include <chrono>
-#include <string>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
@@ -28,6 +27,8 @@ using namespace cocos2d;
 using namespace CocosDenshion;
 using namespace avalon;
 
+std::string GameScene::searchPath {};
+
 Scene* GameScene::scene()
 {
     Scene* scene = Scene::create();
@@ -41,7 +42,7 @@ bool GameScene::init()
         return false;
     }
 
-    updateAssets();
+    initAssetsSearchpath();
     initAssets();
     initLocalization();
     initPages();
@@ -60,12 +61,19 @@ bool GameScene::init()
 void GameScene::threadInit()
 {
 #if AVALON_PLATFORM_IS_IOS
+    // don't interfere with the initial animation
     std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
+
     initPayment();
     initGameCenter();
-    initSoundAndMusic();
     initAds();
+    initSoundAndMusic();
+
+    // this is not that important and can wait a few more seconds
+    // for the whole system to stabilize / get ready
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    updateAssets();
 }
 
 void GameScene::initPages()
@@ -106,13 +114,17 @@ void GameScene::initAssets()
         ->addSpriteFramesWithFile("assets.plist");
 }
 
+void GameScene::initAssetsSearchpath()
+{
+    searchPath = FileUtils::getInstance()->getWritablePath();
+    
+    auto searchPaths = FileUtils::getInstance()->getSearchPaths();
+    searchPaths.insert(searchPaths.begin(), searchPath);
+    FileUtils::getInstance()->setSearchPaths(searchPaths);
+}
+
 void GameScene::updateAssets()
 {
-    auto path = FileUtils::getInstance()->getWritablePath();
-    auto searchPaths = FileUtils::getInstance()->getSearchPaths();
-    searchPaths.insert(searchPaths.begin(), path);
-    FileUtils::getInstance()->setSearchPaths(searchPaths);
-    
     auto mgr = new extension::AssetsManager(
 #ifdef DEVASSETS
         "http://appdata.coragames.com.s3-website-eu-west-1.amazonaws.com/math/package.zip",
@@ -121,7 +133,7 @@ void GameScene::updateAssets()
         "http://appdata.coragames.com/math/package.zip",
         "http://appdata.coragames.com/math/version",
 #endif
-        path.c_str()
+        searchPath.c_str()
     );
     mgr->setConnectionTimeout(5);
     mgr->update();
@@ -152,6 +164,10 @@ void GameScene::initPayment()
 {
     payment::Loader loader("payment.ini");
     payment::Loader::globalManager = loader.getManager();
+
+    auto settings = dynamic_cast<SettingsPage*>(PageManager::shared().getPage("settings"));
+    payment::Loader::globalManager->delegate = settings;
+
     payment::Loader::globalManager->startService();
 }
 

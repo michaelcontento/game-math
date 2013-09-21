@@ -27,12 +27,6 @@ float getScaleFactorHeight()
     return factor;
 }
 
-float getScaleFactorHeightMagic()
-{
-    static const auto factor = std::max(1.0, ((getScaleFactorHeight() - 1.0) * 5) + 1.0);
-    return factor;
-}
-
 cocos2d::Size getFrameSize()
 {
     return Director::getInstance()->getOpenGLView()->getFrameSize();
@@ -60,7 +54,7 @@ float getQuestionStartDelay()
 
 float getProgressbarHeight()
 {
-    return 8 * std::max(config::getScaleFactor(), config::getScaleFactorHeightMagic());
+    return 8 * std::max(config::getScaleFactor(), config::getScaleFactorHeight());
 }
 
 float getAnswerButtonPadding()

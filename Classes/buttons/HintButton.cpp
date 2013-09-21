@@ -47,7 +47,7 @@ bool HintButton::init(GamePage& game)
 
 void HintButton::addLabel()
 {
-    label = fonts::createLight(std::to_string(user::getHintKeys()), 42 * config::getScaleFactorHeightMagic());
+    label = fonts::createLight(std::to_string(user::getHintKeys()), 42 * config::getScaleFactorHeight());
     addChild(label);
 
     label->setColor(Color3B::BLACK);
@@ -62,7 +62,7 @@ void HintButton::addIcon()
     addChild(key);
 
     key->setColor(Color3B::BLACK);
-    key->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeightMagic());
+    key->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeight());
 
     auto size = key->getContentSize() * key->getScale();
     float padding = 5 * config::getScaleFactor();
@@ -80,12 +80,16 @@ void HintButton::addIcon()
 void HintButton::onEnter()
 {
     Layer::onEnter();
-    setTouchEnabled(true);
+
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(true);
+    setTouchEnabledWithFixedPriority(-100);
 }
 
 void HintButton::onExit()
 {
     setTouchEnabled(false);
+
     Layer::onExit();
 }
 

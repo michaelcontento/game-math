@@ -251,7 +251,6 @@ bool PageManager::init()
         return false;
     }
 
-    setTouchEnabled(true);
     instance = this;
 
     scrollView = ScrollView::create(config::getFrameSize(), Node::create());

@@ -53,7 +53,7 @@ void CategoryPage::addLevelButtons()
     addChild(container);
 
     auto spacingX = 15 * config::getScaleFactor();
-    auto spacingY = 15 * std::max(config::getScaleFactor(), config::getScaleFactorHeightMagic());
+    auto spacingY = 15 * std::max(config::getScaleFactor(), config::getScaleFactorHeight());
     auto containerSize = container->getContentSize();
     auto gridSize = Point(4, 4);
 

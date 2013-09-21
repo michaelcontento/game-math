@@ -13,12 +13,16 @@ using namespace cocos2d;
 void AnswerButton::onEnter()
 {
     Layer::onEnter();
-    setTouchEnabled(true);
+
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(false);
+    setTouchEnabledWithFixedPriority(-100);
 }
 
 void AnswerButton::onExit()
 {
     setTouchEnabled(false);
+    
     Layer::onExit();
 }
 
@@ -166,14 +170,14 @@ void AnswerButton::addBackground(const cocos2d::Color3B& color)
 
 void AnswerButton::addLabels()
 {
-    indicatorLabelLeft = fonts::createLight("", 76 * config::getScaleFactorHeightMagic());
+    indicatorLabelLeft = fonts::createLight("", 76 * config::getScaleFactorHeight());
     indicatorLabelLeft->setColor(Color3B::WHITE);
     indicatorLabelLeft->setAnchorPoint({0.5, 0.5});
     indicatorLabelLeft->setPositionX(startPosLeft);
     indicatorLabelLeft->setPositionY(getContentSize().height / 2);
     addChild(indicatorLabelLeft);
 
-    indicatorLabelRight = fonts::createLight("", 76 * config::getScaleFactorHeightMagic());
+    indicatorLabelRight = fonts::createLight("", 76 * config::getScaleFactorHeight());
     indicatorLabelRight->setColor(indicatorLabelLeft->getColor());
     indicatorLabelRight->setAnchorPoint(indicatorLabelLeft->getAnchorPoint());
     indicatorLabelRight->setPositionX(startPosRight);

@@ -2,6 +2,7 @@
 #define MATH_GAMESCENE_H
 
 #include "cocos2d.h"
+#include <string>
 
 class PageManager;
 
@@ -14,15 +15,17 @@ public:
 
 private:
     PageManager* pageManager = nullptr;
+    static std::string searchPath;
 
     void addCategoryPages(PageManager& pageManager) const;
-    static void initAds();
     static void threadInit();
+    static void initAds();
     static void initPayment();
     static void initGameCenter();
     static void initSoundAndMusic();
+    static void initAssetsSearchpath();
+    static void updateAssets();
     void initLocalization();
-    void updateAssets();
     void initAssets();
     void profile();
     void initPages();

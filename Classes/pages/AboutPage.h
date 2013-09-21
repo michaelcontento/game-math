@@ -14,7 +14,8 @@ public:
     bool init() override;
 
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
-
+    void visit() override;
+    
     void onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product) override;
     void onPurchaseFail(avalon::payment::Manager* const manager) override;
 

@@ -2,6 +2,7 @@
 
 #include "../PageManager.h"
 #include "../utils/config.h"
+#include "../utils/helper.h"
 
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
@@ -11,12 +12,16 @@ using namespace cocos2d;
 void BackButton::onEnter()
 {
     Layer::onEnter();
-    setTouchEnabled(true);
+
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(false);
+    setTouchEnabledWithFixedPriority(-100);
 }
 
 void BackButton::onExit()
 {
     setTouchEnabled(false);
+    
     Node::onExit();
 }
 
@@ -42,7 +47,7 @@ bool BackButton::init()
 
     btn = Sprite::createWithSpriteFrameName("arrow.png");
     btn->setAnchorPoint({0, 0});
-    btn->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeightMagic());
+    btn->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeight());
     btn->setColor(Color3B::BLACK);
     addChild(btn);
 

@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include <typeinfo>
 #include <list>
 #include <avalon/GameCenter.h>
+#include <avalon/utils/platform.h>
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
@@ -37,12 +38,16 @@ void SettingsPage::addButtons()
     const std::list<Node*> btns = {
         getUnlockAllButton(),
         getRemoveAdsButton(),
+#if AVALON_PLATFORM_IS_IOS
         getRestoreButton(),
+#endif
         getBlankButton(),
         getLeaderboardButton(),
         getAchievementsButton(),
         getBlankButton(),
+#if AVALON_PLATFORM_IS_IOS
         getVibrateButton(),
+#endif
         getSoundButton(),
         getMusicButton()
     };
@@ -61,7 +66,7 @@ void SettingsPage::addButtons()
 
 void SettingsPage::updateContainerLayout() const
 {
-    const auto spacing = 15 * config::getScaleFactorHeightMagic();
+    const auto spacing = 15 * config::getScaleFactorHeight();
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
@@ -242,11 +247,25 @@ Node* SettingsPage::getBlankButton() const
     return btn;
 }
 
+void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const manager, avalon::payment::Product* const product)
+{
+    if (!user::isLevelGroupLocked(nbr)) {
+        return;
+    }
+    
+    auto key = std::string("category-") + std::to_string(nbr * 2 + 1);
+    auto page = PageManager::shared().getPage(key.c_str());
+
+    auto categoryPage = dynamic_cast<LockedCategoryPage*>(page);
+    if (categoryPage) {
+        categoryPage->onPurchaseSucceed(manager, product);
+    }
+}
+
 void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
 {
-
     auto id = product->getProductId();
-    
+
     if (id.find(".pack.") != std::string::npos) {
         auto nbr = std::stoi(id.substr(id.size() - 1));
         unlockPage(nbr, manager, product);
@@ -270,33 +289,27 @@ void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, av
         return;
     }
 
-    log("unknown product id restored: %s", id.c_str());
-}
-
-void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const manager, avalon::payment::Product* const product)
-{
-    if (!user::isLevelGroupLocked(nbr)) {
+    if (id.find(".support") != std::string::npos) {
+        auto consumable = dynamic_cast<avalon::payment::ProductConsumable*>(product);
+        if (consumable) {
+            consumable->consume();
+        }
+        MyFlurry::logEventWithType("purchase-succeed", "support");
         return;
     }
-    
-    auto key = std::string("category-") + std::to_string(nbr * 2 + 1);
-    auto page = PageManager::shared().getPage(key.c_str());
 
-    auto categoryPage = dynamic_cast<LockedCategoryPage*>(page);
-    if (categoryPage) {
-        categoryPage->onPurchaseSucceed(manager, product);
-    }
+    log("unknown product id restored: %s", id.c_str());
 }
 
 void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentPendingSpinner(false);
     helper::showPaymentFailed();
     MyFlurry::logEvent("purchase-fail");
 }
 
 void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 {
-    helper::showPaymentPendingSpinner(true);
     MyFlurry::startTimedEvent("payment-transaction");
 }
 

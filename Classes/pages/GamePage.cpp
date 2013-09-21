@@ -71,7 +71,7 @@ void GamePage::restart()
 
     stars.clear();
     starContainer->removeAllChildren();
-    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false, true);
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
 
     updateProgressbar();
 
@@ -107,7 +107,7 @@ void GamePage::addTimer()
     addChild(timer);
     timer->setHintButton(*hints);
 
-    auto fix = 5 * config::getScaleFactor();
+    const auto fix = 5 * config::getScaleFactor();
 
     timer->setAnchorPoint({1, 1});
     timer->setPositionX(config::getFrameSize().width - spacing);
@@ -121,7 +121,7 @@ void GamePage::addBackButton()
 
     btn->setAnchorPoint({0, 1});
     btn->setPositionX(spacing);
-    btn->setPositionY(config::getFrameSize().height - spacing);
+    btn->setPositionY(config::getFrameSize().height - spacing - btn->getContentSize().height);
 }
 
 void GamePage::addStars()
@@ -129,9 +129,9 @@ void GamePage::addStars()
     starContainer = Node::create();
     addChild(starContainer);
 
-    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false, true);
+    fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
 
-    auto fix = 5 * config::getScaleFactor();
+    const auto fix = 5 * config::getScaleFactor();
 
     starContainer->setAnchorPoint({1, 1});
     starContainer->setPositionX(config::getFrameSize().width - spacing);
@@ -143,11 +143,11 @@ void GamePage::addHints()
     hints = HintButton::create(*this);
     addChild(hints);
 
-    auto fix = 10 * config::getScaleFactor();
+    const auto fix = 5 * config::getScaleFactor();
 
-    hints->setAnchorPoint({0.5, 0.5});
-    hints->setPositionX(config::getFrameSize().width / 2);
-    hints->setPositionY(config::getFrameSize().height - spacing + fix - (hints->getContentSize().height / 2));
+    hints->setAnchorPoint({0, 1});
+    hints->setPositionX(config::getFrameSize().width / 2.f);
+    hints->setPositionY(config::getFrameSize().height - spacing + fix - hints->getContentSize().height);
 }
 
 void GamePage::addQuestion()
