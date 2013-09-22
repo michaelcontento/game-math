@@ -212,6 +212,7 @@ void Alert::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 
     if (buttons.empty()) {
         hide();
+        SimpleAudioEngine::getInstance()->playEffect("click.mp3");
         return;
     }
 
