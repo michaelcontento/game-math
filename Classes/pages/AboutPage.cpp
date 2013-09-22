@@ -249,17 +249,6 @@ void AboutPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalo
     MyFlurry::logEventWithType("purchase-succeed", "support");
 }
 
-#if AVALON_PLATFORM_IS_ANDROID
-    #include <avalon/platform/android/utils/android.h>
-#endif
-void AboutPage::visit()
-{
-    Page::visit();
-#if AVALON_PLATFORM_IS_ANDROID
-    avalon::utils::android::executeRunnables();
-#endif
-}
-
 void AboutPage::onPurchaseFail(avalon::payment::Manager* const manager)
 {
     helper::showPaymentFailed();

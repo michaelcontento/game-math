@@ -70,10 +70,12 @@ void GameScene::threadInit()
     initAds();
     initSoundAndMusic();
 
+#if !AVALON_PLATFORM_IS_ANDROID
     // this is not that important and can wait a few more seconds
     // for the whole system to stabilize / get ready
     std::this_thread::sleep_for(std::chrono::seconds(2));
     updateAssets();
+#endif
 }
 
 void GameScene::initPages()

@@ -70,6 +70,12 @@
 		C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87542A317E368DA008DC473 /* AboutPage.cpp */; };
 		C897FDA517EC801F005A2D65 /* android_fixes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C897FDA417EC801F005A2D65 /* android_fixes.cpp */; };
 		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
+		C8A93F3817EF02170093CCDB /* GameCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A93F2617EF02170093CCDB /* GameCenter.cpp */; };
+		C8A93F3917EF02170093CCDB /* amazon-gamecircle.jar in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93F2917EF02170093CCDB /* amazon-gamecircle.jar */; };
+		C8A93F3A17EF02170093CCDB /* GameCenter.java in Sources */ = {isa = PBXBuildFile; fileRef = C8A93F2D17EF02170093CCDB /* GameCenter.java */; };
+		C8A93F3B17EF02170093CCDB /* in-app-purchasing.jar in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93F3117EF02170093CCDB /* in-app-purchasing.jar */; };
+		C8A93F3C17EF02170093CCDB /* Backend.java in Sources */ = {isa = PBXBuildFile; fileRef = C8A93F3617EF02170093CCDB /* Backend.java */; };
+		C8A93F3D17EF02170093CCDB /* PurchasingObserver.java in Sources */ = {isa = PBXBuildFile; fileRef = C8A93F3717EF02170093CCDB /* PurchasingObserver.java */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
 		C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A87178C6C7600EC57FD /* LevelButton.cpp */; };
@@ -378,6 +384,12 @@
 		C897FDA417EC801F005A2D65 /* android_fixes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = android_fixes.cpp; sourceTree = "<group>"; };
 		C8A6B02417A133B400815182 /* MoreGamesPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreGamesPage.cpp; sourceTree = "<group>"; };
 		C8A6B02517A133B400815182 /* MoreGamesPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreGamesPage.h; sourceTree = "<group>"; };
+		C8A93F2617EF02170093CCDB /* GameCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameCenter.cpp; sourceTree = "<group>"; };
+		C8A93F2917EF02170093CCDB /* amazon-gamecircle.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = "amazon-gamecircle.jar"; sourceTree = "<group>"; };
+		C8A93F2D17EF02170093CCDB /* GameCenter.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = GameCenter.java; sourceTree = "<group>"; };
+		C8A93F3117EF02170093CCDB /* in-app-purchasing.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; path = "in-app-purchasing.jar"; sourceTree = "<group>"; };
+		C8A93F3617EF02170093CCDB /* Backend.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Backend.java; sourceTree = "<group>"; };
+		C8A93F3717EF02170093CCDB /* PurchasingObserver.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = PurchasingObserver.java; sourceTree = "<group>"; };
 		C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CategoryPage.cpp; sourceTree = "<group>"; };
 		C8B48A75178C37FB00EC57FD /* CategoryPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPage.h; sourceTree = "<group>"; };
 		C8B48A83178C3D7300EC57FD /* GamePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePage.cpp; sourceTree = "<group>"; };
@@ -454,6 +466,8 @@
 				1AF4C2F517865DCB00122817 /* libchipmunk iOS.a in Frameworks */,
 				1AF4C2F617865DCB00122817 /* libcocos2dx iOS.a in Frameworks */,
 				1AF4C2F717865DCB00122817 /* libcocos2dx-extensions iOS.a in Frameworks */,
+				C8A93F3B17EF02170093CCDB /* in-app-purchasing.jar in Frameworks */,
+				C8A93F3917EF02170093CCDB /* amazon-gamecircle.jar in Frameworks */,
 				1AF4C2F817865DCB00122817 /* libCocosDenshion iOS.a in Frameworks */,
 				1ACB3244164770DE00914215 /* libcurl.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -758,6 +772,7 @@
 		C84DC163178EEC9000F07AE3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				C8A93F2417EF02170093CCDB /* android-amazon */,
 				C84DC1DA178EEC9000F07AE3 /* ios */,
 			);
 			path = platform;
@@ -832,6 +847,123 @@
 				C84DC217178EEC9000F07AE3 /* url.h */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		C8A93F2417EF02170093CCDB /* android-amazon */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2517EF02170093CCDB /* gamecenter */,
+				C8A93F2E17EF02170093CCDB /* payment */,
+			);
+			path = "android-amazon";
+			sourceTree = "<group>";
+		};
+		C8A93F2517EF02170093CCDB /* gamecenter */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2617EF02170093CCDB /* GameCenter.cpp */,
+				C8A93F2717EF02170093CCDB /* java */,
+			);
+			path = gamecenter;
+			sourceTree = "<group>";
+		};
+		C8A93F2717EF02170093CCDB /* java */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2817EF02170093CCDB /* libs */,
+				C8A93F2A17EF02170093CCDB /* src */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		C8A93F2817EF02170093CCDB /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2917EF02170093CCDB /* amazon-gamecircle.jar */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		C8A93F2A17EF02170093CCDB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2B17EF02170093CCDB /* com */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		C8A93F2B17EF02170093CCDB /* com */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2C17EF02170093CCDB /* avalon */,
+			);
+			path = com;
+			sourceTree = "<group>";
+		};
+		C8A93F2C17EF02170093CCDB /* avalon */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2D17EF02170093CCDB /* GameCenter.java */,
+			);
+			path = avalon;
+			sourceTree = "<group>";
+		};
+		C8A93F2E17EF02170093CCDB /* payment */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F2F17EF02170093CCDB /* java */,
+			);
+			path = payment;
+			sourceTree = "<group>";
+		};
+		C8A93F2F17EF02170093CCDB /* java */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3017EF02170093CCDB /* libs */,
+				C8A93F3217EF02170093CCDB /* src */,
+			);
+			path = java;
+			sourceTree = "<group>";
+		};
+		C8A93F3017EF02170093CCDB /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3117EF02170093CCDB /* in-app-purchasing.jar */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		C8A93F3217EF02170093CCDB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3317EF02170093CCDB /* com */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		C8A93F3317EF02170093CCDB /* com */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3417EF02170093CCDB /* avalon */,
+			);
+			path = com;
+			sourceTree = "<group>";
+		};
+		C8A93F3417EF02170093CCDB /* avalon */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3517EF02170093CCDB /* payment */,
+			);
+			path = avalon;
+			sourceTree = "<group>";
+		};
+		C8A93F3517EF02170093CCDB /* payment */ = {
+			isa = PBXGroup;
+			children = (
+				C8A93F3617EF02170093CCDB /* Backend.java */,
+				C8A93F3717EF02170093CCDB /* PurchasingObserver.java */,
+			);
+			path = payment;
 			sourceTree = "<group>";
 		};
 		C8B48A86178C6C7600EC57FD /* buttons */ = {
@@ -1217,6 +1349,7 @@
 				C8CB342D178B0581001294B7 /* fonts.cpp in Sources */,
 				C8CB3430178B05CB001294B7 /* config.cpp in Sources */,
 				C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */,
+				C8A93F3817EF02170093CCDB /* GameCenter.cpp in Sources */,
 				C897FDA517EC801F005A2D65 /* android_fixes.cpp in Sources */,
 				C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */,
 				C8B48A89178C6C7600EC57FD /* LevelButton.cpp in Sources */,
@@ -1224,6 +1357,7 @@
 				C8B48A8F178D789300EC57FD /* AnswerButton.cpp in Sources */,
 				C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */,
 				C84DC274178EEC9000F07AE3 /* Chartboost.cpp in Sources */,
+				C8A93F3C17EF02170093CCDB /* Backend.java in Sources */,
 				C84DC276178EEC9000F07AE3 /* Language.cpp in Sources */,
 				C84DC277178EEC9000F07AE3 /* LanguageKey.cpp in Sources */,
 				C84DC278178EEC9000F07AE3 /* Localization.cpp in Sources */,
@@ -1254,9 +1388,11 @@
 				C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */,
 				C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */,
 				C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */,
+				C8A93F3D17EF02170093CCDB /* PurchasingObserver.java in Sources */,
 				C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */,
 				C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */,
 				C813859717DF77CE0074DE85 /* MyFlurry.mm in Sources */,
+				C8A93F3A17EF02170093CCDB /* GameCenter.java in Sources */,
 				C81385BC17DFAEA50074DE85 /* Appirater.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,7 +24,7 @@ import com.amazon.inapp.purchasing.PurchasingManager;
 import com.amazon.inapp.purchasing.Receipt;
 
 import com.avalon.payment.Backend;
-import com.avalon.utils.AndroidHelper;
+import org.cocos2dx.lib.Cocos2dxHelper;
 
 /**
  * Purchasing Observer will be called on by the Purchasing Manager asynchronously.
@@ -45,7 +45,7 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public PurchasingObserver()
     {
-        super(AndroidHelper.getActivity());
+        super(Cocos2dxHelper.getActivity());
         PurchasingManager.registerObserver(this);
         requestIds = new HashMap<String, String>();
     }
@@ -59,7 +59,7 @@ public class PurchasingObserver extends BasePurchasingObserver
     public void purchase(String productId, boolean isConsumable)
     {
         if (++taskCount == 1) {
-            AndroidHelper.runOnMainThread(new Runnable() {
+            Cocos2dxHelper.runOnGLThread(new Runnable() {
                 public void run() {
                     Backend.delegateOnTransactionStart();
                 }
@@ -181,7 +181,7 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public SharedPreferences getSharedPreferencesForCurrentUser()
     {
-        return AndroidHelper.getActivity().getSharedPreferences(userId, Context.MODE_PRIVATE);
+        return Cocos2dxHelper.getActivity().getSharedPreferences(userId, Context.MODE_PRIVATE);
     }
 
     /*
@@ -190,7 +190,7 @@ public class PurchasingObserver extends BasePurchasingObserver
      */
     public void sendStoresProductsAndStartService()
     {
-        AndroidHelper.runOnMainThread(new Runnable() {
+        Cocos2dxHelper.runOnGLThread(new Runnable() {
             public void run() {
                 Backend.delegateOnServiceStarted();
             }
@@ -201,7 +201,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                 continue;
             }
 
-            AndroidHelper.runOnMainThread(new Runnable() {
+            Cocos2dxHelper.runOnGLThread(new Runnable() {
                 public void run() {
                     Backend.delegateOnPurchaseSucceed(entry.getKey());
                 }
@@ -242,7 +242,7 @@ public class PurchasingObserver extends BasePurchasingObserver
             super.onPostExecute(result);
 
             if (result) {
-                AndroidHelper.runOnMainThread(new Runnable() {
+                Cocos2dxHelper.runOnGLThread(new Runnable() {
                     public void run() {
                         Backend.onInitialized();
                     }
@@ -266,7 +266,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     // Skus that you can not purchase will be here.
                     for (final String s : itemDataResponse.getUnavailableSkus()) {
                         Log.v(TAG, "onItemDataResponse: Unavailable SKU: " + s);
-                        AndroidHelper.runOnMainThread(new Runnable() {
+                        Cocos2dxHelper.runOnGLThread(new Runnable() {
                             public void run() {
                                 Backend.delegateOnItemData(s, "", "", "", 0.0f);
                             }
@@ -286,7 +286,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                             "onItemDataResponse: Item\n  Title: %s\n  Type: %s\n  SKU: %s\n  Price: %s\n  Description: %s\n",
                             i.getTitle(), i.getItemType(), i.getSku(), i.getPrice(), i.getDescription()
                         ));
-                        AndroidHelper.runOnMainThread(new Runnable() {
+                        Cocos2dxHelper.runOnGLThread(new Runnable() {
                             public void run() {
                                 Backend.delegateOnItemData(key, i.getTitle(), i.getDescription(), i.getPrice(), 0.0f);
                             }
@@ -343,7 +343,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     final Receipt receipt = purchaseResponse.getReceipt();
                     printReceipt(receipt);
 
-                    AndroidHelper.runOnMainThread(new Runnable() {
+                    Cocos2dxHelper.runOnGLThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(receipt.getSku());
                         }
@@ -359,7 +359,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
 
-                    AndroidHelper.runOnMainThread(new Runnable() {
+                    Cocos2dxHelper.runOnGLThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(sku);
                         }
@@ -373,7 +373,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
 
-                    AndroidHelper.runOnMainThread(new Runnable() {
+                    Cocos2dxHelper.runOnGLThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseFail();
                         }
@@ -386,7 +386,7 @@ public class PurchasingObserver extends BasePurchasingObserver
                     sku = requestIds.get(purchaseResponse.getRequestId());
                     requestIds.remove(purchaseResponse.getRequestId());
 
-                    AndroidHelper.runOnMainThread(new Runnable() {
+                    Cocos2dxHelper.runOnGLThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseFail();
                         }
@@ -404,7 +404,7 @@ public class PurchasingObserver extends BasePurchasingObserver
         {
             super.onPostExecute(success);
             if (--taskCount == 0) {
-                AndroidHelper.runOnMainThread(new Runnable() {
+                Cocos2dxHelper.runOnGLThread(new Runnable() {
                     public void run() {
                         Backend.delegateOnTransactionEnd();
                     }
@@ -449,11 +449,21 @@ public class PurchasingObserver extends BasePurchasingObserver
             	return null;
             }
 
+            // Start transaction in Cpp-Land
+            if (++taskCount == 1) {
+                Cocos2dxHelper.runOnGLThread(new Runnable() {
+                    public void run() {
+                        Backend.delegateOnTransactionStart();
+                    }
+                });
+            }
+
+            // Process all pending purchases
             for (final Receipt receipt : purchaseUpdatesResponse.getReceipts()) {
                 printReceipt(receipt);
 
                 if (receipt.getItemType() == ItemType.ENTITLED) {
-                    AndroidHelper.runOnMainThread(new Runnable() {
+                    Cocos2dxHelper.runOnGLThread(new Runnable() {
                         public void run() {
                             Backend.delegateOnPurchaseSucceed(receipt.getSku());
                         }
@@ -462,6 +472,15 @@ public class PurchasingObserver extends BasePurchasingObserver
                     editor.putBoolean(receipt.getSku(), true);
                     editor.commit();
                 }
+            }
+
+            // End transaction in Cpp-Land
+            if (--taskCount == 0) {
+                Cocos2dxHelper.runOnGLThread(new Runnable() {
+                    public void run() {
+                        Backend.delegateOnTransactionEnd();
+                    }
+                });
             }
 
             /*

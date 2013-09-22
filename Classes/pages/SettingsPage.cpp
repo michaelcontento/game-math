@@ -217,6 +217,7 @@ ToggleButton* SettingsPage::getUnlockAllButton()
         if (user::allLevelGroupsUnlocked()) {
             container->removeChildByTag(tagUnlockAllButton);
             updateContainerLayout();
+            return false;
         }
 
         int locked = 0;
@@ -265,6 +266,7 @@ void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const man
 void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
 {
     auto id = product->getProductId();
+    log(">>>>> onPurchaseSucceed: %s", id.c_str());
 
     if (id.find(".pack.") != std::string::npos) {
         auto nbr = std::stoi(id.substr(id.size() - 1));
@@ -315,6 +317,7 @@ void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
+    log(">>>>> onTransactionEnd");
     bool updateLayout = false;
     bool noAds = !user::hasAdsEnabled();
     bool allLevels = user::allLevelGroupsUnlocked();
