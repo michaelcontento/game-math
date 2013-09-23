@@ -17,6 +17,9 @@ public:
     virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) override;
     virtual void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) {};
 
+    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
+    virtual void onBackspace();
+
     void setBackground(const cocos2d::Color3B& color);
     cocos2d::Color3B getBackground() const;
 

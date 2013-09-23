@@ -11,6 +11,8 @@ public:
     bool init() override;
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
 
+    virtual void onBackspace() override;
+
 private:
     void addIcon();
     void addTapToPlayLabel();

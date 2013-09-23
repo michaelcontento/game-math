@@ -492,3 +492,8 @@ bool GamePage::isVisible() const
 {
     return true;
 }
+
+void GamePage::onBackspace()
+{
+    PageManager::shared().scrollUp();
+}

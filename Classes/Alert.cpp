@@ -88,6 +88,7 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
                 setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
                 setSwallowsTouches(true);
                 setTouchEnabledWithFixedPriority(-200);
+                setKeyboardEnabled(true);
             }),
             DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
             EaseInOut::create(
@@ -131,6 +132,7 @@ void Alert::hide(const bool instant)
         CallFunc::create([this]() {
             visible = false;
             setTouchEnabled(false);
+            setKeyboardEnabled(false);
             if (this->buttonCb) this->buttonCb();
             this->callback();
         }),
@@ -293,4 +295,23 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));
     node->addChild(label);
+}
+
+void Alert::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+{
+    if (keyCode != EventKeyboard::KeyCode::KEY_BACKSPACE) {
+        Layer::onKeyReleased(keyCode, event);
+        return;
+    }
+
+    if (!visible) {
+        Layer::onKeyReleased(keyCode, event);
+        return;
+    }
+
+    if (!buttons.empty()) {
+        buttonCb = buttons.front().second;
+    }
+    hide();
+    event->stopPropagation();
 }

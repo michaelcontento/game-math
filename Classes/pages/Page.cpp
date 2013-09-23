@@ -32,6 +32,7 @@ bool Page::init()
     setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
     setSwallowsTouches(false);
     setTouchEnabledWithFixedPriority(-50);
+    setKeyboardEnabled(true);
     
     return true;
 }
@@ -80,4 +81,31 @@ void Page::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
     } else {
         onTouch(*pTouch, *pEvent);
     }
+}
+
+void Page::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+{
+    if (keyCode != EventKeyboard::KeyCode::KEY_BACKSPACE) {
+        Layer::onKeyReleased(keyCode, event);
+        return;
+    }
+
+    if (!isVisible()) {
+        Layer::onKeyReleased(keyCode, event);
+        return;
+    }
+
+    if (PageManager::shared().hasControl()) {
+        Layer::onKeyReleased(keyCode, event);
+        return;
+    }
+
+    onBackspace();
+    event->stopPropagation();
+}
+
+void Page::onBackspace()
+{
+    PageManager::shared().scrollHome();
+
 }

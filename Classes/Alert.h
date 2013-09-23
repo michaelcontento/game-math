@@ -27,6 +27,8 @@ public:
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
+    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
+
 private:
     bool visible = false;
     bool touchable = false;

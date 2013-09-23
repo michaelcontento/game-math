@@ -67,3 +67,12 @@ void MainPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     PageManager::shared().scrollTo("category-1", config::getSnapAnimationDuration() * 2);
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");
 }
+
+
+void MainPage::onBackspace()
+{
+    Director::getInstance()->end();
+#if AVALON_PLATFORM_IS_IOS
+    exit(0);
+#endif
+}

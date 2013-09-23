@@ -23,6 +23,7 @@ public:
 
     void scrollTo(const std::string& name);
     void scrollTo(const std::string& name, const float duration);
+    void scrollHome();
 
     void scrollDown(Page* const page);
     void scrollUp();

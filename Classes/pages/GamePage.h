@@ -35,6 +35,8 @@ public:
     void pause();
     void resume(const float delay = 0);
 
+    virtual void onBackspace() override;
+
 private:
     bool revealable = false;
     static constexpr unsigned short questionAmount = 10;

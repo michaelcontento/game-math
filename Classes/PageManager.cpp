@@ -141,6 +141,24 @@ void PageManager::scrollTo(const std::string& name, const float duration)
     }
 }
 
+void PageManager::scrollHome()
+{
+    if (pageScrollDown) {
+        return;
+    }
+
+    static const auto mainIndex = getPageIndex("main");
+    static const auto mainWidth = getPage("main")->getContentSize().width;
+    static const auto newPos = mainIndex * mainWidth * -1;
+
+    const auto scrollDiff = std::abs(scrollView->getContentOffset().x - newPos);
+    const auto duration = (config::getSnapAnimationDuration() / mainWidth) * scrollDiff;
+
+    snapActive = true;
+    scrollView->unscheduleAllSelectors();
+    scrollView->setContentOffsetInDuration(Point(newPos, 0), duration);
+}
+
 void PageManager::scrollDown(Page* const page)
 {
     if (hasControl() || pageScrollDown) {
