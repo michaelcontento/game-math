@@ -42,6 +42,8 @@ cocos2d::LabelTTF* QuestionString::addSubLabel(const std::string& text, const in
     const static auto padding = (1 * config::getScaleFactor());
     lastPos += label->getContentSize().width + padding;
 
+    maxHeight = std::max(maxHeight, label->getContentSize().height);
+
     return label;
 };
 
@@ -125,6 +127,7 @@ bool QuestionString::replaceFraction(const std::string& text)
         lastPos = oldLastPos;
         upper->setPositionY(upper->getPositionY() + verticalOffset);
         work = work.substr(pos + 1);
+        maxHeight = std::max(maxHeight, verticalOffset + upper->getContentSize().height);
 
         // get the upper text
         pos = work.find("#");
@@ -205,6 +208,7 @@ void QuestionString::setText(const std::string& text)
 {
     removeAllChildren();
     lastPos = 0;
+    maxHeight = 0;
 
     if (text.find("#") == std::string::npos) {
         addSubLabel(text, baseSize);
@@ -224,6 +228,13 @@ void QuestionString::setText(const std::string& text)
     } else {
         setScale(1);
     }
+
+    if (scaleHeight > 0) {
+        const float heightScale = scaleHeight / maxHeight;
+        if (heightScale < getScale()) {
+            setScale(heightScale);
+        }
+    }
 }
 
 void QuestionString::setColor(const cocos2d::Color3B& color)
@@ -239,4 +250,9 @@ void QuestionString::setColor(const cocos2d::Color3B& color)
         
         child->setColor(color);
     }
+}
+
+void QuestionString::setHeight(const float height)
+{
+    scaleHeight = height;
 }

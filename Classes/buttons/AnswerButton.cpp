@@ -96,6 +96,7 @@ bool AnswerButton::init(GamePage& page, const cocos2d::Color3B& color)
 
     question = QuestionString::create(82);
     question->setPosition(Point(getContentSize() / 2));
+    question->setHeight(getContentSize().height * 0.95);
     addChild(question);
 
     return true;

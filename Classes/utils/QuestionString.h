@@ -16,10 +16,13 @@ public:
     void setColor(const cocos2d::Color3B& color) override;
 
     void setText(const std::string& text);
+    void setHeight(const float height);
 
 private:
     float lastPos = 0;
     int baseSize = 0;
+    float scaleHeight = 0;
+    float maxHeight = 0;
 
     cocos2d::LabelTTF* addSubLabel(const std::string& text, const int fontSize);
     bool replaceSqrt(const std::string& text);
