@@ -86,7 +86,8 @@ void showGameCenterAlert()
 {
     auto alert = Alert::create();
     Director::getInstance()->getRunningScene()->addChild(alert);
-    alert->setDescription(_("settings", "gamecenterdisabled").get());
+    static const auto key = "gamecenterdisabled" + avalon::utils::platform::getFlavor();
+    alert->setDescription(_("settings", key.c_str()).get());
     alert->show([]() {});
 }
 
