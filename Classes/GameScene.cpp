@@ -7,6 +7,7 @@
 #include <avalon/GameCenter.h>
 #include <avalon/i18n/Localization.h>
 #include <avalon/utils/platform.h>
+#include <avalon/Appirater.h>
 #include <AssetsManager/AssetsManager.h>
 #include "SimpleAudioEngine.h"
 #include "pages/MainPage.h"
@@ -69,6 +70,7 @@ void GameScene::threadInit()
     initGameCenter();
     initAds();
     initSoundAndMusic();
+    initAppirater();
 
 #if !AVALON_PLATFORM_IS_ANDROID
     // this is not that important and can wait a few more seconds
@@ -108,6 +110,16 @@ void GameScene::profile()
         }
     }
 #endif
+}
+
+void GameScene::initAppirater()
+{
+    auto appirater = avalon::Appirater::getInstance();
+    appirater->setDebug(false);
+    appirater->setInitialDaysUntilPrompt(0);
+    appirater->setReminderDaysUntilPrompt(5);
+    appirater->setSignificantEventsUntilPrompt(10);
+    appirater->init();
 }
 
 void GameScene::initAssets()

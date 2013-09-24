@@ -8,7 +8,6 @@
 #import <AdSupport/ASIdentifierManager.h>
 #import "AppsFlyer.h"
 #import "Flurry.h"
-#import "Appirater.h"
 
 @implementation AppController
 
@@ -61,14 +60,6 @@ static AppDelegate s_sharedApplication;
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:@"Z7ZRJTNR32CJJDKQY5J4"];
 
-    [Appirater setAppId:@"691861483"];
-    [Appirater setDaysUntilPrompt:1];
-    [Appirater setUsesUntilPrompt:5];
-    [Appirater setSignificantEventsUntilPrompt:-1];
-    [Appirater setTimeBeforeReminding:2];
-    [Appirater setDebug:NO];
-    [Appirater appLaunched:YES];
-
     [Crashlytics startWithAPIKey:@"0bba8db2fa145bc487dc41da3d3cff39d062166d"];
 
     return YES;
@@ -104,7 +95,6 @@ static AppDelegate s_sharedApplication;
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
     cocos2d::Application::getInstance()->applicationWillEnterForeground();
-    [Appirater appEnteredForeground:YES];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

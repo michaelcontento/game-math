@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
+#include <avalon/Appirater.h>
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
@@ -249,6 +250,7 @@ void GamePage::handleAllQuestionsAnswered()
     timer->stop();
 
     user::setLevelStars(group, level, stars.size());
+    avalon::Appirater::getInstance()->userDidSignificantEvent();
 
     auto alert = Alert::create();
     addChild(alert);

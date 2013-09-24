@@ -25,6 +25,7 @@ private:
     static void initSoundAndMusic();
     static void initAssetsSearchpath();
     static void updateAssets();
+    static void initAppirater();
     void initLocalization();
     void initAssets();
     void profile();

@@ -1,5 +1,6 @@
 #include "PageManager.h"
 
+#include <avalon/Appirater.h>
 #include <avalon/ads/Manager.h>
 #include "utils/config.h"
 #include "utils/user.h"
@@ -198,6 +199,9 @@ void PageManager::scrollUp()
     pageScrollDown->runAction(Sequence::create(
         MoveTo::create(config::getScrollDownDuration(), {0, config::getFrameSize().height * -1}),
         RemoveSelf::create(),
+        CallFunc::create([]() {
+            avalon::Appirater::getInstance()->showIfNeeded();
+        }),
         NULL
     ));
 

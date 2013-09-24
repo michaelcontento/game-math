@@ -11,7 +11,7 @@ debugfull:
 		./build_native.sh && \
 		echo ">>> IMPORT AVALON LIBS ..." && \
 		cp -r ../Vendors/avalon/avalon/platform/android-amazon/{gamecenter,payment}/java/* . && \
-		cp -r ../Vendors/avalon/avalon/platform/android/{ads/provider,utils,ui}/java/* . && \
+		cp -r ../Vendors/avalon/avalon/platform/android/{ads/provider,utils,ui,appirater}/java/* . && \
 		rm -rf libs/samsungadhub.jar && \
 		rm -rf src/com/avalon/ads/SamsungAdHubBridge.java && \
 		echo ">>> ANT BUILD ..." && \
@@ -32,7 +32,7 @@ releasefull:
 		./build_native.sh && \
 		echo ">>> IMPORT AVALON LIBS ..." && \
 		cp -r ../Vendors/avalon/avalon/platform/android-amazon/{gamecenter,payment}/java/* . && \
-		cp -r ../Vendors/avalon/avalon/platform/android/{ads/provider,utils,ui}/java/* . && \
+		cp -r ../Vendors/avalon/avalon/platform/android/{ads/provider,utils,ui,appirater}/java/* . && \
 		rm -rf libs/samsungadhub.jar && \
 		rm -rf src/com/avalon/ads/SamsungAdHubBridge.java && \
 		echo ">>> ANT BUILD ..." && \
