@@ -4,3 +4,10 @@ proj.ios/math.xcodeproj/xcuserdata/
 
 # OSX garbage
 .DS_Store
+
+# ??
+.metadata/
+
+# Emscripten
+proj.emscripten/bin/
+proj.emscripten/obj/

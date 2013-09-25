@@ -43,9 +43,11 @@ bool GameScene::init()
         return false;
     }
 
+#if !AVALON_PLATFORM_IS_EMSCRIPTEN
     initAssetsSearchpath();
-    initAssets();
     initLocalization();
+#endif
+    initAssets();
     initPages();
     profile();
 
@@ -61,6 +63,10 @@ bool GameScene::init()
 
 void GameScene::threadInit()
 {
+#if AVALON_PLATFORM_IS_EMSCRIPTEN
+    return;
+#endif
+
 #if AVALON_PLATFORM_IS_IOS
     // don't interfere with the initial animation
     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -84,11 +90,15 @@ void GameScene::initPages()
 {
     pageManager = PageManager::create();
     addChild(pageManager);
+#if AVALON_PLATFORM_IS_EMSCRIPTEN
+    pageManager->add("main", MainPage::create());
+#else
     pageManager->add("about", AboutPage::create());
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
     pageManager->add("moregames", MoreGamesPage::create());
+#endif
     pageManager->scrollTo("main", 0);
 }
 
