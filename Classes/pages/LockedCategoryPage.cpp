@@ -195,8 +195,8 @@ int LockedCategoryPage::getPaymentGroupId() const
 
 void LockedCategoryPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalon::payment::Product* const product)
 {
+    doUnlock = true;
     user::setLevelGroupLocked(getPaymentGroupId(), false);
-    unlock();
     MyFlurry::logEventWithType("purchase-succeed", "pack." + std::to_string(getPaymentGroupId()));
 }
 
@@ -225,6 +225,12 @@ void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const mana
 
 void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
+    payment::Loader::globalManager->delegate = nullptr;
+    if (doUnlock) {
+        doUnlock = false;
+        unlock();
+    }
+
     helper::showPaymentPendingSpinner(false);
     MyFlurry::endTimedEvent("payment-transaction");
 }
