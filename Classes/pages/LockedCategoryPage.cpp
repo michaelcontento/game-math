@@ -19,6 +19,10 @@ using namespace CocosDenshion;
 using namespace cocos2d;
 using namespace avalon;
 
+std::string LockedCategoryPage::lockedPrice = "";
+bool LockedCategoryPage::lockedPriceFetched = false;
+bool LockedCategoryPage::lockedPriceSomeoneFetching = false;
+
 LockedCategoryPage* LockedCategoryPage::create(const int group)
 {
     LockedCategoryPage* pRet = new LockedCategoryPage();
@@ -47,7 +51,48 @@ bool LockedCategoryPage::init(const int group)
     addDescriptionLabel();
     addPlayButton();
 
+    if (!lockedPriceSomeoneFetching) {
+        lockedPriceSomeoneFetching = true;
+        schedule(schedule_selector(LockedCategoryPage::fetchPrice), 0.2);
+    }
+    schedule(schedule_selector(LockedCategoryPage::updatePrice), 0.7);
+
     return true;
+}
+
+void LockedCategoryPage::fetchPrice(const float dt)
+{
+    auto payment = payment::Loader::globalManager;
+    if (!payment || !payment->isPurchaseReady()) {
+        return;
+    }
+
+    const auto key = std::string("pack.1");
+    if (!payment->hasProduct(key.c_str())) {
+        return;
+    }
+
+    const auto product = payment->getProduct(key.c_str());
+    if (!product || product->localizedPrice.empty()) {
+        return;
+    }
+
+    lockedPrice = _("general", "lockedprice")
+        .assign("price", product->localizedPrice.c_str())
+        .get();
+    lockedPriceFetched = true;
+    unschedule(schedule_selector(LockedCategoryPage::fetchPrice));
+}
+
+void LockedCategoryPage::updatePrice(const float dt)
+{
+    if (!lockedPriceFetched || !subline) {
+        return;
+    }
+
+    const auto newString = std::string(subline->getString()) + "\n" + lockedPrice;
+    subline->setString(newString.c_str());
+    unschedule(schedule_selector(LockedCategoryPage::updatePrice));
 }
 
 void LockedCategoryPage::addHeadlineLabel()
@@ -64,13 +109,13 @@ void LockedCategoryPage::addHeadlineLabel()
 void LockedCategoryPage::addSublineLabel()
 {
     auto txt =  _(("locked." + std::to_string(group)).c_str(), "subline").get();
-    auto label = fonts::createLight(txt, 42, TextHAlignment::CENTER, TextVAlignment::CENTER, 66);
-    addChild(label);
+    subline = fonts::createLight(txt, 42, TextHAlignment::CENTER, TextVAlignment::CENTER, 66);
+    addChild(subline);
 
-    label->setColor(Color3B::BLACK);
-    label->setAnchorPoint({0.5, 0.5});
-    label->setPositionX(config::getFrameSize().width / 2);
-    label->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
+    subline->setColor(Color3B::BLACK);
+    subline->setAnchorPoint({0.5, 0.5});
+    subline->setPositionX(config::getFrameSize().width / 2);
+    subline->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
 }
 
 std::string LockedCategoryPage::getHeadline() const

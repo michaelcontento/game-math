@@ -26,7 +26,12 @@ private:
     const float middleOffsetY = 50 * config::getScaleFactor();
     cocos2d::DrawNode* draw = nullptr;
     cocos2d::DrawNode* boxes = nullptr;
+    cocos2d::LabelTTF* subline = nullptr;
     bool doUnlock = false;
+
+    static std::string lockedPrice;
+    static bool lockedPriceFetched;
+    static bool lockedPriceSomeoneFetching;
 
     void addHeadlineLabel();
     void addSublineLabel();
@@ -37,6 +42,8 @@ private:
     int getPaymentGroupId() const;
     std::string getHeadline() const;
     std::string getDescription() const;
+    void updatePrice(const float dt);
+    void fetchPrice(const float dt);
 };
 
 #endif // MATH_LOCKEDCATEGORYPAGE_H
