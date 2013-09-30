@@ -290,8 +290,6 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
                 w4 = c2 - w3;
             } while (c2 == c || c2 == c1);
 
-            uniqueValues(a, w1, w3);
-
             return Question(
                 std::to_string(c),
                 std::to_string(a)  + " + " + std::to_string(b),
@@ -432,8 +430,6 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
                 w4 = c2 - w3;
             } while (c2 == c || c2 == c1);
             
-            uniqueValues(a, w1, w3);
-
             return Question(
                 std::to_string(q1) + " + " + std::to_string(q2),
                 std::to_string(a)  + " + " + std::to_string(b),
@@ -613,8 +609,6 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
                 std::swap(c2, w3);
             } while (c2 == c || c2 == c1);
 
-            uniqueValues(a, w1, w3);
-
             return Question(
                 std::to_string(c),
                 std::to_string(a)  + " - " + std::to_string(b),
@@ -754,8 +748,6 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
                 c2 = w3 + w4;
                 std::swap(c2, w3);
             } while (c2 == c || c2 == c1);
-
-            uniqueValues(a, w1, w3);
 
             return Question(
                 std::to_string(q1) + " - " + std::to_string(q2),
