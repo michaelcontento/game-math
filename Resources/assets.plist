@@ -43,6 +43,19 @@
                 <key>sourceSize</key>
                 <string>{260,260}</string>
             </dict>
+            <key>indicator.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{566,189},{22,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,1},{22,22}}</string>
+                <key>sourceSize</key>
+                <string>{24,24}</string>
+            </dict>
             <key>key.png</key>
             <dict>
                 <key>frame</key>
@@ -92,7 +105,7 @@
             <key>size</key>
             <string>{595,264}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3b0fdece705f7829f71cedfaf7d94b6a:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:25a333516065a6ad50fcb190d4eb685a:1/1$</string>
             <key>textureFileName</key>
             <string>assets.png</string>
         </dict>

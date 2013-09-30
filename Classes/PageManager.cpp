@@ -5,6 +5,7 @@
 #include "utils/config.h"
 #include "utils/user.h"
 #include "pages/Page.h"
+#include "Indicator.h"
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -19,6 +20,7 @@ void PageManager::scrollViewDidScroll(cocos2d::extension::ScrollView* view, bool
 
     if (snapActive) {
         snapActive = false;
+        indicator->updateOpacity();
         return;
     }
 
@@ -76,6 +78,8 @@ void PageManager::add(const std::string& name, Page* const page)
     pages.push_back(std::make_pair(name, page));
     // FIX#1
     page->retain();
+
+    indicator->addDot();
 }
 
 void PageManager::replacePage(Page& oldPage, const std::string& nameA, Page* const pageA, const std::string& nameB, Page* const pageB)
@@ -102,6 +106,7 @@ void PageManager::replacePage(Page& oldPage, const std::string& nameA, Page* con
     pageB->retain();
 
     updateScrollViewPositions();
+    indicator->addDot();
 }
 
 void PageManager::updateScrollViewPositions()
@@ -175,6 +180,12 @@ void PageManager::scrollDown(Page* const page)
         {0, config::getFrameSize().height}
     ));
 
+    indicator->stopAllActions();
+    indicator->runAction(MoveTo::create(
+        config::getScrollDownDuration(),
+        {indicator->getPositionX(), config::getFrameSize().height}
+    ));
+
     pageScrollDown->stopAllActions();
     pageScrollDown->setPositionY(config::getFrameSize().height * -1);
     pageScrollDown->runAction(MoveTo::create(
@@ -193,6 +204,12 @@ void PageManager::scrollUp()
     scrollView->runAction(MoveTo::create(
         config::getScrollDownDuration(),
         {0, 0}
+    ));
+
+    indicator->stopAllActions();
+    indicator->runAction(MoveTo::create(
+        config::getScrollDownDuration(),
+        {indicator->getPositionX(), 0}
     ));
 
     pageScrollDown->stopAllActions();
@@ -281,6 +298,14 @@ bool PageManager::init()
     scrollView->minMoveDistance = 20 * config::getScaleFactor();
     addChild(scrollView);
 
+    indicator = Indicator::create();
+    indicator->setCascadeOpacityEnabled(true);
+    indicator->setOpacity(0);
+    indicator->setAnchorPoint({0.5, 0});
+    indicator->setPositionX(config::getFrameSize().width * 0.5);
+    indicator->setZOrder(100);
+    addChild(indicator);
+
     return true;
 }
 
@@ -291,4 +316,10 @@ PageManager& PageManager::shared()
     }
     
     return *instance;
+}
+
+
+int PageManager::getCurrentPageIndex() const
+{
+    return abs(static_cast<int>(scrollView->getContentOffset().x / config::getFrameSize().width));
 }

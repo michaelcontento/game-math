@@ -154,6 +154,7 @@
             <filename>key.png</filename>
             <filename>star-empty.png</filename>
             <filename>star-full.png</filename>
+            <filename>indicator.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

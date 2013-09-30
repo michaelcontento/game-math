@@ -22,6 +22,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C80C813E17F9AADF0066DD7C /* Indicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C80C813C17F9AADF0066DD7C /* Indicator.cpp */; };
 		C813855D17DE8BBA0074DE85 /* QuestionString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C813855B17DE8BBA0074DE85 /* QuestionString.cpp */; };
 		C813856B17DF58C50074DE85 /* de.ini in Resources */ = {isa = PBXBuildFile; fileRef = C813856A17DF58C50074DE85 /* de.ini */; };
 		C813859017DF73FE0074DE85 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C813858F17DF73FD0074DE85 /* Security.framework */; };
@@ -251,6 +252,8 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C80C813C17F9AADF0066DD7C /* Indicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Indicator.cpp; path = ../Classes/Indicator.cpp; sourceTree = "<group>"; };
+		C80C813D17F9AADF0066DD7C /* Indicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Indicator.h; path = ../Classes/Indicator.h; sourceTree = "<group>"; };
 		C813855B17DE8BBA0074DE85 /* QuestionString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuestionString.cpp; sourceTree = "<group>"; };
 		C813855C17DE8BBA0074DE85 /* QuestionString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionString.h; sourceTree = "<group>"; };
 		C813856A17DF58C50074DE85 /* de.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = de.ini; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				C8CB33FE17870AA4001294B7 /* GameScene.h */,
 				C82D6F9D179672AD002CBB42 /* GameTimer.cpp */,
 				C82D6F9E179672AD002CBB42 /* GameTimer.h */,
+				C80C813C17F9AADF0066DD7C /* Indicator.cpp */,
+				C80C813D17F9AADF0066DD7C /* Indicator.h */,
 				C8CB33FF17870AA4001294B7 /* PageManager.cpp */,
 				C8CB340017870AA4001294B7 /* PageManager.h */,
 				C8CB340117870AA4001294B7 /* pages */,
@@ -1271,6 +1276,7 @@
 				C81FBE84179D4BC600E794A3 /* user.cpp in Sources */,
 				C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */,
 				C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */,
+				C80C813E17F9AADF0066DD7C /* Indicator.cpp in Sources */,
 				C8DD06EA17A28DFD005F1762 /* TapForTap.mm in Sources */,
 				C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */,
 				C8A9410F17EFA6870093CCDB /* Revmob.mm in Sources */,

@@ -9,10 +9,13 @@
 #include "cocos-ext.h"
 
 class Page;
+class Indicator;
 
 class PageManager : public cocos2d::Layer, public cocos2d::extension::ScrollViewDelegate
 {
 public:
+    Indicator* indicator = nullptr;
+    
     CREATE_FUNC(PageManager);
     bool init() override;
     ~PageManager();
@@ -33,6 +36,8 @@ public:
 
     bool hasControl();
     bool isPageVisible(const Page& page) const;
+
+    int getCurrentPageIndex() const;
 
     void replacePage(Page& oldPage, const std::string& nameA, Page* const pageA, const std::string& nameB, Page* const pageB);
 
