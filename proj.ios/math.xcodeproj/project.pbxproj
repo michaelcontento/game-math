@@ -68,7 +68,6 @@
 		C8A93FA317EF9B050093CCDB /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93FA017EF9B050093CCDB /* libChartboost.a */; };
 		C8A93FA517EF9B050093CCDB /* Chartboost.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A93FA217EF9B050093CCDB /* Chartboost.mm */; };
 		C8A9404D17EF9BCD0093CCDB /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93FB617EF9BCD0093CCDB /* libFlurry_4.2.3.a */; };
-		C8A940D317EF9BCD0093CCDB /* libFlurryAds_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A9404117EF9BCD0093CCDB /* libFlurryAds_4.2.3.a */; };
 		C8A9410F17EFA6870093CCDB /* Revmob.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A9410E17EFA6870093CCDB /* Revmob.mm */; };
 		C8B48A76178C37FB00EC57FD /* CategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A74178C37FB00EC57FD /* CategoryPage.cpp */; };
 		C8B48A85178C3D7300EC57FD /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8B48A83178C3D7300EC57FD /* GamePage.cpp */; };
@@ -455,7 +454,6 @@
 				1ACB3244164770DE00914215 /* libcurl.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				C8A940D317EF9BCD0093CCDB /* libFlurryAds_4.2.3.a in Frameworks */,
 				C8A9404D17EF9BCD0093CCDB /* libFlurry_4.2.3.a in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
