@@ -10,9 +10,9 @@ using avalon::i18n::_;
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include "MyFlurry.h"
 #include "cocos2d.h"
-#include "android_fixes.h"
 #include "SimpleAudioEngine.h"
 
 using namespace cocos2d;

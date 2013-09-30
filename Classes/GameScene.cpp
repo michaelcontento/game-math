@@ -8,6 +8,7 @@
 #include <avalon/i18n/Localization.h>
 #include <avalon/utils/platform.h>
 #include <avalon/Appirater.h>
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include <AssetsManager/AssetsManager.h>
 #include "SimpleAudioEngine.h"
 #include "pages/MainPage.h"
@@ -19,7 +20,6 @@
 #include "PageManager.h"
 #include "utils/user.h"
 #include "utils/config.h"
-#include "utils/android_fixes.h"
 
 //#define PROFILE 100
 //#define DEVASSETS
@@ -141,7 +141,7 @@ void GameScene::initAssets()
 void GameScene::initAssetsSearchpath()
 {
     searchPath = FileUtils::getInstance()->getWritablePath();
-    
+
     auto searchPaths = FileUtils::getInstance()->getSearchPaths();
     searchPaths.insert(searchPaths.begin(), searchPath);
     FileUtils::getInstance()->setSearchPaths(searchPaths);

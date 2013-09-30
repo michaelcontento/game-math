@@ -7,12 +7,13 @@ using avalon::i18n::_;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
+#include <avalon/platform/android/gnustl_string_fixes.h>
+#include <avalon/ui/parentalgate.h>
 #include "../utils/fonts.h"
 #include "../utils/user.h"
 #include "../utils/config.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
-#include "../utils/android_fixes.h"
 #include "../pages/GamePage.h"
 #include "../Alert.h"
 
@@ -112,11 +113,13 @@ void HintButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         label->setString(std::to_string(user::getHintKeys()).c_str());
         game->revealHint();
     } else {
-        auto payment = avalon::payment::Loader::globalManager;
-        if (helper::paymentAvailableCheck(payment.get())) {
-            payment->delegate = this;
-            payment->purchase("hints");
-        }
+        avalon::ui::parentalgate::showOnlyIos([this]() {
+            auto payment = avalon::payment::Loader::globalManager;
+            if (helper::paymentAvailableCheck(payment.get())) {
+                payment->delegate = this;
+                payment->purchase("hints");
+            }
+        });
     }
 
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");

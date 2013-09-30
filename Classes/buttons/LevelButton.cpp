@@ -4,10 +4,10 @@
 using namespace CocosDenshion;
 
 #include <functional>
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../utils/color.h"
-#include "../utils/android_fixes.h"
 #include "../utils/user.h"
 #include "../pages/CategoryPage.h"
 #include "../pages/GamePage.h"

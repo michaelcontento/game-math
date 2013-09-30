@@ -7,8 +7,8 @@ using avalon::i18n::_;
 #include <random>
 #include <boost/assert.hpp>
 #include <vector>
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include "color.h"
-#include "android_fixes.h"
 
 using namespace cocos2d;
 

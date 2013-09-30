@@ -8,6 +8,7 @@ using namespace CocosDenshion;
 using avalon::i18n::_;
 
 #include <string>
+#include <avalon/ui/parentalgate.h>
 #include <avalon/utils/url.h>
 #include <avalon/utils/platform.h>
 #include "../buttons/ToggleButton.h"
@@ -76,16 +77,18 @@ ToggleButton* AboutPage::getOurAppsButton() const
     btn->getLabel = [](const bool flag) { return "about.ourapps"; };
     btn->detectState = []() { return true; };
     btn->toggleAction = [](const bool flag) {
+        avalon::ui::parentalgate::showOnlyIos([]() {
 #if AVALON_PLATFORM_IS_IOS
-        avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
+            avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
 #elif AVALON_PLATFORM_IS_ANDROID_AMAZON
-        avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
+            avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
 #elif AVALON_PLATFORM_IS_ANDROID_GOOGLE
-        avalon::utils::url::open("market://search?q=pub:CoRa++Games");
+            avalon::utils::url::open("market://search?q=pub:CoRa++Games");
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
-        avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
+            avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
 #endif
-        MyFlurry::logEvent("moregames");
+            MyFlurry::logEvent("moregames");
+        });
         return false;
     };
     return btn;
@@ -97,9 +100,11 @@ ToggleButton* AboutPage::getContactUsButton() const
     btn->getLabel = [](const bool flag) { return "about.contactus"; };
     btn->detectState = []() { return true; };
     btn->toggleAction = [](const bool flag) {
-        std::string mailto = "mailto:support+" + avalon::utils::platform::getName() + "+math@coragames.com?subject=Feedback%20Math%20Plus";
-        avalon::utils::url::open(mailto.c_str());
-        MyFlurry::logEvent("feedback");
+        avalon::ui::parentalgate::showOnlyIos([]() {
+            std::string mailto = "mailto:support+" + avalon::utils::platform::getName() + "+math@coragames.com?subject=Feedback%20Math%20Plus";
+            avalon::utils::url::open(mailto.c_str());
+            MyFlurry::logEvent("feedback");
+        });
         return false;
     };
     return btn;
@@ -111,12 +116,14 @@ ToggleButton* AboutPage::getDonateButton()
     btn->getLabel = [](const bool flag) { return "about.support"; };
     btn->detectState = []() { return true; };
     btn->toggleAction = [this](const bool flag) {
-        auto payment = avalon::payment::Loader::globalManager;
-        if (helper::paymentAvailableCheck(payment.get())) {
-            payment->delegate = this;
-            payment->getProduct("support")->purchase();
-        }
-        MyFlurry::logEvent("support");
+        avalon::ui::parentalgate::showOnlyIos([this]() {
+            auto payment = avalon::payment::Loader::globalManager;
+            if (helper::paymentAvailableCheck(payment.get())) {
+                payment->delegate = this;
+                payment->getProduct("support")->purchase();
+            }
+            MyFlurry::logEvent("support");
+        });
         return false;
     };
     return btn;
@@ -128,8 +135,10 @@ ToggleButton* AboutPage::getFacebookButton() const
     btn->getLabel = [](const bool flag) { return "about.facebook"; };
     btn->detectState = []() { return true; };
     btn->toggleAction = [](const bool flag) {
-        avalon::utils::url::open("https://www.facebook.com/coragames");
-        MyFlurry::logEvent("facebook");
+        avalon::ui::parentalgate::showOnlyIos([]() {
+            avalon::utils::url::open("https://www.facebook.com/coragames");
+            MyFlurry::logEvent("facebook");
+        });
         return false;
     };
     return btn;

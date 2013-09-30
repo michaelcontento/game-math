@@ -7,14 +7,15 @@ using avalon::i18n::_;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include "../utils/fonts.h"
 #include "../utils/color.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
-#include "../utils/android_fixes.h"
 #include "../PageManager.h"
 #include "CategoryPage.h"
+#include <avalon/ui/parentalgate.h>
 
 using namespace cocos2d;
 using namespace avalon;
@@ -221,16 +222,20 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     if (!helper::paymentAvailableCheck(payment.get())) {
         return; // payment not available
     }
-    payment->delegate = this;
 
-    const auto key = std::string("pack.") + std::to_string(getPaymentGroupId());
-    if (!payment->hasProduct(key.c_str())) {
-        return; // invalid product id
-    }
-
-    helper::showPaymentPendingSpinner(true);
-    payment->getProduct(key.c_str())->purchase();
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");
+    avalon::ui::parentalgate::show(
+       [this]() {
+           auto payment = payment::Loader::globalManager;
+           payment->delegate = this;
+
+           const auto key = std::string("pack.") + std::to_string(getPaymentGroupId());
+           if (payment->hasProduct(key.c_str())) {
+               helper::showPaymentPendingSpinner(true);
+               payment->getProduct(key.c_str())->purchase();
+           }
+        }
+    );
 }
 
 int LockedCategoryPage::getPaymentGroupId() const

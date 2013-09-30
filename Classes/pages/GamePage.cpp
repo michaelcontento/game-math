@@ -8,12 +8,12 @@ using avalon::i18n::_;
 using namespace CocosDenshion;
 
 #include <avalon/Appirater.h>
+#include <avalon/platform/android/gnustl_string_fixes.h>
 #include "../utils/color.h"
 #include "../utils/fonts.h"
 #include "../utils/user.h"
 #include "../utils/vibrate.h"
 #include "../utils/MyFlurry.h"
-#include "../utils/android_fixes.h"
 #include "../utils/QuestionString.h"
 #include "../buttons/AnswerButton.h"
 #include "../buttons/HintButton.h"

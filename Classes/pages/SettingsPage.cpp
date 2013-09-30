@@ -8,11 +8,12 @@ using avalon::i18n::_;
 #include <list>
 #include <avalon/GameCenter.h>
 #include <avalon/utils/platform.h>
+#include <avalon/platform/android/gnustl_string_fixes.h>
+#include <avalon/ui/parentalgate.h>
 #include "../utils/config.h"
 #include "../utils/user.h"
 #include "../utils/helper.h"
 #include "../utils/MyFlurry.h"
-#include "../utils/android_fixes.h"
 #include "../Alert.h"
 #include "../buttons/ToggleButton.h"
 #include "PageManager.h"
@@ -172,11 +173,13 @@ ToggleButton* SettingsPage::getRestoreButton()
     btn->setTag(tagRestorePurchases);
     btn->getLabel = [](const bool flag) { return "restore"; };
     btn->toggleAction = [this](const bool flag) {
-        auto payment = payment::Loader::globalManager;
-        if (helper::paymentAvailableCheck(payment.get())) {
-            payment->delegate = this;
-            payment->restorePurchases();
-        }
+        avalon::ui::parentalgate::showOnlyIos([this]() {
+            auto payment = payment::Loader::globalManager;
+            if (helper::paymentAvailableCheck(payment.get())) {
+                payment->delegate = this;
+                payment->restorePurchases();
+            }
+        });
         return false;
     };
 
@@ -193,11 +196,13 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
     btn->setTag(tagRemoveAdsButton);
     btn->getLabel = [](const bool flag) { return "removeads"; };
     btn->toggleAction = [this](const bool flag) {
-        auto payment = payment::Loader::globalManager;
-        if (helper::paymentAvailableCheck(payment.get())) {
-            payment->delegate = this;
-            payment->getProduct("removeads")->purchase();
-        }
+        avalon::ui::parentalgate::showOnlyIos([this]() {
+            auto payment = payment::Loader::globalManager;
+            if (helper::paymentAvailableCheck(payment.get())) {
+                payment->delegate = this;
+                payment->getProduct("removeads")->purchase();
+            }
+        });
         return false;
     };
     
@@ -227,13 +232,15 @@ ToggleButton* SettingsPage::getUnlockAllButton()
             }
         }
         auto key = std::string("all.") + std::to_string(locked);
-        
-        auto payment = payment::Loader::globalManager;
-        if (helper::paymentAvailableCheck(payment.get())) {
-            helper::showPaymentPendingSpinner(true);
-            payment->delegate = this;
-            payment->getProduct(key.c_str())->purchase();
-        }
+
+        avalon::ui::parentalgate::showOnlyIos([this, key]() {
+            auto payment = payment::Loader::globalManager;
+            if (helper::paymentAvailableCheck(payment.get())) {
+                helper::showPaymentPendingSpinner(true);
+                payment->delegate = this;
+                payment->getProduct(key.c_str())->purchase();
+            }
+        });
         return false;
     };
 

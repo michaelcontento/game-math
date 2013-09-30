@@ -9,6 +9,7 @@ using avalon::i18n::_;
 
 #include <avalon/utils/url.h>
 #include <avalon/utils/platform.h>
+#include <avalon/ui/parentalgate.h>
 #include "../utils/config.h"
 #include "../utils/fonts.h"
 #include "../utils/MyFlurry.h"
@@ -81,16 +82,18 @@ void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
         return;
     }
 
+    avalon::ui::parentalgate::showOnlyIos([]() {
 #if AVALON_PLATFORM_IS_IOS
-    avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
+        avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
 #elif AVALON_PLATFORM_IS_ANDROID_AMAZON
-    avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
+        avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
 #elif AVALON_PLATFORM_IS_ANDROID_GOOGLE
-    avalon::utils::url::open("market://search?q=pub:CoRa++Games");
+        avalon::utils::url::open("market://search?q=pub:CoRa++Games");
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
-    avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
+        avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
 #endif
+        MyFlurry::logEvent("moregames");
+    });
 
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");
-    MyFlurry::logEvent("moregames");
 }
