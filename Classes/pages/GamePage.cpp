@@ -262,7 +262,7 @@ void GamePage::handleAllQuestionsAnswered()
     alert->show([]() { });
 
     SimpleAudioEngine::getInstance()->playEffect("solved.mp3");
-    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".solved");
+    MyFlurry::logEventWithType("solved", std::to_string(group) + "." + std::to_string(level));
 }
 
 void GamePage::handleNoMoreStars()
@@ -280,7 +280,7 @@ void GamePage::handleNoMoreStars()
     alert->show([]() {});
 
     SimpleAudioEngine::getInstance()->playEffect("lost.mp3");
-    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".nomorestars");
+    MyFlurry::logEventWithType("nomorestars", std::to_string(group) + "." + std::to_string(level));
 }
 
 void GamePage::handleTimeover()
@@ -299,7 +299,7 @@ void GamePage::handleTimeover()
     alert->show([]() { });
 
     SimpleAudioEngine::getInstance()->playEffect("lost.mp3");
-    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".timeout");
+    MyFlurry::logEventWithType("timeout", std::to_string(group) + "." + std::to_string(level));
 }
 
 void GamePage::timeover()
@@ -333,7 +333,7 @@ bool GamePage::revealHint()
     }
     revealable = false;
 
-    MyFlurry::logEvent(std::to_string(group) + "." + std::to_string(level) + ".hintused");
+    MyFlurry::logEventWithType("hintused", std::to_string(group) + "." + std::to_string(level));
     return true;
 }
 
