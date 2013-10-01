@@ -21,6 +21,8 @@ public:
     void onRestoreSucceed(avalon::payment::Manager* const manager) override;
     void onRestoreFail(avalon::payment::Manager* const manager) override;
 
+    void showRemoveAds();
+
 private:
     cocos2d::Node* container = nullptr;
     constexpr static int tagRemoveAdsButton = 1;

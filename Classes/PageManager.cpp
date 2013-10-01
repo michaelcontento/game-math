@@ -5,6 +5,7 @@
 #include "utils/config.h"
 #include "utils/user.h"
 #include "pages/Page.h"
+#include "pages/SettingsPage.h"
 #include "Indicator.h"
 
 using namespace cocos2d;
@@ -226,6 +227,11 @@ void PageManager::scrollUp()
 
     if (user::hasAdsEnabled()) {
         avalon::ads::Manager::showFullscreenAd();
+
+        auto settingsPage = dynamic_cast<SettingsPage*>(getPage("settings"));
+        if (settingsPage) {
+            settingsPage->showRemoveAds();
+        }
     }
 }
 

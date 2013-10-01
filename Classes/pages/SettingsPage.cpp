@@ -37,8 +37,8 @@ bool SettingsPage::init()
 void SettingsPage::addButtons()
 {
     const std::list<Node*> btns = {
-        getUnlockAllButton(),
         getRemoveAdsButton(),
+        getUnlockAllButton(),
 #if AVALON_PLATFORM_IS_IOS
         getRestoreButton(),
 #endif
@@ -63,6 +63,29 @@ void SettingsPage::addButtons()
     }
 
     updateContainerLayout();
+}
+
+void SettingsPage::showRemoveAds()
+{
+    auto buttonNode = container->getChildByTag(tagRemoveAdsButton);
+    if (buttonNode) {
+        return;
+    }
+
+    buttonNode = getRemoveAdsButton();
+    if (!buttonNode) {
+        return;
+    }
+
+    const auto spacing = 15 * config::getScaleFactorHeight();
+    const auto offset = spacing + buttonNode->getContentSize().height;
+    buttonNode->setPositionY(-offset);
+    buttonNode->setAnchorPoint(Point::ZERO);
+    container->addChild(buttonNode);
+
+    auto size = container->getContentSize();
+    size.height -= offset;
+    container->setContentSize(size);
 }
 
 void SettingsPage::updateContainerLayout() const
@@ -176,6 +199,7 @@ ToggleButton* SettingsPage::getRestoreButton()
         avalon::ui::parentalgate::showOnlyIos([this]() {
             auto payment = payment::Loader::globalManager;
             if (helper::paymentAvailableCheck(payment.get())) {
+                helper::showPaymentPendingSpinner(true);
                 payment->delegate = this;
                 payment->restorePurchases();
             }
@@ -199,13 +223,14 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
         avalon::ui::parentalgate::showOnlyIos([this]() {
             auto payment = payment::Loader::globalManager;
             if (helper::paymentAvailableCheck(payment.get())) {
+                helper::showPaymentPendingSpinner(true);
                 payment->delegate = this;
                 payment->getProduct("removeads")->purchase();
             }
         });
         return false;
     };
-    
+
     return btn;
 }
 
@@ -353,6 +378,7 @@ void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)
 
 void SettingsPage::onRestoreFail(avalon::payment::Manager* const manager)
 {
+    helper::showPaymentPendingSpinner(false);
     helper::showPaymentFailed();
     MyFlurry::logEvent("restore-fail");
 }
