@@ -38,6 +38,7 @@ bool HintButton::init(GamePage& game)
         return false;
     }
 
+    ignoreAnchorPointForPosition(false);
     this->game = &game;
 
     addLabel();

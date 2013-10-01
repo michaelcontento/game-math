@@ -11,7 +11,7 @@ class AnswerButton : public cocos2d::Layer
 {
 public:
     bool enabled = true;
-    
+
     static AnswerButton* create(void) = delete;
     static AnswerButton* create(GamePage& page, const cocos2d::Color3B& color);
     bool init(GamePage& page, const cocos2d::Color3B& color);

@@ -132,7 +132,7 @@ void GamePage::addStars()
 
     fonts::fillStarContainer(*starContainer, stars, maxStars, Color3B::BLACK, false);
 
-    const auto fix = 5 * config::getScaleFactor();
+    const auto fix = 10 * config::getScaleFactor();
 
     starContainer->setAnchorPoint({1, 1});
     starContainer->setPositionX(config::getFrameSize().width - spacing);
@@ -146,9 +146,9 @@ void GamePage::addHints()
 
     const auto fix = 5 * config::getScaleFactor();
 
-    hints->setAnchorPoint({0, 1});
-    hints->setPositionX(config::getFrameSize().width / 2.f);
-    hints->setPositionY(config::getFrameSize().height - spacing + fix - hints->getContentSize().height);
+    hints->setAnchorPoint({0.5, 0.5});
+    hints->setPositionX(config::getFrameSize().width / 2);
+    hints->setPositionY(config::getFrameSize().height - spacing + fix - (hints->getContentSize().height / 2));
 }
 
 void GamePage::addQuestion()

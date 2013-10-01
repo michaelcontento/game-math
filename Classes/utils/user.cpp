@@ -180,16 +180,17 @@ bool hasAdsEnabled()
     }
 
     using namespace std::chrono;
-    auto installTs = settings->getDoubleForKey("installts", 0);
+    static auto installTs = settings->getDoubleForKey("installts", 0);
     auto currentTs = duration_cast<minutes>(system_clock::now().time_since_epoch()).count();
 
     if (installTs == 0) {
-        settings->setDoubleForKey("installts", currentTs);
+        installTs = currentTs;
+        settings->setDoubleForKey("installts", installTs);
         settings->flush();
         return false;
     }
 
-    auto cooldown = std::stoi(_("config", "adinstalldelayhours").get()) * 60;
+    static auto cooldown = std::stoi(_("config", "adinstalldelayhours").get()) * 60;
     if (installTs + cooldown > currentTs) {
         return false;
     }

@@ -223,7 +223,10 @@ void PageManager::scrollUp()
     ));
 
     pageScrollDown = nullptr;
-    avalon::ads::Manager::showFullscreenAd();
+
+    if (user::hasAdsEnabled()) {
+        avalon::ads::Manager::showFullscreenAd();
+    }
 }
 
 std::string PageManager::getMostVisiblePageName() const
