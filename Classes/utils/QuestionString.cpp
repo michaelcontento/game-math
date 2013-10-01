@@ -24,7 +24,7 @@ bool QuestionString::init(const int baseSize)
         return false;
     }
 
-    this->baseSize = baseSize * config::getScaleFactorHeight();
+    this->baseSize = baseSize;
     setAnchorPoint({0.5, 0});
     
     return true;

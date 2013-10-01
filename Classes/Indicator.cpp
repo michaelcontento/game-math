@@ -11,7 +11,7 @@ void Indicator::addDot()
     sprite->setOpacity(0);
     sprite->setPositionX(nextPosX);
     sprite->setPositionY(posY);
-    sprite->setScale(std::min(1.f, config::getScaleFactor()));
+    sprite->setScale(std::min(1.f, config::getScaleFactor()) * 0.8);
     addChild(sprite);
 
     nextPosX += (sprite->getContentSize().width * sprite->getScaleX()) + padding;

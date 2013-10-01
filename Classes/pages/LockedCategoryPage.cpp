@@ -114,7 +114,7 @@ void LockedCategoryPage::addSublineLabel()
     addChild(subline);
 
     subline->setColor(Color3B::BLACK);
-    subline->setAnchorPoint({0.5, 0.5});
+    subline->setAnchorPoint({0.5, 0.7});
     subline->setPositionX(config::getFrameSize().width / 2);
     subline->setPositionY((config::getFrameSize().height / 4 * 3) + middleOffsetY);
 }
@@ -149,7 +149,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->drawPolygon(vertsB, 4, color::toRGBA(colorB), 0, {});
 
     // upper label
-    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto labelA = fonts::createLight(config::getGroupHeadline(group).c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelA->setColor(Color3B::WHITE);
     labelA->setAnchorPoint({0.5, 0.5});
     labelA->setPositionX(size.width / 2);
@@ -157,7 +157,7 @@ void LockedCategoryPage::addCategoryBoxes()
     boxes->addChild(labelA);
 
     // lower label
-    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto labelB = fonts::createLight(config::getGroupHeadline(group + 1).c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     labelB->setColor(Color3B::WHITE);
     labelB->setAnchorPoint({0.5, 0.5});
     labelB->setPositionX(size.width / 2);
@@ -199,7 +199,7 @@ void LockedCategoryPage::addPlayButton()
 
     // == LABEL
 
-    auto label = fonts::createNormal(_("general", "play").get(), 74 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createNormal(_("general", "play").get(), 74, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));

@@ -43,7 +43,7 @@ cocos2d::Sprite* createStar(const cocos2d::Color3B& color, const bool filled)
 {
     auto star = cocos2d::Sprite::createWithSpriteFrameName(filled ? "star-full.png" : "star-empty.png");
     star->setColor(color);
-    star->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeight());
+    star->setScale(0.5 * config::getScaleFactor());
     return star;
 }
 

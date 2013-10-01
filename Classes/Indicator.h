@@ -13,7 +13,7 @@ public:
     void updateOpacity();
 
 private:
-    const float padding = 5 * config::getScaleFactor();
+    const float padding = 8 * config::getScaleFactor();
     const float posY = 25 * config::getScaleFactor();
     const float opacityActive = 0.9;
     const float opacityInactive = 0.3;

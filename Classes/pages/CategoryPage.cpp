@@ -38,7 +38,7 @@ bool CategoryPage::init(const int group)
 
 void CategoryPage::addHeadlineLabel()
 {
-    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto tapToPlay = fonts::createLight(config::getGroupHeadline(group).c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
     addChild(tapToPlay);
 
     tapToPlay->setColor(Color3B::WHITE);

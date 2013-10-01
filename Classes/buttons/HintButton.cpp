@@ -49,7 +49,7 @@ bool HintButton::init(GamePage& game)
 
 void HintButton::addLabel()
 {
-    label = fonts::createLight(std::to_string(user::getHintKeys()), 42 * config::getScaleFactorHeight());
+    label = fonts::createLight(std::to_string(user::getHintKeys()), 52);
     addChild(label);
 
     label->setColor(Color3B::BLACK);
@@ -64,7 +64,7 @@ void HintButton::addIcon()
     addChild(key);
 
     key->setColor(Color3B::BLACK);
-    key->setScale(0.5 * config::getScaleFactor() * config::getScaleFactorHeight());
+    key->setScale(0.7 * config::getScaleFactor());
 
     auto size = key->getContentSize() * key->getScale();
     float padding = 5 * config::getScaleFactor();

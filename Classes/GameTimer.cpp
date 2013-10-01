@@ -40,7 +40,7 @@ bool GameTimer::init(GamePage& page)
 void GameTimer::addLabel()
 {
     // FIX#4
-    label = fonts::createLight("", 36 * config::getScaleFactorHeight());
+    label = fonts::createLight("", 42);
     addChild(label);
 
     label->setColor(Color3B::BLACK);

@@ -23,7 +23,7 @@ bool Alert::init()
     draw = DrawNode::create();
     addChild(draw);
 
-    const float height = 200 * config::getScaleFactor() * 0.5 * config::getScaleFactorHeight();
+    const float height = 200 * config::getScaleFactor() * 0.5;
     const float width = config::getFrameSize().width;
     Point verts[] = {{0, -height}, {0, height}, {width, height}, {width, -height}};
 
@@ -178,7 +178,7 @@ void Alert::enableCloseOnTap(const bool flag)
 void Alert::setDescription(const std::string& description)
 {
     if (!desc) {
-        desc = fonts::createLight(description.c_str(), 72 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+        desc = fonts::createLight(description.c_str(), 72, TextHAlignment::CENTER, TextVAlignment::CENTER);
         addChild(desc);
 
         desc->setAnchorPoint({0.5, 0.3});
@@ -279,7 +279,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     buttonContainer->addChild(node);
     buttons.push_back(std::make_pair(node, callback));
 
-    const auto size = Size(220, 40) * config::getScaleFactor() * config::getScaleFactorHeight();
+    const auto size = Size(220, 40) * config::getScaleFactor();
     node->setContentSize(size);
 
     node->setAnchorPoint({0, 1});
@@ -290,7 +290,7 @@ void Alert::addButton(const std::string& description, std::function<void ()> cal
     Point verts[] = {{0, 0}, {0, size.height}, {size.width, size.height}, {size.width, 0}};
     draw->drawPolygon(verts, 4, color::toRGBA(Color3B({55, 55, 55})), 0, {});
 
-    auto label = fonts::createLight(description, 36 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    auto label = fonts::createLight(description, 36, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(size / 2));

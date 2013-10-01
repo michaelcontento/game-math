@@ -93,7 +93,7 @@ void ToggleButton::addBackground()
 
 void ToggleButton::addLabel()
 {
-    label = fonts::createLight(getLabel(detectState()).c_str(), 52 * config::getScaleFactorHeight(), TextHAlignment::CENTER, TextVAlignment::CENTER);
+    label = fonts::createLight(getLabel(detectState()).c_str(), 56, TextHAlignment::CENTER, TextVAlignment::CENTER);
     label->setColor(Color3B::WHITE);
     label->setAnchorPoint({0.5, 0.5});
     label->setPosition(Point(getContentSize() / 2));
