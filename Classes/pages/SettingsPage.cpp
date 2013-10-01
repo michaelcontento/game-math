@@ -266,7 +266,7 @@ void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const man
 
     auto categoryPage = dynamic_cast<LockedCategoryPage*>(page);
     if (categoryPage) {
-        categoryPage->onPurchaseSucceed(manager, product);
+        categoryPage->unlock();
     }
 }
 
@@ -277,7 +277,6 @@ void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, av
     if (id.find(".pack.") != std::string::npos) {
         auto nbr = std::stoi(id.substr(id.size() - 1));
         unlockPage(nbr, manager, product);
-        return;
     }
 
     if (id.find(".all.") != std::string::npos) {
@@ -288,13 +287,11 @@ void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, av
         unlockPage(4, manager, product);
         MyFlurry::stopLogging = false;
         MyFlurry::logEventWithType("purchase-succeed", "unlockall");
-        return;
     }
 
     if (id.find(".removeads") != std::string::npos) {
         user::setAdsEnabled(false);
         MyFlurry::logEventWithType("purchase-succeed", "removeads");
-        return;
     }
 
     if (id.find(".support") != std::string::npos) {
@@ -303,10 +300,32 @@ void SettingsPage::onPurchaseSucceed(avalon::payment::Manager* const manager, av
             consumable->consume();
         }
         MyFlurry::logEventWithType("purchase-succeed", "support");
-        return;
     }
 
-    log("unknown product id restored: %s", id.c_str());
+    // ----
+
+    bool updateLayout = false;
+    bool noAds = !user::hasAdsEnabled();
+    bool allLevels = user::allLevelGroupsUnlocked();
+
+    if (noAds) {
+        container->removeChildByTag(tagRemoveAdsButton);
+        updateLayout = true;
+    }
+
+    if (allLevels && noAds) {
+        container->removeChildByTag(tagRestorePurchases);
+        updateLayout = true;
+    }
+
+    if (allLevels) {
+        container->removeChildByTag(tagUnlockAllButton);
+        updateLayout = true;
+    }
+
+    if (updateLayout) {
+        updateContainerLayout();
+    }
 }
 
 void SettingsPage::onPurchaseFail(avalon::payment::Manager* const manager)
@@ -323,29 +342,6 @@ void SettingsPage::onTransactionStart(avalon::payment::Manager* const manager)
 
 void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
-    bool updateLayout = false;
-    bool noAds = !user::hasAdsEnabled();
-    bool allLevels = user::allLevelGroupsUnlocked();
-
-    if (allLevels && noAds) {
-        container->removeChildByTag(tagRestorePurchases);
-        updateLayout = true;
-    }
-
-    if (noAds) {
-        container->removeChildByTag(tagRemoveAdsButton);
-        updateLayout = true;
-    }
-
-    if (allLevels) {
-        container->removeChildByTag(tagUnlockAllButton);
-        updateLayout = true;
-    }
-
-    if (updateLayout) {
-        updateContainerLayout();
-    }
-
     helper::showPaymentPendingSpinner(false);
     MyFlurry::endTimedEvent("payment-transaction");
 }

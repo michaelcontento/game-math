@@ -224,7 +224,7 @@ void LockedCategoryPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
     }
 
     SimpleAudioEngine::getInstance()->playEffect("click.mp3");
-    avalon::ui::parentalgate::show(
+    avalon::ui::parentalgate::showOnlyIos(
        [this]() {
            auto payment = payment::Loader::globalManager;
            payment->delegate = this;
@@ -252,6 +252,9 @@ void LockedCategoryPage::onPurchaseSucceed(avalon::payment::Manager* const manag
 
 void LockedCategoryPage::unlock()
 {
+    user::setLevelGroupLocked(getPaymentGroupId(), false);
+    doUnlock = false;
+
     std::string name = "category-";
     PageManager::shared().replacePage(
         *this,
@@ -277,7 +280,6 @@ void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manage
 {
     payment::Loader::globalManager->delegate = nullptr;
     if (doUnlock) {
-        doUnlock = false;
         unlock();
     }
 

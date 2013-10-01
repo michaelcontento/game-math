@@ -21,6 +21,8 @@ public:
     void onTransactionStart(avalon::payment::Manager* const manager) override;
     void onTransactionEnd(avalon::payment::Manager* const manager) override;
 
+    void unlock();
+
 private:
     int group = -1;
     const float middleOffsetY = 50 * config::getScaleFactor();
@@ -38,7 +40,6 @@ private:
     void addCategoryBoxes();
     void addDescriptionLabel();
     void addPlayButton();
-    void unlock();
     int getPaymentGroupId() const;
     std::string getHeadline() const;
     std::string getDescription() const;

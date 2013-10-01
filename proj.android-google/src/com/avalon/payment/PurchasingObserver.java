@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.preference.PreferenceManager.OnActivityResultListener;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.example.android.trivialdrivesample.util.SkuDetails;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import com.avalon.payment.Backend;
 
-public class PurchasingObserver
+public class PurchasingObserver implements OnActivityResultListener
 {
     static final String TAG = "avalon.payment.PurchasingObserver";
     static final int RC_REQUEST = 10001;
@@ -28,12 +29,13 @@ public class PurchasingObserver
     IabHelper mHelper;
     private Map<String, Boolean> productIds;
     private Integer taskCount = 0;
-    boolean checkTaskCountOnConsumeFinished = false;
+    private boolean checkTaskCountOnConsumeFinished = false;
 
     public PurchasingObserver()
     {
         if (base64EncodedPublicKey.isEmpty()) {
-            activity.runOnUiThread(new Runnable() {
+            Cocos2dxHelper.runOnGLThread(new Runnable() {
+                @Override
                 public void run() {
                     throw new RuntimeException("Required public key not set!");
                 }
@@ -43,6 +45,7 @@ public class PurchasingObserver
         mHelper = new IabHelper(activity, base64EncodedPublicKey);
         mHelper.enableDebugLogging(true);
         mHelper.startSetup(mSetupFinishedListener);
+        Cocos2dxHelper.addOnActivityResultListener(this);
     }
 
     protected void finalize()
@@ -68,6 +71,12 @@ public class PurchasingObserver
         return title;
     }
 
+    @Override
+    public boolean onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        return mHelper.handleActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      *
      * Async callback methods
@@ -76,6 +85,7 @@ public class PurchasingObserver
 
     final IabHelper.OnIabSetupFinishedListener mSetupFinishedListener = new IabHelper.OnIabSetupFinishedListener()
     {
+        @Override
         public void onIabSetupFinished(IabResult result) {
             if (!result.isSuccess()) {
                 Log.e(TAG, "onIabSetupFinished failed: " + result);
@@ -88,6 +98,7 @@ public class PurchasingObserver
 
     final IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener()
     {
+        @Override
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
             if (result.isFailure()) {
                 Log.e(TAG, "onQueryInventoryFinished failed: " + result);
@@ -114,12 +125,17 @@ public class PurchasingObserver
         }
     };
 
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener()
+    final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener()
     {
+        @Override
         public void onIabPurchaseFinished(IabResult result, final Purchase purchase) {
             if (result.isFailure()) {
-                Log.e(TAG, "onIabPurchaseFinished failed: " + result);
-                threadDelegateOnPurchaseFail();
+                if (result.getResponse() == -1005) {
+                    // user canceled and we don't count this as an failure
+                } else {
+                    Log.e(TAG, "onIabPurchaseFinished failed: " + result);
+                    threadDelegateOnPurchaseFail();
+                }
             } else if (isConsumable(purchase.getSku())) {
                 threadConsumeAsync(purchase);
             } else {
@@ -132,6 +148,7 @@ public class PurchasingObserver
 
     final IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener()
     {
+        @Override
         public void onConsumeFinished(final Purchase purchase, IabResult result) {
             if (!result.isSuccess()) {
                 Log.e(TAG, "onConsumeFinished failed: " + result);
@@ -154,6 +171,7 @@ public class PurchasingObserver
     private void threadOnInitialized()
     {
         Cocos2dxHelper.runOnGLThread(new Runnable() {
+            @Override
             public void run() {
                 Backend.onInitialized();
             }
@@ -163,6 +181,7 @@ public class PurchasingObserver
     private void threadDelegateOnServiceStarted()
     {
         Cocos2dxHelper.runOnGLThread(new Runnable() {
+            @Override
             public void run() {
                 Backend.delegateOnServiceStarted();
             }
@@ -172,6 +191,7 @@ public class PurchasingObserver
     private void threadDelegateOnPurchaseFail()
     {
         Cocos2dxHelper.runOnGLThread(new Runnable() {
+            @Override
             public void run() {
                 Backend.delegateOnPurchaseFail();
             }
@@ -181,6 +201,7 @@ public class PurchasingObserver
     private void threadConsumeAsync(final Purchase purchase)
     {
         activity.runOnUiThread(new Runnable() {
+            @Override
             public void run() {
                 mHelper.consumeAsync(purchase, mConsumeFinishedListener);
             }
@@ -190,6 +211,7 @@ public class PurchasingObserver
     private void threadDelegateOnPurchaseSucceed(final String sku)
     {
         Cocos2dxHelper.runOnGLThread(new Runnable() {
+            @Override
             public void run() {
                 Backend.delegateOnPurchaseSucceed(sku);
             }
@@ -200,6 +222,7 @@ public class PurchasingObserver
     {
         if (--taskCount == 0) {
             Cocos2dxHelper.runOnGLThread(new Runnable() {
+                @Override
                 public void run() {
                     Backend.delegateOnTransactionEnd();
                 }
@@ -211,6 +234,7 @@ public class PurchasingObserver
     {
         if (++taskCount == 1) {
             Cocos2dxHelper.runOnGLThread(new Runnable() {
+                @Override
                 public void run() {
                     Backend.delegateOnTransactionStart();
                 }
@@ -221,6 +245,7 @@ public class PurchasingObserver
     private void threadDelegateItemData(final Inventory inventory)
     {
         Cocos2dxHelper.runOnGLThread(new Runnable() {
+            @Override
             public void run() {
                 for (String sku : inventory.getAllDetailsSkus()) {
                     SkuDetails details = inventory.getSkuDetails(sku);
@@ -243,26 +268,28 @@ public class PurchasingObserver
      *
      */
 
-    public void purchase(String sku, boolean isConsumable)
+    public void purchase(final String sku, boolean isConsumable)
     {
         threadIncrementTaskCounter();
-        mHelper.launchPurchaseFlow(activity, sku, RC_REQUEST, mPurchaseFinishedListener);
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mHelper.launchPurchaseFlow(activity, sku, RC_REQUEST, mPurchaseFinishedListener);
+            }
+        });
     }
 
-    public void startItemDataRequest(final Map<String, Boolean> productIds)
+    public void startItemDataRequest(Map<String, Boolean> productIds)
     {
         this.productIds = productIds;
         final List<String> moreSkus = new ArrayList<String>(productIds.keySet());
 
         activity.runOnUiThread(new Runnable() {
+            @Override
             public void run() {
                 mHelper.queryInventoryAsync(true, moreSkus, mGotInventoryListener);
             }
         });
-    }
-
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        return mHelper.handleActivityResult(requestCode, resultCode, data);
     }
 }
