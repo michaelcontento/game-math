@@ -6,3 +6,6 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
 #endif
+
+#define AVALON_CONFIG_ADS_PROVIDER_CHARTBOOST_ENABLED
+#define AVALON_CONFIG_ADS_PROVIDER_REVMOB_ENABLED

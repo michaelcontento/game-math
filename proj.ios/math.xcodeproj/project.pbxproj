@@ -33,7 +33,6 @@
 		C8165CC317F12EEB0047A72C /* AppiraterLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8165CA417F12EEB0047A72C /* AppiraterLocalizable.strings */; };
 		C817F18517D8A4C4002D66E8 /* en.ini in Resources */ = {isa = PBXBuildFile; fileRef = C817F18417D8A4C4002D66E8 /* en.ini */; };
 		C817F1A917D8BC40002D66E8 /* IAd.mm in Sources */ = {isa = PBXBuildFile; fileRef = C817F1A817D8BC3F002D66E8 /* IAd.mm */; };
-		C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C817F1B217D8C88F002D66E8 /* libTapForTapAds.a */; };
 		C81FBE84179D4BC600E794A3 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C81FBE82179D4BC600E794A3 /* user.cpp */; };
 		C827D951179EDC330089C7C3 /* LockedCategoryPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C827D94F179EDC320089C7C3 /* LockedCategoryPage.cpp */; };
 		C82D6F9F179672AD002CBB42 /* GameTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C82D6F9D179672AD002CBB42 /* GameTimer.cpp */; };
@@ -66,7 +65,6 @@
 		C86D1ADD17F8CEF8005EA35C /* parentalgate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C86D1ADB17F8CEF8005EA35C /* parentalgate.cpp */; };
 		C87542A517E368DA008DC473 /* AboutPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C87542A317E368DA008DC473 /* AboutPage.cpp */; };
 		C8A6B02617A133B400815182 /* MoreGamesPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8A6B02417A133B400815182 /* MoreGamesPage.cpp */; };
-		C8A93FA317EF9B050093CCDB /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93FA017EF9B050093CCDB /* libChartboost.a */; };
 		C8A93FA517EF9B050093CCDB /* Chartboost.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A93FA217EF9B050093CCDB /* Chartboost.mm */; };
 		C8A9404D17EF9BCD0093CCDB /* libFlurry_4.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93FB617EF9BCD0093CCDB /* libFlurry_4.2.3.a */; };
 		C8A9410F17EFA6870093CCDB /* Revmob.mm in Sources */ = {isa = PBXBuildFile; fileRef = C8A9410E17EFA6870093CCDB /* Revmob.mm */; };
@@ -95,6 +93,7 @@
 		C8DD06F017A2BE0C005F1762 /* ToggleButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06EE17A2BE0C005F1762 /* ToggleButton.cpp */; };
 		C8DD06F317A2CE63005F1762 /* helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DD06F117A2CE63005F1762 /* helper.cpp */; };
 		C8E9725217C60D5A000B98C7 /* payment.ini in Resources */ = {isa = PBXBuildFile; fileRef = C8E9725117C60D5A000B98C7 /* payment.ini */; };
+		C8F3B3FF17FA5A3800B5843C /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A93FA017EF9B050093CCDB /* libChartboost.a */; };
 		C8F66ED71796874200D9FF84 /* HintButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8F66ED51796874200D9FF84 /* HintButton.cpp */; };
 		C8F7094617D8E5E80053FE9A /* assets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094417D8E5E80053FE9A /* assets.plist */; };
 		C8F7094717D8E5E80053FE9A /* assets.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F7094517D8E5E80053FE9A /* assets.png */; };
@@ -448,8 +447,8 @@
 				C84DC2E6178EF1F700F07AE3 /* GameKit.framework in Frameworks */,
 				C84DC2E4178EF1D200F07AE3 /* StoreKit.framework in Frameworks */,
 				C84DC2E2178EF1CB00F07AE3 /* AdSupport.framework in Frameworks */,
-				C8A93FA317EF9B050093CCDB /* libChartboost.a in Frameworks */,
 				C8D1891017E3494200D0717A /* libAppsFlyerLib.a in Frameworks */,
+				C8F3B3FF17FA5A3800B5843C /* libChartboost.a in Frameworks */,
 				1AF4C2F517865DCB00122817 /* libchipmunk iOS.a in Frameworks */,
 				1AF4C2F617865DCB00122817 /* libcocos2dx iOS.a in Frameworks */,
 				1AF4C2F717865DCB00122817 /* libcocos2dx-extensions iOS.a in Frameworks */,
@@ -467,7 +466,6 @@
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
 				C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */,
-				C817F1B717D8C88F002D66E8 /* libTapForTapAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
