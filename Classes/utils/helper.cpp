@@ -46,10 +46,24 @@ bool paymentAvailableCheck(avalon::payment::Manager* payment)
 
 void showPaymentFailed()
 {
+#if AVALON_PLATFORM_IS_ANDROID_AMAZON
+    // Please remove all interstitial dialog boxes from the in-app purchase
+    // workflow. Only Amazon Apps In-App Purchase messaging should be included
+    // in the purchase flow. Please refer to the In-App Purchasing API
+    // documentation in the Amazon Mobile App Distribution Portal
+    // at https://developer.amazon.com/apps.
+    //
+    // Steps to Reproduce:
+    //
+    // 1.Install and Launch the app
+    // 2.Scroll the page and Tap on play, it leads to IAP page
+    // 3.Close the IAP page, it shows the message “last payment request failed”
+#else
     auto alert = Alert::create();
     Director::getInstance()->getRunningScene()->addChild(alert);
     alert->setDescription(_("payment", "failed").get());
     alert->show([]() {}, true);
+#endif
 }
 
 void showPaymentPendingSpinner(const bool flag)
