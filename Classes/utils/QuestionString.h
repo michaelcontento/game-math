@@ -7,6 +7,13 @@
 class QuestionString : public cocos2d::NodeRGBA
 {
 public:
+    QuestionString()
+    : lastPos(0)
+    , baseSize(0)
+    , scaleHeight(0)
+    , maxHeight(0)
+    {};
+
     static QuestionString* create(void) = delete;
     static QuestionString* create(const int baseSize);
     bool init(const int baseSize);
@@ -19,10 +26,10 @@ public:
     void setHeight(const float height);
 
 private:
-    float lastPos = 0;
-    int baseSize = 0;
-    float scaleHeight = 0;
-    float maxHeight = 0;
+    float lastPos;
+    int baseSize;
+    float scaleHeight;
+    float maxHeight;
 
     cocos2d::LabelTTF* addSubLabel(const std::string& text, const int fontSize);
     bool replaceSqrt(const std::string& text);

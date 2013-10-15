@@ -4,6 +4,7 @@
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include <boost/foreach.hpp>
 #include <typeinfo>
 #include <list>
 #include <avalon/GameCenter.h>
@@ -16,7 +17,7 @@ using avalon::i18n::_;
 #include "../utils/MyFlurry.h"
 #include "../Alert.h"
 #include "../buttons/ToggleButton.h"
-#include "PageManager.h"
+#include "../PageManager.h"
 #include "LockedCategoryPage.h"
 
 using namespace cocos2d;
@@ -37,16 +38,20 @@ bool SettingsPage::init()
 void SettingsPage::addButtons()
 {
     const std::list<Node*> btns = {
+#if !AVALON_PLATFORM_IS_TIZEN
         getRemoveAdsButton(),
         getUnlockAllButton(),
+#endif
 #if AVALON_PLATFORM_IS_IOS
         getRestoreButton(),
 #endif
+#if !AVALON_PLATFORM_IS_TIZEN
         getBlankButton(),
         getLeaderboardButton(),
         getAchievementsButton(),
+#endif
         getBlankButton(),
-#if AVALON_PLATFORM_IS_IOS
+#if AVALON_PLATFORM_IS_IOS || AVALON_PLATFORM_IS_TIZEN
         getVibrateButton(),
 #endif
         getSoundButton(),
@@ -56,7 +61,7 @@ void SettingsPage::addButtons()
     container = Node::create();
     addChild(container);
 
-    for (const auto& btn : btns) {
+    BOOST_FOREACH (auto& btn, btns) {
         if (btn != nullptr) {
             container->addChild(btn);
         }
@@ -90,14 +95,18 @@ void SettingsPage::showRemoveAds()
 
 void SettingsPage::updateContainerLayout() const
 {
+#if AVALON_PLATFORM_IS_TIZEN
+    const auto spacing = 25 * config::getScaleFactorHeight();
+#else
     const auto spacing = 15 * config::getScaleFactorHeight();
+#endif
     float nextPosY = 0;
     float maxWidth = 0;
     bool lastNodeWasToggleButton = false;
     std::list<Node*> removeBtns = {};
 
     Object* it = nullptr;
-    CCARRAY_FOREACH(container->getChildren(), it) {
+    CCARRAY_FOREACH (container->getChildren(), it) {
         const auto btn = dynamic_cast<Node*>(it);
         if (!btn) {
             continue;
@@ -117,7 +126,7 @@ void SettingsPage::updateContainerLayout() const
         maxWidth = fmaxf(maxWidth, btn->getContentSize().width);
     }
 
-    for (const auto& btn : removeBtns) {
+    BOOST_FOREACH (auto& btn, removeBtns) {
         container->removeChild(btn);
     }
 
@@ -138,7 +147,7 @@ ToggleButton* SettingsPage::getSoundButton() const
 
 ToggleButton* SettingsPage::getVibrateButton() const
 {
-    const auto btn = ToggleButton::create();
+	const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return flag ? "vibrate.on" : "vibrate.off"; };
     btn->detectState = []() { return user::useVibration(); };
     btn->toggleAction = [](const bool flag) { user::setUseVibration(flag); return true; };
@@ -148,7 +157,7 @@ ToggleButton* SettingsPage::getVibrateButton() const
 
 ToggleButton* SettingsPage::getMusicButton() const
 {
-    const auto btn = ToggleButton::create();
+	const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return flag ? "music.on" : "music.off"; };
     btn->detectState = []() { return user::hasMusicEnabled(); };
     btn->toggleAction = [](const bool flag) { user::setMusicEnabled(flag); return true; };
@@ -158,11 +167,10 @@ ToggleButton* SettingsPage::getMusicButton() const
 
 ToggleButton* SettingsPage::getAchievementsButton() const
 {
-    const auto btn = ToggleButton::create();
+	const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "achievements"; };
     btn->toggleAction = [](const bool flag) {
-        auto gc = avalon::GameCenter();
-        if (!gc.showAchievements()) {
+        if (!avalon::GameCenter().showAchievements()) {
             helper::showGameCenterAlert();
         }
         return false;
@@ -173,11 +181,10 @@ ToggleButton* SettingsPage::getAchievementsButton() const
 
 ToggleButton* SettingsPage::getLeaderboardButton() const
 {
-    const auto btn = ToggleButton::create();
+	const auto btn = ToggleButton::create();
     btn->getLabel = [](const bool flag) { return "leaderboard"; };
     btn->toggleAction = [](const bool flag) {
-        auto gc = avalon::GameCenter();
-        if (!gc.showScores()) {
+        if (!avalon::GameCenter().showScores()) {
             helper::showGameCenterAlert();
         }
         return false;
@@ -215,7 +222,7 @@ ToggleButton* SettingsPage::getRemoveAdsButton()
     if (!user::hasAdsEnabled()) {
         return nullptr;
     }
-    
+
     const auto btn = ToggleButton::create();
     btn->setTag(tagRemoveAdsButton);
     btn->getLabel = [](const bool flag) { return "removeads"; };
@@ -239,7 +246,7 @@ ToggleButton* SettingsPage::getUnlockAllButton()
     if (user::allLevelGroupsUnlocked()) {
         return nullptr;
     }
-    
+
     const auto btn = ToggleButton::create();
     btn->setTag(tagUnlockAllButton);
     btn->getLabel = [](const bool flag) { return "unlockall"; };
@@ -285,7 +292,7 @@ void SettingsPage::unlockPage(const int nbr, avalon::payment::Manager* const man
     if (!user::isLevelGroupLocked(nbr)) {
         return;
     }
-    
+
     auto key = std::string("category-") + std::to_string(nbr * 2 + 1);
     auto page = PageManager::shared().getPage(key.c_str());
 

@@ -28,8 +28,9 @@ void Indicator::updateOpacity()
     const auto activeIndex = PageManager::shared().getCurrentPageIndex();
     int currentIndex = 0;
 
-    for (auto node : *getChildren()) {
-        auto sprite = dynamic_cast<Sprite*>(node);
+    Object* node;
+    CCARRAY_FOREACH(getChildren(), node) {
+        Sprite* sprite = dynamic_cast<Sprite*>(node);
         if (!sprite) {
             continue;
         }

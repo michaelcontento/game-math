@@ -6,6 +6,10 @@
 class BackButton : public cocos2d::Layer
 {
 public:
+    BackButton()
+    : btn(nullptr)
+    {};
+
     CREATE_FUNC(BackButton);
 
     bool init() override;
@@ -15,7 +19,7 @@ public:
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
-    cocos2d::Sprite* btn = nullptr;
+    cocos2d::Sprite* btn;
 };
 
 #endif // MATH_BACKBUTTON_H

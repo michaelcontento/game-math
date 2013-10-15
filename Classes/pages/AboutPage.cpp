@@ -7,6 +7,7 @@ using namespace CocosDenshion;
 #include <avalon/i18n/LanguageKey.h>
 using avalon::i18n::_;
 
+#include <boost/foreach.hpp>
 #include <string>
 #include <avalon/ui/parentalgate.h>
 #include <avalon/utils/url.h>
@@ -18,6 +19,10 @@ using avalon::i18n::_;
 #include "../utils/fonts.h"
 #include "../utils/MyFlurry.h"
 #include "../PageManager.h"
+
+#if AVALON_PLATFORM_IS_TIZEN
+	#include <FSystem.h>
+#endif
 
 using namespace cocos2d;
 
@@ -55,14 +60,16 @@ void AboutPage::addButtons()
     const std::list<Node*> btns = {
         getFacebookButton(),
         getContactUsButton(),
+#if !AVALON_PLATFORM_IS_TIZEN
         getDonateButton(),
+#endif
         getOurAppsButton()
     };
 
     container = Node::create();
     addChild(container);
 
-    for (const auto& btn : btns) {
+    BOOST_FOREACH (auto& btn, btns) {
         if (btn != nullptr) {
             container->addChild(btn);
         }
@@ -86,6 +93,8 @@ ToggleButton* AboutPage::getOurAppsButton() const
             avalon::utils::url::open("market://search?q=pub:CoRa++Games");
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
             avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
+#else
+            avalon::utils::url::open("http://www.coragames.com/games.html");
 #endif
             MyFlurry::logEvent("moregames");
         });
@@ -101,8 +110,30 @@ ToggleButton* AboutPage::getContactUsButton() const
     btn->detectState = []() { return true; };
     btn->toggleAction = [](const bool flag) {
         avalon::ui::parentalgate::showOnlyIos([]() {
+#if AVALON_PLATFORM_IS_TIZEN
+            using Tizen::Base::Collection::HashMap;
+            using Tizen::Base::String;
+            using Tizen::App::AppControl;
+            using Tizen::App::AppManager;
+
+            HashMap extraData;
+            extraData.Construct();
+            String subjectKey = L"http://tizen.org/appcontrol/data/subject";
+            String subjectVal = L"Feedback Math Plus";
+            String toKey = L"http://tizen.org/appcontrol/data/to";
+            String toVal = L"support+tizen@coragames.com";
+            extraData.Add(&subjectKey, &subjectVal);
+            extraData.Add(&toKey, &toVal);
+
+            auto pAc = AppManager::FindAppControlN(L"tizen.email", L"http://tizen.org/appcontrol/operation/compose");
+            if (pAc) {
+                pAc->Start(null, null, &extraData, null);
+                delete pAc;
+            }
+#else
             std::string mailto = "mailto:support+" + avalon::utils::platform::getName() + "+math@coragames.com?subject=Feedback%20Math%20Plus";
             avalon::utils::url::open(mailto.c_str());
+#endif
             MyFlurry::logEvent("feedback");
         });
         return false;
@@ -151,7 +182,7 @@ void AboutPage::updateContainerLayout() const
     float maxWidth = 0;
 
     Object* it = nullptr;
-    CCARRAY_FOREACH(container->getChildren(), it) {
+    CCARRAY_FOREACH (container->getChildren(), it) {
         const auto btn = dynamic_cast<Node*>(it);
         if (!btn) {
             continue;
@@ -174,7 +205,7 @@ void AboutPage::initIcon()
 {
     icon = Sprite::createWithSpriteFrameName("icon-coragames.png");
     addChild(icon);
-    
+
     icon->setAnchorPoint({0.5, 0.5});
     icon->setPosition(Point(config::getFrameSize() / 2));
     icon->setScale(std::max(config::getScaleFactor(), config::getScaleFactorHeight()));
@@ -254,7 +285,7 @@ void AboutPage::onPurchaseSucceed(avalon::payment::Manager* const manager, avalo
 
     consumable->consume();
     purchased = true;
-    
+
     MyFlurry::logEventWithType("purchase-succeed", "support");
 }
 

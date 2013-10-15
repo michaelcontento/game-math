@@ -9,6 +9,12 @@ class GamePage;
 class HintButton : public cocos2d::Layer, public avalon::payment::ManagerDelegate
 {
 public:
+    HintButton()
+    : game(nullptr)
+    , label(nullptr)
+    , key(nullptr)
+    {};
+
     constexpr static float alertDelay = 15.0f;
 
     static HintButton* create(void) = delete;
@@ -29,9 +35,9 @@ public:
     void alert();
 
 private:
-    GamePage* game = nullptr;
-    cocos2d::LabelTTF* label = nullptr;
-    cocos2d::Sprite* key = nullptr;
+    GamePage* game;
+    cocos2d::LabelTTF* label;
+    cocos2d::Sprite* key;
 
     void addLabel();
     void addIcon();

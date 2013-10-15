@@ -8,8 +8,18 @@
 class Alert : public cocos2d::Layer
 {
 public:
-    CREATE_FUNC(Alert);
+    Alert()
+    : visible(false)
+    , touchable(false)
+    , closeOnTap(true)
+    , buttonContainer(nullptr)
+    , timeoutSecs(0)
+    , desc(nullptr)
+    , draw(nullptr)
+    , tap(nullptr)
+    {};
 
+    CREATE_FUNC(Alert);
     bool init() override;
     void visit() override;
 
@@ -30,18 +40,20 @@ public:
     virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) override;
 
 private:
-    bool visible = false;
-    bool touchable = false;
-    bool closeOnTap = true;
-    std::vector<std::pair<Node*, std::function< void()>>> buttons;
+    bool visible;
+    bool touchable;
+    bool closeOnTap;
+    typedef std::function< void()> ButtonCallback;
+    typedef std::pair<Node*, ButtonCallback> ButtonsPair;
+    std::vector<ButtonsPair> buttons;
     std::function<void ()> callback;
     std::function<void ()> buttonCb;
     std::function<void ()> timeoutCb;
-    Node* buttonContainer = nullptr;
-    float timeoutSecs = 0;
-    cocos2d::LabelTTF* desc = nullptr;
-    cocos2d::DrawNode* draw = nullptr;
-    cocos2d::LabelTTF* tap = nullptr;
+    Node* buttonContainer;
+    float timeoutSecs;
+    cocos2d::LabelTTF* desc;
+    cocos2d::DrawNode* draw;
+    cocos2d::LabelTTF* tap;
 };
 
 #endif // MATH_ALERT_H

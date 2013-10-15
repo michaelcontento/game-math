@@ -10,6 +10,11 @@ class LevelButton;
 class CategoryPage : public Page
 {
 public:
+    CategoryPage()
+    : group(-1)
+    , lastBtnActionRunning(false)
+    {};
+
     static CategoryPage* create(void) = delete;
     static CategoryPage* create(const int group);
     bool init(const int group);
@@ -17,10 +22,10 @@ public:
 
     void highlightNextLevel();
 private:
-    std::vector<LevelButton*> levelButtons {};
-    int group = -1;
-    bool lastBtnActionRunning = false;
-    
+    std::vector<LevelButton*> levelButtons;
+    int group;
+    bool lastBtnActionRunning;
+
     void addHeadlineLabel();
     void addLevelButtons();
 };

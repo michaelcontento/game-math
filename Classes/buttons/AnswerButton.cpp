@@ -1,5 +1,6 @@
 #include "AnswerButton.h"
 
+#include <avalon/utils/platform.h>
 #include "../utils/fonts.h"
 #include "../utils/config.h"
 #include "../utils/color.h"
@@ -59,12 +60,22 @@ void AnswerButton::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
     indicatorLabelRight->runAction(EaseOut::create(MoveTo::create(0.15, {endPosRight, posY}), 3));
 
     if (isRight) {
+#if AVALON_PLATFORM_IS_TIZEN
+        indicatorLabelLeft->setString("=");
+        indicatorLabelRight->setString("=");
+#else
         indicatorLabelLeft->setString("✓");
         indicatorLabelRight->setString("✓");
+#endif
         page->answeredRight();
     } else {
+#if AVALON_PLATFORM_IS_TIZEN
+        indicatorLabelLeft->setString("X");
+        indicatorLabelRight->setString("X");
+#else
         indicatorLabelLeft->setString("✗");
         indicatorLabelRight->setString("✗");
+#endif
         page->answeredWrong();
     }
 }

@@ -6,6 +6,7 @@ using avalon::i18n::_;
 
 #include <random>
 #include <boost/assert.hpp>
+#include <boost/foreach.hpp>
 #include <vector>
 #include <avalon/platform/android/gnustl_string_fixes.h>
 #include "color.h"
@@ -355,7 +356,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
                 l5 = w1;
                 l6 = w2;
             }
-            
+
             return Question(
                 _("questions", "smallest").get(),
                 std::to_string(l1) + " + " + std::to_string(l2),
@@ -376,7 +377,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
                 max = 12;
                 dice = createDice(1, max);
             }
-            
+
             int a = dice({});
             int b = dice({a});
             int c = dice({a, b});
@@ -429,7 +430,7 @@ std::function<Question()> getGeneratorAddition(const int number, const bool easy
                 if (c2 < w3) std::swap(c2, w3);
                 w4 = c2 - w3;
             } while (c2 == c || c2 == c1);
-            
+
             return Question(
                 std::to_string(q1) + " + " + std::to_string(q2),
                 std::to_string(a)  + " + " + std::to_string(b),
@@ -706,7 +707,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
             int w1 = wrongDice({d});
             int w2 = wrongDice({d, w1});
             uniqueValues(d, w1, w2);
-            
+
             return Question(
                 std::to_string(a) + " - " + std::to_string(b) + " - " + std::to_string(c),
                 std::to_string(d),
@@ -729,7 +730,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
             int b = dice({a});
             int c = a + b;
             std::swap(c, a);
-            
+
             int q2 = dice({b});
             int q1 = c + q2;
 
@@ -787,10 +788,10 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
                 c2 = w3 + w4;
                 std::swap(c2, w3);
             } while (c2 == c || c2 == c1);
-            
+
             std::vector<int> sort {c, c1, c2};
             std::sort(sort.begin(), sort.end());
-            
+
             int l1, l2, l3, l4, l5, l6 = 0;
             if (sort.back() == c) {
                 l1 = a;
@@ -814,7 +815,7 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
                 l5 = w1;
                 l6 = w2;
             }
-            
+
             return Question(
                 _("questions", "largest").get(),
                 std::to_string(l1) + " - " + std::to_string(l2),
@@ -822,14 +823,14 @@ std::function<Question()> getGeneratorSubtraction(const int number, const bool e
                 std::to_string(l5) + " - " + std::to_string(l6)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorSubtraction(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -1046,7 +1047,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
                         return false;
                     }
                 }
-                
+
                 return true;
             };
 
@@ -1063,7 +1064,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
                 if (i == a || i == b) {
                     continue;
                 }
-                
+
                 float res = c / i;
                 if (static_cast<float>(static_cast<int>(res)) == res) {
                     q1 = i;
@@ -1115,24 +1116,24 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
             int a = dice({});
             int b = dice({a});
             int c = a * b;
-            
+
             int w1, w2, c1 = 0;
             do {
                 w2 = dice({b});
                 w1 = dice({w2});
                 c1 = w1 * w2;
             } while (c1 == c);
-            
+
             int w3, w4, c2 = 0;
             do {
                 w4 = dice({b, w2});
                 w3 = dice({w4});
                 c2 = w3 * w4;
             } while (c2 == c || c2 == c1);
-            
+
             std::vector<int> sort {c, c1, c2};
             std::sort(sort.begin(), sort.end());
-            
+
             int l1, l2, l3, l4, l5, l6 = 0;
             if (sort.back() == c) {
                 l1 = a;
@@ -1156,7 +1157,7 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
                 l5 = w1;
                 l6 = w2;
             }
-            
+
             return Question(
                 _("questions", "largest").get(),
                 std::to_string(l1) + " * " + std::to_string(l2),
@@ -1164,14 +1165,14 @@ std::function<Question()> getGeneratorMultiplication(const int number, const boo
                 std::to_string(l5) + " * " + std::to_string(l6)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorMultiplication(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -1454,10 +1455,10 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
                 c2 = w3 * w4;
                 std::swap(c2, w3);
             } while (c2 == c || c2 == c1);
-            
+
             std::vector<int> sort {c, c1, c2};
             std::sort(sort.begin(), sort.end());
-            
+
             int l1, l2, l3, l4, l5, l6 = 0;
             if (sort.back() == c) {
                 l1 = a;
@@ -1481,7 +1482,7 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
                 l5 = w1;
                 l6 = w2;
             }
-            
+
             return Question(
                 _("questions", "largest").get(),
                 std::to_string(l1) + " / " + std::to_string(l2),
@@ -1489,14 +1490,14 @@ std::function<Question()> getGeneratorDivision(const int number, const bool easy
                 std::to_string(l5) + " / " + std::to_string(l6)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorDivision(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -1585,7 +1586,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
 
             int base = dice({});
             int res = base * base;
-            
+
             auto wDice = createDiceRange(base);
             int w1 = wDice({base});
             int w2 = wDice({base, w1});
@@ -1653,7 +1654,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
 
             int base = dice({});
             int res = base * base;
-            
+
             int a = createDice(1, res)({});
             int b = res - a;
             std::string op = "+";
@@ -1750,14 +1751,14 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy)
                 std::to_string(w3)   + formatPower(w4)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorPowers(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -1967,14 +1968,14 @@ std::function<Question()> getGeneratorFractions(const int number, const bool eas
                 formatFraction(a3, b3)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorFractions(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -2359,14 +2360,14 @@ std::function<Question()> getGeneratorArithmetic(const int number, const bool ea
                 getEq(c4, op4)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorArithmetic(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -2598,7 +2599,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
                 medianPos = 3;
                 nbrDice = createDice(10, 99);
             }
-            
+
             int median, lastNbr;
             std::unordered_set<int> usedNbrs {};
             for (int i = 1; i <= amount; ++i) {
@@ -2606,11 +2607,11 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
                 usedNbrs.insert(lastNbr);
                 if (i == medianPos) median = lastNbr;
             }
-            std::vector<int> shuffelNbr {usedNbrs.begin(), usedNbrs.end()};
+            std::vector<int> shuffelNbr (usedNbrs.begin(), usedNbrs.end());
 
             std::sort(shuffelNbr.begin(), shuffelNbr.end());
             int pos = 1;
-            for (const auto& nbr : shuffelNbr) {
+            BOOST_FOREACH (auto& nbr, shuffelNbr) {
                 if (pos == medianPos) {
                     median = nbr;
                     break;
@@ -2620,7 +2621,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
 
             std::random_shuffle(shuffelNbr.begin(), shuffelNbr.end());
             std::string q;
-            for (const auto& nbr : shuffelNbr) {
+            BOOST_FOREACH (auto& nbr, shuffelNbr) {
                 q += std::to_string(nbr) + ", ";
             }
             q = q.substr(0, q.length() - 2) + "\n" + _("questions", "median").get() + "?";
@@ -2648,14 +2649,14 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
         case 7: return [easy] {
             int amount = easy ? 3 : 5;
 
-            std::unordered_set<int> usedNbrs {};
+            std::unordered_set<int> usedNbrs;
             auto dice = createDice(1, 70 / amount);
             while (usedNbrs.size() < amount) {
                 usedNbrs.insert(dice({}));
             }
 
             int sum = 0;
-            for (const auto& nbr : usedNbrs) {
+            BOOST_FOREACH (auto& nbr, usedNbrs) {
                 sum += nbr;
             }
 
@@ -2668,7 +2669,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
             }
             int avgInt = static_cast<int>(avg);
 
-            std::vector<int> shuffelNbr {usedNbrs.begin(), usedNbrs.end()};
+            std::vector<int> shuffelNbr (usedNbrs.begin(), usedNbrs.end());
             if (diff > 0) {
                 int tmp = shuffelNbr.back();
                 shuffelNbr.pop_back();
@@ -2677,7 +2678,7 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
 
             std::random_shuffle(shuffelNbr.begin(), shuffelNbr.end());
             std::string q;
-            for (const auto& nbr : shuffelNbr) {
+            BOOST_FOREACH (auto& nbr, shuffelNbr) {
                 q += std::to_string(nbr) + ", ";
             }
             q = q.substr(0, q.length() - 2) + "\n" + _("questions", "average").get() + "?";
@@ -2694,14 +2695,14 @@ std::function<Question()> getGeneratorStatistics(const int number, const bool ea
                 std::to_string(w2)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorStatistics(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
 }
@@ -2959,7 +2960,7 @@ std::function<Question()> getGeneratorEquations(const int number, const bool eas
             int b = dice({0, a});
             int c = a + b;
             std::string op = "+";
-            
+
             if (createDice(0, 1)({}) == 0) {
                 std::swap(c, a);
                 op = "-";
@@ -2984,16 +2985,25 @@ std::function<Question()> getGeneratorEquations(const int number, const bool eas
                 std::to_string(w2)
             );
         };
-            
+
         // MIXED
         case 8: return [easy] {
             auto number = createDice(1, 7)({});
             auto gen = getGeneratorEquations(number, easy);
             return gen();
         };
-            
+
         default: throw new std::range_error("invalid puzzel number id");
     }
+}
+
+cocos2d::extension::HSV getHsvColorStep()
+{
+    static cocos2d::extension::HSV out;
+    out.h = 0.0;
+    out.s = 0.0;
+    out.v = -0.20;
+    return out;
 }
 
 } // namespace config

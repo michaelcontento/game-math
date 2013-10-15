@@ -9,6 +9,10 @@ class ToggleButton;
 class SettingsPage : public Page, public avalon::payment::ManagerDelegate
 {
 public:
+    SettingsPage()
+    : container(nullptr)
+    {};
+
     CREATE_FUNC(SettingsPage);
     bool init() override;
 
@@ -24,7 +28,7 @@ public:
     void showRemoveAds();
 
 private:
-    cocos2d::Node* container = nullptr;
+    cocos2d::Node* container;
     constexpr static int tagRemoveAdsButton = 1;
     constexpr static int tagRestorePurchases = 2;
     constexpr static int tagUnlockAllButton = 3;

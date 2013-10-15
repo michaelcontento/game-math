@@ -23,7 +23,7 @@ cocos2d::Size getAnswerButtonSize();
 std::string getGroupHeadline(const int group);
 cocos2d::Color3B getGroupColor(const int group);
 
-using diceFunction = std::function<int(const std::unordered_set<int>)>;
+typedef std::function<int(const std::unordered_set<int>)> diceFunction;
 diceFunction createDice(const int min, const int max);
 diceFunction createDiceRange(const int pos);
 std::string formatFraction(const int a, const int b);
@@ -43,6 +43,7 @@ std::function<Question()> getGeneratorPowers(const int number, const bool easy);
 std::function<Question()> getGeneratorStatistics(const int number, const bool easy);
 std::function<Question()> getGeneratorEquations(const int number, const bool easy);
 std::function<Question()> getGeneratorMixed(const int number, const bool easy);
+cocos2d::extension::HSV getHsvColorStep();
 
 constexpr float getDesignWidth()
 {
@@ -87,11 +88,6 @@ constexpr float getQuestionFadeTime()
 constexpr float getAlertFadeTime()
 {
     return 0.7;
-}
-
-constexpr cocos2d::extension::HSV getHsvColorStep()
-{
-    return {0, 0, -0.20};
 }
 
 }; // namespace config

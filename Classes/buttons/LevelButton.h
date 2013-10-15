@@ -8,6 +8,16 @@ class CategoryPage;
 class LevelButton : public cocos2d::Node
 {
 public:
+    LevelButton()
+    : group(-1)
+    , level(-1)
+    , unlocked(false)
+    , parentPage(nullptr)
+    , draw(nullptr)
+    , label(nullptr)
+    , starContainer(nullptr)
+    {};
+
     static LevelButton* create(void) = delete;
     static LevelButton* create(const int group, const int level, CategoryPage& parentPage);
     bool init(const int group, const int level, CategoryPage& parentPage);
@@ -17,14 +27,14 @@ public:
     bool isLocked() const;
 
 private:
-    int group = -1;
-    int level = -1;
-    bool unlocked = false;
-    CategoryPage* parentPage = nullptr;
-    cocos2d::DrawNode* draw = nullptr;
-    cocos2d::LabelTTF* label = nullptr;
-    cocos2d::Node* starContainer = nullptr;
-    std::deque<cocos2d::Sprite*> stars {};
+    int group;
+    int level;
+    bool unlocked;
+    CategoryPage* parentPage;
+    cocos2d::DrawNode* draw;
+    cocos2d::LabelTTF* label;
+    cocos2d::Node* starContainer;
+    std::deque<cocos2d::Sprite*> stars;
 
     void configureSize();
     void addBackground();

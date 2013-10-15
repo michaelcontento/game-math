@@ -7,9 +7,11 @@ using avalon::i18n::_;
 #include <string>
 #include <vector>
 #include <chrono>
+#include <boost/foreach.hpp>
 #include <avalon/ads/Manager.h>
 #include <avalon/payment.h>
 #include <avalon/GameCenter.h>
+#include <avalon/utils/platform.h>
 #include <avalon/platform/android/gnustl_string_fixes.h>
 #include "MyFlurry.h"
 #include "cocos2d.h"
@@ -33,18 +35,23 @@ std::string getStarsKey(const int group, const int level)
     return std::to_string((group * 100) + level).append("_stars");
 }
 
-static std::vector<std::function<void (const int group, const int level)>> starCallbacks = {};
+typedef std::function<void (const int group, const int level)> Callback;
+static std::vector<Callback> starCallbacks = {};
 
 } // namespace impl
 
 bool isLevelGroupLocked(const int group)
 {
+#if AVALON_PLATFORM_IS_TIZEN
+    return false;
+#else
     if (group == 0) {
         return false;
     }
 
     auto settings = UserDefault::getInstance();
     return settings->getBoolForKey(impl::getLockedKey(group).c_str(), true);
+#endif
 }
 
 void setLevelGroupLocked(const int group, const bool flag)
@@ -117,7 +124,7 @@ void setLevelStars(const int group, const int level, const int stars)
     }
 
     // trigger callbacks
-    for (auto& callback : impl::starCallbacks) {
+    BOOST_FOREACH (auto& callback, impl::starCallbacks) {
         callback(group, level);
     }
 
@@ -172,6 +179,9 @@ void addStarChangeCallback(std::function<void (const int group, const int level)
 
 bool hasAdsEnabled()
 {
+#if AVALON_PLATFORM_IS_TIZEN
+    return false;
+#else
     auto settings = UserDefault::getInstance();
     auto enabled = settings->getBoolForKey("ads", true);
 
@@ -196,6 +206,7 @@ bool hasAdsEnabled()
     }
 
     return true;
+#endif
 }
 
 void setAdsEnabled(const bool flag)
@@ -284,11 +295,10 @@ void setUseVibration(const bool flag)
     settings->flush();
 }
 
-
 void clear()
 {
     setUseBigHintAlert(true);
-    
+
     auto settings = UserDefault::getInstance();
     settings->setIntegerForKey("hints", 3);
     settings->setBoolForKey("ads", true);

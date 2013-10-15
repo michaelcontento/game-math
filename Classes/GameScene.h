@@ -9,12 +9,16 @@ class PageManager;
 class GameScene : public cocos2d::Layer
 {
 public:
+    GameScene()
+    : pageManager(nullptr)
+    {};
+
     CREATE_FUNC(GameScene);
     virtual bool init() override;
     static cocos2d::Scene* scene();
 
 private:
-    PageManager* pageManager = nullptr;
+    PageManager* pageManager;
     static std::string searchPath;
 
     void addCategoryPages(PageManager& pageManager) const;

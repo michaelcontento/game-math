@@ -1,5 +1,6 @@
 #include "PageManager.h"
 
+#include <boost/foreach.hpp>
 #include <avalon/Appirater.h>
 #include <avalon/ads/Manager.h>
 #include "utils/config.h"
@@ -116,10 +117,10 @@ void PageManager::updateScrollViewPositions()
     scrollView->setContentSize({0, scrollViewHeight});
 
     int index = 0;
-    for (const auto& pair : pages) {
+    BOOST_FOREACH (auto& pair, pages) {
         auto page = pair.second;
         auto pageWidth = page->getContentSize().width;
-        
+
         page->setPositionX(index * pageWidth);
         scrollView->setContentSize({page->getPositionX() + pageWidth, scrollViewHeight});
 
@@ -240,12 +241,12 @@ std::string PageManager::getMostVisiblePageName() const
     if (pages.empty()) {
         throw new std::runtime_error("there are no pages added yet");
     }
-    
-    std::string activePage {pages.begin()->first};
+
+    std::string activePage = pages.begin()->first;
     float bestDistanceToZero {std::numeric_limits<float>::max()};
     float scrollViewOffset {scrollView->getContentOffset().x};
 
-    for (const auto& pair : pages) {
+    BOOST_FOREACH (auto& pair, pages) {
         auto page = pair.second;
 
         float distance {fabsf(page->getPositionX() + scrollViewOffset)};
@@ -261,7 +262,7 @@ std::string PageManager::getMostVisiblePageName() const
 
 Page* PageManager::getPage(const std::string& name) const
 {
-    for (const auto& pair : pages) {
+    BOOST_FOREACH (auto& pair, pages) {
         if (pair.first == name) {
             return pair.second;
         }
@@ -273,7 +274,7 @@ Page* PageManager::getPage(const std::string& name) const
 int PageManager::getPageIndex(const std::string& name) const
 {
     int index = 0;
-    for (const auto& pair : pages) {
+    BOOST_FOREACH (auto& pair, pages) {
         if (pair.first == name) {
             return index;
         }
@@ -288,7 +289,7 @@ PageManager::~PageManager()
     instance = nullptr;
 
     // FIX#1
-    for (const auto& pair : pages) {
+    BOOST_FOREACH (auto& pair, pages) {
         pair.second->release();
     }
 }
@@ -323,7 +324,7 @@ PageManager& PageManager::shared()
     if (!instance) {
         throw new std::runtime_error("no PageManager instance ready yet");
     }
-    
+
     return *instance;
 }
 

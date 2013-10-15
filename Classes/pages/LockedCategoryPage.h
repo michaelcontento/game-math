@@ -11,6 +11,15 @@ class LevelButton;
 class LockedCategoryPage : public Page, public avalon::payment::ManagerDelegate
 {
 public:
+    LockedCategoryPage()
+    : group(-1)
+    , middleOffsetY(50 * config::getScaleFactor())
+    , draw(nullptr)
+    , boxes(nullptr)
+    , subline(nullptr)
+    , doUnlock(false)
+    {};
+
     static LockedCategoryPage* create(void) = delete;
     static LockedCategoryPage* create(const int group);
     bool init(const int group);
@@ -24,12 +33,12 @@ public:
     void unlock();
 
 private:
-    int group = -1;
-    const float middleOffsetY = 50 * config::getScaleFactor();
-    cocos2d::DrawNode* draw = nullptr;
-    cocos2d::DrawNode* boxes = nullptr;
-    cocos2d::LabelTTF* subline = nullptr;
-    bool doUnlock = false;
+    int group;
+    const float middleOffsetY;
+    cocos2d::DrawNode* draw;
+    cocos2d::DrawNode* boxes;
+    cocos2d::LabelTTF* subline;
+    bool doUnlock;
 
     static std::string lockedPrice;
     static bool lockedPriceFetched;

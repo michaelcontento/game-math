@@ -14,7 +14,14 @@ class Indicator;
 class PageManager : public cocos2d::Layer, public cocos2d::extension::ScrollViewDelegate
 {
 public:
-    Indicator* indicator = nullptr;
+    PageManager()
+    : indicator(nullptr)
+    , scrollView(nullptr)
+    , pageScrollDown(nullptr)
+    , snapActive(false)
+    {};
+    
+    Indicator* indicator;
     
     CREATE_FUNC(PageManager);
     bool init() override;
@@ -45,11 +52,11 @@ private:
     typedef std::pair<const std::string, Page* const> NamedPage;
     constexpr static int TAG_ACTION_MOVE_BY = 101;
     static PageManager* instance;
-    cocos2d::extension::ScrollView* scrollView = nullptr;
-    std::list<NamedPage> pages {};
-    std::unordered_map<int, bool> trackedTouches {};
-    Page* pageScrollDown = nullptr;
-    bool snapActive = false;
+    cocos2d::extension::ScrollView* scrollView;
+    std::list<NamedPage> pages;
+    std::unordered_map<int, bool> trackedTouches;
+    Page* pageScrollDown;
+    bool snapActive;
 
     void handlePageScroll(const cocos2d::Point& delta);
     int getPageIndex(const std::string& name) const;

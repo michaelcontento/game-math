@@ -8,9 +8,16 @@
 class ToggleButton : public cocos2d::Layer
 {
 public:
-    std::function<bool ()> detectState = []() { return false; };
-    std::function<std::string (const bool)> getLabel = [](const bool flag) { return ""; };
-    std::function<bool (const bool)> toggleAction = [](const bool flag) { return false; };
+    ToggleButton()
+    : detectState([]() { return false; })
+    , getLabel([](const bool flag) { return ""; })
+    , toggleAction([](const bool flag) { return false; })
+    , label(nullptr)
+    {};
+
+    std::function<bool ()> detectState;
+    std::function<std::string (const bool)> getLabel;
+    std::function<bool (const bool)> toggleAction;
 
     CREATE_FUNC(ToggleButton);
     bool init() override;
@@ -21,7 +28,7 @@ public:
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
-    cocos2d::LabelTTF* label = nullptr;
+    cocos2d::LabelTTF* label;
     void addBackground();
     void addLabel();
 };

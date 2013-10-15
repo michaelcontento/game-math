@@ -1,5 +1,6 @@
 #include "QuestionString.h"
 
+#include <avalon/utils/platform.h>
 #include "fonts.h"
 #include "config.h"
 
@@ -26,7 +27,7 @@ bool QuestionString::init(const int baseSize)
 
     this->baseSize = baseSize;
     setAnchorPoint({0.5, 0});
-    
+
     return true;
 }
 
@@ -56,6 +57,12 @@ bool QuestionString::replaceSqrt(const std::string& text)
         return false;
     }
 
+#if AVALON_PLATFORM_IS_TIZEN
+    const static auto signPadding = (12 * config::getScaleFactor());
+#else
+    const static auto signPadding = (3.5 * config::getScaleFactor());
+#endif
+
     while (pos != std::string::npos) {
         // text before "SQR#"
         if (pos > 0) {
@@ -64,8 +71,11 @@ bool QuestionString::replaceSqrt(const std::string& text)
         work = work.substr(pos + 4);
 
         // square root sign
-        const static auto signPadding = (3.5 * config::getScaleFactor());
+#if AVALON_PLATFORM_IS_TIZEN
+        auto sign = addSubLabel("√", baseSize * 0.975);
+#else
         auto sign = addSubLabel("√", baseSize * 0.875);
+#endif
         sign->setPositionY(sign->getPositionY() + signPadding);
 
         // add the text to the next #
@@ -91,7 +101,11 @@ bool QuestionString::replaceSqrt(const std::string& text)
         line->setScaleX(lineLenght / line->getContentSize().width);
 
         line->setPositionX(oldLastPos - lineLeftOffset);
+#if AVALON_PLATFORM_IS_TIZEN
+        line->setPositionY(static_cast<int>(baseSize * 0.962) * config::getScaleFactor());
+#else
         line->setPositionY(static_cast<int>(baseSize * 0.862) * config::getScaleFactor());
+#endif
 
         // prepare for the next loop iteration
         pos = work.find("SQR#");
@@ -113,12 +127,23 @@ bool QuestionString::replaceFraction(const std::string& text)
         return false;
     }
 
+#if AVALON_PLATFORM_IS_TIZEN
+    static float tizenSpacing = 20 * config::getScaleFactor();
+#endif
+
     while (pos != std::string::npos) {
         // text before "FRC#"
         if (pos > 0) {
             addSubLabel(work.substr(0, pos), baseSize);
         }
         work = work.substr(pos + 4);
+
+#if AVALON_PLATFORM_IS_TIZEN
+        // front spacing
+        if (lastPos > 0) {
+            lastPos += tizenSpacing;
+        }
+#endif
         const auto oldLastPos = lastPos;
 
         // get the upper text
@@ -129,7 +154,7 @@ bool QuestionString::replaceFraction(const std::string& text)
         work = work.substr(pos + 1);
         maxHeight = std::max(maxHeight, verticalOffset + upper->getContentSize().height);
 
-        // get the upper text
+        // get the lower text
         pos = work.find("#");
         auto lower = addSubLabel(work.substr(0, pos), baseSize * 0.632);
         lastPos = oldLastPos;
@@ -166,11 +191,16 @@ bool QuestionString::replaceFraction(const std::string& text)
 
         // advance for the following characters
         lastPos += lineLenght - (lineExtra * 2);
-        
+
+#if AVALON_PLATFORM_IS_TIZEN
+        // back spacing
+        lastPos += tizenSpacing;
+#endif
+
         // prepare for the next loop iteration
         pos = work.find("FRC#");
     }
-    
+
     if (work.length() > 0) {
         addSubLabel(work, baseSize);
     }
@@ -185,7 +215,7 @@ bool QuestionString::isVisible() const
         if (!child) {
             continue;
         }
-        
+
         return child->getOpacity() == 255;
     }
     return false;
@@ -199,7 +229,7 @@ void QuestionString::setOpacity(GLubyte opacity)
         if (!child) {
             continue;
         }
-        
+
         child->setOpacity(opacity);
     }
 }
@@ -247,7 +277,7 @@ void QuestionString::setColor(const cocos2d::Color3B& color)
         if (!child) {
             continue;
         }
-        
+
         child->setColor(color);
     }
 }

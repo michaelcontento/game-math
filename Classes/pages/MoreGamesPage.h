@@ -7,14 +7,19 @@
 class MoreGamesPage : public Page
 {
 public:
+    MoreGamesPage()
+    : upperIcon(nullptr)
+    , lowerIcon(nullptr)
+    {};
+
     CREATE_FUNC(MoreGamesPage);
     bool init() override;
 
     void onTouch(cocos2d::Touch& touch, cocos2d::Event& event) override;
 
 private:
-    cocos2d::Sprite* upperIcon = nullptr;
-    cocos2d::Sprite* lowerIcon = nullptr;
+    cocos2d::Sprite* upperIcon;
+    cocos2d::Sprite* lowerIcon;
 
     void addUpperIcon();
     void addLowerIcon();

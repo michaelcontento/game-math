@@ -10,6 +10,15 @@ class ToggleButton;
 class AboutPage : public Page, public avalon::payment::ManagerDelegate
 {
 public:
+    AboutPage()
+    : icon(nullptr)
+    , desc(nullptr)
+    , container(nullptr)
+    , visible(false)
+    , touchable(true)
+    , purchased(false)
+    {};
+
     CREATE_FUNC(AboutPage);
     bool init() override;
 
@@ -22,12 +31,12 @@ public:
     void onTransactionEnd(avalon::payment::Manager* const manager) override;
 
 private:
-    cocos2d::Sprite* icon = nullptr;
-    cocos2d::LabelTTF* desc = nullptr;
-    cocos2d::Node* container = nullptr;
-    bool visible = false;
-    bool touchable = true;
-    bool purchased = false;
+    cocos2d::Sprite* icon;
+    cocos2d::LabelTTF* desc;
+    cocos2d::Node* container;
+    bool visible;
+    bool touchable;
+    bool purchased;
 
     void toggleVisibility();
     void initIcon();

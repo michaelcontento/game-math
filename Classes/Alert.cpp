@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
+#include <boost/foreach.hpp>
 #include "utils/config.h"
 #include "utils/color.h"
 #include "utils/fonts.h"
@@ -65,11 +66,11 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
 
     if (buttonContainer) {
         bottomAnimationNode = buttonContainer;
-        
+
         float nextPosX = 0;
         const float padding = 35 * config::getScaleFactor();
-        for (auto& pairs : buttons) {
-            auto btn = pairs.first;
+        BOOST_FOREACH (auto& pair, buttons) {
+            auto btn = pair.first;
             btn->setPositionX(nextPosX);
             nextPosX += btn->getContentSize().width + padding;
         }
@@ -80,15 +81,15 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
         buttonContainer->setAnchorPoint({0.5, 0});
         buttonContainer->setPositionX(getContentSize().width + (size.width / 2) + 10);
     }
-    
+
     if (bottomAnimationNode) {
         bottomAnimationNode->stopAllActions();
         bottomAnimationNode->runAction(Sequence::create(
             CallFunc::create([this]() {
-                setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
-                setSwallowsTouches(true);
-                setTouchEnabledWithFixedPriority(-200);
-                setKeyboardEnabled(true);
+                this->setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+                this->setSwallowsTouches(true);
+                this->setTouchEnabledWithFixedPriority(-200);
+                this->setKeyboardEnabled(true);
             }),
             DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
             EaseInOut::create(
@@ -99,9 +100,7 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
                 ),
                 3
             ),
-            CallFunc::create([this]() {
-                touchable = true;
-            }),
+            CallFunc::create([this]() { touchable = true; }),
             NULL
         ));
     }
@@ -119,7 +118,7 @@ void Alert::show(const std::function<void ()> callback, const bool instant)
 void Alert::hide(const bool instant)
 {
     unschedule(schedule_selector(Alert::onTick));
-    
+
     visible = true;
     touchable = false;
 
@@ -130,10 +129,12 @@ void Alert::hide(const bool instant)
         DelayTime::create(config::getAlertFadeTime() * 0.2 * instaMod),
         EaseInOut::create(ScaleTo::create(config::getAlertFadeTime() * instaMod, 1, 0), 3),
         CallFunc::create([this]() {
-            visible = false;
-            setTouchEnabled(false);
-            setKeyboardEnabled(false);
-            if (this->buttonCb) this->buttonCb();
+            this->visible = false;
+            this->setTouchEnabled(false);
+            this->setKeyboardEnabled(false);
+            if (this->buttonCb) {
+                this->buttonCb();
+            }
             this->callback();
         }),
         RemoveSelf::create(),
@@ -143,7 +144,7 @@ void Alert::hide(const bool instant)
     Node* bottomAnimationNode = nullptr;
     if (tap) {
         bottomAnimationNode = tap;
-    }    
+    }
     if (buttonContainer) {
         bottomAnimationNode = buttonContainer;
     }
@@ -218,7 +219,7 @@ void Alert::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
         return;
     }
 
-    for (auto& pair : buttons) {
+    BOOST_FOREACH (auto& pair, buttons) {
         auto btn = pair.first;
         auto cb = pair.second;
 
@@ -254,9 +255,9 @@ void Alert::onTick(const float dt)
     if (!visible) {
         return;
     }
-    
+
     timeoutSecs -= dt;
-    
+
     if (timeoutSecs <= 0) {
         timeoutCb();
         unschedule(schedule_selector(Alert::onTick));

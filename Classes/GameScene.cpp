@@ -1,5 +1,6 @@
 #include "GameScene.h"
 
+#include <boost/foreach.hpp>
 #include <thread>
 #include <chrono>
 #include <avalon/ads/Manager.h>
@@ -43,10 +44,8 @@ bool GameScene::init()
         return false;
     }
 
-#if !AVALON_PLATFORM_IS_EMSCRIPTEN
     initAssetsSearchpath();
     initLocalization();
-#endif
     initAssets();
     initPages();
     profile();
@@ -63,25 +62,25 @@ bool GameScene::init()
 
 void GameScene::threadInit()
 {
-#if AVALON_PLATFORM_IS_EMSCRIPTEN
-    return;
-#endif
-
 #if AVALON_PLATFORM_IS_IOS
     // don't interfere with the initial animation
     std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
 
+#if !AVALON_PLATFORM_IS_TIZEN
     initPayment();
     initGameCenter();
     initAds();
-    initSoundAndMusic();
     initAppirater();
+#endif
+    initSoundAndMusic();
 
-#if !AVALON_PLATFORM_IS_ANDROID
+#if AVALON_PLATFORM_IS_IOS
     // this is not that important and can wait a few more seconds
     // for the whole system to stabilize / get ready
     std::this_thread::sleep_for(std::chrono::seconds(2));
+#endif
+#if !AVALON_PLATFORM_IS_TIZEN
     updateAssets();
 #endif
 }
@@ -90,13 +89,15 @@ void GameScene::initPages()
 {
     pageManager = PageManager::create();
     addChild(pageManager);
-#if AVALON_PLATFORM_IS_EMSCRIPTEN
-    pageManager->add("main", MainPage::create());
-#else
+#if !AVALON_PLATFORM_IS_TIZEN
     pageManager->add("about", AboutPage::create());
+#endif
     pageManager->add("settings", SettingsPage::create());
     pageManager->add("main", MainPage::create());
     addCategoryPages(*pageManager);
+#if AVALON_PLATFORM_IS_TIZEN
+    pageManager->add("about", AboutPage::create());
+#else
     pageManager->add("moregames", MoreGamesPage::create());
 #endif
     pageManager->scrollTo("main", 0);
@@ -264,7 +265,7 @@ void GameScene::initLocalization()
 
     // search for the language file in ALL possible paths
     bool found = false;
-    for (const auto path : FileUtils::getInstance()->getSearchPaths()) {
+    BOOST_FOREACH (auto& path, FileUtils::getInstance()->getSearchPaths()) {
         if (FileUtils::getInstance()->isFileExist(path + lang)) {
             found = true;
             break;

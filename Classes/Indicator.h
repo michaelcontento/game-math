@@ -7,17 +7,25 @@
 class Indicator : public cocos2d::NodeRGBA
 {
 public:
+    Indicator()
+    : padding(8 * config::getScaleFactor())
+    , posY(25 * config::getScaleFactor())
+    , opacityActive(0.9)
+    , opacityInactive(0.3)
+    , nextPosX(0)
+    {};
+
     CREATE_FUNC(Indicator);
 
     void addDot();
     void updateOpacity();
 
 private:
-    const float padding = 8 * config::getScaleFactor();
-    const float posY = 25 * config::getScaleFactor();
-    const float opacityActive = 0.9;
-    const float opacityInactive = 0.3;
-    float nextPosX = 0;
+    const float padding;
+    const float posY;
+    const float opacityActive;
+    const float opacityInactive;
+    float nextPosX;
 };
 
 #endif // MATH_INDICATOR_H

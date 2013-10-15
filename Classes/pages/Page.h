@@ -9,6 +9,11 @@ class Page : public cocos2d::Layer
 {
 public:
     static Page* create(void) = delete;
+    Page()
+    : color(cocos2d::Color3B::WHITE)
+    , background(nullptr)
+    {};
+
     virtual ~Page() {};
     bool init() override;
     void visit() override;
@@ -27,8 +32,8 @@ public:
     bool isVisible() const override;
 
 private:
-    cocos2d::Color3B color = cocos2d::Color3B::WHITE;
-    cocos2d::LayerColor* background = nullptr;
+    cocos2d::Color3B color;
+    cocos2d::LayerColor* background;
 };
 
 #endif // MATH_PAGE_H

@@ -10,7 +10,26 @@ class QuestionString;
 class AnswerButton : public cocos2d::Layer
 {
 public:
-    bool enabled = true;
+    AnswerButton()
+    : enabled(true)
+    , page(nullptr)
+    , indicatorLabelLeft(nullptr)
+    , indicatorLabelRight(nullptr)
+    , startPosLeft(0)
+    , startPosRight(0)
+    , endPosLeft(0)
+    , endPosRight(0)
+    , question(nullptr)
+    , isRight(false)
+    , hasBeenUsed(true)
+    {
+        startPosLeft = (50 * config::getScaleFactor()) * -1;
+        startPosRight = (50 * config::getScaleFactor()) + config::getFrameSize().width;
+        endPosLeft = (60 * config::getScaleFactor());
+        endPosRight = (60 * config::getScaleFactor()) * -1 + config::getFrameSize().width;
+    };
+
+    bool enabled;
 
     static AnswerButton* create(void) = delete;
     static AnswerButton* create(GamePage& page, const cocos2d::Color3B& color);
@@ -31,16 +50,16 @@ public:
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
 private:
-    GamePage* page = nullptr;
-    cocos2d::LabelTTF* indicatorLabelLeft = nullptr;
-    cocos2d::LabelTTF* indicatorLabelRight = nullptr;
-    const float startPosLeft  = (50 * config::getScaleFactor()) * -1;
-    const float startPosRight = (50 * config::getScaleFactor()) + config::getFrameSize().width;
-    const float endPosLeft    = (60 * config::getScaleFactor());
-    const float endPosRight   = (60 * config::getScaleFactor()) * -1 + config::getFrameSize().width;
-    QuestionString* question = nullptr;
-    bool isRight = false;
-    bool hasBeenUsed = true;
+    GamePage* page;
+    cocos2d::LabelTTF* indicatorLabelLeft;
+    cocos2d::LabelTTF* indicatorLabelRight;
+    float startPosLeft;
+    float startPosRight;
+    float endPosLeft;
+    float endPosRight;
+    QuestionString* question;
+    bool isRight;
+    bool hasBeenUsed;
 
     void addBackground(const cocos2d::Color3B& color);
     void addLabels();

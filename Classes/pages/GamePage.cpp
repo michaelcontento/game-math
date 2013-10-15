@@ -7,6 +7,7 @@ using avalon::i18n::_;
 #include "SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
+#include <boost/foreach.hpp>
 #include <avalon/Appirater.h>
 #include <avalon/platform/android/gnustl_string_fixes.h>
 #include "../utils/color.h"
@@ -65,7 +66,7 @@ void GamePage::restart()
     questions.clear();
     generateQuestions();
 
-    for (auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         btn->enabled = true;
         btn->fadeOutAnswer(config::getQuestionFadeTime());
     }
@@ -106,7 +107,9 @@ void GamePage::addTimer()
 {
     timer = GameTimer::create(*this);
     addChild(timer);
+#if !AVALON_PLATFORM_IS_TIZEN
     timer->setHintButton(*hints);
+#endif
 
     const auto fix = 5 * config::getScaleFactor();
 
@@ -141,6 +144,7 @@ void GamePage::addStars()
 
 void GamePage::addHints()
 {
+#if !AVALON_PLATFORM_IS_TIZEN
     hints = HintButton::create(*this);
     addChild(hints);
 
@@ -149,6 +153,7 @@ void GamePage::addHints()
     hints->setAnchorPoint({0.5, 0.5});
     hints->setPositionX(config::getFrameSize().width / 2);
     hints->setPositionY(config::getFrameSize().height - spacing + fix - (hints->getContentSize().height / 2));
+#endif
 }
 
 void GamePage::addQuestion()
@@ -190,7 +195,7 @@ void GamePage::addProgressbar()
 
     auto drawNodeLeft = DrawNode::create();
     drawNodeLeft->drawPolygon(verts, 4, color, 1, color);
-    
+
     auto drawNodeRight = DrawNode::create();
     drawNodeRight->drawPolygon(verts, 4, color, 1, color);
 
@@ -242,7 +247,7 @@ bool GamePage::allQuestionsAnswered() const
 
 void GamePage::handleAllQuestionsAnswered()
 {
-    for (auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         btn->enabled = false;
     }
 
@@ -267,7 +272,7 @@ void GamePage::handleAllQuestionsAnswered()
 
 void GamePage::handleNoMoreStars()
 {
-    for (auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         btn->enabled = false;
     }
     acceptAnswers = false;
@@ -285,7 +290,7 @@ void GamePage::handleNoMoreStars()
 
 void GamePage::handleTimeover()
 {
-    for (auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         btn->enabled = false;
     }
 
@@ -326,7 +331,7 @@ bool GamePage::revealHint()
         return false;
     }
 
-    for (const auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         if (!btn->isRightAnswer()) {
             btn->fadeOutAnswer(config::getQuestionFadeTime());
         }
@@ -373,7 +378,7 @@ void GamePage::markQuestionAnswered()
         NULL
     ));
 
-    for (const auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         btn->fadeOutAnswer(config::getQuestionFadeTime());
     }
 }
@@ -390,7 +395,7 @@ void GamePage::setNextQuestion()
     std::random_shuffle(answers.begin(), answers.end());
     std::random_shuffle(answerButtons.begin(), answerButtons.end());
 
-    for (const auto& btn : answerButtons) {
+    BOOST_FOREACH (auto& btn, answerButtons) {
         auto answer = answers.back();
         answers.pop_back();
 
@@ -466,7 +471,7 @@ void GamePage::addAnswerButtons()
 
         auto posY = (btn->getContentSize().height + spacing) * (answers - i);
         btn->setPosition({0, posY});
-        
+
         containerSize.width  = std::max(containerSize.width,  btn->getPositionX() + btn->getContentSize().width);
         containerSize.height = std::max(containerSize.height, btn->getPositionY() + btn->getContentSize().height);
 

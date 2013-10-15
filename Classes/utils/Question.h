@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <boost/assert.hpp>
 #include <boost/algorithm/string.hpp>
+#include <avalon/utils/platform.h>
 
 class Question
 {
@@ -39,7 +40,9 @@ private:
         boost::replace_all(str, "*", "×");
         boost::replace_all(str, "/", "÷");
         boost::replace_all(str, "+", "+");
+#if !AVALON_PLATFORM_IS_TIZEN
         boost::replace_all(str, "-", "−");
+#endif
 
         while (str.find("POW#") != std::string::npos) {
             boost::replace_all(str, "POW#0", "⁰POW#");
