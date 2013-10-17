@@ -48,6 +48,7 @@ bool GameScene::init()
     initLocalization();
     initAssets();
     initPages();
+    initAds();
     profile();
 
 #if AVALON_PLATFORM_IS_IOS
@@ -70,7 +71,6 @@ void GameScene::threadInit()
 #if !AVALON_PLATFORM_IS_TIZEN
     initPayment();
     initGameCenter();
-    initAds();
     initAppirater();
 #endif
     initSoundAndMusic();

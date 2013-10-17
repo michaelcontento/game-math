@@ -156,6 +156,11 @@ void HintButton::onTransactionStart(avalon::payment::Manager* const manager)
 
 void HintButton::onTransactionEnd(avalon::payment::Manager* const manager)
 {
+    auto payment = payment::Loader::globalManager;
+    if (payment) {
+        payment->delegate = nullptr;
+    }
+    
     helper::showPaymentPendingSpinner(false);
     game->resume(1.0);
     MyFlurry::endTimedEvent("payment-transaction");

@@ -278,7 +278,11 @@ void LockedCategoryPage::onTransactionStart(avalon::payment::Manager* const mana
 
 void LockedCategoryPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
-    payment::Loader::globalManager->delegate = nullptr;
+    auto payment = payment::Loader::globalManager;
+    if (payment) {
+        payment->delegate = nullptr;
+    }
+
     if (doUnlock) {
         unlock();
     }

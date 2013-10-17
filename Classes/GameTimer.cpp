@@ -72,6 +72,7 @@ void GameTimer::stop()
 {
     unschedule(schedule_selector(GameTimer::onTick));
     started = false;
+    hint = nullptr;
 }
 
 bool GameTimer::isStarted() const
@@ -92,7 +93,9 @@ void GameTimer::onTick(const float dt)
 
     hintTimer += dt;
     if (hint && hintTimer > HintButton::alertDelay) {
-        hint->alert();
+        if (hint) {
+            hint->alert();
+        }
         resetHintTimer();
     }
 

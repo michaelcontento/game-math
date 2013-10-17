@@ -376,6 +376,11 @@ void SettingsPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
     helper::showPaymentPendingSpinner(false);
     MyFlurry::endTimedEvent("payment-transaction");
+
+    auto payment = payment::Loader::globalManager;
+    if (payment) {
+        payment->delegate = nullptr;
+    }
 }
 
 void SettingsPage::onRestoreSucceed(avalon::payment::Manager* const manager)

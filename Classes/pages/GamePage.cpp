@@ -78,6 +78,7 @@ void GamePage::restart()
     updateProgressbar();
 
     if (timer) {
+        timer->stop();
         timer->removeFromParent();
         timer = nullptr;
     }
@@ -275,6 +276,7 @@ void GamePage::handleNoMoreStars()
     BOOST_FOREACH (auto& btn, answerButtons) {
         btn->enabled = false;
     }
+
     acceptAnswers = false;
 
     auto alert = Alert::create();
@@ -295,6 +297,7 @@ void GamePage::handleTimeover()
     }
 
     acceptAnswers = false;
+    timer->stop();
 
     auto alert = Alert::create();
     addChild(alert);
@@ -435,6 +438,7 @@ void GamePage::answeredWrong()
     }
 
     if (stars.empty()) {
+        timer->stop();
         timer->removeFromParent();
         timer = nullptr;
         handleNoMoreStars();
