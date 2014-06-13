@@ -22,9 +22,6 @@
 #include "utils/user.h"
 #include "utils/config.h"
 
-//#define PROFILE 100
-//#define DEVASSETS
-
 using namespace cocos2d;
 using namespace CocosDenshion;
 using namespace avalon;
@@ -49,7 +46,6 @@ bool GameScene::init()
     initAssets();
     initPages();
     initAds();
-    profile();
 
 #if AVALON_PLATFORM_IS_IOS
     std::thread t(threadInit);
@@ -103,26 +99,6 @@ void GameScene::initPages()
     pageManager->scrollTo("main", 0);
 }
 
-void GameScene::profile()
-{
-#ifdef PROFILE
-    for (int group = 1; group <= 10; ++group) {
-        for (int level = 1; level <= 16; ++level) {
-            auto generator = config::getGenerator(group, level);
-            log(">>> PROFILING: %d/%d", group, level);
-            ProfilingBeginTimingBlock("> TOTAL");
-            for (int i = 0; i <= PROFILE; ++i) {
-                ProfilingBeginTimingBlock("> QUESTIONS");
-                generator();
-                ProfilingEndTimingBlock("> QUESTIONS");
-            }
-            ProfilingEndTimingBlock("> TOTAL");
-            Profiler::getInstance()->displayTimers();
-        }
-    }
-#endif
-}
-
 void GameScene::initAppirater()
 {
     auto appirater = avalon::Appirater::getInstance();
@@ -150,18 +126,20 @@ void GameScene::initAssetsSearchpath()
 
 void GameScene::updateAssets()
 {
+    /***
+     * This can be enabled to download assets from your own server. To change
+     * for example the ads.ini, language files or even some graphics. Everything
+     * thats inside the Resources/ folder can be changed.
+     ***
+
     auto mgr = new extension::AssetsManager(
-#ifdef DEVASSETS
-        "http://appdata.coragames.com.s3-website-eu-west-1.amazonaws.com/math/package.zip",
-        "http://appdata.coragames.com.s3-website-eu-west-1.amazonaws.com/math/version",
-#else
-        "http://appdata.coragames.com/math/package.zip",
-        "http://appdata.coragames.com/math/version",
-#endif
+        "http://CHANGE_ME/package.zip",
+        "http://CHANGE_ME/version",
         searchPath.c_str()
     );
     mgr->setConnectionTimeout(5);
     mgr->update();
+     */
 }
 
 void GameScene::addCategoryPages(PageManager& pageManager) const

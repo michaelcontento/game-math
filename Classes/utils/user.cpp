@@ -101,7 +101,24 @@ void setLevelStars(const int group, const int level, const int stars)
     // update gamecenter
     auto gc = GameCenter();
 
-    auto keyComplete = std::string("com.coragames.math.ac.") + std::to_string(group);
+    //
+    // NAMING SCHEME:
+    // ==============
+    //
+    // Achievements (ac):
+    // ------------------
+    //   stars total: com.CHANGE_ME.ac.allstars
+    //  levels total: com.CHANGE_ME.ac.alllevels
+    //     completed: com.CHANGE_ME.ac.$GROUP
+    //         stars: com.CHANGE_ME.ac.$GRPUP.stars
+    //
+    // Leaderboards (lb):
+    // ------------------
+    //   stars total: com.CHANGE_ME.lb.allstars
+    //  levels total: com.CHANGE_ME.lb.alllevels
+    //
+
+    auto keyComplete = std::string("com.CHANGE_ME.ac.") + std::to_string(group);
     auto valueComplete = 100.0 / 16.0 * getSolvedLevelsInGroup(group);
     gc.postAchievement(keyComplete.c_str(),  valueComplete);
 
@@ -110,17 +127,17 @@ void setLevelStars(const int group, const int level, const int stars)
     gc.postAchievement(keyStars.c_str(),  valueStars);
 
     auto totalStars = getStarsInAllGroups();
-    gc.postScore("com.coragames.math.lb.allstars", totalStars);
+    gc.postScore("com.CHANGE_ME.lb.allstars", totalStars);
 
     auto valueAllStars = 100.0 / (16.0 * 3 * 10) * totalStars;
-    gc.postAchievement("com.coragames.math.ac.allstars",  valueAllStars);
+    gc.postAchievement("com.CHANGE_ME.ac.allstars",  valueAllStars);
 
     if (oldStars == 0) {
         auto totalLevels = getSolvedLevelsInAllGroups();
-        gc.postScore("com.coragames.math.lb.alllevels", totalLevels);
+        gc.postScore("com.CHANGE_ME.lb.alllevels", totalLevels);
 
         auto valueAllLevels = 100.0 / (16.0 * 10) * totalLevels;
-        gc.postAchievement("com.coragames.math.ac.alllevels",  valueAllLevels);
+        gc.postAchievement("com.CHANGE_ME.ac.alllevels",  valueAllLevels);
     }
 
     // trigger callbacks

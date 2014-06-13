@@ -84,13 +84,13 @@ void MoreGamesPage::onTouch(cocos2d::Touch& touch, cocos2d::Event& event)
 
     avalon::ui::parentalgate::showOnlyIos([]() {
 #if AVALON_PLATFORM_IS_IOS
-        avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
+        avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_AMAZON
-        avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
+        avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_GOOGLE
-        avalon::utils::url::open("market://search?q=pub:CoRa++Games");
+        avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
-        avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
+        avalon::utils::url::open("CHANGE_ME");
 #endif
         MyFlurry::logEvent("moregames");
     });

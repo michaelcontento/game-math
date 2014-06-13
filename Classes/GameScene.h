@@ -32,7 +32,6 @@ private:
     static void initAppirater();
     void initLocalization();
     void initAssets();
-    void profile();
     void initPages();
 };
 

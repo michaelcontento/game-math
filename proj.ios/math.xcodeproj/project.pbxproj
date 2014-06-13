@@ -40,7 +40,6 @@
 		C835111B17E0A6820028F8FA /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C835111A17E0A6820028F8FA /* HelveticaNeueMedium.ttf */; };
 		C8359F781797E81400FA1F87 /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F761797E81400FA1F87 /* BackButton.cpp */; };
 		C8359F891797F5F100FA1F87 /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8359F871797F5F100FA1F87 /* Alert.cpp */; };
-		C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83CB9C017C6A49900E8CC93 /* Crashlytics.framework */; };
 		C84DC273178EEC9000F07AE3 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC140178EEC9000F07AE3 /* Manager.cpp */; };
 		C84DC276178EEC9000F07AE3 /* Language.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC14E178EEC9000F07AE3 /* Language.cpp */; };
 		C84DC277178EEC9000F07AE3 /* LanguageKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C84DC150178EEC9000F07AE3 /* LanguageKey.cpp */; };
@@ -465,7 +464,6 @@
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 				C8DD06E417A28DFD005F1762 /* RevMobAds.framework in Frameworks */,
-				C83CB9C117C6A49900E8CC93 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,7 +997,6 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				C83CB9BF17C6A48000E8CC93 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1210,22 +1207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C83CB9BF17C6A48000E8CC93 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 0bba8db2fa145bc487dc41da3d3cff39d062166d";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {

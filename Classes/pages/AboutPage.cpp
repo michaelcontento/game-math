@@ -86,15 +86,15 @@ ToggleButton* AboutPage::getOurAppsButton() const
     btn->toggleAction = [](const bool flag) {
         avalon::ui::parentalgate::showOnlyIos([]() {
 #if AVALON_PLATFORM_IS_IOS
-            avalon::utils::url::open("http://target.georiot.com/Proxy.ashx?tsid=1302&GR_URL=https%3A%2F%2Fitunes.apple.com%2Fus%2Fartist%2Fcora-games%2Fid544717446");
+            avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_AMAZON
-            avalon::utils::url::open("amzn://apps/android?s=CoRa%20Games");
+            avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_GOOGLE
-            avalon::utils::url::open("market://search?q=pub:CoRa++Games");
+            avalon::utils::url::open("CHANGE_ME");
 #elif AVALON_PLATFORM_IS_ANDROID_SAMSUNG
-            avalon::utils::url::open("samsungapps://SellerDetail/fnvddticys");
+            avalon::utils::url::open("CHANGE_ME");
 #else
-            avalon::utils::url::open("http://www.coragames.com/games.html");
+            avalon::utils::url::open("CHANGE_ME");
 #endif
             MyFlurry::logEvent("moregames");
         });
@@ -119,9 +119,9 @@ ToggleButton* AboutPage::getContactUsButton() const
             HashMap extraData;
             extraData.Construct();
             String subjectKey = L"http://tizen.org/appcontrol/data/subject";
-            String subjectVal = L"Feedback Math Plus";
+            String subjectVal = L"CHANGE_ME";
             String toKey = L"http://tizen.org/appcontrol/data/to";
-            String toVal = L"support+tizen@coragames.com";
+            String toVal = L"CHANGE_ME";
             extraData.Add(&subjectKey, &subjectVal);
             extraData.Add(&toKey, &toVal);
 
@@ -131,7 +131,7 @@ ToggleButton* AboutPage::getContactUsButton() const
                 delete pAc;
             }
 #else
-            std::string mailto = "mailto:support+" + avalon::utils::platform::getName() + "+math@coragames.com?subject=Feedback%20Math%20Plus";
+            std::string mailto = "mailto:CHANGE_ME?subject=CHANGE_ME";
             avalon::utils::url::open(mailto.c_str());
 #endif
             MyFlurry::logEvent("feedback");
@@ -167,7 +167,7 @@ ToggleButton* AboutPage::getFacebookButton() const
     btn->detectState = []() { return true; };
     btn->toggleAction = [](const bool flag) {
         avalon::ui::parentalgate::showOnlyIos([]() {
-            avalon::utils::url::open("https://www.facebook.com/coragames");
+            avalon::utils::url::open("CHANGE_ME");
             MyFlurry::logEvent("facebook");
         });
         return false;
@@ -303,7 +303,7 @@ void AboutPage::onTransactionStart(avalon::payment::Manager* const manager)
 
 void AboutPage::onTransactionEnd(avalon::payment::Manager* const manager)
 {
-    auto payment = payment::Loader::globalManager;
+    auto payment = avalon::payment::Loader::globalManager;
     if (payment) {
         payment->delegate = nullptr;
     }
